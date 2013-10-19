@@ -14,7 +14,6 @@ module.exports = function(sio, mongoObject){
 	}
 
   function countVotes(success) {
-    
     var MongoClient = mongoObject.client;
     var format = mongoObject.format;
     var database = mongoObject.database;
