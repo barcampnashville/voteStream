@@ -2,7 +2,8 @@ Application.main.controller('ItemsController', ['$scope', 'items', 'VoteService'
 function ItemsController( $scope, items, VoteService ) {
   $scope.model.items = items;
 
-	$scope.vote = function(id){
-		VoteService.vote(id);
+	$scope.vote = function(item){
+		VoteService.vote(item.id);
+		item.voted = true;
 	}
 }
