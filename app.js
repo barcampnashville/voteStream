@@ -33,32 +33,17 @@ app.use(express.cookieParser());
 app.use(express.session({
 	secret: 'foobarbaz',
 	store: new MongoStore({
-		url: mongoObject.database
+		url: 'mongodb://127.0.0.1:27017/test'
 	}),
 	key: 'express.sid'
 }));
 app.use(app.router);
 
 var sio = io.listen(9001);
-
 sio.sockets.on('connection', function(socket){
 	console.log('a socket has connected');
 	socket.emit('foo', 'bar');
 });
-
-var items = require('./api/items');
-var votes = require('./api/votes')(sio, mongoObject);
-
-DB = function(query){
-	mongoObject.client.connect(mongoObject.database, function(err, db){
-		if(err){
-			console.log('error!', err);
-		} else {
-			console.log('mongo connected!');
-			query(db);
-		}
-	});
-}
 
 app.get('/', function(req, res){
 	console.log(req.session);
@@ -82,7 +67,35 @@ app.use(function failure (error, request, response, next ) {
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
+
+function routes(sio, db) {
+	
+	var items = require('./api/items');
+	var votes = require('./api/votes')(sio, db);
+	app.get('/', function(req, res){
+	});
+	
+	app.get('/api/items', items.list);
+	app.post('/api/vote/:id', votes.vote);
+	app.get('/api/results', votes.results);
+	
+	// api errors
+	app.use(function failure (error, request, response, next ) {
+			if ( error ) {
+					winston.error("Error: ", error);
+					response.send(500, 'Server Error');
+			} else {
+					next();
+			}
+	});
+	
+	// development only
+	if ('development' == app.get('env')) {
+			app.use(express.errorHandler());
+	}
 }
+
+routes(sio, db);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

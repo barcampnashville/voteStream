@@ -1,4 +1,4 @@
-module.exports = function(sio, mongoObject) {
+module.exports = function(sio, db){
 
 	return {
 		vote: function(req, res){
@@ -17,28 +17,20 @@ module.exports = function(sio, mongoObject) {
 	}
 
   function countVotes(success) {
-
-    DB(function(db) {
-      var collection = db.collection('test_insert');
-      collection.aggregate( [ {$group: { _id: '$vote', count: { $sum: 1 } } }], function(err, rsl) {
-        console.log(rsl);
-        success(rsl);
-      });
-    });
+		var collection = db.collection('test_insert');
+		collection.aggregate( [ {$group: { _id: '$vote', count: { $sum: 1 } } }], function(err, rsl) {
+			console.log(rsl);
+			success(rsl);
+		});
   }
 
   function castVote(id, success) {
-
-    DB(function(db) {
-      var collection = db.collection('test_insert');
-      var data = {
-        vote: id
-      };
-      collection.insert(data, function(err, docs) {
-        if(!err) {
-          success();
-        }
-      });
+		var collection = db.collection('test_insert');
+    var data = {vote: id};
+    collection.insert(data, function(err, docs) {
+			if(!err){
+	      success();
+	    }
     });
 
   }
