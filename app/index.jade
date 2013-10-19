@@ -2,17 +2,25 @@ doctype 5
 html(lang="en", ng-app="application", ng-controller="AppController")
     head
         title Vote
+        // build:css(./) css/style.css
+        link(href='/bower_components/bootstrap-css/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+        link(href='/styles/styles.css', rel='stylesheet', type='text/css')
+
+        // endbuild
         // build:js(./) js/app.min.js
-        //script(src='/bower_components/bootstrap-css/js/bootstrap.min.js')
         script(src='/bower_components/angular/angular.js')
         script(src='/bower_components/angular-route/angular-route.js')
         script(src='/app/application-setup.js')
+        script(src='/app/config.js')
         script(src='/app/controllers/AppController.js')
+        script(src='/app/controllers/HeaderController.js')
         script(src='/app/controllers/ItemsController.js')
         script(src='/app/application-routes.js')
         // endbuild
     body
-        h1 Foo2
+        header(ng-controller="HeaderController")
+            h1.pull-right Voting System
+            a.pull-left(ng-href="/")
+                img(src="{{logo}}")
         #content
           div(ng-view)
-    </div>
