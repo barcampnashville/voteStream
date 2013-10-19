@@ -6,19 +6,13 @@ module.exports = function(sio, mongoObject){
 			res.send('ok');
 		},
 		results: function(req, res) {
-      countVotes(req.params.id);
-			res.json([
-				{
-					id: 'vsa.',
-					title: 'Voting System App',
-					votes: 'some votes'
-				}
-			]);
+      countVotes(function(results){
+				res.send(results);
+      });
 		}
 	}
 
-  function countVotes(id) {
-
+  function countVotes(success) {
     var MongoClient = mongoObject.client;
     var format = mongoObject.format;
     var database = mongoObject.database;
@@ -34,18 +28,10 @@ module.exports = function(sio, mongoObject){
 
       collection.count(function(err, count) {
         console.log(format("count = %s", count));
-        result = count;
+	      success(count);
       });
-
-      // Locate all the entries using find
-      collection.find().toArray(function(err, results) {
-        console.dir(results);
-        // Let's close the db
-        db.close();
-      });
-      
     });
-    return result;
+
   }
 
   function castVote(id) {
