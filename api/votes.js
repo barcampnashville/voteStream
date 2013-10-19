@@ -1,9 +1,10 @@
 module.exports = function(sio, mongoObject){
 	return {
 		vote: function(req, res){
-			sio.sockets.emit('vote cast', req.params.id);
-			castVote(req.params.id);
-			res.send('ok');
+			castVote(req.params.id, function(){
+				sio.sockets.emit('vote cast', req.params.id);
+				res.send('ok');
+			});
 		},
 		results: function(req, res) {
       countVotes(function(results){
@@ -34,7 +35,7 @@ module.exports = function(sio, mongoObject){
 
   }
 
-  function castVote(id) {
+  function castVote(id, success) {
 
     var MongoClient = mongoObject.client;
     var format = mongoObject.format;
@@ -53,16 +54,9 @@ module.exports = function(sio, mongoObject){
       
       collection.insert(data, function(err, docs) {
 
-        collection.count(function(err, count) {
-          console.log(format("count = %s", count));
-        });
-
-        // Locate all the entries using find
-        collection.find().toArray(function(err, results) {
-          console.dir(results);
-          // Let's close the db
-          db.close();
-        });      
+	      if(!err){
+	        success();
+	      }
       });
 
     });
