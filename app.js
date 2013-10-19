@@ -62,7 +62,7 @@ function routes(sio, db, config) {
 	var votes = require('./api/votes')(sio, db, config);
 	
 	app.get('/', function(req, res){
-		console.log(req.session);
+		console.log(req);
 		req.session.voted = true;
 		res.send('ok');
 	});
