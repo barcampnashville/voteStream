@@ -23,7 +23,7 @@ module.exports = function(sio, db){
 		return Q.ninvoke(collection, 'aggregate', [ {$group: { _id: '$vote', count: { $sum: 1 } } }])
 		//.then(function( results ) {
 			//console.log(results);
-			return results;
+			//return results;
 		//});
   }
 
