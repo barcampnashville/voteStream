@@ -4,9 +4,12 @@ function setupRoutes ( $routeProvider, $locationProvider, $httpProvider ) {
   //$httpProvider.responseInterceptors.push('$errorInterceptor');
   
   $routeProvider.when('/items', {
-    templateUrl : '/app/templates/items/items.html',
+    templateUrl : '/templates/items/items.html',
     controller : 'ItemsController',
-    //resolve : {project:Application.ProjectResolver, state:echo('editor')}
+    resolve : {
+      //project:Application.ProjectResolver,
+      items:echo(['test1', 'test2', 'test3'])
+    }
   });
 
   //**************************
@@ -14,7 +17,7 @@ function setupRoutes ( $routeProvider, $locationProvider, $httpProvider ) {
   //**************************
 
   $routeProvider.when('/error', {
-    templateUrl : '/app/templates/errors/error.html'
+    templateUrl : '/templates/errors/error.html'
   });
 
   //************************
@@ -22,7 +25,7 @@ function setupRoutes ( $routeProvider, $locationProvider, $httpProvider ) {
   //************************
 
   $routeProvider.otherwise({
-    templateUrl : '/app/templates/errors/error.html'
+    templateUrl : '/templates/errors/error.html'
   });
 
 }

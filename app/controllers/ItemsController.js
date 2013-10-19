@@ -1,4 +1,4 @@
-Application.main.controller('OrganizationController', ['$scope', 'organization', 'plans', OrganizationController]);
-function OrganizationController ( $scope, $dispatcher, items ) {
+Application.main.controller('ItemsController', ['$scope', 'items', ItemsController]);
+function ItemsController( $scope, items ) {
   $scope.model.items = items;
 }

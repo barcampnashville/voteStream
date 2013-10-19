@@ -52,7 +52,7 @@ module.exports = function (grunt) {
               middleware: function (connect, options) {
                 //console.log(lrSnippet);
                 var middlewares = [proxySnippet,
-                  require('connect-livereload')(),
+                  
                   modRewrite(['!\\.html|\\.js|\\.css|\\.png|\\.svg$ /index.html [L]'])
                 ];
                 
@@ -62,6 +62,7 @@ module.exports = function (grunt) {
                 options.base.forEach(function(base) {
                   middlewares.push(connect.static(base)); // Serve static files.
                 });
+                middlewares.push(require('connect-livereload')());
                 //middlewares.push(lrSnippet());
                 return middlewares;
               },
@@ -345,7 +346,8 @@ module.exports = function (grunt) {
             },
             files: {
                 // TODO make one line
-                'release/index.html': ['app/index.jade']
+                'release/index.html': ['app/index.jade'],
+                'release/templates/items/items.html': ['app/templates/items/items.jade']
             }
         }
     },
