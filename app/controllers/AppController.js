@@ -1,8 +1,8 @@
-Application.main.controller('AppController', ['$scope', AppController]);
-function AppController ( $scope) {
+Application.main.controller('AppController', ['$scope', 'Sockets', AppController]);
+function AppController ( $scope, Sockets ) {
 	$scope.model = {};
-	var socket = io.connect('ws://localhost:9001');
-	socket.on('foo', function(data){
+	Sockets.on('foo', function(data){
 		console.log(data);
 	});
 }
+

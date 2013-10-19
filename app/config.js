@@ -11,7 +11,7 @@ Application.config = {
 	]  //These are the things that can be voted on
 }
 
-angular.module('application.main', [])
+angular.module('application.main')
 
 .factory('Config', function(){
 	return Application.config;

@@ -353,7 +353,8 @@ module.exports = function (grunt) {
             files: {
                 // TODO make one line
                 'release/index.html': ['app/index.jade'],
-                'release/templates/items/items.html': ['app/templates/items/items.jade']
+                'release/templates/items/items.html': ['app/templates/items/items.jade'],
+	              'release/templates/results/results.html': ['app/templates/results/results.jade']
             }
         }
     },
