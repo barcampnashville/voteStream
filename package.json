@@ -11,7 +11,8 @@
     "winston-mongodb" : "*",
     "connect-mongo" : "*",
     "uglify-js" : "*",
-    "socket.io": "*"
+    "socket.io": "*",
+    "mongodb": "*"
   },
   "devDependencies" : {
     "grunt": "~0.4.1",
