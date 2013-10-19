@@ -7,6 +7,10 @@
   },
   "dependencies": {
     "express": "3.4.2",
-    "jade": "*"
+    "jade": "*",
+    "express" : "*",
+    "winston" : "*",
+    "winston-mongodb" : "*",
+    "connect-mongo" : "*"
   }
 }
