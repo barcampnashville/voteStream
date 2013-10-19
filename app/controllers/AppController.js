@@ -1,4 +1,4 @@
-Application.main.controller('AppController', ['$scope',, AppController]);
+Application.main.controller('AppController', ['$scope', AppController]);
 function AppController ( $scope) {
 	$scope.model = {};
 }

@@ -4,7 +4,7 @@ html(lang="en", ng-app="application", ng-controller="AppController")
         title Vote
         // build:css(./) css/style.css
         link(href='/bower_components/bootstrap-css/css/bootstrap.min.css', rel='stylesheet', type='text/css')
-        link(href='/styles/styles.css', rel='stylesheet', type='text/css')
+        link(href='/styles/style.css', rel='stylesheet', type='text/css')
 
         // endbuild
         // build:js(./) js/app.min.js
@@ -22,5 +22,5 @@ html(lang="en", ng-app="application", ng-controller="AppController")
             h1.pull-right Voting System
             a.pull-left(ng-href="/")
                 img(src="{{logo}}")
-        #content
+        #content.clearfix
           div(ng-view)

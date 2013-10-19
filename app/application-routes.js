@@ -1,15 +1,14 @@
 function setupRoutes ( $routeProvider, $locationProvider ) {
-	console.log('app config:', ApplicationConfig);
   $locationProvider.html5Mode(true);
 
   //$httpProvider.responseInterceptors.push('$errorInterceptor');
   
-  $routeProvider.when('/items', {
+  $routeProvider.when('/', {
     templateUrl : '/templates/items/items.html',
     controller : 'ItemsController',
     resolve : {
+	    items: function(){ return Application.config.voteables;}
       //project:Application.ProjectResolver,
-
     }
   });
 

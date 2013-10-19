@@ -1,1 +1,5 @@
-p Items foo!
+div(ng-repeat="item in model.items")
+    h3 {{item.title}}
+    p {{item.description}}
+    ul
+        li(ng-repeat="p in item.people") {{p}}
