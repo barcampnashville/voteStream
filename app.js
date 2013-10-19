@@ -45,34 +45,25 @@ sio.sockets.on('connection', function(socket){
 	socket.emit('foo', 'bar');
 });
 
-app.get('/', function(req, res){
-	console.log(req.session);
-	res.send('ok');
+
+mongodb.MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db){
+if(err){
+			console.log('error!', err);
+		} else {
+			console.log('mongo connected!');
+			//db.use('test');
+			routes(sio, db);
+		}
 });
-
-app.get('/api/items', items.list);
-app.post('/api/vote/:id', votes.vote);
-app.get('/api/results', votes.results);
-
-// api errors
-app.use(function failure (error, request, response, next ) {
-  if ( error ) {
-    winston.error("Error: ", error);
-    response.send(500, 'Server Error');
-  } else {
-    next();
-  }
-});
-
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
 
 function routes(sio, db) {
 	
 	var items = require('./api/items');
 	var votes = require('./api/votes')(sio, db);
+	
 	app.get('/', function(req, res){
+		console.log(req.session);
+		res.send('ok');
 	});
 	
 	app.get('/api/items', items.list);
@@ -82,7 +73,7 @@ function routes(sio, db) {
 	// api errors
 	app.use(function failure (error, request, response, next ) {
 			if ( error ) {
-					winston.error("Error: ", error);
+					winston.error(error.stack);
 					response.send(500, 'Server Error');
 			} else {
 					next();
@@ -95,9 +86,6 @@ function routes(sio, db) {
 	}
 }
 
-routes(sio, db);
-
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-
