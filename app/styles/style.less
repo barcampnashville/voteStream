@@ -1,9 +1,8 @@
-@color: #4D926F;
+@color: #444;
 
 header {
   margin-top: 20px;
   overflow-y:auto;
-  color: saturate(@color, 5%);
   h1 {
     font: 32px/1 'Luckiest Guy', cursive; /* Google font API */
     text-shadow: 0 1px 0 rgba(0,0,0,.9);
@@ -40,6 +39,8 @@ nav a {
 }
 
 .vote-icon {
+	margin: 0 0 10px 10px;
+
 	img {
 		max-width: 20px;
 		-webkit-transform-origin: left bottom;
@@ -71,3 +72,7 @@ nav a {
 	}
 }
 
+.project-item {
+	border-bottom: 1px solid #ebebeb;
+	padding-bottom: 10px;
+}

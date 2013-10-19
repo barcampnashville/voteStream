@@ -1,4 +1,4 @@
-div(ng-repeat="item in model.items")
+div.project-item.clearfix(ng-repeat="item in model.items")
     h3 {{item.title}}
     a.btn.btn-primary.pull-right.vote-icon(ng-click="vote(item.id)")
         img(src='images/up-vote-icon.png')
