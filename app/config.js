@@ -9,7 +9,7 @@ Application.config = {
 			description: 'An awesome voting system to be used for both HackNashville and BarCamp voting sessions.  Built with NodeJS and AngularJS.'
 		},
 		{
-			id: 'foo',
+			id: 'obama',
 			title: 'Obama',
 			description: 'Obamacare'
 		}
