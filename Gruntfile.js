@@ -360,7 +360,7 @@ module.exports = function (grunt) {
                 }
             ]
         }
-    },
+    }
     });
 
     grunt.registerTask('server', function (target) {
@@ -394,7 +394,7 @@ module.exports = function (grunt) {
         //'usemin', // update usemin html references
         //'htmlmin' // minify html in place
     ]);
-      
+
     grunt.registerTask('default', [
         'jshint',
         'build'

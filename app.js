@@ -27,7 +27,9 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 var items = require('./api/items');
+var votes = require('./api/votes');
 app.get('/api/items', items.list);
+app.post('/api/vote/:id', votes.vote);
 
 // api errors
 app.use(function failure (error, request, response, next ) {

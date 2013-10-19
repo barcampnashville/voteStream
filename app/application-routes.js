@@ -16,13 +16,12 @@ function setupRoutes ( $routeProvider, $locationProvider ) {
   });
 
 	$routeProvider.when('/results', {
-		templateUrl : '/templates/results/items.html',
+		templateUrl : '/templates/results/results.html',
 		controller : 'ResultsController',
 		resolve : {
-			/*items: ['$http', function($http) {
-			 return $http.get('/api/items').then(function(result) { return result.data; });
-			 }]*/
-			items: function(){ return Application.config.voteables;}
+			results: function(){
+
+			}
 		}
 	});
 
