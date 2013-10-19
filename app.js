@@ -51,7 +51,7 @@ if(err){
 			console.log('error!', err);
 		} else {
 			console.log('mongo connected!');
-			//db.use('test');
+			//db.db('test');
 			routes(sio, db);
 		}
 });
@@ -68,6 +68,7 @@ function routes(sio, db) {
 	
 	app.get('/api/items', items.list);
 	app.post('/api/vote/:id', votes.vote);
+	app.get('/api/vote/:id', votes.vote); // temp for my testing
 	app.get('/api/results', votes.results);
 	
 	// api errors
