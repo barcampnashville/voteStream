@@ -10,7 +10,7 @@ function ItemsController( $scope, items, $http ) {
 				console.log('success!', data);
 			})
 			.error(function(data){
-				console.log('error = (', data);
+				console.log('error', data);
 			});
 	}
 }
