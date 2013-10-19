@@ -22,14 +22,15 @@ html(lang="en", ng-app="application", ng-controller="AppController")
         script(src='/app/application-routes.js')
         // endbuild
     body
-        header.container(ng-controller="HeaderController")
+        header(ng-controller="HeaderController")
+            h1.pull-right Voting System
             a.pull-left(ng-href="/")
                 img(src="{{logo}}")
-        nav.container(ng-controller="NavController")
+        nav(ng-controller="NavController")
             ul
                 li
                     a(href="/") Vote
                 li
                     a(href="/results") Results
-        .container
+        #content.clearfix
           div(ng-view)

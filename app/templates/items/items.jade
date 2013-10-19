@@ -1,6 +1,6 @@
 div(ng-repeat="item in model.items")
     h3 {{item.title}}
-    a.btn.btn-primary.pull-right.icon-thumbs-up(ng-click="vote(item.id)") Vote
+    a.btn.btn-primary(ng-click="vote(item.id)") Vote
     p {{item.description}}
     ul
         li(ng-repeat="p in item.people") {{p}}
