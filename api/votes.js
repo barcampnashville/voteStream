@@ -14,12 +14,11 @@ module.exports = function(sio, mongoObject){
 	}
 
   function countVotes(success) {
+    
     var MongoClient = mongoObject.client;
     var format = mongoObject.format;
     var database = mongoObject.database;
     var collection_name = mongoObject.collection_name;
-
-    var result;
 
     MongoClient.connect(database, function(err, db) {
 
@@ -27,10 +26,11 @@ module.exports = function(sio, mongoObject){
 
       var collection = db.collection(collection_name);
 
-      collection.count(function(err, count) {
-        console.log(format("count = %s", count));
-	      success(count);
+      collection.aggregate( [ {$group: { _id: '$vote', count: { $sum: 1 } } }], function(err, rsl) {
+        console.log(rsl);
+        success(rsl);
       });
+
     });
 
   }
