@@ -4,7 +4,7 @@ Application.config = {
 	voteables: [
 		{
 			title: 'Voting System App',
-			people: ['Calvin Froedge', 'Ben Stucki', 'Hakkan', 'Thomas', 'Beat', 'Paul'],
+			people: ['Calvin Froedge', 'Ben Stucki', 'Hakan', 'Thomas', 'Beat', 'Paul'],
 			description: 'An awesome voting system to be used for both HackNashville and BarCamp voting sessions.  Built with NodeJS and AngularJS.'
 		}
 	]  //These are the things that can be voted on
