@@ -46,7 +46,7 @@ iBeacon - pop schedule with room; track no. of people
   Bart Renner
   Thomas Vaughn
   Ben Stucki
-  Hakan
+  Hakan Tunc
   Erin Page
   Beat Zenerino
   Calvin Froedge
