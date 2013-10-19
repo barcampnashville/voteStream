@@ -71,6 +71,11 @@ function routes(sio, db, config) {
 	app.post('/api/vote/:id', votes.vote);
 	app.get('/api/vote/:id', votes.vote); // temp for my testing
 	app.get('/api/results', votes.results);
+	app.get('/api/info', function(req, res){
+		res.json({
+			votes: config.votes
+		})
+	})
 	
 	// api errors
 	app.use(function failure (error, request, response, next ) {

@@ -16,6 +16,7 @@ html(lang="en", ng-app="application", ng-controller="AppController")
         script(src='/bower_components/nnnick-chartjs/Chart.min.js')
         script(src='/app/application-setup.js')
         script(src='/app/config.js')
+        script(src='/app/services/vote.js')
         script(src='/app/controllers/AppController.js')
         script(src='/app/controllers/HeaderController.js')
         script(src='/app/controllers/NavController.js')
@@ -25,8 +26,8 @@ html(lang="en", ng-app="application", ng-controller="AppController")
         // endbuild
     body
         header.container(ng-controller="HeaderController")
-            p.pull-left.icon-long-arrow-left
-            div.pull-right 3 Votes Left
+            p.pull-left Back
+            div.pull-right {{model.remaining}} Votes Left
         nav.container(ng-controller="NavController")
             ul
                 li.btn.btn-primary
