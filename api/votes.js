@@ -9,7 +9,7 @@ module.exports = function(sio, mongoObject){
       countVotes(req.params.id);
 			res.json([
 				{
-					id: 'vsa',
+					id: 'vsa.',
 					title: 'Voting System App',
 					votes: 'some votes'
 				}
