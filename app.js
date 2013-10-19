@@ -26,10 +26,18 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+var sio = io.listen(9001);
+
+sio.sockets.on('connection', function(socket){
+	console.log('a socket has connected');
+	socket.emit('foo', 'bar');
+});
+
 var items = require('./api/items');
-var votes = require('./api/votes');
+var votes = require('./api/votes')(sio);
 app.get('/api/items', items.list);
 app.post('/api/vote/:id', votes.vote);
+app.get('/api/results', votes.results);
 
 // api errors
 app.use(function failure (error, request, response, next ) {
@@ -50,9 +58,3 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-var sio = io.listen(9001);
-
-sio.sockets.on('connection', function(socket){
-	console.log('a socket has connected');
-	socket.emit('foo', 'bar');
-});
