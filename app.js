@@ -58,14 +58,16 @@ if(err){
 
 function routes(sio, db, config) {
 	
-	var items = require('./api/items')(config);
+	var items = require('./api/items')(sio, db, config);
 	var votes = require('./api/votes')(sio, db, config);
 	
 	app.get('/', function(req, res){
-		console.log(req.session);
+		console.log(req);
 		req.session.voted = true;
 		res.send('ok');
 	});
+
+  app.post('/api/items/new', items.add);
 	
 	app.get('/api/items', items.list);
 	app.post('/api/vote/:id', votes.vote);

@@ -1,10 +1,25 @@
 var Q = require('q');
 
-module.exports = function(sio, db){
+module.exports = function(sio, db, config){
 
 	return {
 		vote: function(req, res){
 			//console.log('vote! ', req.params.id);
+			req.session.votes = (req.session.votes) ? req.session.votes : 0;
+			req.session.votes = req.session.votes + 1;
+
+			//Only users can vote
+			if(!req.session.cookie){
+				res.send(401);
+				return;
+			}
+
+			//Don't allow users to vote more times than they are supposed to
+			if(req.session.votes >= config.votes){
+				res.send(401, "You've already used all your votes!");
+				return;
+			}
+
 			castVote(req.params.id).then(countVotes)
 			.then(function(results) {
 				console.log(results);
