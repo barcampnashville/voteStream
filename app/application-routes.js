@@ -1,16 +1,17 @@
-function setupRoutes ( $routeProvider, $locationProvider, $http ) {
-	console.log('app config:', ApplicationConfig);
+function setupRoutes ( $routeProvider, $locationProvider ) {
+	//console.log('app config:', ApplicationConfig);
   $locationProvider.html5Mode(true);
 
   //$httpProvider.responseInterceptors.push('$errorInterceptor');
   
-  $routeProvider.when('/items', {
+  $routeProvider.when('/', {
     templateUrl : '/templates/items/items.html',
     controller : 'ItemsController',
     resolve : {
-      items: $http.get('/api/items')
-      //project:Application.ProjectResolver,
-
+      items: ['$http', function($http) {
+        return $http.get('/api/items').then(function(result) { return result.data; });
+      }]
+	    //items: function(){ return Application.config.voteables;}
     }
   });
 
@@ -40,7 +41,6 @@ var module = angular.module('application', [
 module.config([
   '$routeProvider',
   '$locationProvider',
-  '$http',
   setupRoutes
 ]);
 
