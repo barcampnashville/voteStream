@@ -28,9 +28,9 @@ html(lang="en", ng-app="application", ng-controller="AppController")
         header.container(ng-controller="HeaderController")
             p.pull-left.icon-long-arrow-left
             div.pull-right {{model.remaining}} Votes Left
-        nav.container(ng-controller="NavController")
-            ul
-                li.btn.btn-primary
+        nav.container.navbar.navbar-default(ng-controller="NavController")
+            ul.nav.navbar-nav
+                li
                     a(href="/").whiteText Vote
                 //li.btn.btn-primary
                 //    a(href="/results") Results
