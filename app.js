@@ -12,7 +12,7 @@ var winston = require('winston');
 //var MongoDB = require('winston-mongodb').MongoDB;
 //winston.add(MongoDB, {db:'hacknashville', safe:false});
 //winston.add(winston.transports.Console);
-var MongoStore = require('connect-mongo')(express);
+//var MongoStore = require('connect-mongo')(express);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -24,25 +24,31 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-//Mongo
-// var MongoClient = require('mongodb').MongoClient;
-// var format = require('util').format;
-// var database = 'mongodb://127.0.0.1:27017/test';
-var dbName = 'test';
+
+/*var mongoConnection = false;
 var mongoObject = {
   'client': require('mongodb').MongoClient,
   'format': require('util').format,
-  'database': 'mongodb://127.0.0.1:27017/'+dbName,
+  'database': 'mongodb://127.0.0.1:27017/test',
   'collection_name': 'test_insert'
-};
+};*/
 
-app.use(express.session({
+mongoObject.client.connect(mongoObject.database, function(err, db){
+	if(!err){
+		mongoConnection = db;
+		mongoConnection.close();
+	} else {
+		console.log('error!', err);
+	}
+});
+
+/*app.use(express.session({
 	secret: 'foobarbaz',
 	store: new MongoStore({
 		db: dbName
 	}),
 	key: 'express.sid'
-}));
+}));*/
 
 var sio = io.listen(9001);
 
@@ -65,6 +71,9 @@ sio.sockets.on('connection', function(socket){
 var items = require('./api/items');
 var votes = require('./api/votes')(sio, mongoObject);
 
+app.get('/', function(req, res){
+	res.send('bar');
+});
 app.get('/api/items', items.list);
 app.post('/api/vote/:id', votes.vote);
 app.get('/api/results', votes.results);
