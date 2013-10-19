@@ -35,7 +35,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                     //'<%= yeoman.app %>/*.html',
-                    '<%= yeoman.app %>/{,*/}*.{html,js}',
+                    '<%= yeoman.app %>/{,*/}*.{html,js,jade}',
                     '.tmp/styles/{,*/}*.css',
                     //'{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -52,7 +52,7 @@ module.exports = function (grunt) {
               middleware: function (connect, options) {
                 //console.log(lrSnippet);
                 var middlewares = [proxySnippet,
-                  //require('connect-livereload')(),
+                  require('connect-livereload')(),
                   modRewrite(['!\\.html|\\.js|\\.css|\\.png|\\.svg$ /index.html [L]'])
                 ];
                 
@@ -81,7 +81,7 @@ module.exports = function (grunt) {
                     base: [
                         yeomanConfig.dist,
                         '.tmp',
-                        yeomanConfig.app,
+                        //yeomanConfig.app,
                         ''
                     ]
                 }
