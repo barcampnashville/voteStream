@@ -1,4 +1,5 @@
-function setupRoutes ( $routeProvider, $locationProvider, $httpProvider ) {
+function setupRoutes ( $routeProvider, $locationProvider ) {
+	console.log('app config:', ApplicationConfig);
   $locationProvider.html5Mode(true);
 
   //$httpProvider.responseInterceptors.push('$errorInterceptor');
@@ -8,7 +9,7 @@ function setupRoutes ( $routeProvider, $locationProvider, $httpProvider ) {
     controller : 'ItemsController',
     resolve : {
       //project:Application.ProjectResolver,
-      items:echo(['test1', 'test2', 'test3'])
+
     }
   });
 
@@ -38,7 +39,6 @@ var module = angular.module('application', [
 module.config([
   '$routeProvider',
   '$locationProvider',
-  '$httpProvider',
   setupRoutes
 ]);
 
