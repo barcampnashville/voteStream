@@ -26,13 +26,15 @@ html(lang="en", ng-app="application", ng-controller="AppController")
         // endbuild
     body(ng-cloak)
         header.container(ng-controller="HeaderController")
-            p.pull-left.icon-long-arrow-left
+            p.pull-left
+                a(ng-href='/')
+                    i.icon-long-arrow-left
             div.pull-right {{model.remaining}} Votes Left
         nav.container.navbar.navbar-default(ng-controller="NavController")
             ul.nav.navbar-nav
                 li
                     a(href="/").whiteText Vote
-                //li.btn.btn-primary
-                //    a(href="/results") Results
+                li.btn.btn-primary
+                    a(href="/results") Results
         .container
             div(ng-view)
