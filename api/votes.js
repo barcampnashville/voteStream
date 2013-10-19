@@ -3,8 +3,10 @@ module.exports = function(sio, db){
 	return {
 		vote: function(req, res){
 			castVote(req.params.id, function(){
-				sio.sockets.emit('vote cast', req.params.id);
-				res.send('ok');
+				countVotes(function(results){
+					res.send('ok');
+					sio.sockets.emit('vote cast', results);
+				});
 			});
 		},
 		results: function(req, res) {

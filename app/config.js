@@ -1,5 +1,5 @@
 Application.config = {
-	logo: 'http://hacknashville.com/static/images/bg/logo.png',
+	//logo: 'http://hacknashville.com/static/images/bg/logo.png',
 	votes: 1, //This is the number of votes each participant can cast during voting
 	voteables: [
 		{
@@ -13,7 +13,8 @@ Application.config = {
 			title: 'Obama',
 			description: 'Obamacare'
 		},
-        { 
+        {
+	          id: 'bootstrap',
             session_id: '8347',
             datetime: '',
             title: 'Bootstrap your responses',
