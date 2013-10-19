@@ -1,4 +1,5 @@
 module.exports = function(sio, db){
+
 	return {
 		vote: function(req, res){
 			castVote(req.params.id, function(){
@@ -29,6 +30,7 @@ module.exports = function(sio, db){
 	      success();
 	    }
     });
+
   }
 
 }
