@@ -23,17 +23,12 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-/*
 var mongoObject = {
   'client': mongodb.MongoClient,
   'format': require('util').format,
-  'database': 'mongodb://127.0.0.1:27017/test',
-  'collection_name': 'test_insert'
+  'database': 'mongodb://127.0.0.1:27017/test'
 };
-*/
-
 app.use(express.cookieParser());
 app.use(express.session({
 	secret: 'foobarbaz',
@@ -42,12 +37,14 @@ app.use(express.session({
 	}),
 	key: 'express.sid'
 }));
+app.use(app.router);
 
 var sio = io.listen(9001);
 sio.sockets.on('connection', function(socket){
 	console.log('a socket has connected');
 	socket.emit('foo', 'bar');
 });
+
 
 mongodb.MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db){
 if(err){
@@ -63,14 +60,10 @@ function routes(sio, db) {
 	
 	var items = require('./api/items');
 	var votes = require('./api/votes')(sio, db);
+	
 	app.get('/', function(req, res){
-		db.collection('test_insert').find(function(err, rsl){
-			if(!err){
-				res.send('ok!');
-			} else {
-				res.send('fuck!');
-			}
-		});
+		console.log(req.session);
+		res.send('ok');
 	});
 	
 	app.get('/api/items', items.list);
@@ -92,7 +85,7 @@ function routes(sio, db) {
 			app.use(express.errorHandler());
 	}
 }
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-

@@ -12,7 +12,8 @@
     "connect-mongo" : "*",
     "uglify-js" : "*",
     "socket.io": "*",
-    "mongodb": "*"
+    "mongodb": "*",
+		"q": "*"
   },
   "devDependencies" : {
     "grunt": "~0.4.1",
