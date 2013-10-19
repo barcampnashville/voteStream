@@ -54,6 +54,7 @@ if(err){
 			console.log('error!', err);
 		} else {
 			console.log('mongo connected!');
+			//db.use('test');
 			routes(sio, db);
 		}
 });
@@ -79,7 +80,7 @@ function routes(sio, db) {
 	// api errors
 	app.use(function failure (error, request, response, next ) {
 			if ( error ) {
-					winston.error("Error: ", error);
+					winston.error(error.stack);
 					response.send(500, 'Server Error');
 			} else {
 					next();
