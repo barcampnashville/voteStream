@@ -15,6 +15,7 @@ html(lang="en", ng-app="application", ng-controller="AppController")
         script(src='/app/config.js')
         script(src='/app/controllers/AppController.js')
         script(src='/app/controllers/HeaderController.js')
+        script(src='/app/controllers/NavController.js')
         script(src='/app/controllers/ItemsController.js')
         script(src='/app/application-routes.js')
         // endbuild
@@ -23,5 +24,11 @@ html(lang="en", ng-app="application", ng-controller="AppController")
             h1.pull-right Voting System
             a.pull-left(ng-href="/")
                 img(src="{{logo}}")
+        nav(ng-controller="NavController")
+            ul
+                li
+                    a(href="#/") Vote
+                li
+                    a(href="#/results") Results
         #content.clearfix
           div(ng-view)
