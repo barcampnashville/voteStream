@@ -3,7 +3,9 @@ function ResultsController ( $scope, $http, Sockets ) {
 	function draw(data){
 		var el = document.getElementById('chart');
 		var ael = angular.element(el)[0];
-		var width = ael.offsetParent.clientWidth;
+		console.log(angular.element(el));
+		var width = ael.offsetParent.clientWidth - (ael.offsetLeft * 2);
+		console.log(angular.element(el));
 		var height = (window.innerHeight - ael.offsetTop);
 		ael.setAttribute('width', width);
 		ael.setAttribute('height', height);
