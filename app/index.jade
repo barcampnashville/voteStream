@@ -31,12 +31,12 @@ html(lang="en", ng-app="application", ng-controller="AppController")
                     i.icon-long-arrow-left
             a(ng-href='/')
                 img#topLogo(src='../images/logo_hn4.png')
-            div.pull-right {{model.remaining}} Votes Left
+            div.pull-right#votesLeft {{model.remaining}} Votes Left
         nav.container.navbar.navbar-default(ng-controller="NavController")
             ul.nav.navbar-nav
                 li
-                    a(href="/") Vote
-                li
-                    a(href="/results") Results
+                    a#vote(href="/") VOTE!
+                li#seeResults
+                    a(href="/results") See Results
         .container
             div(ng-view)
