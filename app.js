@@ -45,6 +45,7 @@ sio.sockets.on('connection', function(socket){
 	socket.emit('foo', 'bar');
 });
 
+var config = require('./config').config();
 
 mongodb.MongoClient.connect('mongodb://127.0.0.1:27017/test', function(err, db){
 if(err){
@@ -52,17 +53,18 @@ if(err){
 		} else {
 			console.log('mongo connected!');
 			//db.use('test');
-			routes(sio, db);
+			routes(sio, db, config);
 		}
 });
 
-function routes(sio, db) {
+function routes(sio, db, config) {
 	
-	var items = require('./api/items');
-	var votes = require('./api/votes')(sio, db);
+	var items = require('./api/items')(config);
+	var votes = require('./api/votes')(sio, db, config);
 	
 	app.get('/', function(req, res){
 		console.log(req.session);
+		req.session.voted = true;
 		res.send('ok');
 	});
 	

@@ -26,4 +26,4 @@ exports.config = function(){
 			}
 		]  //These are the things that can be voted on
 	}
-}
+};

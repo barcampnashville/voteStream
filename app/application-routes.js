@@ -8,10 +8,9 @@ function setupRoutes ( $routeProvider, $locationProvider ) {
     templateUrl : '/templates/items/items.html',
     controller : 'ItemsController',
     resolve : {
-      /*items: ['$http', function($http) {
+      items: ['$http', function($http) {
         return $http.get('/api/items').then(function(result) { return result.data; });
-      }]*/
-	    items: function(){ return Application.config.voteables;}
+      }]
     }
   });
 
