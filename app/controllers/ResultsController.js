@@ -4,7 +4,7 @@ function ResultsController ( $scope, $http, Sockets ) {
 		var el = document.getElementById('chart');
 		var ael = angular.element(el)[0];
 		var width = ael.offsetParent.clientWidth;
-		var height = ael.offsetParent.clientHeight;
+		var height = (window.innerHeight - ael.offsetTop);
 		ael.setAttribute('width', width);
 		ael.setAttribute('height', height);
 		var ctx = el.getContext('2d');
@@ -38,14 +38,15 @@ function ResultsController ( $scope, $http, Sockets ) {
 			scaleOverride: true,
 			scaleSteps: steps,
 			scaleStepWidth: Math.ceil(greatest / steps),
-			scaleStartValue: 0
+			scaleStartValue: 0,
+			animation: false
 		}
-
 		new Chart(ctx).Bar(data, opts);
 	}
 
 	$http.get('/api/results')
 		.success(function(data){
+			console.log(data);
 			if(data.length > 0){
 				draw(data);
 			}
@@ -53,5 +54,8 @@ function ResultsController ( $scope, $http, Sockets ) {
 		.error(function(data){
 		});
 
+	Sockets.on('vote cast', function(data){
+		draw(data);
+	});
 	$scope.model = {};
 }
