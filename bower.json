@@ -1,0 +1,11 @@
+{
+  "name": "daio",
+  "version": "1.0.0",
+  "dependencies": {
+    "jquery": "x.x.x",
+    "bootstrap-css": "x.x.x",
+    "angular": "x.x.x",
+    "angular-route": "x.x.x",
+    "angular-strap": "x.x.x"
+  }
+}
