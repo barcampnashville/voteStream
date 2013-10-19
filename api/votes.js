@@ -3,29 +3,41 @@ var Q = require('q');
 module.exports = function(sio, db, config){
 
 	return {
+		/*
+		* Cast a Vote
+		*/
 		vote: function(req, res){
-			//console.log('vote! ', req.params.id);
-			req.session.votes = (req.session.votes) ? req.session.votes : 0;
-			req.session.votes = req.session.votes + 1;
+			req.session.votes = (req.session.votes) ? req.session.votes : [];
 
 			//Only users can vote
-			if(!req.session.cookie){
+			if(!req.sessionID){
 				res.send(401);
 				return;
 			}
 
 			//Don't allow users to vote more times than they are supposed to
-			if(req.session.votes >= config.votes){
+			if(req.session.votes.length >= config.votes){
 				res.send(401, "You've already used all your votes!");
 				return;
 			}
 
-			castVote(req.params.id).then(countVotes)
+			//Make sure user is not making the same vote twice
+			for(var i = 0;i<req.session.votes;i++){
+				if(req.session.votes[i]['id'] == req.params.id){
+					res.send(401, "You already voted for this option!");
+					return;
+				}
+			}
+
+			castVote(req.params.id, req.sessionID, req.session).then(countVotes)
 			.then(function(results) {
 				console.log(results);
 				res.send('ok');
 			});
 		},
+		/*
+		* Check Results
+		*/
 		results: function(req, res) {
       countVotes().then(function(results){
 				res.send(results);
@@ -34,20 +46,16 @@ module.exports = function(sio, db, config){
 	}
 
   function countVotes() {
-		var collection = db.collection('test_insert')
+		var collection = db.collection('votes')
 		return Q.ninvoke(collection, 'aggregate', [ {$group: { _id: '$vote', count: { $sum: 1 } } }])
-		//.then(function( results ) {
-			//console.log(results);
-			//return results;
-		//});
   }
 
-  function castVote(id) {
-    var data = {vote: id};
-		var collection = db.collection('test_insert');
+  function castVote(id, sid, session) {
+    var data = {vote: id, by: sid};
+		session.votes.push(data);
+		var collection = db.collection('votes');
     return Q.ninvoke(collection, 'insert', data)
 		.then(function(results) {
-			//console.log(results);
 			sio.sockets.emit('vote cast', results);
 			return results;
 		});
