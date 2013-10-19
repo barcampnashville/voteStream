@@ -1,7 +1,7 @@
 div(ng-repeat="item in model.items")
     h3 {{item.title}}
-    a.btn.btn-primary.pull-right(ng-click="vote(item.id)")
-        img.vote-icon(src='images/up-vote-icon.png')
+    a.btn.btn-primary.pull-right.vote-icon(ng-click="vote(item.id)")
+        img(src='images/up-vote-icon.png')
            | Vote
     p {{item.description}}
     p(ng-show="item.name_speaker")
