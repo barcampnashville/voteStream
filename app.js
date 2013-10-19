@@ -33,8 +33,20 @@ sio.sockets.on('connection', function(socket){
 	socket.emit('foo', 'bar');
 });
 
+//Mongo
+// var MongoClient = require('mongodb').MongoClient;
+// var format = require('util').format;
+// var database = 'mongodb://127.0.0.1:27017/test';
+var mongoObject = {
+  'client': require('mongodb').MongoClient,
+  'format': require('util').format,
+  'database': 'mongodb://127.0.0.1:27017/test',
+  'collection_name': 'test_insert'
+};
+
 var items = require('./api/items');
-var votes = require('./api/votes')(sio);
+var votes = require('./api/votes')(sio, mongoObject);
+
 app.get('/api/items', items.list);
 app.post('/api/vote/:id', votes.vote);
 app.get('/api/results', votes.results);
