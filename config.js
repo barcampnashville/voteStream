@@ -5,7 +5,7 @@ exports.config = function(){
 			{
 				id: 'vsa',
 				title: 'Voting System App',
-				people: ['Calvin Froedge', 'Ben Stucki', 'Hakan', 'Thomas', 'Beat', 'Paul'],
+				people: ['Bart Renner', 'Beat Zenerino', 'Thomas Vaughn', 'Chuck Bryant', 'Paul Sunderhaus', 'Hakan Tunc', 'Calvin Froedge', 'Ben Stucki', 'Erin Page', 'Peter Himmelreich'],
 				description: 'An awesome voting system to be used for both HackNashville and BarCamp voting sessions.  Built with NodeJS and AngularJS.'
 			},
 			{
