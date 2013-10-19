@@ -26,5 +26,21 @@ nav a{
 	-webkit-transform-origin: left bottom;
 	o-transform-origin: left bottom;
 	transform-origin: left bottom;
+	-webkit-transition: all .3s ease-in;
+	-moz-transition: all .3s ease-in;
+	-ms-transition: all .3s ease-in;
+	-o-transition: all .3s ease-in;
+	transition: all .3s ease-in;
+}
+
+.vote-icon:hover img {
+	-webkit-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+.vote-icon:active img {
+	-webkit-transition: none;
+	-webkit-transform: rotate(0deg);
 }
 
