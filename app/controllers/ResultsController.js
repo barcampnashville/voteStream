@@ -1,5 +1,5 @@
-Application.main.controller('ResultsController', ['$scope', '$http', ResultsController]);
-function ResultsController ( $scope, $http ) {
+Application.main.controller('ResultsController', ['$scope', '$http', 'Sockets', ResultsController]);
+function ResultsController ( $scope, $http, Sockets ) {
 	function draw(data){
 		var el = document.getElementById('chart');
 		var ael = angular.element(el)[0];
@@ -7,16 +7,18 @@ function ResultsController ( $scope, $http ) {
 		var height = ael.offsetParent.clientHeight;
 		ael.setAttribute('width', width);
 		ael.setAttribute('height', height);
-		console.log(angular.element(el));
 		var ctx = el.getContext('2d');
 
 		var chartLabels = [];
 		var chartData = [];
 
+		var greatest = 0;
 		for(var i=0;i<data.length;i++){
-			console.log(data[i]);
 			chartLabels.push(data[i]['_id']);
 			chartData.push(data[i]['count']);
+			if(data[i]['count'] > greatest){
+				greatest = data[i]['count'];
+			}
 		};
 
 		var data = {
@@ -30,8 +32,13 @@ function ResultsController ( $scope, $http ) {
 			]
 		}
 
+		var steps = 3;
 		var opts = {
-			scaleShowGridLines: false
+			scaleShowGridLines: false,
+			scaleOverride: true,
+			scaleSteps: steps,
+			scaleStepWidth: Math.ceil(greatest / steps),
+			scaleStartValue: 0
 		}
 
 		new Chart(ctx).Bar(data, opts);
@@ -39,11 +46,12 @@ function ResultsController ( $scope, $http ) {
 
 	$http.get('/api/results')
 		.success(function(data){
-			draw(data);
-			console.log(data);
+			if(data.length > 0){
+				draw(data);
+			}
 		})
 		.error(function(data){
-			console.log(data);
 		});
+
 	$scope.model = {};
 }
