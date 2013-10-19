@@ -5,6 +5,7 @@
     "bootstrap-css": "x.x.x",
     "angular": "x.x.x",
     "angular-route": "x.x.x",
-	  "socket.io-client": "x.x.x"
+	  "socket.io-client": "x.x.x",
+	  "nnnick-chartjs": "*"
   }
 }
