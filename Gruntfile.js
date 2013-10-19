@@ -182,7 +182,7 @@ module.exports = function (grunt) {
         less: {
           dist: {
             files: {
-              '<%= yeoman.dist %>/styles/application.css': '<%= yeoman.app %>/styles/application.less'
+              '<%= yeoman.dist %>/styles/style.css': '<%= yeoman.app %>/styles/style.less'
             }
           }
         },
