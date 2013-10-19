@@ -1,5 +1,5 @@
 Application.config = {
-	logo: 'http://hacknashville.com/static/images/bg/logo.png'
+	logo: 'images/logo_hn4.png'
 }
 
 angular.module('application.main')
