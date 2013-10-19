@@ -23,16 +23,12 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
 var mongoObject = {
   'client': mongodb.MongoClient,
   'format': require('util').format,
-  'database': 'mongodb://127.0.0.1:27017/test',
-  'collection_name': 'test_insert'
+  'database': 'mongodb://127.0.0.1:27017/test'
 };
-
 app.use(express.cookieParser());
 app.use(express.session({
 	secret: 'foobarbaz',
@@ -41,6 +37,7 @@ app.use(express.session({
 	}),
 	key: 'express.sid'
 }));
+app.use(app.router);
 
 var sio = io.listen(9001);
 
@@ -64,15 +61,8 @@ DB = function(query){
 }
 
 app.get('/', function(req, res){
-	DB(function(db){
-		db.collection('test_insert').find(function(err, rsl){
-			if(!err){
-				res.send('ok!');
-			} else {
-				res.send('fuck!');
-			}
-		});
-	});
+	console.log(req.session);
+	res.send('ok');
 });
 
 app.get('/api/items', items.list);
