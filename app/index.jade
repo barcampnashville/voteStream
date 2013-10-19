@@ -2,6 +2,8 @@ doctype 5
 html(lang="en", ng-app="application", ng-controller="AppController")
     head
         title Vote
+        link(href='//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', rel='stylesheet')
+
         // build:css(./) css/style.css
         link(href='/bower_components/bootstrap-css/css/bootstrap.min.css', rel='stylesheet', type='text/css')
         link(href='/styles/style.css', rel='stylesheet', type='text/css')
@@ -23,7 +25,7 @@ html(lang="en", ng-app="application", ng-controller="AppController")
         // endbuild
     body
         header.container(ng-controller="HeaderController")
-            p.pull-left Back
+            p.pull-left.icon-long-arrow-left
             div.pull-right 3 Votes Left
         nav.container(ng-controller="NavController")
             ul
@@ -32,4 +34,4 @@ html(lang="en", ng-app="application", ng-controller="AppController")
                 li.btn.btn-primary
                     a(href="/results") Results
         .container
-          div(ng-view)
+            div(ng-view)
