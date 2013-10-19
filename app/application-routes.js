@@ -1,4 +1,4 @@
-function setupRoutes ( $routeProvider, $locationProvider ) {
+function setupRoutes ( $routeProvider, $locationProvider, $http ) {
 	console.log('app config:', ApplicationConfig);
   $locationProvider.html5Mode(true);
 
@@ -8,6 +8,7 @@ function setupRoutes ( $routeProvider, $locationProvider ) {
     templateUrl : '/templates/items/items.html',
     controller : 'ItemsController',
     resolve : {
+      items: $http.get('/api/items')
       //project:Application.ProjectResolver,
 
     }
@@ -39,6 +40,7 @@ var module = angular.module('application', [
 module.config([
   '$routeProvider',
   '$locationProvider',
+  '$http',
   setupRoutes
 ]);
 
