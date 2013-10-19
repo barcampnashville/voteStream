@@ -350,11 +350,15 @@ module.exports = function (grunt) {
             options: {
                 pretty: true
             },
-            files: {
-                // TODO make one line
-                'release/index.html': ['app/index.jade'],
-                'release/templates/items/items.html': ['app/templates/items/items.jade']
-            }
+            files: [
+              {
+                    expand: true,
+                    cwd: '<%= yeoman.app %>',
+                    src: '**/*.jade', //['{,*/}*.jade','templates/{,*/}*.jade'],
+                    dest: 'release',
+                    ext: '.html'
+                }
+            ]
         }
     },
     });
