@@ -4,13 +4,10 @@
  */
 
 var express = require('express');
-var parseCookie = express.CookieParser();
-var MemoryStore = express.session.MemoryStore;
 var http = require('http');
 var path = require('path');
 var app = express();
 var io = require('socket.io');
-
 var winston = require('winston');
 //var MongoDB = require('winston-mongodb').MongoDB;
 //winston.add(MongoDB, {db:'hacknashville', safe:false});

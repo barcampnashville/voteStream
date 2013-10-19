@@ -21,16 +21,17 @@ module.exports = function(sio, mongoObject){
     var collection_name = mongoObject.collection_name;
 
     MongoClient.connect(database, function(err, db) {
+      if(err){
+	      console.log('there was an error!', err, db);
+	      success('foo');
+      } else {
+				var collection = db.collection(collection_name);
 
-      if(err) throw err;
-
-      var collection = db.collection(collection_name);
-
-      collection.aggregate( [ {$group: { _id: '$vote', count: { $sum: 1 } } }], function(err, rsl) {
-        console.log(rsl);
-        success(rsl);
-      });
-
+				collection.aggregate( [ {$group: { _id: '$vote', count: { $sum: 1 } } }], function(err, rsl) {
+					console.log(rsl);
+					success(rsl);
+				});
+      }
     });
 
   }
