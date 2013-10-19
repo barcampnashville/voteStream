@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "Voting App",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,7 +13,8 @@
     "uglify-js" : "*",
     "socket.io": "*",
     "mongodb": "*",
-		"q": "*"
+		"q": "*",
+	  "imagemin": "*"
   },
   "devDependencies" : {
     "grunt": "~0.4.1",
