@@ -25,23 +25,29 @@ module.exports = function (grunt) {
     grunt.initConfig({
         yeoman: yeomanConfig,
         watch: {
-            //styles: {
-            //    files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-            //    tasks: ['compass:dist', 'less:dist']
-            //},
-            livereload: {
-                options: {
-                    livereload: '<%= connect.options.livereload %>'
-                },
+          options: {
+            livereload: '<%= connect.options.livereload %>'
+          },
+            styles: {
+                files: ['<%= yeoman.app %>/styles/**/*.{less,css}'],
+                tasks: ['less:dist']
+            },
+            js: {
+                files: ['<%= yeoman.app %>/**/*.js'],
+                tasks: []
+            },
+            jade: {
                 files: [
-                    //'<%= yeoman.app %>/*.html',
-                    '<%= yeoman.app %>/{,*/}*.{html,js,jade}',
-                    '.tmp/styles/{,*/}*.css',
-                    //'{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+                    '<%= yeoman.app %>/**/*.{html,jade}'
+                ],
+                tasks: ['jade']
+            },
+          assets: {
+                files: [
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ],
-                tasks: ['build']
-            }
+                tasks: []
+            },
         },
         connect: {
             options: {
