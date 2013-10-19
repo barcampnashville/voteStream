@@ -9,7 +9,9 @@
     "express": "3.4.2",
     "winston" : "*",
     "winston-mongodb" : "*",
-    "connect-mongo" : "*"
+    "connect-mongo" : "*",
+    "uglify-js" : "*",
+    "socket.io": "*"
   },
   "devDependencies" : {
     "grunt": "~0.4.1",
@@ -40,6 +42,5 @@
     "grunt-connect-proxy" : "*",
     "connect-livereload" : "*",
     "grunt-contrib-jade" : "*"
-    
   }
 }

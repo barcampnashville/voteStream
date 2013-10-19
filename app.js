@@ -7,6 +7,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var app = express();
+var io = require('socket.io');
 
 var winston = require('winston');
 //var MongoDB = require('winston-mongodb').MongoDB;
@@ -45,4 +46,11 @@ if ('development' == app.get('env')) {
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+});
+
+var sio = io.listen(9001);
+
+sio.sockets.on('connection', function(socket){
+	console.log('a socket has connected');
+	socket.emit('foo', 'bar');
 });
