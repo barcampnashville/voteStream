@@ -8,14 +8,25 @@ function setupRoutes ( $routeProvider, $locationProvider ) {
     templateUrl : '/templates/items/items.html',
     controller : 'ItemsController',
     resolve : {
-      items: ['$http', function($http) {
+      /*items: ['$http', function($http) {
         return $http.get('/api/items').then(function(result) { return result.data; });
-      }]
-	    //items: function(){ return Application.config.voteables;}
+      }]*/
+	    items: function(){ return Application.config.voteables;}
     }
   });
 
-  //**************************
+	$routeProvider.when('/results', {
+		templateUrl : '/templates/results/items.html',
+		controller : 'ResultsController',
+		resolve : {
+			/*items: ['$http', function($http) {
+			 return $http.get('/api/items').then(function(result) { return result.data; });
+			 }]*/
+			items: function(){ return Application.config.voteables;}
+		}
+	});
+
+	//**************************
   // Error Pages
   //**************************
 
