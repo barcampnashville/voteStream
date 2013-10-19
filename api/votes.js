@@ -60,6 +60,8 @@ module.exports = function(sio, mongoObject){
 	      }
       });
 
+	    db.close();
+
     });
   }
 
