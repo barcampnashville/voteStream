@@ -350,14 +350,17 @@ module.exports = function (grunt) {
             options: {
                 pretty: true
             },
-            files: {
-                // TODO make one line
-                'release/index.html': ['app/index.jade'],
-                'release/templates/items/items.html': ['app/templates/items/items.jade'],
-	              'release/templates/results/results.html': ['app/templates/results/results.jade']
-            }
+            files: [
+              {
+                    expand: true,
+                    cwd: '<%= yeoman.app %>',
+                    src: '**/*.jade', //['{,*/}*.jade','templates/{,*/}*.jade'],
+                    dest: 'release',
+                    ext: '.html'
+                }
+            ]
         }
-    },
+    }
     });
 
     grunt.registerTask('server', function (target) {
@@ -391,7 +394,7 @@ module.exports = function (grunt) {
         //'usemin', // update usemin html references
         //'htmlmin' // minify html in place
     ]);
-      
+
     grunt.registerTask('default', [
         'jshint',
         'build'

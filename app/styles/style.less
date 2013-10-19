@@ -1,3 +1,18 @@
+@body-width: 720px;
+
+@color: #4D926F;
+
+body {
+  width: @body-width;
+  margin: auto;
+}
+
 header {
+  margin-top: 20px;
   overflow-y:auto;
+  color: saturate(@color, 5%);
+  h1 {
+    font: 32px/1 'Luckiest Guy', cursive; /* Google font API */
+    text-shadow: 0 1px 0 rgba(0,0,0,.9);
+  }
 }
