@@ -23,9 +23,7 @@ html(lang="en", ng-app="application", ng-controller="AppController")
         script(src='/app/controllers/HeaderController.js')
         script(src='/app/controllers/NavController.js')
         script(src='/app/controllers/ItemsController.js')
-        script(src='/app/controllers/NewItemController.js')
         script(src='/app/controllers/ResultsController.js')
-        script(src='/app/controllers/FooterController.js')
         script(src='/app/application-routes.js')
         // endbuild
 
@@ -37,7 +35,7 @@ html(lang="en", ng-app="application", ng-controller="AppController")
                     i.icon-long-arrow-left
             a(ng-href='/')
                 img#topLogo(src='../images/logo_hn4.png')
-            div.pull-right#votesLeft(ng-show="model.remaining > 0") {{model.remaining}} Votes Left
+            div.pull-right#votesLeft {{model.remaining}} Votes Left
         nav.container.navbar.navbar-default(ng-controller="NavController", ng-hide="true")
             ul.nav.navbar-nav
                 li
@@ -47,16 +45,3 @@ html(lang="en", ng-app="application", ng-controller="AppController")
         .container
             div(ng-view)
             div#loading(ng-show="loading", loading-wheel)
-        footer.container(ng-controller="FooterController")
-            a(ng-href='http://hacknashville.com/', target='_blank')
-                img#footerHNLogo(src='../images/built-at-hacknashville-bw.png')
-            ul
-                li Peter Hiemmelreich,
-                li Chuck Bryant,
-                li Bart Renner,
-                li Thomas Vaughn,
-                li Paul Sunderhaus,
-                li Ben Stucki,
-                li Hakan Tunc,
-                li Erin Page,
-                li Beat Zenerino

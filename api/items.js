@@ -14,7 +14,7 @@ module.exports = function(sio, db, config){
           id: data.id,
           title: data.title,
           people: data.people,
-          description: data.description
+          description: data.description,
           color: get_random_rgb()
         }
         for (var prop in item) {

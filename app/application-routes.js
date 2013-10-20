@@ -9,14 +9,17 @@ function setupRoutes ( $routeProvider, $locationProvider ) {
     controller : 'ItemsController',
     resolve : {
       items: ['$http', function($http) {
-        return $http.get('/api/items').then(function(result) { return result.data; });
+        return $http.get('/api/items').then(function(result) { 
+            return result.data; 
+        });
       }]
     }
   });
 
+
   $routeProvider.when('/items/new', {
-    templateUrl: 'templates/items/new-item.html',
-    controller: 'NewItemController',
+    templateUrl : '/templates/items/new-item.html',
+    controller : 'NewItemController'
   });
 
 	$routeProvider.when('/results', {

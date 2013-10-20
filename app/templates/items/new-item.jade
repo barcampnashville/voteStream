@@ -2,15 +2,14 @@ div.alert.alert-success(ng-model="created", ng-show="created")
   p Well Done! Now you can compete!
 
 form.form-signin(name="newItem", ng-submit="submitItem()")
-  p Add your team's information! Put your team's member names comma-separated please.
+  h4.form-signin-heading Add your team's information!
+  p Put your team's member names comma-separated please.
+
+  input.input-block-level(type="text", ng-model="title", required, autofocus, placeholder="Title")
+
+  input.input-block-level(type="text", ng-model="people", required, placeholder="Names - comma separated")
+
+  textarea.input-block-level(type="textarea", ng-model="description", required, placeholder="Description")
+
   p
-    label Title
-    input(type="text", ng-model="title", required, autofocus, placeholder="Title")
-  p
-    label People
-    input(type="text", ng-model="people", required, placeholder="Names - comma separated")
-  p
-    label Description
-    input(type="text", ng-model="description", required, placeholder="Description")
-  p
-    input(type="submit", value="Submit")
+    button.btn.btn-large.btn-primary(type="submit") Submit

@@ -1,5 +1,9 @@
 Application.main.controller('ItemsController', ['$scope', '$rootScope', 'items', 'VoteService', 'Sockets', ItemsController]);
 function ItemsController( $scope, $rootScope, items, VoteService, Sockets ) {
+  if(items.length == 0){
+    $rootScope.loading = false;
+  }
+
   $scope.details = false;
   $scope.model.items = shuffle(items);
 
