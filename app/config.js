@@ -10,6 +10,7 @@ angular.module('application.main')
 		.success(function(data){
 			Application.config.votes = data.votes;
 			$rootScope.$broadcast('numVotesLoaded', data.votes);
+			$rootScope.$broadcast('myVotes', data.myvotes);
 		})
 		.error();
 	return Application.config;

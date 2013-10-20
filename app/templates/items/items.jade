@@ -1,10 +1,11 @@
 div.project-item.clearfix(ng-repeat="item in model.items")
     h3 {{item.title}}
-    a.btn.btn-primary.pull-right.vote-icon(ng-click="vote(item)", ng-hide="item.voted")
+    a.btn.btn-primary.pull-right.vote-icon(ng-click="vote(item)", ng-hide="item.voted || noVotes")
         img(src='images/up-vote-icon.png')
            | Vote
     p {{item.description}}
     p(ng-show="item.name_speaker")
         strong Speaker: {{item.name_speaker}}
-    ul
+    h4(ng-show="item.people") People
+    ul.people(ng-show="item.people")
         li(ng-repeat="p in item.people") {{p}}

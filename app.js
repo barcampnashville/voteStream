@@ -62,8 +62,6 @@ function routes(sio, db, config) {
 	var votes = require('./api/votes')(sio, db, config);
 	
 	app.get('/', function(req, res){
-		console.log(req.sessionID);
-		req.session.voted = true;
 		res.send('ok');
 	});
 
@@ -74,8 +72,10 @@ function routes(sio, db, config) {
 	app.get('/api/vote/:id', votes.vote); // temp for my testing
 	app.get('/api/results', votes.results);
 	app.get('/api/info', function(req, res){
+		console.log('session', req.session);
 		res.json({
-			votes: config.votes
+			votes: config.votes,
+			myvotes: (req.session.votes) ? req.session.votes : []
 		})
 	})
 	

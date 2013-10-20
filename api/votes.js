@@ -17,6 +17,7 @@ module.exports = function(sio, db, config){
 
 			//Don't allow users to vote more times than they are supposed to
 			if(req.session.votes.length >= config.votes){
+				console.log(req.session.votes, req.session.votes.length, config.votes);
 				res.send(401, "You've already used all your votes!");
 				return;
 			}
@@ -31,7 +32,7 @@ module.exports = function(sio, db, config){
 
 			castVote(req.params.id, req.sessionID, req.session).then(countVotes)
 			.then(function(results) {
-				console.log(results);
+				sio.sockets.emit('vote cast', results);
 				res.send('ok');
 			});
 		},
@@ -56,7 +57,6 @@ module.exports = function(sio, db, config){
 		var collection = db.collection('votes');
     return Q.ninvoke(collection, 'insert', data)
 		.then(function(results) {
-			sio.sockets.emit('vote cast', results);
 			return results;
 		});
   }

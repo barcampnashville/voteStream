@@ -1,12 +1,10 @@
 module.exports = function(sio, db, config){
 	return {
 		list: function(req, res){
-			console.log(config.voteables);
 	    res.send(config.voteables);
 		},
     add: function(req, res) {
       addItem(req.body, function() {
-        console.log(req.body);
         res.send('ok');
       });
       

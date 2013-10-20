@@ -3,9 +3,7 @@ function ResultsController ( $scope, $http, Sockets ) {
 	function draw(data){
 		var el = document.getElementById('chart');
 		var ael = angular.element(el)[0];
-		console.log(angular.element(el));
 		var width = ael.offsetParent.clientWidth - (ael.offsetLeft * 2);
-		console.log(angular.element(el));
 		var height = (window.innerHeight - ael.offsetTop);
 		ael.setAttribute('width', width);
 		ael.setAttribute('height', height);
@@ -35,6 +33,7 @@ function ResultsController ( $scope, $http, Sockets ) {
 		}
 
 		var steps = 3;
+		console.log('greatest', greatest);
 		var opts = {
 			scaleShowGridLines: false,
 			scaleOverride: true,
@@ -48,7 +47,7 @@ function ResultsController ( $scope, $http, Sockets ) {
 
 	$http.get('/api/results')
 		.success(function(data){
-			console.log(data);
+			console.log('chart data', data);
 			if(data.length > 0){
 				draw(data);
 			}
@@ -57,6 +56,7 @@ function ResultsController ( $scope, $http, Sockets ) {
 		});
 
 	Sockets.on('vote cast', function(data){
+		console.log('vote', data);
 		draw(data);
 	});
 	$scope.model = {};
