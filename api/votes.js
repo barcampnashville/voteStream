@@ -28,10 +28,8 @@ module.exports = function(sio, db, config){
 
                 if(!config.voters[req.body.email]){
                     var fishy = {name: req.body.name, email: req.body.email}
-                    console.log('inserting fishy', req.body.email);
                     db.collection('fishy_votes').insert(fishy, function(err, results) {
                         if(err){
-                            console.log('fishy insert error', err);
                         }
                     });
                 }
@@ -82,7 +80,7 @@ module.exports = function(sio, db, config){
 
   function countVotes() {
 		var collection = db.collection('votes')
-		return Q.ninvoke(collection, 'aggregate', [ {$group: { _id: '$vote', count: { $sum: 1 } } }])
+		return Q.ninvoke(collection, 'aggregate', [ { $limit : 8, $group: { _id: '$vote', count: { $sum: 1 } } }])
   }
 
   function castVote(id, sid, session) {
