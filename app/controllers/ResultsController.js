@@ -53,6 +53,7 @@ function ResultsController ( $scope, $http, Sockets ) {
 			}
 		})
 		.error(function(data){
+        console.log('error', data);
 		});
 
 	Sockets.on('vote cast', function(data){

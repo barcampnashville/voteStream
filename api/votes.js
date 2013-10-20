@@ -7,12 +7,10 @@ module.exports = function(sio, db, config){
 		* Cast a Vote
 		*/
 		vote: function(req, res){
-            console.log('voting for!', req.sessionID);
 			req.session.votes = (req.session.votes) ? req.session.votes : [];
 
             //Check to see if the user is in  the voters list
             if(!req.body.email){
-                console.log('1');
                 res.send(401, 'Email must be included!');
                 return;
             }
@@ -37,21 +35,18 @@ module.exports = function(sio, db, config){
 
 			//Only users can vote
 			if(!req.sessionID){
-                console.log('3');
 				res.send(401);
 				return;
 			}
 
 			//Don't allow users to vote more times than they are supposed to
 			if(req.session.votes.length >= config.votes){
-                console.log('4');
 				res.send(401, "You've already used all your votes!");
 				return;
 			}
 
 			//Make sure user is not making the same vote twice
 			for(var i = 0;i<req.session.votes;i++){
-                console.log('5');
 				if(req.session.votes[i]['id'] == req.params.id){
 					res.send(401, "You already voted for this option!");
 					return;
@@ -80,7 +75,7 @@ module.exports = function(sio, db, config){
 
   function countVotes() {
 		var collection = db.collection('votes')
-		return Q.ninvoke(collection, 'aggregate', [ { $limit : 8, $group: { _id: '$vote', count: { $sum: 1 } } }])
+		return Q.ninvoke(collection, 'aggregate', [ { $group: { _id: '$vote', count: { $sum: 1 } } }])
   }
 
   function castVote(id, sid, session) {
