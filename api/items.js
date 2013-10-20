@@ -15,6 +15,7 @@ module.exports = function(sio, db, config){
           title: data.title,
           people: data.people,
           description: data.description
+          color: get_random_rgb()
         }
         for (var prop in item) {
             if (item[prop] === undefined) {
@@ -24,8 +25,15 @@ module.exports = function(sio, db, config){
         }
         db.collection('voteables').insert(item, function(err, results) {
           res.send(results);
+		  sio.sockets.emit('voteable added', item);
         });
       }
     }
   }
+}
+
+function get_random_rgb() 
+{
+    var r = function () { return Math.floor(Math.random()*256) };
+    return [r(), r(), r()];
 }

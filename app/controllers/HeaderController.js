@@ -1,12 +1,15 @@
-Application.main.controller('HeaderController', ['$scope', 'Config', '$rootScope', 'VoteService', HeaderController]);
-function HeaderController ( $scope, Config, $rootScope, VoteService ) {
+Application.main.controller('HeaderController', ['$scope', 'Config', '$rootScope', 'VoteService', '$location', HeaderController]);
+function HeaderController ( $scope, Config, $rootScope, VoteService, $location ) {
 	$scope.model = {
 		remaining : 0
 	};
 
 	$rootScope.$on('votesRemaining', function(event, val){
-		console.log(val);
 		$scope.model.remaining = val;
+
+    if(val == 0){
+      $location.path('/results');
+    }
 	});
 
 	$scope.logo = Config.logo;
