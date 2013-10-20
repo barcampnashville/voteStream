@@ -106,11 +106,18 @@ Go to http://locahost:3001
 ## REST API
 
 ### Post New Item: ./api/items/new
-````json
+```
 curl -X POST -H "Content-Type: application/json" -d '{
   "id": "vsa",
   "title": "Voting System App",
   "people": ["Calvin Froedge", "Ben Stucki", "Hakan", "Thomas", "Beat", "Paul"],
   "description": "Sometimes Colors Dance in Realtime"
   }' http://localhost:9000/api/items/new
-````
+```
+
+### Get Item list: ./api/items
+```
+curl -X GET http://localhost:9000/api/items
+```
+
+### Get Results: ./api/results
