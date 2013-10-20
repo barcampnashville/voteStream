@@ -3,7 +3,7 @@ function HeaderController ( $scope, Config, $rootScope, VoteService, $location )
 	$scope.model = {
 		remaining : 0
 	};
-
+      console.log('foo');
 	$rootScope.$on('votesRemaining', function(event, val){
 		$scope.model.remaining = val;
 
@@ -14,4 +14,3 @@ function HeaderController ( $scope, Config, $rootScope, VoteService, $location )
 
 	$scope.logo = Config.logo;
 }
-
