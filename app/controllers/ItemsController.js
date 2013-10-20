@@ -41,7 +41,11 @@ function ItemsController( $scope, $rootScope, items, VoteService, Sockets ) {
   }
 
   Sockets.on('voteable added', function(data){
-    $scope.items.push(data);
+    console.log('adding voteable', data);
+    console.log($scope.model.items.length);
+    $scope.model.items.push(data);
+    console.log($scope.model.items.length);
+    $scope.$apply();
   });
 }
 
