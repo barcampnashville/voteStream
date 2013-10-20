@@ -1,9 +1,8 @@
 div.alert.alert-success(ng-model="created", ng-show="created")
   p Well Done! Now you can compete!
 
-
 form(name="newItem", ng-submit="submitItem()")
-  p Add your team's information
+  p Add your team's information! Put your team's member names comma-separated please.
   p
     label Title
     input(type="text", ng-model="title", required, autofocus)
