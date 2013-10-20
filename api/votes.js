@@ -7,6 +7,7 @@ module.exports = function(sio, db, config){
 		* Cast a Vote
 		*/
 		vote: function(req, res){
+            console.log('voting for!', req.sessionID);
 			req.session.votes = (req.session.votes) ? req.session.votes : [];
 
 			//Only users can vote
@@ -17,7 +18,6 @@ module.exports = function(sio, db, config){
 
 			//Don't allow users to vote more times than they are supposed to
 			if(req.session.votes.length >= config.votes){
-				console.log(req.session.votes, req.session.votes.length, config.votes);
 				res.send(401, "You've already used all your votes!");
 				return;
 			}
@@ -40,10 +40,14 @@ module.exports = function(sio, db, config){
 		* Check Results
 		*/
 		results: function(req, res) {
-      countVotes().then(function(results){
+            countVotes().then(function(results){
 				res.send(results);
-      });
-		}
+            });
+		},
+        clearmy: function(req, res){
+            req.session.votes = [];
+            res.send('ok');
+        }
 	}
 
   function countVotes() {

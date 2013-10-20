@@ -41,8 +41,6 @@ app.use(app.router);
 
 var sio = io.listen(9001);
 sio.sockets.on('connection', function(socket){
-	console.log('a socket has connected');
-	socket.emit('foo', 'bar');
 });
 
 var config = require('./config').config();
@@ -61,7 +59,8 @@ function routes(sio, db, config) {
 	var items = require('./api/items')(sio, db, config);
 	var votes = require('./api/votes')(sio, db, config);
 	
-	app.get('/', function(req, res){
+	app.get('/api/check', function(req, res){
+        console.log('request made', req.session, req.sessionID);
 		res.send('ok');
 	});
 
@@ -72,12 +71,12 @@ function routes(sio, db, config) {
 	app.get('/api/vote/:id', votes.vote); // temp for my testing
 	app.get('/api/results', votes.results);
 	app.get('/api/info', function(req, res){
-		console.log('session', req.session);
 		res.json({
 			votes: config.votes,
 			myvotes: (req.session.votes) ? req.session.votes : []
 		})
-	})
+	});
+    app.get('/api/myvotes/clear', votes.clearmy);
 	
 	// api errors
 	app.use(function failure (error, request, response, next ) {

@@ -25,5 +25,6 @@ module.exports = function(sio, db, config){
           res.send(results);
         });
       }
-	}
+	  }
+  }
 }

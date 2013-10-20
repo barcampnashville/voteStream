@@ -9,7 +9,7 @@ lib-cov
 *.DS_Store
 pids
 logs
-
+*.swp
 npm-debug.log
 node_modules
 .idea/*

@@ -3,11 +3,15 @@ function VoteService ( Config , $http, $rootScope ) {
 	var timesVoted = 0;
 	var myVotes = [];
 	var votesAvailable = 0;
+    var authGiven;
+    var voterDetails = false;
 
 	$rootScope.$on('myVotes', function(event, val){
+        for(var i=0;i<val.length;i++){
+            myVotes.push(val[i]['vote']);
+        }
 		timesVoted = timesVoted + val.length;
 		if( (timesVoted >= votesAvailable) && timesVoted != 0){
-			console.log('foo');
 			$rootScope.noVotes = true;
 		}
 		$rootScope.$broadcast('votesRemaining', votesAvailable - timesVoted);
@@ -20,12 +24,10 @@ function VoteService ( Config , $http, $rootScope ) {
 
 	return {
 		vote: function(id){
-			console.log(timesVoted, Config.votes);
 			if(timesVoted < Config.votes){
-				$http.post('/api/vote/'+id)
+                data = voterDetails;
+				$http.post('/api/vote/'+id, data)
 					.success(function(data){
-						console.log('success!', data);
-						console.log(timesVoted);
 						timesVoted = timesVoted + 1;
 						$rootScope.$broadcast('votesRemaining', Config.votes - timesVoted);
 						if(timesVoted >= votesAvailable){
@@ -33,11 +35,21 @@ function VoteService ( Config , $http, $rootScope ) {
 						}
 					})
 					.error(function(data){
-						console.log('error', data);
 					});
 			} else {
 				alert("You can't vote anymore!");
 			}
-		}
+		},
+        checkDetails: function(){
+            if(!voterDetails){
+                return false;               
+            }
+
+            return true;
+        },
+        setDetails: function(name, email){
+            voterDetails = {name: name, email: email}
+        },
+        myVotes: myVotes
 	}
 };
