@@ -14,14 +14,19 @@ function ItemsController( $scope, $rootScope, items, VoteService ) {
     return false;
   }
 
+  $scope.itemsLoaded = function(){
+    console.log('loaded items');
+    $rootScope.loading = false;
+  };
+
   if(VoteService.checkDetails()){
     $scope.details = true;
   }
 
 	$scope.vote = function(item){
     if(VoteService.checkDetails()){
-        VoteService.vote(item.id);
-        item.voted = true;
+      VoteService.vote(item.id);
+      item.voted = true;
     } else {
       alert('You must submit your voter details first!');
     }

@@ -60,7 +60,6 @@ function routes(sio, db, config) {
 	var votes = require('./api/votes')(sio, db, config);
 	
 	app.get('/api/check', function(req, res){
-        console.log('request made', req.session, req.sessionID);
 		res.send('ok');
 	});
 
@@ -70,12 +69,45 @@ function routes(sio, db, config) {
 	app.post('/api/vote/:id', votes.vote);
 	app.get('/api/vote/:id', votes.vote); // temp for my testing
 	app.get('/api/results', votes.results);
+  app.post('/api/voterdetails', function(req, res){
+    console.log(req.body);
+    if(req.body.name && req.body.email){
+      req.session.name = req.body.name;
+      req.session.email = req.body.email;
+      res.send('ok');
+    } else {
+      res.send('500');
+    }
+  });
 	app.get('/api/info', function(req, res){
-		res.json({
-			votes: config.votes,
-			myvotes: (req.session.votes) ? req.session.votes : []
-		})
+    if(!req.session.registered){
+        req.session.registered = true;
+    }
+
+    data = {
+      votes: config.votes,
+      myvotes: (req.session.votes) ? req.session.votes : []
+    }
+
+    console.log('session data', req.session);
+    if(req.session.email && req.session.name){
+        data.voterinfo = {email: req.session.email, name: req.session.name};
+    }
+
+		res.json(data);
 	});
+  app.get('/api/clear/:pass', function(req, res){
+    if(pass == 'Gr80ne'){
+      db.collection('fishy_votes').remove();
+      db.collection('votes').remove();
+      db.collection('items').remove();
+    }
+  });
+    app.get('/api/fishy', function(req, res){
+        db.collection('fishy_votes').find({}).toArray(function(err, items){
+            res.json(items);
+        });
+    });
     app.get('/api/myvotes/clear', votes.clearmy);
 	
 	// api errors

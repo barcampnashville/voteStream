@@ -41,6 +41,10 @@ function VoteService ( Config , $http, $rootScope ) {
 			}
 		},
         checkDetails: function(){
+            if(Config.voterinfo){
+                voterDetails = Config.voterinfo;
+            }
+
             if(!voterDetails){
                 return false;               
             }
@@ -48,7 +52,9 @@ function VoteService ( Config , $http, $rootScope ) {
             return true;
         },
         setDetails: function(name, email){
-            voterDetails = {name: name, email: email}
+            voterDetails = {name: name, email: email};
+
+            $http.post('/api/voterdetails', voterDetails);
         },
         myVotes: myVotes
 	}

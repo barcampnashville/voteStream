@@ -2,7 +2,6 @@ module.exports = function(sio, db, config){
   return {
     list: function(req, res) {
       db.collection('voteables').find({}).toArray(function(err, items) {
-        console.log(items);
         res.send(items);
       });
     },
@@ -19,8 +18,7 @@ module.exports = function(sio, db, config){
         }
         for (var prop in item) {
             if (item[prop] === undefined) {
-              console.log('not ok');
-              res.send('not ok');
+              res.send(500);
               return;
             }
         }
