@@ -3,22 +3,27 @@ module.exports = function(sio, db, config){
 		list: function(req, res){
 	    res.send(config.voteables);
 		},
+
+    //misformed input post should be handled
     add: function(req, res) {
-      addItem(req.body, function() {
-        res.send('ok');
-      });
-      
-    }
-	}
-
-  function addItem(item, success) {
-
-    var collection = db.collection('voteables');
-    collection.insert(item, function(err, docs) {
-      if (!err) {
-        success();
+      if (req && req.body) {
+        var data = req.body;
+        var item = {
+          id: data.id,
+          title: data.title,
+          people: data.people,
+          description: data.description
+        }
+        for (var prop in item) {
+            if (item[prop] === undefined) {
+              console.log('not ok');
+              res.send('not ok');
+              return;
+            }
+        }
+        db.collection('voteables').insert(item, function(err, results) {
+          res.send(results);
+        });
       }
-    });
-
-  }
+	}
 }
