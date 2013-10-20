@@ -36,4 +36,6 @@ function ItemsController( $scope, $rootScope, items, VoteService ) {
     VoteService.setDetails($scope.name, $scope.email);
     $scope.details = true;
   }
+
+
 }

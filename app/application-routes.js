@@ -14,6 +14,11 @@ function setupRoutes ( $routeProvider, $locationProvider ) {
     }
   });
 
+  $routeProvider.when('/items/new', {
+    templateUrl: 'templates/items/new-item.html',
+    controller: 'NewItemController',
+  });
+
 	$routeProvider.when('/results', {
 		templateUrl : '/templates/results/results.html',
 		controller : 'ResultsController',
