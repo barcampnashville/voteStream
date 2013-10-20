@@ -14,7 +14,8 @@
     "socket.io": "*",
     "mongodb": "*",
 		"q": "*",
-	  "imagemin": "*"
+	  "imagemin": "*",
+    "request":"*"
   },
   "devDependencies" : {
     "grunt": "~0.4.1",

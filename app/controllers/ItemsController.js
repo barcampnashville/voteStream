@@ -1,7 +1,7 @@
-Application.main.controller('ItemsController', ['$scope', '$rootScope', 'items', 'VoteService', ItemsController]);
-function ItemsController( $scope, $rootScope, items, VoteService ) {
+Application.main.controller('ItemsController', ['$scope', '$rootScope', 'items', 'VoteService', 'Sockets', ItemsController]);
+function ItemsController( $scope, $rootScope, items, VoteService, Sockets ) {
   $scope.details = false;
-  $scope.model.items = items;
+  $scope.model.items = shuffle(items);
 
   $scope.votes = VoteService.myVotes;
 
@@ -15,7 +15,6 @@ function ItemsController( $scope, $rootScope, items, VoteService ) {
   }
 
   $scope.itemsLoaded = function(){
-    console.log('loaded items');
     $rootScope.loading = false;
   };
 
@@ -36,4 +35,30 @@ function ItemsController( $scope, $rootScope, items, VoteService ) {
     VoteService.setDetails($scope.name, $scope.email);
     $scope.details = true;
   }
+
+  Sockets.on('voteable added', function(data){
+    $scope.items.push(data);
+  });
+}
+
+function shuffle(array) {
+  var currentIndex = array.length
+    , temporaryValue
+    , randomIndex
+    ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }

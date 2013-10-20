@@ -10,6 +10,7 @@ var app = express();
 var io = require('socket.io');
 var mongodb = require('mongodb');
 var winston = require('winston');
+var request = require('request');
 //var MongoDB = require('winston-mongodb').MongoDB;
 //winston.add(MongoDB, {db:'hacknashville', safe:false});
 //winston.add(winston.transports.Console);
@@ -97,18 +98,32 @@ function routes(sio, db, config) {
 		res.json(data);
 	});
   app.get('/api/clear/:pass', function(req, res){
-    if(pass == 'Gr80ne'){
-      db.collection('fishy_votes').remove();
-      db.collection('votes').remove();
-      db.collection('items').remove();
+    if(req.params.pass == 'Gr80ne'){
+      db.collection('fishy_votes').remove({}, function(err, removed){});
+      db.collection('votes').remove({}, function(err, removed){});
+      db.collection('voteables').remove({}, function(err, removed){});
     }
+    res.send('ok');
   });
-    app.get('/api/fishy', function(req, res){
-        db.collection('fishy_votes').find({}).toArray(function(err, items){
-            res.json(items);
-        });
-    });
-    app.get('/api/myvotes/clear', votes.clearmy);
+  app.get('/api/fishy', function(req, res){
+      db.collection('fishy_votes').find({}).toArray(function(err, items){
+          res.json(items);
+      });
+  });
+  app.get('/api/myvotes/clear', votes.clearmy);
+  app.get('/api/testdance', function(req, res){
+    var url = 'http://192.168.14.69:8080/api/scaled';
+    var json = 'data=[{"color":[255,0,0], "value":21},{"color":[0,255,0], "value":8}]';
+    var  opts = {
+      headers: {'content-type':'application/x-www-form-urlencoded'},
+      method: 'POST',
+      url: url,
+      body: 'data=[{"color":[0,0,0], "value":7},{"color":[0,255,0], "value":21}]'
+      //JSON.stringify(json)
+    };
+    request.post(opts);
+    res.send('ok');
+  });
 	
 	// api errors
 	app.use(function failure (error, request, response, next ) {

@@ -34,7 +34,6 @@ Application.main.directive('loadingWheel', function(){
           left: 'auto' // Left position relative to parent in px
         };
         var elById = document.getElementById('loading');
-        console.log(elById);
         var spinner = new Spinner(opts).spin(elById);
     }
   }
