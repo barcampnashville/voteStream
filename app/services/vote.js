@@ -3,8 +3,8 @@ function VoteService ( Config , $http, $rootScope ) {
 	var timesVoted = 0;
 	var myVotes = [];
 	var votesAvailable = 0;
-    var authGiven;
-    var voterDetails = false;
+  var authGiven;
+  var voterDetails = false;
 
 	$rootScope.$on('myVotes', function(event, val){
         for(var i=0;i<val.length;i++){
