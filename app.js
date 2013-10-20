@@ -65,6 +65,8 @@ function routes(sio, db, config) {
 	});
 
   app.post('/api/items/new', items.add);
+
+  app.get('/api/votesWithColors', votes.countVotesWithColors);
 	
 	app.get('/api/items', items.list);
 	app.post('/api/vote/:id', votes.vote);

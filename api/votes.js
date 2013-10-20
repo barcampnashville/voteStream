@@ -67,10 +67,35 @@ module.exports = function(sio, db, config){
 				res.send(results);
             });
 		},
-        clearmy: function(req, res){
-            req.session.votes = [];
-            res.send('ok');
-        }
+    clearmy: function(req, res){
+        req.session.votes = [];
+        res.send('ok');
+    },
+
+    countVotesWithColors: function(req, res) {
+      db.collection('votes').aggregate({ $group: { _id: '$vote', count: { $sum: 1 } } }, function(err, rsl) {
+        
+        var finalResults = [];
+
+        rsl.forEach(function(element) { 
+
+          db.collection('voteables').find({id:element['_id']}).toArray(function(err, result) {
+
+            element['color'] = result[0].color;
+
+            finalResults.push(element);
+
+            if (rsl.length == finalResults.length) {
+              console.log(finalResults);
+              res.send(finalResults);              
+            }
+          });
+
+        });
+
+      });
+    }
+
 	}
 
   function countVotes() {

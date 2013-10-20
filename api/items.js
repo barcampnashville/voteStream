@@ -25,7 +25,7 @@ module.exports = function(sio, db, config){
         }
         db.collection('voteables').insert(item, function(err, results) {
           res.send(results);
-		  sio.sockets.emit('voteable added', item);
+		      sio.sockets.emit('voteable added', item);
         });
       }
     }
