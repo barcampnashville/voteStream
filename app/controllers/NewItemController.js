@@ -8,7 +8,7 @@ function NewItemController($scope, $http) {
 
     var people = [];
     $scope.people.split(',').forEach(function(name) {
-      people.push(name.trim());
+      people.push(capitaliseFirstLetters(name.trim()));
     });
 
     data = {
@@ -25,5 +25,18 @@ function NewItemController($scope, $http) {
       .error(function(data) {
 
       });
+
+    function capitaliseFirstLetters(string) {
+      var result = [];
+      string.split(' ').forEach(function(name) {
+        result.push(capitaliseFirstLetter(name));
+      });
+      return result.join(' ');
+
+      function capitaliseFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);  
+      }
+    }
+
   }
 }
