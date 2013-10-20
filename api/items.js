@@ -1,8 +1,11 @@
 module.exports = function(sio, db, config){
-	return {
-		list: function(req, res){
-	    res.send(config.voteables);
-		},
+  return {
+    list: function(req, res) {
+      db.collection('voteables').find({}).toArray(function(err, items) {
+        console.log(items);
+        res.send(items);
+      });
+    },
 
     //misformed input post should be handled
     add: function(req, res) {
@@ -25,5 +28,6 @@ module.exports = function(sio, db, config){
           res.send(results);
         });
       }
-	}
+    }
+  }
 }
