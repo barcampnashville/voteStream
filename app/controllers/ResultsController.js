@@ -1,5 +1,5 @@
-Application.main.controller('ResultsController', ['$scope', '$http', 'Sockets', ResultsController]);
-function ResultsController ( $scope, $http, Sockets ) {
+Application.main.controller('ResultsController', ['$scope', '$http', 'Sockets', 'voteables', ResultsController]);
+function ResultsController ( $scope, $http, Sockets, voteables ) {
 	function draw(data){
 		var el = document.getElementById('chart');
 		var ael = angular.element(el)[0];
@@ -11,6 +11,7 @@ function ResultsController ( $scope, $http, Sockets ) {
 
 		var chartLabels = [];
 		var chartData = [];
+    var pieData = [];
 
 		var greatest = 0;
 		for(var i=0;i<data.length;i++){
@@ -19,6 +20,8 @@ function ResultsController ( $scope, $http, Sockets ) {
 			if(data[i]['count'] > greatest){
 				greatest = data[i]['count'];
 			}
+
+      pieData.push({value: data[i]['count'], color: get_random_rgb()});
 		};
 
 		var data = {
@@ -33,7 +36,6 @@ function ResultsController ( $scope, $http, Sockets ) {
 		}
 
 		var steps = 3;
-		console.log('greatest', greatest);
 		var opts = {
 			scaleShowGridLines: false,
 			scaleOverride: true,
@@ -43,22 +45,42 @@ function ResultsController ( $scope, $http, Sockets ) {
 			animation: false
 		}
 		new Chart(ctx).Bar(data, opts);
+    //
+    //new Chart(ctx).Pie(pieData, opts);
 	}
 
 	$http.get('/api/results')
 		.success(function(data){
-			console.log('chart data', data);
 			if(data.length > 0){
 				draw(data);
 			}
 		})
 		.error(function(data){
-        console.log('error', data);
 		});
 
 	Sockets.on('vote cast', function(data){
-		console.log('vote', data);
 		draw(data);
 	});
-	$scope.model = {};
+
+	$scope.model = {items: []};
+
+  for(var i = 0;i<voteables.length;i++){
+    $scope.model.items.push({title: voteables[i].title, color: rgb(voteables[i].color)});
+  }
+}
+
+function rgb(arr){
+  var s = 'rgba(';
+  for(var i = 0;i<arr.length;i++){
+    s = s + arr[i]+',';
+  }
+  s = s + '1)';
+  return s;
+}
+
+function get_random_rgb() 
+{
+    var r = function () { return Math.floor(Math.random()*256) };
+    var color = 'rgba('+r()+','+r()+','+r()+',0.5)';
+    return color;
 }

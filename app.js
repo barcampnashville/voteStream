@@ -15,6 +15,7 @@ var request = require('request');
 //winston.add(MongoDB, {db:'hacknashville', safe:false});
 //winston.add(winston.transports.Console);
 var MongoStore = require('connect-mongo')(express);
+colors = {};
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -24,7 +25,9 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'release')));
+app.use(express.static(path.join(__dirname, 'app')));
+app.use(express.static(path.join(__dirname, '')));
 var mongoObject = {
   'client': mongodb.MongoClient,
   'format': require('util').format,
@@ -51,21 +54,29 @@ if(err){
 			console.log('error!', err);
 		} else {
 			console.log('mongo connected!');
-			routes(sio, db, config);
+			routes(sio, db, config, colors);
 		}
 });
 
-function routes(sio, db, config) {
+function routes(sio, db, config, colors) {
 	
 	var items = require('./api/items')(sio, db, config);
-	var votes = require('./api/votes')(sio, db, config);
+	var votes = require('./api/votes')(sio, db, config, colors);
 	
 	app.get('/api/check', function(req, res){
 		res.send('ok');
 	});
 
   app.post('/api/items/new', items.add);
-	
+	app.get('/api/colors', function(req, res){
+    db.collection('voteables').find({}).toArray(function(err, results){
+        results.forEach(function(el){
+          colors[el.id] = el.color;
+        });
+        console.log(colors);
+        res.json(results);
+    });
+  });
 	app.get('/api/items', items.list);
 	app.post('/api/vote/:id', votes.vote);
 	app.get('/api/vote/:id', votes.vote); // temp for my testing
@@ -97,14 +108,14 @@ function routes(sio, db, config) {
 
 		res.json(data);
 	});
-  app.get('/api/clear/:pass', function(req, res){
+  /*app.get('/api/clear/:pass', function(req, res){
     if(req.params.pass == 'Gr80ne'){
       db.collection('fishy_votes').remove({}, function(err, removed){});
       db.collection('votes').remove({}, function(err, removed){});
       db.collection('voteables').remove({}, function(err, removed){});
     }
     res.send('ok');
-  });
+  });*/
   app.get('/api/fishy', function(req, res){
       db.collection('fishy_votes').find({}).toArray(function(err, items){
           res.json(items);
@@ -124,6 +135,7 @@ function routes(sio, db, config) {
     request.post(opts);
     res.send('ok');
   });
+
 	
 	// api errors
 	app.use(function failure (error, request, response, next ) {

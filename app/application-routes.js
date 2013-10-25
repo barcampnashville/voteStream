@@ -26,9 +26,11 @@ function setupRoutes ( $routeProvider, $locationProvider ) {
 		templateUrl : '/templates/results/results.html',
 		controller : 'ResultsController',
 		resolve : {
-			results: function(){
-
-			}
+          voteables: ['$http', function($http) {
+            return $http.get('/api/items').then(function(result) { 
+                return result.data; 
+            });
+          }]
 		}
 	});
 

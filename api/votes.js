@@ -1,6 +1,7 @@
 var Q = require('q');
+var request = require('request');
 
-module.exports = function(sio, db, config){
+module.exports = function(sio, db, config, colors){
 
 	return {
 		/*
@@ -56,6 +57,35 @@ module.exports = function(sio, db, config){
 			castVote(req.params.id, req.sessionID, req.session).then(countVotes)
 			.then(function(results) {
 				sio.sockets.emit('vote cast', results);
+                
+                var colors = [];
+                db.collection('voteables').find({}).toArray(function(err, vResults){
+                    try{
+                        console.log('vResults', vResults);
+                        vResults.forEach(function(el){
+                          colors[el.id] = el.color;
+                        });
+
+                        var url = 'http://192.168.14.69:8080/api/scaled';
+                        var toSend = [];
+                        console.log('results', results);
+                        results.forEach(function(el){
+                            console.log(el);
+                            toSend.push({"color":colors[el['_id']], "value":el.count});
+                        });
+
+                        var  opts = {
+                          headers: {'content-type':'application/x-www-form-urlencoded'},
+                          method: 'POST',
+                          url: url,
+                          body: 'data='+JSON.stringify(toSend)
+                          //JSON.stringify(json)
+                        };
+                        request.post(opts);
+                    } catch(err) {
+                        console.log('error during voteables sync to logic board', err);
+                    }
+                });
 				res.send('ok');
 			});
 		},
