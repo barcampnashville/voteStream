@@ -68,15 +68,6 @@ function routes(sio, db, config, colors) {
 	});
 
   app.post('/api/items/new', items.add);
-	app.get('/api/colors', function(req, res){
-    db.collection('voteables').find({}).toArray(function(err, results){
-        results.forEach(function(el){
-          colors[el.id] = el.color;
-        });
-        console.log(colors);
-        res.json(results);
-    });
-  });
 	app.get('/api/items', items.list);
 	app.post('/api/vote/:id', votes.vote);
 	app.get('/api/vote/:id', votes.vote); // temp for my testing
