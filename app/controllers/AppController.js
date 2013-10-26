@@ -16,7 +16,17 @@
 					console.log(data);
 				});
 			$scope.model = {};
-		}
+		},
+    IDController: function($scope, $http) {
+      $scope.createIDs = function(user) {
+        if (user.password == 'abc') {
+          window.location = 'api/create_valid_ids';
+          // $http.get('api/create_valid_ids');
+        } else {
+          alert("Wrong passcode");
+        }
+      }
+    }
 	});
 
 }(window.angular));

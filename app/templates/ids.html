@@ -1,8 +1,8 @@
-<p>Pass your value</p>
+<p>This will delete all valid ids from database and insert 1,000 new ids</p>
 
-<form name="id_form" ng-submit="createIDs()">
+<form name="user">
 
-	<input type="name" required="required" />
+	<input type="password" ng-model="user.password" required="required" />
 
-	<input type="submit" value="Submit" />
+	<input type="button" value="Submit" ng-click="createIDs(user)" />
 </form>
