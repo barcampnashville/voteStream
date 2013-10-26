@@ -1,0 +1,8 @@
+.btn {
+	@include border-radius(5px);
+
+	.primary {
+		padding: 10px;
+	}
+}
+

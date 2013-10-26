@@ -17,3 +17,5 @@ bower_components/*
 release/*
 .vagrant
 vote.iml
+.sass-cache/*
+

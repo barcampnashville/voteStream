@@ -7,17 +7,17 @@
   },
   "dependencies": {
     "express": "3.4.2",
-    "winston" : "*",
-    "winston-mongodb" : "*",
-    "connect-mongo" : "*",
-    "uglify-js" : "*",
+    "winston": "*",
+    "winston-mongodb": "*",
+    "connect-mongo": "*",
+    "uglify-js": "*",
     "socket.io": "*",
     "mongodb": "*",
-		"q": "*",
-	  "imagemin": "*",
-    "request":"*"
+    "q": "*",
+    "imagemin": "*",
+    "request": "*"
   },
-  "devDependencies" : {
+  "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",
@@ -39,12 +39,13 @@
     "grunt-concurrent": "~0.3.0",
     "load-grunt-tasks": "~0.1.0",
     "time-grunt": "~0.1.1",
-    "grunt-contrib-less" : "0.7.x",
-    "grunt-git-describe" : "2.0.x",
-    "grunt-preprocess" : "2.3.x",
-    "connect-modrewrite" : "0.2.3",
-    "grunt-connect-proxy" : "*",
-    "connect-livereload" : "*",
-    "grunt-contrib-jade" : "*"
+    "grunt-contrib-less": "0.7.x",
+    "grunt-git-describe": "2.0.x",
+    "grunt-preprocess": "2.3.x",
+    "connect-modrewrite": "0.2.3",
+    "grunt-connect-proxy": "*",
+    "connect-livereload": "*",
+    "grunt-contrib-jade": "*",
+    "grunt-contrib-compass": "~0.6.0"
   }
 }
