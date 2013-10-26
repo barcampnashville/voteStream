@@ -37,7 +37,7 @@ function ItemsController( $scope, $rootScope, items, VoteService, Sockets ) {
 	}
 
   $scope.submitDetails = function(){
-    $scope.invalid = !VoteService.setDetails($scope.name, $scope.email, $scope.voting_id);
+    $scope.invalid = !VoteService.setDetails($scope.voting_id);
     $scope.details = !$scope.invalid;
   }
 

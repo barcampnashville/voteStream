@@ -52,8 +52,8 @@ function VoteService ( Config , $http, $rootScope ) {
 
             return true;
         },
-        setDetails: function(name, email, voting_id) {
-          voterDetails = {name: name, email: email, voting_id: voting_id};
+        setDetails: function(voting_id) {
+          voterDetails = {voting_id: voting_id};
 
           //check if the id is valid.
           if (voting_id == 'valid') {
