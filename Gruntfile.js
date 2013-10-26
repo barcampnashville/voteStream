@@ -222,7 +222,7 @@ module.exports = function (grunt) {
               context:{env:'development'}
             },
             files : {
-              '<%= yeoman.dist %>/index.html':'<%= yeoman.app %>/index.html'
+              '<%= yeoman.app %>/index.html':'<%= yeoman.dist %>/index.html'
             }
           },
           dist : {
@@ -382,7 +382,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        //'preprocess:dist', // generate html
+        'preprocess:dist', // generate html
         'compass:dist',
         'less:dist',
         'concurrent:min', // copy and minify assets
