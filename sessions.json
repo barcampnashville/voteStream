@@ -1,0 +1,311 @@
+[
+	{
+		"Username": "Mobile_Mike",
+		"Title": "Mo Mobile, No Problems",
+		"Body": "You've invested in mobility, and your device goes missing...now what?",
+		"Session Category": "Mobile, Infrastructure",
+		"Signup Counts": "0",
+		"First Name": "Mike",
+		"Last Name": "Presley"
+	},
+	{
+		"Username": "chrisriesgo",
+		"Title": "R2-WHERE ARE YOU? DROID BEACONS WITH XAMARIN",
+		"Body": "Keep tabs on your R2 unit, track traffic patterns in your store, or unlock your door without fiddlin",
+		"Session Category": "Gear, Mobile",
+		"Signup Counts": "4",
+		"First Name": "Chris",
+		"Last Name": "Riesgo"
+	},
+	{
+		"Username": "Justin-Knight",
+		"Title": "OpenMETA CyPhy Design Tools",
+		"Body": "A high level walkthrough of the Open META-CyPhy Design Toolchain.",
+		"Session Category": "Design, Startups",
+		"Signup Counts": "1",
+		"First Name": "Justin",
+		"Last Name": "Knight"
+	},
+	{
+		"Username": "jasonamyers",
+		"Title": "VIM: No Neckbeard Required",
+		"Body": "Even if you don't use VIM as your daily text editor of choice, it's useful to at least be ",
+		"Session Category": "Code, Other",
+		"Signup Counts": "4",
+		"First Name": "Jason",
+		"Last Name": "Myers"
+	},
+	{
+		"Username": "Bayard",
+		"Title": "Haters Gonna Hate - The Online & Mobile Insurance Challenge",
+		"Body": "Yes, the Affordable Healthcare Act website had some \"\"glitches\"\" but that's just part o",
+		"Session Category": "Marketing, UX/IA",
+		"Signup Counts": "4",
+		"First Name": "Bayard",
+		"Last Name": "Saunders"
+	},
+	{
+		"Username": "chyld",
+		"Title": "Automated Test Driven Development in JavaScript with QUnit, Grunt and Node.js",
+		"Body": "Want to learn how to test drive your JavaScript development process?",
+		"Session Category": "Code",
+		"Signup Counts": "15",
+		"First Name": "Chyld",
+		"Last Name": "Medford"
+	},
+	{
+		"Username": "Kimble",
+		"Title": "Don't Be an Asana-hole - Pretty Project Management with a Punch",
+		"Body": "I'm no expert, but asana helped my company keep up with exponential business growth, scale down",
+		"Session Category": "Infrastructure, Other",
+		"Signup Counts": "5",
+		"First Name": "Kimble",
+		"Last Name": "Bosworth"
+	},
+	{
+		"Username": "calevans",
+		"Title": "Crafting a compelling Developer Experience",
+		"Body": "If you sell to developers you need to focus on your Developer Experience.(DX)  HINT: It's more ",
+		"Session Category": "Marketing",
+		"Signup Counts": "6",
+		"First Name": "Cal",
+		"Last Name": "Evans"
+	},
+	{
+		"Username": "hlynn7600",
+		"Title": "Creative Learning: Replacing Manuals with iBooks ",
+		"Body": "As mobile learning is now becoming a leader in the world of training, everyone is exploring new ways",
+		"Session Category": "Design, Mobile",
+		"Signup Counts": "7",
+		"First Name": "Holly ",
+		"Last Name": "Coons "
+	},
+	{
+		"Username": "jacques",
+		"Title": "A Ramble: How the NSA's actions threaten to segment and destroy the globalness of the internet.",
+		"Body": "As many people are watching the situation around the NSA's snooping programs and their threats ",
+		"Session Category": "Lifehacks, Other",
+		"Signup Counts": "16",
+		"First Name": "Jacques",
+		"Last Name": "Woodcock"
+	},
+	{
+		"Username": "jacques",
+		"Title": "Live Dance Floor: Using HTML, JavaScript and Python to control a 3ft by 3ft dance floor.",
+		"Body": "This talk will cover how in one weekend at HackNashville, Trey, Will and Jacques built out an API in",
+		"Session Category": "Code, Lifehacks",
+		"Signup Counts": "9",
+		"First Name": "Jacques",
+		"Last Name": "Woodcock"
+	},
+	{
+		"Username": "bryn",
+		"Title": "So you want to make iOS apps?",
+		"Body": "Have an app idea? Want to build things for the iPhone or iPad?",
+		"Session Category": "Code, Mobile",
+		"Signup Counts": "12",
+		"First Name": "Bryn",
+		"Last Name": "Bodayle"
+	},
+	{
+		"Username": "taylor@sparkmar...",
+		"Title": "WTF! - Why You Didn't Get the Job",
+		"Body": "You know your product or service and have it down pat as to what you can do for your potential clien",
+		"Session Category": "Infrastructure, Marketing",
+		"Signup Counts": "6",
+		"First Name": "Taylor",
+		"Last Name": "Hill"
+	},
+	{
+		"Username": "jhamilton",
+		"Title": "Yii, the Best PHP Framework You Haven't Heard Of",
+		"Body": "We will use Yii to create a usable MVC PHP web application with a database in minutes, from scratch.",
+		"Session Category": "Code, Infrastructure",
+		"Signup Counts": "5",
+		"First Name": "James",
+		"Last Name": "Hamilton"
+	},
+	{
+		"Username": "jlporter",
+		"Title": "Why drupal.org contrib release engineering is bad.",
+		"Body": "Anyone who does much of anything with drupal probably has a few -dev releases installed on productio",
+		"Session Category": "Code",
+		"Signup Counts": "2",
+		"First Name": "Jim",
+		"Last Name": "Porter"
+	},
+	{
+		"Username": "nicknameless",
+		"Title": "Web Accessibility - Why should I care?",
+		"Body": "Section 508 and WAI are the standards for accessibility in the US. What are they?",
+		"Session Category": "Design, Infrastructure",
+		"Signup Counts": "15",
+		"First Name": "Ammi",
+		"Last Name": "Embry"
+	},
+	{
+		"Username": "beatz",
+		"Title": "BLE, iBeacons, IoT and what it all means",
+		"Body": "Bluetooth Low Energy is very different from the traditional Bluetooth headset.",
+		"Session Category": "Code, Gear",
+		"Signup Counts": "9",
+		"First Name": "Beat",
+		"Last Name": "Zenerino"
+	},
+	{
+		"Username": "mvucovich",
+		"Title": "Examining the Snow Globe: Healthcare ROI and Heavy Metal Vocals",
+		"Body": "Traditionally, the methodology use to validate ROI created by healthcare cost-savings programs is ab",
+		"Session Category": "Creative Enterprise, Other",
+		"Signup Counts": "6",
+		"First Name": "Michael",
+		"Last Name": "Vucovich"
+	},
+	{
+		"Username": "2theTopDesign",
+		"Title": "How Does Google Hummingbird Impact SEO?",
+		"Body": "Google Hummingbird.",
+		"Session Category": "Content, Marketing",
+		"Signup Counts": "25",
+		"First Name": "Ross",
+		"Last Name": "Jones"
+	},
+	{
+		"Username": "Bill.Zack",
+		"Title": "Programming the Cloud",
+		"Body": "We are currently on the cusp of a paradigm shift to Cloud and Hybrid Cloud/On Premises computing and",
+		"Session Category": "Code, Infrastructure",
+		"Signup Counts": "7",
+		"First Name": "Bill",
+		"Last Name": "Zack"
+	},
+	{
+		"Username": "artdude",
+		"Title": "Bootstrap your responses",
+		"Body": "Bootstrap is an HTML5, CSS, and jquery framework for developing a responsive web site.",
+		"Session Category": "Code, Design",
+		"Signup Counts": "19",
+		"First Name": "Joe",
+		"Last Name": "Smith"
+	},
+	{
+		"Username": "angusnelson",
+		"Title": "Special Sauce Social: How to turn your brand into stories that create value, trust, and loyalty",
+		"Body": "You're company has a website, a Fanpage, and a Twitter account.",
+		"Session Category": "Marketing, Social",
+		"Signup Counts": "28",
+		"First Name": "Angus",
+		"Last Name": "Nelson"
+	},
+	{
+		"Username": "ToddO'Neill",
+		"Title": "We Must Know Everything",
+		"Body": "The world is full of specialists.",
+		"Session Category": "Lifehacks",
+		"Signup Counts": "27",
+		"First Name": "Todd",
+		"Last Name": "O'Neill"
+	},
+	{
+		"Username": "tommynorman",
+		"Title": "Building Kick A$$ Teams",
+		"Body": "Great development teams build great software and have a ton of fun doing it.",
+		"Session Category": "Other",
+		"Signup Counts": "43",
+		"First Name": "Tommy",
+		"Last Name": "Norman"
+	},
+	{
+		"Username": "studionashvegas",
+		"Title": "Get Structured, Get Sexy... Get Schema",
+		"Body": "Let's face it: content is king. But even the king doesn't prance around haphazardly.",
+		"Session Category": "Code, Content",
+		"Signup Counts": "33",
+		"First Name": "Mitch",
+		"Last Name": "Canter"
+	},
+	{
+		"Username": "cclements@arocn...",
+		"Title": "Adobe got hacked. Hackers stole your password. Now what?",
+		"Body": "On Oct 3rd, 2013, Adobe announced 2.9 million customers' data was stolen, including encrypted p",
+		"Session Category": "Infrastructure, Lifehacks",
+		"Signup Counts": "18",
+		"First Name": "Chris",
+		"Last Name": "Clements"
+	},
+	{
+		"Username": "Pamela Coyle",
+		"Title": "Tech Talk: Content Marketing for Tech Companies",
+		"Body": "Start-ups and even successful tech companies struggle to distill their message.",
+		"Session Category": "Marketing, Content",
+		"Signup Counts": "31",
+		"First Name": "Pamela",
+		"Last Name": "Coyle"
+	},
+	{
+		"Username": "jakerella",
+		"Title": "Confessions of a Remote Worker",
+		"Body": "More and more companies are realizing that there can be great benefits in allow knowledge workers to",
+		"Session Category": "Other",
+		"Signup Counts": "43",
+		"First Name": "Jordan",
+		"Last Name": "Kasper"
+	},
+	{
+		"Username": "tysoncadenhead",
+		"Title": "Getting Started With Socket.io",
+		"Body": "Realtime communication between the server-side and client-side just got a lot easier."
+	},
+	{
+		"Username": "In this tal\"",
+		"Title": "Code",
+		"Body": "19",
+		"Session Category": "Tyson",
+		"Signup Counts": "Cadenhead"
+	},
+	{
+		"Username": "erik.deckers",
+		"Title": "\"\"Write Good Content\"\" is a Stupid Strategy: 7 Advanced Writing Techniques",
+		"Body": "How many blogging \"\"secrets\"\" articles have you read that tell you to \"\"write good conte",
+		"Session Category": "Content, Marketing",
+		"Signup Counts": "51",
+		"First Name": "Erik",
+		"Last Name": "Deckers"
+	},
+	{
+		"Username": "jcnear",
+		"Title": "Polymaths, Technology & Education",
+		"Body": "Should iPads be in every classroom?",
+		"Session Category": "Lifehacks, Other",
+		"Signup Counts": "12",
+		"First Name": "Justin",
+		"Last Name": "Near"
+	},
+	{
+		"Username": "lukestokes",
+		"Title": "Why Bitcoin may be more disruptive than the Internet.",
+		"Body": "So you've seen some tech people mention Bitcoin and maybe you've read a news article about",
+		"Session Category": "Other, Social Enterprise",
+		"Signup Counts": "32",
+		"First Name": "Luke",
+		"Last Name": "Stokes"
+	},
+	{
+		"Username": "dale.r.rogers@g...",
+		"Title": "The BIG Picture: HTML, CSS and Javascript 4 Noobs",
+		"Body": "I'm an Assistant Professor at Nashville State Community College in Web and Multimedia Design.",
+		"Session Category": "Code",
+		"Signup Counts": "34",
+		"First Name": "Dale",
+		"Last Name": "Rogers"
+	},
+	{
+		"Username": "awebneck",
+		"Title": "Dat Lambda",
+		"Body": "What is Church's Lambda Calculus, and what are its implications?",
+		"Session Category": "Code",
+		"Signup Counts": "14",
+		"First Name": "Jeremy",
+		"Last Name": "Holland"
+	}
+]
