@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "bootstrap-css": "x.x.x",
-    "angular": "x.x.x",
+    "angular": "1.0.8",
     "angular-route": "x.x.x",
 	  "socket.io-client": "x.x.x",
 	  "nnnick-chartjs": "*"
