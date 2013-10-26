@@ -10,6 +10,7 @@ div.project-item.clearfix(ng-repeat="item in model.items", ng-hide="!details", o
     ul.people(ng-show="item.people")
         li(ng-repeat="p in item.people") {{p}}
 form(name="voterDetails", ng-submit="submitDetails()", ng-show="!details")
+<<<<<<< HEAD
   p You have to set your name and email, using the email used during eventbrite registration, before you can vote.  It will be submitted along with your vote.  If you are not on the Eventbrite registration list, we will be reviewing your vote.  If you cheat, we will publicly shame you as a cheater.  If we don't recognize your name, your votes will be deleted...
   p
     label Name
@@ -24,3 +25,14 @@ form(name="voterDetails", ng-submit="submitDetails()", ng-show="!details")
       span This is not a valid id
   p
     input(type="submit", value="Submit")
+=======
+  p You have to set your name and email, using the email used during eventbrite registration, before you can vote.  It will be submitted along with your vote.  If you are not on the Eventbrite registration list, we will be reviewing your vote.  If you cheat, we will publicly shame you as a cheater.  If we don't recognize your name, your votes will be deleted.
+  p
+    label Name
+    input(type="name", ng-model="name", required)
+  p
+    label Email
+    input(type="email", ng-model="email", required)
+  p
+    input(type="submit", value="Submit")
+>>>>>>> parent of 36961bb... jade banished!
