@@ -31,6 +31,10 @@ module.exports = function (grunt) {
                 files: ['<%= yeoman.app %>/styles/**/*.{less,css}'],
                 tasks: ['less:dist']
             },
+            compass: {
+                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+                tasks: ['compass:server']
+            },
             js: {
                 files: ['<%= yeoman.app %>/**/*.js'],
                 tasks: []
@@ -39,7 +43,7 @@ module.exports = function (grunt) {
                 files: [
                     '<%= yeoman.app %>/**/*.{html,jade}'
                 ],
-                tasks: ['jade']
+                tasks: ['jade', 'preprocess:dist']
             },
           assets: {
                 files: [
@@ -185,10 +189,10 @@ module.exports = function (grunt) {
             }
           }
         },
-        /*compass: {
+        compass: {
           options: {
             sassDir: '<%= yeoman.app %>/styles',
-            cssDir: '<%= yeoman.app %>/styles/device',
+            cssDir: '<%= yeoman.dist %>/styles',
             generatedImagesDir: '.tmp/images/generated',
             imagesDir: '<%= yeoman.app %>/images',
             javascriptsDir: '<%= yeoman.app %>/scripts',
@@ -210,14 +214,14 @@ module.exports = function (grunt) {
               debugInfo: true
             }
           }
-        },*/
+        },
         preprocess : {
           dev : {
             options : {
               context:{env:'development'}
             },
             files : {
-              '<%= yeoman.dist %>/index.html':'<%= yeoman.app %>/index.html'
+              '<%= yeoman.app %>/index.html':'<%= yeoman.dist %>/index.html'
             }
           },
           dist : {
@@ -377,8 +381,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        //'preprocess:dist', // generate html
-        //'compass:dist',
+        'preprocess:dist', // generate html
+        'compass:dist',
         'less:dist',
         'concurrent:min', // copy and minify assets
         //'autoprefixer', // autoprefix css to .tmp
