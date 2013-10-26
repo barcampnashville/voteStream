@@ -74,9 +74,10 @@ function routes(sio, db, config, colors) {
 	app.get('/api/results', votes.results);
   app.post('/api/voterdetails', function(req, res){
     console.log(req.body);
-    if(req.body.name && req.body.email){
+    if(req.body.name && req.body.email && req.body.voting_id){
       req.session.name = req.body.name;
       req.session.email = req.body.email;
+      req.session.voting_id = req.body.voting_id;
       res.send('ok');
     } else {
       res.send('500');

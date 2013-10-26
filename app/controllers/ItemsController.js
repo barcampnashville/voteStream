@@ -5,6 +5,7 @@ function ItemsController( $scope, $rootScope, items, VoteService, Sockets ) {
   }
 
   $scope.details = false;
+
   $scope.model.items = shuffle(items);
 
   $scope.votes = VoteService.myVotes;
@@ -36,8 +37,8 @@ function ItemsController( $scope, $rootScope, items, VoteService, Sockets ) {
 	}
 
   $scope.submitDetails = function(){
-    VoteService.setDetails($scope.name, $scope.email);
-    $scope.details = true;
+    $scope.invalid = !VoteService.setDetails($scope.name, $scope.email, $scope.voting_id);
+    $scope.details = !$scope.invalid;
   }
 
   Sockets.on('voteable added', function(data){
