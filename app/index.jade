@@ -1,0 +1,62 @@
+doctype 5
+html(lang="en", ng-app="application", ng-controller="AppController")
+    head
+        title Vote
+        link(href='//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', rel='stylesheet')
+
+        // build:css(./) css/style.css
+        link(href='/bower_components/bootstrap-css/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+        link(href='/styles/style.css', rel='stylesheet', type='text/css')
+
+        // endbuild
+        // build:js(./) js/app.min.js
+        script(src='/vendor/spin.js')
+        script(src='/bower_components/angular/angular.js')
+        script(src='/bower_components/angular-route/angular-route.js')
+        script(src='/bower_components/socket.io-client/dist/socket.io.min.js')
+        script(src='/bower_components/nnnick-chartjs/Chart.min.js')
+        script(src='/app/application-setup.js')
+        script(src='/app/config.js')
+        script(src='/app/services/vote.js')
+        script(src='/app/directives/enhance.js')
+        script(src='/app/controllers/AppController.js')
+        script(src='/app/controllers/HeaderController.js')
+        script(src='/app/controllers/NavController.js')
+        script(src='/app/controllers/ItemsController.js')
+        script(src='/app/controllers/NewItemController.js')
+        script(src='/app/controllers/FooterController.js')
+        script(src='/app/controllers/ResultsController.js')
+        script(src='/app/application-routes.js')
+        // endbuild
+
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    body(ng-cloak)
+        header.container(ng-controller="HeaderController")
+            p.pull-left(ng-hide="true")
+                a(ng-href='/')
+                    i.icon-long-arrow-left
+            a(ng-href='/')
+                img#topLogo(src='../images/logo_hn4.png')
+            div.pull-right#votesLeft() {{model.remaining}} Votes Left
+        nav.container.navbar.navbar-default(ng-controller="NavController", ng-hide="true")
+            ul.nav.navbar-nav
+                li
+                    a#vote(href="/") VOTE!
+                li#seeResults
+                    a(href="/results") See Results
+        .container
+            div(ng-view)
+            div#loading(ng-show="loading", loading-wheel)
+        footer.container(ng-controller="FooterController")
+            a(ng-href='http://hacknashville.com/', target='_blank')
+                img#footerHNLogo(src='../images/built-at-hacknashville-bw.png')
+            ul
+                li Peter Hiemmelreich,
+                li Chuck Bryant,
+                li Bart Renner,
+                li Thomas Vaughn,
+                li Paul Sunderhaus,
+                li Ben Stucki,
+                li Hakan Tunc,
+                li Erin Page,
+                li Calvin Froedge
