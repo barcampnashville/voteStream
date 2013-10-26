@@ -1,68 +1,44 @@
-function setupRoutes ( $routeProvider, $locationProvider ) {
-	//console.log('app config:', ApplicationConfig);
-	$locationProvider.html5Mode(true);
+(function (angular) {
+	'use strict';
 
-	//$httpProvider.responseInterceptors.push('$errorInterceptor');
+	var app = angular.module('application',['ngRoute','application.main']);
 
-	$routeProvider.when('/', {
-		templateUrl : '/templates/items/items.html',
-		controller : 'ItemsController',
-		resolve : {
-			items: ['$http', function($http) {
-				return $http.get('/api/items').then(function(result) {
-						return result.data;
+	app.config([
+		'$routeProvider',
+		function ($routeProvider) {
+			$routeProvider
+				.when('/', {
+					templateUrl : '/templates/items/items.html',
+					controller : 'ItemsController',
+					resolve : {
+						items: ['$http', function($http) {
+							return $http.get('/api/items').then(function(result) {
+									return result.data;
+							});
+						}]
+					}
+				})
+				.when('/items/new', {
+					templateUrl : '/templates/items/new-item.html',
+					controller : 'NewItemController'
+				})
+				.when('/results', {
+					templateUrl : '/templates/results/results.html',
+					controller : 'ResultsController',
+					resolve : {
+								voteables: ['$http', function($http) {
+									return $http.get('/api/items').then(function(result) {
+											return result.data;
+									});
+								}]
+					}
+				})
+				.when('/error', {
+					templateUrl : '/templates/errors/error.html'
+				})
+				.otherwise({
+					templateUrl : '/templates/errors/error.html'
 				});
-			}]
 		}
-	});
-
-
-	$routeProvider.when('/items/new', {
-		templateUrl : '/templates/items/new-item.html',
-		controller : 'NewItemController'
-	});
-
-	$routeProvider.when('/results', {
-		templateUrl : '/templates/results/results.html',
-		controller : 'ResultsController',
-		resolve : {
-					voteables: ['$http', function($http) {
-						return $http.get('/api/items').then(function(result) {
-								return result.data;
-						});
-					}]
-		}
-	});
-
-	//**************************
-	// Error Pages
-	//**************************
-
-	$routeProvider.when('/error', {
-		templateUrl : '/templates/errors/error.html'
-	});
-
-	//************************
-	// Catch all
-	//************************
-
-	$routeProvider.otherwise({
-		templateUrl : '/templates/errors/error.html'
-	});
-
-}
-
-var module = angular.module('application', [
-	'ngRoute',
-	'application.main'
-]);
-
-module.config([
-	'$routeProvider',
-	'$locationProvider',
-	setupRoutes
-]);
-
-function echo ( token ) {
-	return function() { return token; };
-}
+	]);
+}(window.angular));
