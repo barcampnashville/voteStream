@@ -56,11 +56,13 @@ function VoteService ( Config , $http, $rootScope ) {
           voterDetails = {voting_id: voting_id};
 
           //check if the id is valid.
-          if (voting_id == 'valid') {
+          var valid = false;
+
+
+          if (valid) {
             $http.post('/api/voterdetails', voterDetails);
             return true;
           } else {
-            console.log('oh no honey');
             return false;
           }
 
