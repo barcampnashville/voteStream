@@ -1,0 +1,24 @@
+
+<div ng-repeat="item in model.items" ng-hide="!details" on-finish-render="itemsLoaded" class="project-item clearfix">
+  <h3>{{item.title}}</h3><a ng-click="vote(item)" ng-hide="item.voted || noVotes || votedForThis(item)" class="btn btn-primary pull-right vote-icon"><img src="images/up-vote-icon.png"/></a>
+  <p>{{item.description}}</p>
+  <p ng-show="item.name_speaker"><strong>Speaker: {{item.name_speaker}}</strong></p>
+  <h4 ng-show="item.people">People</h4>
+  <ul ng-show="item.people" class="people">
+    <li ng-repeat="p in item.people">{{p}}</li>
+  </ul>
+</div>
+<form name="voterDetails" ng-submit="submitDetails()" ng-show="!details">
+  <p>You have to set your name and email, using the email used during eventbrite registration, before you can vote.  It will be submitted along with your vote.  If you are not on the Eventbrite registration list, we will be reviewing your vote.  If you cheat, we will publicly shame you as a cheater.  If we don't recognize your name, your votes will be deleted.</p>
+  <p>
+    <label>Name</label>
+    <input type="name" ng-model="name" required="required"/>
+  </p>
+  <p>
+    <label>Email</label>
+    <input type="email" ng-model="email" required="required"/>
+  </p>
+  <p>
+    <input type="submit" value="Submit"/>
+  </p>
+</form>
