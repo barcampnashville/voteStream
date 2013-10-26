@@ -52,10 +52,18 @@ function VoteService ( Config , $http, $rootScope ) {
 
             return true;
         },
-        setDetails: function(name, email){
-            voterDetails = {name: name, email: email};
+        setDetails: function(name, email, voting_id) {
+          voterDetails = {name: name, email: email, voting_id: voting_id};
 
+          //check if the id is valid.
+          if (voting_id == 'valid') {
             $http.post('/api/voterdetails', voterDetails);
+            return true;
+          } else {
+            console.log('oh no honey');
+            return false;
+          }
+
         },
         myVotes: myVotes
 	};
