@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="application" ng-controller="AppController">
+  <head>
+    <title>Vote</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <!-- build:css(./) css/style.css-->
+    <link href="/bower_components/bootstrap-css/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/styles/style.css" rel="stylesheet" type="text/css">
+    <!-- endbuild-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body ng-cloak>
+    <header ng-controller="HeaderController" class="container">
+        <p ng-hide="true" class="pull-left">
+        <a ng-href="/"><i class="icon-long-arrow-left"></i></a>
+        </p><a ng-href="/"><img id="topLogo" src="../images/logo_hn4.png"></a>
+      <div id="votesLeft" class="pull-right">{{model.remaining}}</div>
+    </header>
+    <nav ng-controller="NavController" ng-hide="true" class="container navbar navbar-default">
+      <ul class="nav navbar-nav">
+        <li><a id="vote" href="/">VOTE!</a></li>
+        <li id="seeResults"><a href="/results">See Results</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <div ng-view></div>
+
+    </div>
+
+
+    <script src="/vendor/spin.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/socket.io-client/dist/socket.io.min.js"></script>
+    <script src="/bower_components/nnnick-chartjs/Chart.min.js"></script>
+    <script src="/bower_components/angular-route/angular-route.min.js"></script>
+
+    <!-- build:js(./) js/app.min.js-->
+    <script src="/app/application-setup.js"></script>
+    <script src="/app/config.js"></script>
+    <script src="/app/services/vote.js"></script>
+    <script src="/app/directives/enhance.js"></script>
+    <script src="/app/controllers/AppController.js"></script>
+    <script src="/app/controllers/HeaderController.js"></script>
+    <script src="/app/controllers/NavController.js"></script>
+    <script src="/app/controllers/ItemsController.js"></script>
+    <script src="/app/controllers/NewItemController.js"></script>
+    <script src="/app/controllers/FooterController.js"></script>
+    <script src="/app/controllers/ResultsController.js"></script>
+    <script src="/app/application-routes.js"></script>
+    <!-- endbuild-->
+  </body>
+</html>
