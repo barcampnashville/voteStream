@@ -11,7 +11,7 @@ function VoteService ( Config , $http, $rootScope ) {
             myVotes.push(val[i]['vote']);
         }
 		timesVoted = timesVoted + val.length;
-		if( (timesVoted >= votesAvailable) && timesVoted != 0){
+		if( (timesVoted >= votesAvailable) && timesVoted !== 0){
 			$rootScope.noVotes = true;
 		}
 		$rootScope.$broadcast('votesRemaining', votesAvailable - timesVoted);
@@ -47,7 +47,7 @@ function VoteService ( Config , $http, $rootScope ) {
             }
 
             if(!voterDetails){
-                return false;               
+                return false;
             }
 
             return true;
@@ -58,5 +58,5 @@ function VoteService ( Config , $http, $rootScope ) {
             $http.post('/api/voterdetails', voterDetails);
         },
         myVotes: myVotes
-	}
-};
+	};
+}

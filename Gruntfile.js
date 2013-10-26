@@ -44,7 +44,7 @@ module.exports = function (grunt) {
                 files: [
                     '<%= yeoman.app %>/**/*.{html,jade}'
                 ],
-                tasks: ['jade']
+                tasks: ['jade', 'preprocess:dist']
             },
           assets: {
                 files: [
