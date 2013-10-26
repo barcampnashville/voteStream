@@ -16,6 +16,11 @@ function setupRoutes ( $routeProvider, $locationProvider ) {
 		}
 	});
 
+	$routeProvider.when('/createids', {
+		templateUrl: '/templates/ids.html',
+		controller: 'IDController'
+	});
+
 
 	$routeProvider.when('/items/new', {
 		templateUrl : '/templates/items/new-item.html',

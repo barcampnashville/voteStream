@@ -383,7 +383,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'preprocess:dist', // generate html
-        'compass:dist',
+        //'compass:dist',
         'less:dist',
         'concurrent:min', // copy and minify assets
         //'autoprefixer', // autoprefix css to .tmp
