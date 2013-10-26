@@ -33,6 +33,10 @@
 								}]
 					}
 				})
+				.when('/createids', {
+					templateUrl: '/templates/ids.html',
+					controller: 'IDController'
+				})
 				.when('/error', {
 					templateUrl : '/templates/errors/error.html'
 				})

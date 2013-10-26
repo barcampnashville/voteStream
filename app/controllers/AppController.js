@@ -84,47 +84,58 @@
 		NewItemController: function ($scope, $http, $timeout) {
 			$scope.submitItem = function() {
 
-			var people = [];
+				var people = [];
 
-			$scope.people.split(',').forEach(function(name) {
-				people.push(capitaliseFirstLetters(name.trim()));
-			});
-
-			var data = {
-				"id": $scope.title,
-				"title": $scope.title,
-				"people": people,
-				"description": $scope.description
-			};
-
-			$http.post('/api/items/new', data)
-				.success(function(data) {
-					$scope.created = true;
-
-					$timeout(function() {
-						window.location = '/';
-					}, 4000);
-
-				})
-			.error(function(data) {});
-
-			function capitaliseFirstLetters(string) {
-				var result = [];
-
-				string.split(' ').forEach(function(name) {
-					result.push(capitaliseFirstLetter(name));
+				$scope.people.split(',').forEach(function(name) {
+					people.push(capitaliseFirstLetters(name.trim()));
 				});
 
-				return result.join(' ');
+				var data = {
+					"id": $scope.title,
+					"title": $scope.title,
+					"people": people,
+					"description": $scope.description
+				};
 
-				function capitaliseFirstLetter(string) {
-					return string.charAt(0).toUpperCase() + string.slice(1);
+				$http.post('/api/items/new', data)
+					.success(function(data) {
+						$scope.created = true;
+
+						$timeout(function() {
+							window.location = '/';
+						}, 4000);
+
+					})
+				.error(function(data) {});
+
+				function capitaliseFirstLetters(string) {
+					var result = [];
+
+					string.split(' ').forEach(function(name) {
+						result.push(capitaliseFirstLetter(name));
+					});
+
+					return result.join(' ');
+
+					function capitaliseFirstLetter(string) {
+						return string.charAt(0).toUpperCase() + string.slice(1);
+					}
 				}
-			}
 
 			};
-		}
+		},
 
+		IDController: function ($scope, $http) {
+			$scope.createIDs = function(user) {
+				if (user.password === 'abc') {
+					window.location = 'api/create_valid_ids';
+					// $http.get('api/create_valid_ids');
+				} else {
+
+					alert("Wrong passcode");
+				}
+			};
+		}
 	});
 
 }(window.angular));

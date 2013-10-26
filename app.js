@@ -62,6 +62,7 @@ function routes(sio, db, config, colors) {
 	
 	var items = require('./api/items')(sio, db, config);
 	var votes = require('./api/votes')(sio, db, config, colors);
+  var ids = require('./api/ids')(sio, db, config);
 	
 	app.get('/api/check', function(req, res){
 		res.send('ok');
@@ -69,8 +70,12 @@ function routes(sio, db, config, colors) {
 
   app.post('/api/items/new', items.add);
 	app.get('/api/items', items.list);
-	app.post('/api/vote/:id', votes.vote);
+	
+  app.post('/api/vote/:id', votes.vote);
 	app.get('/api/vote/:id', votes.vote); // temp for my testing
+
+  app.get('/api/create_valid_ids', ids.createids);
+
 	app.get('/api/results', votes.results);
   app.post('/api/voterdetails', function(req, res){
     console.log(req.body);

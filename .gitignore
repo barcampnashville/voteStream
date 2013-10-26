@@ -18,4 +18,4 @@ release/*
 .vagrant
 vote.iml
 .sass-cache/*
-
+compass-0.12.2/compass
