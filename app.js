@@ -62,6 +62,7 @@ function routes(sio, db, config, colors) {
 	
 	var items = require('./api/items')(sio, db, config);
 	var votes = require('./api/votes')(sio, db, config, colors);
+  var ids = require('./api/ids')(sio, db, config);
 	
 	app.get('/api/check', function(req, res){
 		res.send('ok');
@@ -73,7 +74,7 @@ function routes(sio, db, config, colors) {
   app.post('/api/vote/:id', votes.vote);
 	app.get('/api/vote/:id', votes.vote); // temp for my testing
 
-  app.get('/api/crful', function(req, res) {
+  app.get('/api/create_valid_ids', function(req, res) {
     
     db.collection('voting_ids',function(err, collection){
         collection.remove({},function(err, removed){
