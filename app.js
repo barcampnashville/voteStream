@@ -59,18 +59,18 @@ if(err){
 });
 
 function routes(sio, db, config, colors) {
-	
+
 	var items = require('./api/items')(sio, db, config);
 	var votes = require('./api/votes')(sio, db, config, colors);
   var ids = require('./api/ids')(sio, db, config);
-	
+
 	app.get('/api/check', function(req, res){
 		res.send('ok');
 	});
 
   app.post('/api/items/new', items.add);
 	app.get('/api/items', items.list);
-	
+
   app.post('/api/vote/:id', votes.vote);
 	app.get('/api/vote/:id', votes.vote); // temp for my testing
 
