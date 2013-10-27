@@ -5,7 +5,11 @@
     "bootstrap-css": "x.x.x",
     "angular": "x.x.x",
     "angular-route": "x.x.x",
-	  "socket.io-client": "x.x.x",
-	  "nnnick-chartjs": "*"
+    "angular-fire": "0.3.1",
+    "socket.io-client": "x.x.x",
+    "nnnick-chartjs": "*"
+  },
+  "resolutions": {
+    "angular": "1.2.0-rc.3"
   }
 }
