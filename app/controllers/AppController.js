@@ -5,17 +5,16 @@
 
 	app.controller({
 
-		AppController: function ($scope) {
-			$scope.model = {};
+		AppController: function ($scope) {},
+
+		SigninController: function ($scope, VoteService) {
+			$scope.submitDetails = function (item) {
+				$scope.user = VoteService.checkDetails();
+				console.log($scope.user);
+			};
 		},
 
 		ItemsController: function ($scope, $rootScope, items, VoteService, Sockets) {
-			if(items.length === 0) {
-				$rootScope.loading = false;
-			}
-
-			$scope.details = false;
-
 			$scope.model.items = shuffle(items);
 
 			$scope.votes = VoteService.myVotes;
@@ -29,33 +28,13 @@
 				return false;
 			};
 
-			$scope.itemsLoaded = function(){
-				$rootScope.loading = false;
-			};
-
-			if(VoteService.checkDetails()){
-				$scope.details = true;
-			}
-
-			$scope.vote = function(item){
-				if(VoteService.checkDetails()){
-					VoteService.vote(item.id);
-					item.voted = true;
-				} else {
-					alert('You must submit your voter details first!');
-				}
-			};
-
 			$scope.submitDetails = function(){
 				$scope.invalid = !VoteService.setDetails($scope.voting_id);
 				$scope.details = !$scope.invalid;
 			};
 
 			Sockets.on('voteable added', function(data){
-				console.log('adding voteable', data);
-				console.log($scope.model.items.length);
 				$scope.model.items.push(data);
-				console.log($scope.model.items.length);
 				$scope.$apply();
 			});
 

@@ -8,15 +8,8 @@
 		function ($routeProvider) {
 			$routeProvider
 				.when('/', {
-					templateUrl : '/templates/items/items.html',
-					controller : 'ItemsController',
-					resolve : {
-						items: ['$http', function($http) {
-							return $http.get('/api/items').then(function(result) {
-									return result.data;
-							});
-						}]
-					}
+					templateUrl : '/templates/signin.html',
+					controller : 'SigninController'
 				})
 				.when('/items/new', {
 					templateUrl : '/templates/items/new-item.html',

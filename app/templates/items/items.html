@@ -8,15 +8,3 @@
     <li ng-repeat="p in item.people">{{p}}</li>
   </ul>
 </div>
-<form name="voterDetails" ng-submit="submitDetails()" ng-show="!details">
-  <p>What is your Voting ID?</p>
-  <p>
-    <label>Voting ID</label>
-    <input type="name" name="v_id" ng-model="voting_id" ng-init="voting_id='ab123d-f'" required="required"/>
-    <div ng-show="invalid" ng-model="invalid">Invalid: <span>This is not a valid id</span></div>
-  </p>
-
-  <p>
-    <input type="submit" value="Submit"/>
-  </p>
-</form>
