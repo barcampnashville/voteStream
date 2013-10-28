@@ -182,11 +182,23 @@
 		},
 
 		SessionListingController: function ($scope, angularFire) {
-			var ref = new Firebase('https://barcamp.firebaseio.com/Sessions');
-			angularFire(ref, $scope, 'sessions');
+			var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
+			$scope.sessions = [];
+			angularFire(SessionsRef, $scope, 'sessions');
 		},
 
-		SessionController: function () {}
+		SessionController: function ($scope) {
+			var sessions = $scope.sessions;
+			$scope.upVote = function (session) {
+				/*
+					Increase total_votes for session by 1
+					remove up button from page and repalce with button
+					to decrease vote
+					- Also, decrease user votes by 1
+				 */
+				console.log(sessions[session.id]);
+			};
+		}
 	});
 
 }(window.angular));

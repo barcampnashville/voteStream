@@ -14,54 +14,41 @@
 
   <body>
 
-	<header class="container">
-		<a ng-href="/"><img id="topLogo" src="../images/logo_hn4.png"></a>
-	</header>
-
-	<!-- <nav ng-hide="true" class="container navbar navbar-default">
-	  <ul class="nav navbar-nav">
-		<li><a id="vote" href="/">VOTE!</a></li>
-		<li id="seeResults"><a href="/results">See Results</a></li>
-	  </ul>
-	</nav> -->
+	<header class="container"></header>
 
 	<div class="container sessions" data-ng-controller="SessionListingController">
-		<ul>
-			<li class="list-unstyled" data-ng-repeat="session in sessions" data-ng-controller="SessionController">
-				<div class="pull-left">
-					<button type="button" class="btn btn-info">
-						<i class="fa fa-star"></i>
-					</button>
-				</div>
+		<ul class="list-unstyled">
+			<li class="well" data-ng-repeat="session in sessions" data-ng-controller="SessionController" data-ng-cloak>
+				<div class="row">
+					<div class="sessionTitle">
+						<h3>Title</h3>
+						<p>{{session.Title}}</p>
+					</div>
 
-				<div class="sessionTitle">
-					<h3>Title</h3>
-					<p>{{session.Title}}</p>
-				</div>
+					<div class="sessionDescription">
+						<h3>Description</h3>
+						<p>{{session.Body}}</p>
+					</div>
 
-				<div class="sessionDescription">
-					<h3>Description</h3>
-					<p>{{session.Body}}</p>
-				</div>
+					<div class="sessionSpeaker">
+						<h3>Speaker</h3>
+						<p>{{session['First Name']}} {{session['Last Name']}}</p>
+					</div>
 
-				<div class="sessionSpeaker">
-					<h3>Speaker</h3>
-					<p>{{session['First Name']}} {{session['Last Name']}}</p>
-				</div>
+					<div class="category">
+						<h3>Categories</h3>
+						<p>{{session['Session Category']}}</p>
+					</div>
 
-				<div class="category">
-					<h3>Categories</h3>
-					<p>{{session['Session Category']}}</p>
-				</div>
+					<div class="pull-right">
+						<button type="button" class="btn btn-primary" data-ng-click="upVote(session)">
+							<i class="fa fa-thumbs-o-up"></i>
+						</button>
 
-				<div class="pull-right">
-					<button type="button" class="btn btn-primary">
-						<i class="fa fa-thumbs-o-up"></i>
-					</button>
-
-					<button type="button" class="btn btn-warning">
-						<i class="fa fa-thumbs-o-down"></i>
-					</button>
+						<button type="button" class="btn btn-warning">
+							<i class="fa fa-thumbs-o-down"></i>
+						</button>
+					</div>
 				</div>
 			</li>
 		</ul>
@@ -71,6 +58,7 @@
 	</div>
 
 	<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+	<script src="https://cdn.firebase.com/v0/firebase-simple-login.js"/>
 	<script src="/vendor/spin.js"></script>
 	<script src="/bower_components/angular/angular.js"></script>
 	<script src="/bower_components/angular-route/angular-route.js"></script>

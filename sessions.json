@@ -1,6 +1,6 @@
 {
-	"Sessions": [
-		{
+	"Sessions": {
+		"0":{
 			"Username": "Mobile_Mike",
 			"Title": "Mo Mobile, No Problems",
 			"Body": "You've invested in mobility, and your device goes missing...now what?",
@@ -8,9 +8,10 @@
 			"Signup Counts": "0",
 			"First Name": "Mike",
 			"Last Name": "Presley",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":0
 		},
-		{
+		"1":{
 			"Username": "chrisriesgo",
 			"Title": "R2-WHERE ARE YOU? DROID BEACONS WITH XAMARIN",
 			"Body": "Keep tabs on your R2 unit, track traffic patterns in your store, or unlock your door without fiddlin",
@@ -18,9 +19,10 @@
 			"Signup Counts": "4",
 			"First Name": "Chris",
 			"Last Name": "Riesgo",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":1
 		},
-		{
+		"2":{
 			"Username": "Justin-Knight",
 			"Title": "OpenMETA CyPhy Design Tools",
 			"Body": "A high level walkthrough of the Open META-CyPhy Design Toolchain.",
@@ -28,9 +30,10 @@
 			"Signup Counts": "1",
 			"First Name": "Justin",
 			"Last Name": "Knight",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":2
 		},
-		{
+		"3":{
 			"Username": "jasonamyers",
 			"Title": "VIM: No Neckbeard Required",
 			"Body": "Even if you don't use VIM as your daily text editor of choice, it's useful to at least be ",
@@ -38,9 +41,10 @@
 			"Signup Counts": "4",
 			"First Name": "Jason",
 			"Last Name": "Myers",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":3
 		},
-		{
+		"4":{
 			"Username": "Bayard",
 			"Title": "Haters Gonna Hate - The Online & Mobile Insurance Challenge",
 			"Body": "Yes, the Affordable Healthcare Act website had some \"\"glitches\"\" but that's just part o",
@@ -48,9 +52,10 @@
 			"Signup Counts": "4",
 			"First Name": "Bayard",
 			"Last Name": "Saunders",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":4
 		},
-		{
+		"5":{
 			"Username": "chyld",
 			"Title": "Automated Test Driven Development in JavaScript with QUnit, Grunt and Node.js",
 			"Body": "Want to learn how to test drive your JavaScript development process?",
@@ -58,9 +63,10 @@
 			"Signup Counts": "15",
 			"First Name": "Chyld",
 			"Last Name": "Medford",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":5
 		},
-		{
+		"6":{
 			"Username": "Kimble",
 			"Title": "Don't Be an Asana-hole - Pretty Project Management with a Punch",
 			"Body": "I'm no expert, but asana helped my company keep up with exponential business growth, scale down",
@@ -68,9 +74,10 @@
 			"Signup Counts": "5",
 			"First Name": "Kimble",
 			"Last Name": "Bosworth",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":6
 		},
-		{
+		"7":{
 			"Username": "calevans",
 			"Title": "Crafting a compelling Developer Experience",
 			"Body": "If you sell to developers you need to focus on your Developer Experience.(DX)  HINT: It's more ",
@@ -78,9 +85,10 @@
 			"Signup Counts": "6",
 			"First Name": "Cal",
 			"Last Name": "Evans",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":7
 		},
-		{
+		"8":{
 			"Username": "hlynn7600",
 			"Title": "Creative Learning: Replacing Manuals with iBooks ",
 			"Body": "As mobile learning is now becoming a leader in the world of training, everyone is exploring new ways",
@@ -88,9 +96,10 @@
 			"Signup Counts": "7",
 			"First Name": "Holly ",
 			"Last Name": "Coons ",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":8
 		},
-		{
+		"9":{
 			"Username": "jacques",
 			"Title": "A Ramble: How the NSA's actions threaten to segment and destroy the globalness of the internet.",
 			"Body": "As many people are watching the situation around the NSA's snooping programs and their threats ",
@@ -98,9 +107,10 @@
 			"Signup Counts": "16",
 			"First Name": "Jacques",
 			"Last Name": "Woodcock",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":9
 		},
-		{
+		"10":{
 			"Username": "jacques",
 			"Title": "Live Dance Floor: Using HTML, JavaScript and Python to control a 3ft by 3ft dance floor.",
 			"Body": "This talk will cover how in one weekend at HackNashville, Trey, Will and Jacques built out an API in",
@@ -108,9 +118,10 @@
 			"Signup Counts": "9",
 			"First Name": "Jacques",
 			"Last Name": "Woodcock",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":10
 		},
-		{
+		"11":{
 			"Username": "bryn",
 			"Title": "So you want to make iOS apps?",
 			"Body": "Have an app idea? Want to build things for the iPhone or iPad?",
@@ -118,9 +129,10 @@
 			"Signup Counts": "12",
 			"First Name": "Bryn",
 			"Last Name": "Bodayle",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":11
 		},
-		{
+		"12":{
 			"Username": "taylor@sparkmar...",
 			"Title": "WTF! - Why You Didn't Get the Job",
 			"Body": "You know your product or service and have it down pat as to what you can do for your potential clien",
@@ -128,9 +140,10 @@
 			"Signup Counts": "6",
 			"First Name": "Taylor",
 			"Last Name": "Hill",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":12
 		},
-		{
+		"13":{
 			"Username": "jhamilton",
 			"Title": "Yii, the Best PHP Framework You Haven't Heard Of",
 			"Body": "We will use Yii to create a usable MVC PHP web application with a database in minutes, from scratch.",
@@ -138,9 +151,10 @@
 			"Signup Counts": "5",
 			"First Name": "James",
 			"Last Name": "Hamilton",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":13
 		},
-		{
+		"14":{
 			"Username": "jlporter",
 			"Title": "Why drupal.org contrib release engineering is bad.",
 			"Body": "Anyone who does much of anything with drupal probably has a few -dev releases installed on productio",
@@ -148,9 +162,10 @@
 			"Signup Counts": "2",
 			"First Name": "Jim",
 			"Last Name": "Porter",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":14
 		},
-		{
+		"15":{
 			"Username": "nicknameless",
 			"Title": "Web Accessibility - Why should I care?",
 			"Body": "Section 508 and WAI are the standards for accessibility in the US. What are they?",
@@ -158,9 +173,10 @@
 			"Signup Counts": "15",
 			"First Name": "Ammi",
 			"Last Name": "Embry",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":15
 		},
-		{
+		"16":{
 			"Username": "beatz",
 			"Title": "BLE, iBeacons, IoT and what it all means",
 			"Body": "Bluetooth Low Energy is very different from the traditional Bluetooth headset.",
@@ -168,9 +184,10 @@
 			"Signup Counts": "9",
 			"First Name": "Beat",
 			"Last Name": "Zenerino",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":16
 		},
-		{
+		"17":{
 			"Username": "mvucovich",
 			"Title": "Examining the Snow Globe: Healthcare ROI and Heavy Metal Vocals",
 			"Body": "Traditionally, the methodology use to validate ROI created by healthcare cost-savings programs is ab",
@@ -178,9 +195,10 @@
 			"Signup Counts": "6",
 			"First Name": "Michael",
 			"Last Name": "Vucovich",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":17
 		},
-		{
+		"18":{
 			"Username": "2theTopDesign",
 			"Title": "How Does Google Hummingbird Impact SEO?",
 			"Body": "Google Hummingbird.",
@@ -188,9 +206,10 @@
 			"Signup Counts": "25",
 			"First Name": "Ross",
 			"Last Name": "Jones",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":18
 		},
-		{
+		"19":{
 			"Username": "Bill.Zack",
 			"Title": "Programming the Cloud",
 			"Body": "We are currently on the cusp of a paradigm shift to Cloud and Hybrid Cloud/On Premises computing and",
@@ -198,9 +217,10 @@
 			"Signup Counts": "7",
 			"First Name": "Bill",
 			"Last Name": "Zack",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":19
 		},
-		{
+		"20":{
 			"Username": "artdude",
 			"Title": "Bootstrap your responses",
 			"Body": "Bootstrap is an HTML5, CSS, and jquery framework for developing a responsive web site.",
@@ -208,9 +228,10 @@
 			"Signup Counts": "19",
 			"First Name": "Joe",
 			"Last Name": "Smith",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":20
 		},
-		{
+		"21":{
 			"Username": "angusnelson",
 			"Title": "Special Sauce Social: How to turn your brand into stories that create value, trust, and loyalty",
 			"Body": "You're company has a website, a Fanpage, and a Twitter account.",
@@ -218,9 +239,10 @@
 			"Signup Counts": "28",
 			"First Name": "Angus",
 			"Last Name": "Nelson",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":21
 		},
-		{
+		"22":{
 			"Username": "ToddO'Neill",
 			"Title": "We Must Know Everything",
 			"Body": "The world is full of specialists.",
@@ -228,9 +250,10 @@
 			"Signup Counts": "27",
 			"First Name": "Todd",
 			"Last Name": "O'Neill",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":22
 		},
-		{
+		"23":{
 			"Username": "tommynorman",
 			"Title": "Building Kick A$$ Teams",
 			"Body": "Great development teams build great software and have a ton of fun doing it.",
@@ -238,9 +261,10 @@
 			"Signup Counts": "43",
 			"First Name": "Tommy",
 			"Last Name": "Norman",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":23
 		},
-		{
+		"24":{
 			"Username": "studionashvegas",
 			"Title": "Get Structured, Get Sexy... Get Schema",
 			"Body": "Let's face it: content is king. But even the king doesn't prance around haphazardly.",
@@ -248,9 +272,10 @@
 			"Signup Counts": "33",
 			"First Name": "Mitch",
 			"Last Name": "Canter",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":24
 		},
-		{
+		"25":{
 			"Username": "cclements@arocn...",
 			"Title": "Adobe got hacked. Hackers stole your password. Now what?",
 			"Body": "On Oct 3rd, 2013, Adobe announced 2.9 million customers' data was stolen, including encrypted p",
@@ -258,9 +283,10 @@
 			"Signup Counts": "18",
 			"First Name": "Chris",
 			"Last Name": "Clements",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":25
 		},
-		{
+		"26":{
 			"Username": "Pamela Coyle",
 			"Title": "Tech Talk: Content Marketing for Tech Companies",
 			"Body": "Start-ups and even successful tech companies struggle to distill their message.",
@@ -268,9 +294,10 @@
 			"Signup Counts": "31",
 			"First Name": "Pamela",
 			"Last Name": "Coyle",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":26
 		},
-		{
+		"27":{
 			"Username": "jakerella",
 			"Title": "Confessions of a Remote Worker",
 			"Body": "More and more companies are realizing that there can be great benefits in allow knowledge workers to",
@@ -278,23 +305,26 @@
 			"Signup Counts": "43",
 			"First Name": "Jordan",
 			"Last Name": "Kasper",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":27
 		},
-		{
+		"28":{
 			"Username": "tysoncadenhead",
 			"Title": "Getting Started With Socket.io",
 			"Body": "Realtime communication between the server-side and client-side just got a lot easier.",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":28
 		},
-		{
+		"29":{
 			"Username": "In this tal\"",
 			"Title": "Code",
 			"Body": "19",
 			"Session Category": "Tyson",
 			"Signup Counts": "Cadenhead",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":29
 		},
-		{
+		"30":{
 			"Username": "erik.deckers",
 			"Title": "\"\"Write Good Content\"\" is a Stupid Strategy: 7 Advanced Writing Techniques",
 			"Body": "How many blogging \"\"secrets\"\" articles have you read that tell you to \"\"write good conte",
@@ -302,9 +332,10 @@
 			"Signup Counts": "51",
 			"First Name": "Erik",
 			"Last Name": "Deckers",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":30
 		},
-		{
+		"31":{
 			"Username": "jcnear",
 			"Title": "Polymaths, Technology & Education",
 			"Body": "Should iPads be in every classroom?",
@@ -312,9 +343,10 @@
 			"Signup Counts": "12",
 			"First Name": "Justin",
 			"Last Name": "Near",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":31
 		},
-		{
+		"32":{
 			"Username": "lukestokes",
 			"Title": "Why Bitcoin may be more disruptive than the Internet.",
 			"Body": "So you've seen some tech people mention Bitcoin and maybe you've read a news article about",
@@ -322,9 +354,10 @@
 			"Signup Counts": "32",
 			"First Name": "Luke",
 			"Last Name": "Stokes",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":32
 		},
-		{
+		"33":{
 			"Username": "dale.r.rogers@g...",
 			"Title": "The BIG Picture: HTML, CSS and Javascript 4 Noobs",
 			"Body": "I'm an Assistant Professor at Nashville State Community College in Web and Multimedia Design.",
@@ -332,9 +365,10 @@
 			"Signup Counts": "34",
 			"First Name": "Dale",
 			"Last Name": "Rogers",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":33
 		},
-		{
+		"34":{
 			"Username": "awebneck",
 			"Title": "Dat Lambda",
 			"Body": "What is Church's Lambda Calculus, and what are its implications?",
@@ -342,7 +376,8 @@
 			"Signup Counts": "14",
 			"First Name": "Jeremy",
 			"Last Name": "Holland",
-			"total_votes": 0
+			"total_votes": 0,
+			"id":34
 		}
-	]
+	}
 }
