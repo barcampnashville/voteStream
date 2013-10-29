@@ -5,8 +5,6 @@
 
 	app.controller({
 
-		AppController: function ($scope) {},
-
 		SigninController: function ($scope) {
 			$scope.user = {
 				email: 'user@barcamp.com',
