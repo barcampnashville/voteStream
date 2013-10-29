@@ -5,18 +5,21 @@
 
 	app.controller({
 
-		AppController: function ($scope) {
+		AppController: function ($scope) {},
 
-		},
+		SigninController: function ($scope) {
+			$scope.user = {
+				email: 'user@barcamp.com',
+				badgeId: ''
+			};
 
-		SigninController: function ($scope, VoteService, angularFire) {
-			$scope.submitDetails = function (item) {
-				$scope.user = VoteService.checkDetails();
+			$scope.submitDetails = function () {
+				// $scope.user = VoteService.checkDetails();
 				console.log($scope.user);
 			};
 		},
 
-		ItemsController: function ($scope, $rootScope, items, VoteService, Sockets) {
+		/*ItemsController: function ($scope, $rootScope, items, VoteService, Sockets) {
 			$scope.model.items = shuffle(items);
 
 			$scope.votes = VoteService.myVotes;
@@ -182,13 +185,12 @@
 				$scope.model.items.push({title: voteables[i].title, color: rgb(voteables[i].color)});
 			}
 		},
-
-		SessionListingController: function ($scope, angularFire) {
+*/
+		SessionListingController: function ($scope) {
 			$scope.votesRemaining = 4;
 			$scope.mysessionlist = [];
 
 			var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
-
 			SessionsRef.once('value', function (snapshot) {
 				$scope.sessions = snapshot.val();
 				$scope.$apply();

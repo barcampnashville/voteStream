@@ -10,7 +10,7 @@
 			"id" : 0,
 			"Signup Counts" : "0",
 			"Last Name" : "Presley",
-			"Availability" : ["Morning, Afternoon"]
+			"Availability" : ["Morning", "Afternoon"]
 		},
 		{
 			"Title" : "R2-WHERE ARE YOU? DROID BEACONS WITH XAMARIN",
@@ -22,7 +22,7 @@
 			"id" : 1,
 			"Signup Counts" : "4",
 			"Last Name" : "Riesgo",
-			"Availability" : ["Morning, Afternoon"]
+			"Availability" : ["Morning", "Afternoon"]
 		},
 		{
 			"Title" : "OpenMETA CyPhy Design Tools",
@@ -34,7 +34,7 @@
 			"id" : 2,
 			"Signup Counts" : "1",
 			"Last Name" : "Knight",
-			"Availability" : ["Morning, Afternoon"]
+			"Availability" : ["Morning", "Afternoon"]
 		},
 		{
 			"Title" : "VIM: No Neckbeard Required",
@@ -58,7 +58,7 @@
 			"id" : 4,
 			"Signup Counts" : "4",
 			"Last Name" : "Saunders",
-			"Availability" : ["Morning, Afternoon"]
+			"Availability" : ["Morning", "Afternoon"]
 		},
 		{
 			"Title" : "Automated Test Driven Development in JavaScript with QUnit, Grunt and Node.js",
@@ -70,7 +70,7 @@
 			"id" : 5,
 			"Signup Counts" : "15",
 			"Last Name" : "Medford",
-			"Availability" : ["Morning, Afternoon"]
+			"Availability" : ["Morning", "Afternoon"]
 		},
 		{
 			"Title" : "Don't Be an Asana-hole - Pretty Project Management with a Punch",
@@ -82,7 +82,7 @@
 			"id" : 6,
 			"Signup Counts" : "5",
 			"Last Name" : "Bosworth",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		},
 		{
 			"Title" : "Crafting a compelling Developer Experience",
@@ -94,7 +94,7 @@
 			"id" : 7,
 			"Signup Counts" : "6",
 			"Last Name" : "Evans",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		},
 		{
 			"Title" : "Creative Learning: Replacing Manuals with iBooks ",
@@ -106,7 +106,7 @@
 			"id" : 8,
 			"Signup Counts" : "7",
 			"Last Name" : "Coons ",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "A Ramble: How the NSA's actions threaten to segment and destroy the globalness of the internet.",
 			"total_votes" : 0,
@@ -117,7 +117,7 @@
 			"id" : 9,
 			"Signup Counts" : "16",
 			"Last Name" : "Woodcock",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Live Dance Floor: Using HTML, JavaScript and Python to control a 3ft by 3ft dance floor.",
 			"total_votes" : 0,
@@ -139,7 +139,7 @@
 			"id" : 11,
 			"Signup Counts" : "12",
 			"Last Name" : "Bodayle",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "WTF! - Why You Didn't Get the Job",
 			"total_votes" : 0,
@@ -161,7 +161,7 @@
 			"id" : 13,
 			"Signup Counts" : "5",
 			"Last Name" : "Hamilton",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Why drupal.org contrib release engineering is bad.",
 			"total_votes" : 0,
@@ -172,7 +172,7 @@
 			"id" : 14,
 			"Signup Counts" : "2",
 			"Last Name" : "Porter",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Web Accessibility - Why should I care?",
 			"total_votes" : 0,
@@ -194,7 +194,7 @@
 			"id" : 16,
 			"Signup Counts" : "9",
 			"Last Name" : "Zenerino",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Examining the Snow Globe: Healthcare ROI and Heavy Metal Vocals",
 			"total_votes" : 0,
@@ -205,7 +205,7 @@
 			"id" : 17,
 			"Signup Counts" : "6",
 			"Last Name" : "Vucovich",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "How Does Google Hummingbird Impact SEO?",
 			"total_votes" : 0,
@@ -227,7 +227,7 @@
 			"id" : 19,
 			"Signup Counts" : "7",
 			"Last Name" : "Zack",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Bootstrap your responses",
 			"total_votes" : 0,
@@ -249,7 +249,7 @@
 			"id" : 21,
 			"Signup Counts" : "28",
 			"Last Name" : "Nelson",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "We Must Know Everything",
 			"total_votes" : 0,
@@ -271,7 +271,7 @@
 			"id" : 23,
 			"Signup Counts" : "43",
 			"Last Name" : "Norman",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Get Structured, Get Sexy... Get Schema",
 			"total_votes" : 0,
@@ -282,7 +282,7 @@
 			"id" : 24,
 			"Signup Counts" : "33",
 			"Last Name" : "Canter",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Adobe got hacked. Hackers stole your password. Now what?",
 			"total_votes" : 0,
@@ -293,7 +293,7 @@
 			"id" : 25,
 			"Signup Counts" : "18",
 			"Last Name" : "Clements",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Tech Talk: Content Marketing for Tech Companies",
 			"total_votes" : 0,
@@ -304,7 +304,7 @@
 			"id" : 26,
 			"Signup Counts" : "31",
 			"Last Name" : "Coyle",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Confessions of a Remote Worker",
 			"total_votes" : 0,
@@ -315,7 +315,7 @@
 			"id" : 27,
 			"Signup Counts" : "43",
 			"Last Name" : "Kasper",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Getting Started With Socket.io",
 			"total_votes" : 0,
@@ -326,7 +326,7 @@
 			"id" : 28,
 			"Signup Counts" : "19",
 			"Last Name" : "Cadenhead",
-			"Availability" : ["Morning, Afternoon"]
+			"Availability" : ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "\"\"Write Good Content\"\" is a Stupid Strategy: 7 Advanced Writing Techniques",
 			"total_votes" : 0,
@@ -337,7 +337,7 @@
 			"id" : 30,
 			"Signup Counts" : "51",
 			"Last Name" : "Deckers",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Polymaths, Technology & Education",
 			"total_votes" : 0,
@@ -348,7 +348,7 @@
 			"id" : 31,
 			"Signup Counts" : "12",
 			"Last Name" : "Near",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "Why Bitcoin may be more disruptive than the Internet.",
 			"total_votes" : 0,
@@ -359,7 +359,7 @@
 			"id" : 32,
 			"Signup Counts" : "32",
 			"Last Name" : "Stokes",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  }, {
 			"Title" : "The BIG Picture: HTML, CSS and Javascript 4 Noobs",
 			"total_votes" : 0,
@@ -381,7 +381,7 @@
 			"id" : 34,
 			"Signup Counts" : "14",
 			"Last Name" : "Holland",
-			"Availability": ["Morning, Afternoon"]
+			"Availability": ["Morning", "Afternoon"]
 		  },
 		  {
 

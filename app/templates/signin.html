@@ -1,12 +1,11 @@
-<form name="voterDetails" data-ng-controller="SigninController">
-	<p>What is your Voting ID?</p>
-	<p>
-		<label>Voting ID</label>
-		<input type="name" name="v_id" ng-model="voting_id" required="required"/>
-		<div ng-show="invalid">Invalid: <span>This is not a valid id</span></div>
-	</p>
+<form name="voterDetails">
+	<p>Enter your details below</p>
 
-	<p>
-	<input type="submit" value="Submit" data-ng-click="submitDetails(voting_id)"/>
-  </p>
+	<label>Badge ID</label>
+	<input type="text" name="id" data-ng-model="user.badgeId" required/>
+	<div ng-show="voterDetails.$invalid"><p>This is not a valid id</p></div>
+	<input type="submit" value="Submit" data-ng-click="submitDetails(user)"/>
+
 </form>
+
+<p>User id: {{user.badgeId}}</p>

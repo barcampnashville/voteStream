@@ -1,0 +1,48 @@
+<div class="container sessions">
+
+	<p class="label label-warning">{{votesRemaining}} votes left</p>
+	<ul>
+		<li data-ng-repeat="mysession in mysessionlist">
+			{{mysession.Title}}
+		</li>
+	</ul>
+
+	<ul class="list-unstyled">
+		<li class="well" data-ng-repeat="session in sessions | filter:{Availability: 'Afternoon'}">
+
+			<div class="row">
+
+				<div class="pull-right">
+					<button type="button" class="btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!votes.voted">
+						<i class="fa fa-thumbs-o-up"></i>
+					</button>
+
+					<button type="button" class="btn btn-warning" data-ng-click="downVote(session)" data-ng-show="votes.voted">
+						<i class="fa fa-thumbs-o-down"></i>
+					</button>
+				</div>
+
+				<div class="sessionTitle">
+					<h3>Title</h3>
+					<p>{{session.Title}}</p>
+				</div>
+
+				<div class="sessionDescription">
+					<h3>Description</h3>
+					<p>{{session.Body}}</p>
+				</div>
+
+				<div class="sessionSpeaker">
+					<h3>Speaker</h3>
+					<p>{{session['First Name']}} {{session['Last Name']}}</p>
+				</div>
+
+				<div class="category">
+					<h3>Categories</h3>
+					<p>{{session['Session Category']}}</p>
+				</div>
+
+			</div>
+		</li>
+	</ul>
+</div>

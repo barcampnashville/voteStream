@@ -57,7 +57,7 @@ module.exports = function (grunt) {
               port: 9000,
               livereload: 35729,
               // change this to '0.0.0.0' to access the server from outside
-              hostname: '0.0.0.0',
+              hostname: 'localhost',
               middleware: function (connect, options) {
                 //console.log(lrSnippet);
                 var middlewares = [proxySnippet,
@@ -221,7 +221,9 @@ module.exports = function (grunt) {
               context:{env:'development'}
             },
             files : {
-              '<%= yeoman.app %>/index.html':'<%= yeoman.dist %>/index.html'
+              '<%= yeoman.dist %>/index.html':'<%= yeoman.app %>/index.html',
+                '<%= yeoman.dist %>/templates/sessionlist.html':'<%= yeoman.app %>/templates/sessionlist.html',
+                '<%= yeoman.dist %>/templates/signin.html':'<%= yeoman.app %>/templates/signin.html',
             }
           },
           dist : {
@@ -229,7 +231,9 @@ module.exports = function (grunt) {
               context:{env:'production'}
             },
             files : {
-              '<%= yeoman.dist %>/index.html':'<%= yeoman.app %>/index.html'
+                '<%= yeoman.dist %>/index.html':'<%= yeoman.app %>/index.html',
+                '<%= yeoman.dist %>/templates/sessionlist.html':'<%= yeoman.app %>/templates/sessionlist.html',
+                '<%= yeoman.dist %>/templates/signin.html':'<%= yeoman.app %>/templates/signin.html',
             }
           }
         },
@@ -382,7 +386,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'preprocess:dist', // generate html
-        // 'compass:dist',
+        'compass:dist',
         'less:dist',
         'concurrent:min', // copy and minify assets
         //'autoprefixer', // autoprefix css to .tmp
