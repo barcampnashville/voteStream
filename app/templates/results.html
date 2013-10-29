@@ -1,13 +1,19 @@
-<h1>Voting Results</h1>
+<caption><h1>Voting Results</h1></caption>
 	<div class="span8">
 		<table class="table table-hover">
-		  <th>Title</th>
-		  <th>Username</th>
-		  <th>Votes</th>
+		<thead>
+		  <tr>
+			  <th>Title</th>
+			  <th>Username</th>
+			  <th>Votes</th>
+		  </tr>
+		</thead>
+		<tbody>
 		  <tr ng-repeat="session in sessions | orderBy: 'Title' | orderBy: '-total_votes'">
 		      <td>{{session.Title}}</td>
 		      <td>{{session.Username}}</td>
 		      <td>{{session.total_votes}}</td>
 		  </tr>
+		 </tbody>
 		</table>
 	</div>
