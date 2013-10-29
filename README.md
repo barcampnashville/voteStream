@@ -14,21 +14,22 @@ iBeacon - pop schedule with room; track no. of people
   description
   categories x 2
 ##categories: 2 each session; 15 total
-  all
-  code
-  content
-  creative enterprise
-  design
-  gear
-  infrastructure
-  life hacks
-  marketing
-  mobile
-  social
-  social enterprise
-  start up
-  ux/ia
-  other
+  * all
+  * code
+  * content
+  * creative enterprise
+  * design
+  * gear
+  * infrastructure
+  * life hacks
+  * marketing
+  * mobile
+  * social
+  * social enterprise
+  * start up
+  * ux/ia
+  * other
+
 ##5 votes total
   1 per session
   ranking/positioning
