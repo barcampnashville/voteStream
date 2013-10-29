@@ -1,0 +1,13 @@
+<h1>Voting Results</h1>
+	<div class="span8">
+		<table class="table table-hover">
+		  <th>Title</th>
+		  <th>Username</th>
+		  <th>Votes</th>
+		  <tr ng-repeat="session in sessions | orderBy: '-total_votes' ">
+		      <td>{{session.Title}}</td>
+		      <td>{{session.Username}}</td>
+		      <td>{{session.total_votes}}</td>
+		  </tr>
+		</table>
+	</div>

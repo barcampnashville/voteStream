@@ -11,9 +11,9 @@
 					templateUrl : '/templates/signin.html',
 					controller : 'SigninController'
 				})
-				.when('/admin', {
-					templateUrl : '/templates/admin.html',
-					controller : 'AdminController'
+				.when('/results', {
+					templateUrl : '/templates/results.html',
+					controller : 'ResultsController'
 				})
 				.when('/sessions', {
 					templateUrl: '/templates/sessionlist.html',
