@@ -196,7 +196,9 @@
 				$scope.$apply();
 			});
 
-			//angularFire(SessionsRef, $scope, 'sessions');
+			$scope.sessionFilter = {
+				Availability: 'Morning'
+			};
 
 			$scope.$on('upVote', function () {
 				$scope.votesRemaining -= 1;

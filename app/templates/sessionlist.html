@@ -7,8 +7,26 @@
 		</li>
 	</ul>
 
+	<select data-ng-model="sessionFilter['Session Category']">
+		<option value="">All</option>
+		<option value="Code">Code</option>
+		<option value="Content">Content</option>
+		<option value="Creative Enterprise">Creative Enterprise</option>
+		<option value="Design">Design</option>
+		<option value="Gear">Gear</option>
+		<option value="Infrastructure">Infrastructure</option>
+		<option value="Life Hacks">Life Hacks</option>
+		<option value="Marketing">Marketing</option>
+		<option value="Mobile">Mobile</option>
+		<option value="Social">Social</option>
+		<option value="Social Enterprise">Social Enterprise</option>
+		<option value="Start Up">Start Up</option>
+		<option value="UX/IA">UX/IA</option>
+		<option value="Other">Other</option>
+	</select>
+
 	<ul class="list-unstyled">
-		<li class="well" data-ng-repeat="session in sessions | filter:{Availability: 'Afternoon'}" data-ng-controller="SessionController">
+		<li class="well" data-ng-repeat="session in sessions | filter: sessionFilter" data-ng-controller="SessionController">
 
 			<div class="row">
 

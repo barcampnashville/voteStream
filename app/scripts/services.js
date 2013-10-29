@@ -34,7 +34,6 @@
 
 					decreaseVote: function (session) {
 						var childRef = createReference(session.id);
-						console.log(childRef);
 						childRef.transaction(function (data) {
 							data.total_votes -= 1;
 							return data;
