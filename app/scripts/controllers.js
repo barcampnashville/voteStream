@@ -5,7 +5,9 @@
 
 	app.controller({
 
-		AppController: function ($scope) {},
+		AppController: function ($scope) {
+
+		},
 
 		SigninController: function ($scope, VoteService, angularFire) {
 			$scope.submitDetails = function (item) {
@@ -182,21 +184,49 @@
 		},
 
 		SessionListingController: function ($scope, angularFire) {
+			$scope.votesRemaining = 4;
+			$scope.mysessionlist = [];
+
 			var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
-			$scope.sessions = [];
-			angularFire(SessionsRef, $scope, 'sessions');
+
+			SessionsRef.once('value', function (snapshot) {
+				$scope.sessions = snapshot.val();
+				$scope.$apply();
+			});
+
+			//angularFire(SessionsRef, $scope, 'sessions');
+
+			$scope.$on('upVote', function () {
+				$scope.votesRemaining -= 1;
+			});
+
+			$scope.$on('downVote', function () {
+				$scope.votesRemaining += 1;
+			});
 		},
 
-		SessionController: function ($scope) {
-			var sessions = $scope.sessions;
+		SessionController: function ($scope, SessionService) {
+			$scope.votes = {voted: false};
+
 			$scope.upVote = function (session) {
-				/*
-					Increase total_votes for session by 1
-					remove up button from page and repalce with button
-					to decrease vote
-					- Also, decrease user votes by 1
-				 */
-				console.log(sessions[session.id]);
+				if ($scope.votesRemaining === 0) {
+					return;
+				}
+				$scope.mysessionlist.push(session);
+				$scope.votes.voted = true;
+				$scope.$emit('upVote');
+				SessionService.increaseVote(session);
+
+			};
+
+			$scope.downVote = function (session) {
+				if ($scope.votesRemaining > 4) {
+					return;
+				}
+				$scope.mysessionlist.splice($scope.mysessionlist.indexOf(session), 1);
+				$scope.votes.voted = false;
+				$scope.$emit('downVote');
+				SessionService.decreaseVote(session);
 			};
 		}
 	});

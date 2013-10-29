@@ -8,13 +8,38 @@
 		SessionService: [
 			'$http',
 			function ($http) {
+				var ref = new Firebase('https://barcamp.firebaseio.com/Sessions/'),
+				// object to store all references
+				sessionRef = {};
+
+				// Returns the Firebase reference for given Session ID
+				function createReference (id) {
+					if (!sessionRef.hasOwnProperty(id)) {
+						sessionRef[id] = ref.child(id);
+					}
+					return sessionRef[id];
+				}
 
 				return {
 					list: function () {},
 
-					increaseVote: function (id) {},
+					increaseVote: function (session) {
+						var childRef = new Firebase(ref +'/'+ session.id);
+						console.log(childRef);
+						childRef.transaction(function (data) {
+							data.total_votes += 1;
+							return data;
+						});
+					},
 
-					decreaseVote: function (id) {},
+					decreaseVote: function (session) {
+						var childRef = createReference(session.id);
+						console.log(childRef);
+						childRef.transaction(function (data) {
+							data.total_votes -= 1;
+							return data;
+						});
+					},
 
 					star: function (id) {},
 

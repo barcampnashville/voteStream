@@ -17,9 +17,29 @@
 	<header class="container"></header>
 
 	<div class="container sessions" data-ng-controller="SessionListingController">
+
+		<p class="label label-warning">{{votesRemaining}} votes left</p>
+		<ul>
+			<li data-ng-repeat="mysession in mysessionlist">
+				{{mysession.Title}}
+			</li>
+		</ul>
+
 		<ul class="list-unstyled">
-			<li class="well" data-ng-repeat="session in sessions" data-ng-controller="SessionController" data-ng-cloak>
+			<li class="well" data-ng-repeat="session in sessions" data-ng-controller="SessionController">
+
 				<div class="row">
+
+					<div class="pull-right">
+						<button type="button" class="btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!votes.voted">
+							<i class="fa fa-thumbs-o-up"></i>
+						</button>
+
+						<button type="button" class="btn btn-warning" data-ng-click="downVote(session)" data-ng-show="votes.voted">
+							<i class="fa fa-thumbs-o-down"></i>
+						</button>
+					</div>
+
 					<div class="sessionTitle">
 						<h3>Title</h3>
 						<p>{{session.Title}}</p>
@@ -40,15 +60,6 @@
 						<p>{{session['Session Category']}}</p>
 					</div>
 
-					<div class="pull-right">
-						<button type="button" class="btn btn-primary" data-ng-click="upVote(session)">
-							<i class="fa fa-thumbs-o-up"></i>
-						</button>
-
-						<button type="button" class="btn btn-warning">
-							<i class="fa fa-thumbs-o-down"></i>
-						</button>
-					</div>
 				</div>
 			</li>
 		</ul>
