@@ -1,0 +1,10 @@
+<div class="span8">
+	<table class="table table-hover">
+	  <tr ng-repeat="session in sessions | orderBy:'title'">
+	      <td>{{session.id}}</td>
+	      <td>{{session.Title}}</td>
+	      <td>{{session.username}}</td>
+	      <td>{{session.total_votes}}</td>
+	  </tr>
+	</table>
+</div>

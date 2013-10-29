@@ -16,6 +16,12 @@
 			$scope.submitDetails = function () {};
 		},
 
+		AdminController: function($scope, angularFire) {
+			var ref = new Firebase('https://barcamp.firebaseio.com/Sessions');
+			scope.sessions = [];
+			angularFire(ref, $scope, 'sessions');
+		},	
+
 		SessionListingController: function ($scope) {
 			$scope.votesRemaining = 4;
 			$scope.mysessionlist = [];
