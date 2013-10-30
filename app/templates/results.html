@@ -3,15 +3,21 @@
 		<table class="table table-hover">
 		<thead>
 		  <tr>
+			  <th>Id</th>
 			  <th>Title</th>
 			  <th>Username</th>
+			  <th>Room</th>
+			  <th>Time</th>
 			  <th>Votes</th>
 		  </tr>
 		</thead>
 		<tbody>
 		  <tr ng-repeat="session in sessions | orderBy: 'Title' | orderBy: '-total_votes'">
+		  	  <td>{{session.id}}</td>
 		      <td>{{session.Title}}<blockquote>{{session.Body}}</blockquote></td>
 		      <td>{{session.Username}}</td>
+		      <td></td>
+		      <td></td>
 		      <td>{{session.total_votes}}</td>
 		  </tr>
 		 </tbody>
