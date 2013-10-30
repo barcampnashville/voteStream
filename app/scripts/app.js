@@ -11,6 +11,10 @@
 					templateUrl : '/templates/signin.html',
 					controller : 'SigninController'
 				})
+				.when('/results', {
+					templateUrl : '/templates/results.html',
+					controller : 'ResultsController'
+				})
 				.when('/sessions', {
 					templateUrl: '/templates/sessionlist.html',
 					controller: 'SessionListingController'
