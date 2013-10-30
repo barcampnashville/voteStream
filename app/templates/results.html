@@ -10,7 +10,7 @@
 		</thead>
 		<tbody>
 		  <tr ng-repeat="session in sessions | orderBy: 'Title' | orderBy: '-total_votes'">
-		      <td>{{session.Title}}</td>
+		      <td>{{session.Title}}<blockquote>{{session.Body}}</blockquote></td>
 		      <td>{{session.Username}}</td>
 		      <td>{{session.total_votes}}</td>
 		  </tr>
