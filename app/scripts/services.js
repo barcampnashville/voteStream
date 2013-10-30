@@ -6,8 +6,7 @@
 	app.factory({
 
 		SessionService: [
-			'$http',
-			function ($http) {
+			function () {
 				var ref = new Firebase('https://barcamp.firebaseio.com/Sessions/'),
 				// object to store all references
 				sessionRef = {};
@@ -37,11 +36,7 @@
 							data.total_votes -= 1;
 							return data;
 						});
-					},
-
-					star: function (id) {},
-
-					unstar: function (id) {}
+					}
 				};
 			}
 		]

@@ -1,14 +1,15 @@
 vote
 ====
 
-OS voting system
+Voting System
+Initially built at HackNashville 4 to serve as the method by which the winner of the hackathon was chosen, this build is more geared towards the needs of Barcamp Nashville 2013. Barcamp is held November 2, 2013.
 
-## meeting0
-200 attendees
-24 sessions total capacity
-morning and afternoon sessions - this should be functional, not UI
-iBeacon - pop schedule with room; track no. of people
-## session characteristics
+##Conference Logistics
+* ~200 attendees
+* 24 sessions total capacity
+* Speakers are available for morning, afternoon, or both session times
+* iBeacon - pop schedule with room, track number of people
+##Session
   session title
   speaker
   description

@@ -11,7 +11,7 @@ var modRewrite = require('connect-modrewrite');
 var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 module.exports = function (grunt) {
-    
+
     require('time-grunt')(grunt); // show elapsed time at the end
     require('load-grunt-tasks')(grunt); // load all grunt tasks
 
@@ -57,7 +57,7 @@ module.exports = function (grunt) {
               port: 9000,
               livereload: 35729,
               // change this to '0.0.0.0' to access the server from outside
-              hostname: 'localhost',
+              hostname: '0.0.0.0',
               middleware: function (connect, options) {
                 //console.log(lrSnippet);
                 var middlewares = [proxySnippet,
@@ -223,7 +223,7 @@ module.exports = function (grunt) {
             files : {
               '<%= yeoman.dist %>/index.html':'<%= yeoman.app %>/index.html',
                 '<%= yeoman.dist %>/templates/sessionlist.html':'<%= yeoman.app %>/templates/sessionlist.html',
-                '<%= yeoman.dist %>/templates/signin.html':'<%= yeoman.app %>/templates/signin.html',
+                '<%= yeoman.dist %>/templates/*.html':'<%= yeoman.app %>/templates/*.html',
             }
           },
           dist : {
@@ -233,7 +233,8 @@ module.exports = function (grunt) {
             files : {
                 '<%= yeoman.dist %>/index.html':'<%= yeoman.app %>/index.html',
                 '<%= yeoman.dist %>/templates/sessionlist.html':'<%= yeoman.app %>/templates/sessionlist.html',
-                '<%= yeoman.dist %>/templates/signin.html':'<%= yeoman.app %>/templates/signin.html',
+                '<%= yeoman.dist %>/templates/results.html':'<%= yeoman.app %>/templates/results.html',
+                '<%= yeoman.dist %>/templates/signin.html':'<%= yeoman.app %>/templates/signin.html'
             }
           }
         },

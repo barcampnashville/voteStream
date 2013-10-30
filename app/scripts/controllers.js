@@ -26,8 +26,9 @@
 
 			var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
 			SessionsRef.once('value', function (snapshot) {
-				$scope.sessions = snapshot.val();
-				$scope.$apply();
+				$scope.$apply(function () {
+					$scope.sessions = snapshot.val();
+				});
 			});
 
 			$scope.sessionFilter = {
