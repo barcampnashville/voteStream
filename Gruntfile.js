@@ -234,7 +234,7 @@ module.exports = function (grunt) {
                 '<%= yeoman.dist %>/index.html':'<%= yeoman.app %>/index.html',
                 '<%= yeoman.dist %>/templates/sessionlist.html':'<%= yeoman.app %>/templates/sessionlist.html',
                 '<%= yeoman.dist %>/templates/results.html':'<%= yeoman.app %>/templates/results.html',
-                '<%= yeoman.dist %>/templates/signin':'<%= yeoman.app %>/templates/signin'
+                '<%= yeoman.dist %>/templates/signin.html':'<%= yeoman.app %>/templates/signin.html'
             }
           }
         },
