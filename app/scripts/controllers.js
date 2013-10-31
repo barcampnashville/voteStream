@@ -18,6 +18,19 @@
 			var ref = new Firebase('https://barcamp.firebaseio.com/Sessions');
 			$scope.sessions = [];
 			angularFire(ref, $scope, 'sessions');
+			$scope.gridOptions = { 
+			data: 'sessions',
+			enableCellSelection: true,
+			enableRowSelection: false,
+			enableCellEditOnFocus: true,
+			columnDefs: [{field: 'id', displayName: 'ID', enableCellEdit: false}, 
+	                     {field:'title', displayName:'Title', enableCellEdit: false},
+	                     {field:'Username', displayName:'Username', enableCellEdit: false}
+	                     {field:'Room', displayName:'Room', enableCellEdit: true}
+	                     {field:'Time', displayName:'Time', enableCellEdit: true}
+	                     {field:'total_votes', displayName:'Votes', enableCellEdit: false}]
+    		};
+			console.log($scope.gridOptions);
 		},
 
 		SessionListingController: function ($scope) {
