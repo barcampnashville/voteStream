@@ -13,7 +13,7 @@
     "angular": "1.2.0-rc.3"
   },
   "devDependencies": {
-    "angular-grid": "~2.0.7",
+    "angular-grid": "*",
     "angular-touch": "~1.2.0-rc.3"
   }
 }

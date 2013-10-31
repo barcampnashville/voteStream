@@ -6,6 +6,7 @@
 
 	<!-- build:css(./) css/style.css-->
 	<link href="/bower_components/bootstrap-css/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="http://angular-ui.github.com/ng-grid/css/ng-grid.css" />
 	<link href="/styles/main.css" rel="stylesheet" type="text/css">
 	<!-- endbuild-->
 
@@ -23,21 +24,22 @@
 	<footer class="container">
 		<img src="/images/firebase-logo.png">
 	</footer>
-	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-
-	<script src="/bower_components/angular/angular.js"></script>
-	<script src="/bower_components/angular-route/angular-route.js"></script>
-	<script src="/bower_components/angular-grid/ng-grid-2.0.7.min.js"></script>
-	<script src="/bower_components/angular-touch/angular-touch.js"></script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 	<script src="https://cdn.firebase.com/v0/firebase.js"></script>
-	<!-- <script src="/bower_components/angular-fire/angularFire.js" type="text/javascript"></script> -->
+	<script src="/bower_components/angular/angular.js"></script>
+	<script type="text/javascript" src="http://angular-ui.github.com/ng-grid/lib/ng-grid.debug.js"></script>
+	<script src="/bower_components/angular-route/angular-route.js"></script>
+	<script src="/bower_components/angular-touch/angular-touch.js"></script>
 	<script src='https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js'></script>
 	<script src="https://cdn.firebase.com/v0/firebase-simple-login.js"/></script>
 
 	<!-- build:js(./) js/app.min.js-->
-	<script src="/app/scripts/controllers.js"></script>
-	<script src="/app/scripts/services.js"></script>
 	<script src="/app/scripts/app.js"></script>
+	<script src="/app/scripts/services.js"></script>
+	<script src="/app/scripts/controllers.js"></script>
+	
+	
 	<!-- endbuild-->
   </body>
 </html>

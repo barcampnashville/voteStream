@@ -1,7 +1,7 @@
 (function (angular) {
 	'use strict';
 
-	var app = angular.module('BarcampApp',['ngRoute','firebase']);
+	var app = angular.module('BarcampApp',['ngRoute','firebase','ngGrid']);
 
 	app.config([
 		'$routeProvider',
