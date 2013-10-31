@@ -39,18 +39,6 @@
 					}
 				};
 			}
-		],
-
-		AuthService: [
-			'angularFire',
-			function (angularFire) {
-				var barCampRef = new Firebase('https://barcamp.firebaseio.com/Users');
-				return {
-					login: function (user) {
-						angularFire.initalize(barCampRef, {name:'blake'});
-					}
-				};
-			}
 		]
 	});
 }(window.angular));
