@@ -24,12 +24,12 @@
 					enableRowSelection: false,
 					enableCellEditOnFocus: true,
 					sortBy: 'total_votes',
-					columnDefs: [{field: 'id', displayName: 'ID', enableCellEdit: false, width: 40, resizable: true}, 
-								{field: 'Title', displayName: 'Title', enableCellEdit: false, width: 500, resizable: true},
-								{field: 'Username', displayName: 'Username', enableCellEdit: true, width: 120, resizable: true},
-								{field:'Room', displayName:'Room', enableCellEdit: true, width: 80, resizable: true},
-								{field:'Time', displayName:'Time', enableCellEdit: true, width: 80, resizable: true},
-								{field:'total_votes', displayName:'Votes', enableCellEdit: true, width: 100, resizable: true}]
+					columnDefs: [{field: 'id', displayName: 'ID', enableCellEdit: false, width: '10%', resizable: true}, 
+								{field: 'Title', displayName: 'Title', enableCellEdit: false, width: '40%', resizable: true},
+								{field: 'Username', displayName: 'Username', enableCellEdit: true, width: '20%', resizable: true},
+								{field:'Room', displayName:'Room', enableCellEdit: true, width: '10%', resizable: true},
+								{field:'Time', displayName:'Time', enableCellEdit: true, width: '10%', resizable: true},
+								{field:'total_votes', displayName:'Votes', enableCellEdit: true, width: '10%', resizable: true}]
 					};
 		},
 
