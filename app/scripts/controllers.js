@@ -5,17 +5,30 @@
 
 	app.controller({
 
-		SigninController: function ($scope) {
-			$scope.user = {
-				email: 'user@barcamp.com',
-				badgeId: ''
+		BarcampAppController: function ($scope, angularFireAuth) {
+			var ref = $scope.ref = new Firebase("https://barcamp.firebaseio.com/");
+			angularFireAuth.initialize(ref, {scope: $scope, name: "user"});
+		},
+
+		SigninController: function ($scope, angularFireAuth, AuthService) {
+			$scope.submitDetails = function (user) {
+				var ref = $scope.ref.child('Users'),
+					userRef = ref.child(user.badgeId);
+
+				userRef.on('value', function (snapshot) {
+					if (snapshot.val()) {
+						angularFireAuth.initialize(ref, {scope: $scope, name:user.badgeId});
+					}
+				});
 			};
 
-			$scope.submitDetails = function () {};
+			$scope.$on("angularFireAuth:login", function(evt, user) {
+				console.log(user);
+			});
 		},
 
 		ResultsController: function($scope, angularFire) {
-			var ref = new Firebase('https://barcamp.firebaseio.com/Sessions');
+			var ref = $scope.ref.child('Sessions');
 			$scope.sessions = [];
 			angularFire(ref, $scope, 'sessions');
 		},
