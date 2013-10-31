@@ -11,5 +11,8 @@
   },
   "resolutions": {
     "angular": "1.2.0-rc.3"
+  },
+  "devDependencies": {
+    "angular-touch": "~1.2.0-rc.3"
   }
 }
