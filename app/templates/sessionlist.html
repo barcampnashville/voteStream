@@ -1,4 +1,8 @@
 
+{{sessions.length}}
+<div class="container sessions">
+
+
 <div class="header">
 	
 	Categories: 
@@ -54,7 +58,7 @@
 				</div>
 
 				<div class="sessionDescription">
-					<p>{{session.Body}}</p>
+					<p>{{session.Body | words: 25}}</p>
 				</div>
 
 				<div class="category">

@@ -1,17 +1,14 @@
 @import 'compass';
 
-@import 'partials/buttons';
-
 footer {
 	padding: 20px 0;
 }
 
-.category { 
+.category {
 	.label {
 		padding: 3px 5px;
 		margin: 0px 2px;
 	}
-	
 }
 
 blockquote {
@@ -25,6 +22,20 @@ blockquote {
     width: 100%; 
     height: 500px;
 }
+
+.ng-invalid {
+	&.ng-dirty {
+		color: #b94a48;
+		border-color: #b94a48;
+		@include box-shadow(inset 0 1px 1px rgba(0,0,0,0.075));
+
+		&:focus {
+			border-color: #953b39;
+			@include box-shadow(inset 0 1px 1px rgba(0,0,0,0.075),0 0 6px #d59392);
+		}
+	}
+}
+
 .ngRow:hover {
 	background-color: #ddedf0;
 }
@@ -33,6 +44,7 @@ blockquote {
 	padding-left: 30px;
 	padding-right: 30px;
 }
+
 
 .header {
    position:fixed;
@@ -52,5 +64,10 @@ blockquote {
 .label-success {
 	margin-right: 5px;
 	margin-top: 4px;
+}
+
+
+.sessionDescription{
+	word-wrap: break-word;	
 }
 
