@@ -55,7 +55,7 @@ module.exports = function (grunt) {
         connect: {
             options: {
               port: 80,
-              //livereload: 35729,
+              livereload: 35729,
               // change this to '0.0.0.0' to access the server from outside
               hostname: '0.0.0.0',
               middleware: function (connect, options) {
@@ -349,7 +349,7 @@ module.exports = function (grunt) {
         concurrent: {
             min: [
                 //'copy:styles',
-                'imagemin',
+                //'imagemin',
                 'svgmin',
             ]
         },
@@ -379,7 +379,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'build',
             'configureProxies',
-            'connect:livereload',
+            //'connect:livereload',
             'watch'
         ]);
     });
