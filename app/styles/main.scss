@@ -18,7 +18,7 @@ blockquote {
 }
 
 .gridStyle {
-    border: 1px solid rgb(212,212,212);
+    border: 2px solid rgb(212,212,212);
     width: 100%; 
     height: 500px;
 }
@@ -34,4 +34,17 @@ blockquote {
 			@include box-shadow(inset 0 1px 1px rgba(0,0,0,0.075),0 0 6px #d59392);
 		}
 	}
+}
+
+.ngRow:hover {
+	background-color: #ddedf0;
+}
+
+.well {
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.sessionDescription{
+	word-wrap: break-word;	
 }
