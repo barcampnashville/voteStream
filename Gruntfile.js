@@ -407,4 +407,6 @@ module.exports = function (grunt) {
         'jshint',
         'build'
     ]);
+
+    grunt.registerTask('heroku', 'clean less mincss');
 };
