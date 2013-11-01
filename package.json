@@ -29,7 +29,6 @@
     "grunt-concurrent": "~0.3.0",
     "load-grunt-tasks": "~0.1.0",
     "time-grunt": "~0.1.1",
-    "grunt-contrib-less": "0.7.x",
     "grunt-git-describe": "2.0.x",
     "grunt-preprocess": "2.3.x",
     "grunt-connect-proxy": "*",
