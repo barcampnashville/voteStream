@@ -1,8 +1,4 @@
 
-{{sessions.length}}
-<div class="container sessions">
-
-
 <div class="header">
 	
 	Categories: 
@@ -26,7 +22,7 @@
 	</select>
 
 	<p class="label label-warning">{{votesRemaining}} votes left</p>
-
+	
 	<div class="label label-success" data-ng-repeat="mysession in mysessionlist">
 		{{mysession.Title | limitTo: 10}}
 	</div>
@@ -58,7 +54,7 @@
 				</div>
 
 				<div class="sessionDescription">
-					<p>{{session.Body | words: 25}}</p>
+					<p>{{session.Body}}</p>
 				</div>
 
 				<div class="category">
