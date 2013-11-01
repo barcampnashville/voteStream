@@ -74,7 +74,9 @@ blockquote {
 	padding-right: 0px;
 }
 
-
+.sessionDescription{
+	word-wrap: break-word;	
+}
 
 .label-success {
 	margin-right: 5px;
@@ -85,26 +87,26 @@ blockquote {
 	background-color: $secondary-color;
 }
 
-.voting-buttons {
-	.btn-primary {
-		background-color: $primary-color;
-		border-color: $primary-color-darker;
-		&:hover {
-			background-color: $primary-color-lighter;
-			border-color: $primary-color;
-		}
+.btn-primary {
+	background-color: $primary-color;
+	border-color: $primary-color-darker;
+	&:hover, &:disabled {
+		background-color: $primary-color-lighter;
+		border-color: $primary-color;
 	}
-	.btn-warning {
-		background-color: $secondary-color;
-		&:hover {
-			background-color: $secondary-color-lighter;
-			border-color: $secondary-color;
-		}
+}
+.btn-warning {
+	background-color: $secondary-color;
+	&:hover {
+		background-color: $secondary-color-lighter;
+		border-color: $secondary-color;
 	}
 }
 
-.sessionDescription{
-	word-wrap: break-word;	
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {  
+	border-color: $secondary-color;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(254, 179, 54, 0.5);
+	outline: 0 none;
 }
 
 @media (max-width: 480px) {
