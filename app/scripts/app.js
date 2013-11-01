@@ -18,6 +18,10 @@
 				.when('/sessions', {
 					templateUrl: '/templates/sessionlist.html',
 					controller: 'SessionListingController'
+				}).
+				when('/sessions/:sessionId', {
+					templateUrl: 'templates/sessiondetail.html',
+					controller: 'SessionDetailController'
 				});
 		}
 	]);

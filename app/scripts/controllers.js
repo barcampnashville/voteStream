@@ -77,6 +77,10 @@
 			});
 		},
 
+		SessionDetailController: function($scope, $location) {
+			$scope.sessionId = $routeParams.sessionId
+		},
+
 		SessionController: function ($scope, SessionService) {
 			$scope.votes = {voted: false};
 

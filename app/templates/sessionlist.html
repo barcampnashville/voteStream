@@ -1,10 +1,6 @@
-
 <div class="header">
-	
-	Categories: 
-
 	<select data-ng-model="sessionFilter['Session Category']">
-		<option value="">All</option>
+		<option value="">All Categories</option>
 		<option value="Code">Code</option>
 		<option value="Content">Content</option>
 		<option value="Creative Enterprise">Creative Enterprise</option>
@@ -28,14 +24,13 @@
 	</div>
 
 </div>
-
 <div class="container sessions">
 	<ul class="list-unstyled">
 		<li class="well" data-ng-repeat="session in sessions | filter: sessionFilter" data-ng-controller="SessionController">
 
-			<div class="row">
+			<div class="row ">
 
-				<div class="pull-right">
+				<div class="voting-buttons pull-right">
 					<button type="button" class="btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!votes.voted">
 						<i class="fa fa-thumbs-o-up"></i>
 					</button>
@@ -54,7 +49,7 @@
 				</div>
 
 				<div class="sessionDescription">
-					<p>{{session.Body}}</p>
+					<p>{{session.Body | words: 20}}</p>
 				</div>
 
 				<div class="category">

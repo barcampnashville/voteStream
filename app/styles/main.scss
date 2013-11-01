@@ -1,5 +1,12 @@
 @import 'compass';
 
+$primary-color: #932318;
+$primary-color-lighter: lighten( $primary-color, 10%);
+$primary-color-darker: darken( $primary-color, 10%);
+$secondary-color: #feb336;
+$secondary-color-lighter: lighten( $secondary-color, 10%);
+$secondary-color-darker: darken( $secondary-color, 10%);
+
 footer {
 	padding: 20px 0;
 }
@@ -50,15 +57,15 @@ blockquote {
    position:fixed;
    left: 0;
    top: 0;
-   height: 90px;
+   height: 60px;
    width: 100%;
-   background-color: black;
+   @include background-image(linear-gradient(top, $primary-color, $primary-color-darker));
    color: white;
    padding: 10px;
 }
 
 .container {
-	padding-top: 50px;
+	padding-top: 25px;
 }
 
 .label-success {
@@ -66,8 +73,38 @@ blockquote {
 	margin-top: 4px;
 }
 
+.label-warning {
+	background-color: $secondary-color;
+}
+
+.voting-buttons {
+	.btn-primary {
+		width: 125%;
+		background-color: $primary-color;
+		border-color: $primary-color-darker;
+		&:hover {
+			background-color: $primary-color-lighter;
+			border-color: $primary-color;
+		}
+	}
+	.btn-warning {
+		width: 125%;
+		background-color: $secondary-color;
+		&:hover {
+			background-color: $secondary-color-lighter;
+			border-color: $secondary-color;
+		}
+	}
+}
 
 .sessionDescription{
 	word-wrap: break-word;	
 }
 
+@media (max-width: 480px) {
+	.header {
+		& select {
+			width: 80%;
+		}
+	}
+}
