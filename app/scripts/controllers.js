@@ -88,7 +88,7 @@
 					};
 		},
 
-		SessionListingController: function ($scope, $location, User) {
+		SessionListingController: function ($scope, $location) {
 
 			$scope.votesRemaining = 4;
 			$scope.mysessionlist = [];
@@ -114,7 +114,7 @@
 		},
 
 		SessionDetailController: function($scope, $location) {
-			$scope.sessionId = $routeParams.sessionId
+			$scope.sessionId = $routeParams.sessionId;
 		},
 
 		SessionController: function ($scope, SessionService) {
