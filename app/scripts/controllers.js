@@ -5,24 +5,60 @@
 
 	app.controller({
 
-		BarcampController: function ($scope, angularFireAuth) {
-			var barcampRef = $scope.barcampRef = new Firebase('https//barcamp.firebaseio.com/');
-			angularFireAuth.initialize(barcampRef, {scope: $scope, name: 'user'});
-			/*var auth = new FirebaseSimpleLogin(barcampRef, function (error, user) {
+		BarcampController: function ($scope, angularFireAuth) {},
+
+		SigninController: function ($scope, AuthService, $location) {
+			var ref = new Firebase('https://barcamp.firebaseio.com/');
+
+			$scope.authCallback = function (error, user) {
 				if (error) {
-					console.log(error);
+					console.log('error: ' + error.code);
 				} else if (user) {
-					console.log(user);
+					localStorage.setItem('token', user.firebaseAuthToken);
+					$scope.isLoggedIn = true;
+					$scope.userid = user.id;
+
+					$scope.userRef = ref.child('Users').child(id);
+					$scope.userRef.once('value', function (data) {
+						var val = data.val();
+						var info = {
+							userId: user.id,
+							valid: data.valid
+						};
+						if (val) {
+							info = val;
+						}
+						$scope.userRef.set(info);
+
+						$location.path('/sessions');
+					});
+				} else {
+					localStorage.clear();
+					$scope.isLoggedIn = false;
+					$location.path('/');
 				}
-			});*/
-		},
+			};
 
-		SigninController: function ($scope, angularFireAuth) {
+			$scope.login = function(provider) {
+				$scope.token = localStorage.getItem('token');
+				var options = {
+					'rememberMe': true
+				};
+				provider = 'anonymous';
 
-			$scope.submitDetails = function (id) {
-				$scope.barcampRef.child('Users');
-				angularFireAuth.login('anonymous');
-				console.log($scope.user);
+				if ($scope.token) {
+					console.log('login with token', $scope.token);
+					fireFactory.firebaseRef('users').auth($scope.token, $scope.authCallback);
+				} else {
+					console.log('login with authClient');
+					authClient.login(provider, options);
+				}
+			};
+
+			$scope.logout = function() {
+				localStorage.clear();
+				authClient.logout();
+				$location.path('/');
 			};
 		},
 
@@ -52,7 +88,7 @@
 					};
 		},
 
-		SessionListingController: function ($scope, $location) {
+		SessionListingController: function ($scope, $location, User) {
 
 			$scope.votesRemaining = 4;
 			$scope.mysessionlist = [];

@@ -1,26 +1,24 @@
-<div class="container">
-	<form name="voterDetails" data-role="form" data-ng-submit="submitDetails(user)">
 
-		<div class="form-group">
-			<label for="badgeId">Badge ID</label>
-			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-				<input type="text" name="badgeId" id="badgeId" class="form-control" data-ng-model="user.badgeId" required autofocus/>
+<form name="voterDetails" data-role="form">
 
-			</div>
-			<span ng-show="voterDetails.badgeId.$error.required && voterDetails.$dirty" class="help-block">Please enter your badge ID</span>
+	<div class="form-group">
+		<label for="badgeId">Badge ID</label>
+		<div class="input-group">
+			<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+			<input type="text" name="badgeId" id="badgeId" class="form-control" data-ng-model="badgeId" required autofocus/>
+
 		</div>
+		<span ng-show="voterDetails.badgeId.$error.required && voterDetails.$dirty" class="help-block">Please enter your badge ID</span>
+	</div>
 
-		<button type="submit" class="btn btn-primary btn-login" data-ng-disabled="voterDetails.$invalid" data-ng-click="submitDetails(user)">Submit</button>
+	<button type="submit" class="btn btn-primary btn-login" data-ng-disabled="voterDetails.$invalid" data-ng-click="submitDetails(badgeId)">Submit</button>
+</form>
 
+<p>{{user}}</p>
 
-	</form>
-
-
-	<dl class='text-center'>
-		<dt>Moring Voting</dt>
-		<dd>8 - 9:15am</dd>
-		<dt>Afternoon Voting</dt>
-		<dd>12:10 - 1:30pm</dd>
-	</dl>
-</div>
+<dl class='text-center'>
+	<dt>Moring Voting</dt>
+	<dd>8 - 9:15am</dd>
+	<dt>Afternoon Voting</dt>
+	<dd>12:10 - 1:30pm</dd>
+</dl>
