@@ -1,5 +1,5 @@
 <div class="header">
-	<select data-ng-model="sessionFilter['Session Category']">
+	<select id="category-filter" data-ng-model="sessionFilter['Session Category']">
 		<option value="">All Categories</option>
 		<option value="Code">Code</option>
 		<option value="Content">Content</option>
@@ -17,7 +17,7 @@
 		<option value="Other">Other</option>
 	</select>
 
-	<p class="label label-warning">{{votesRemaining}} votes left</p>
+	<p id="vote-counter" class="label label-warning">{{votesRemaining}} votes left</p>
 	
 	<div class="label label-success" data-ng-repeat="mysession in mysessionlist">
 		{{mysession.Title | limitTo: 10}}
@@ -26,21 +26,41 @@
 </div>
 <div class="container sessions">
 	<ul class="list-unstyled">
-		<li class="well" data-ng-repeat="session in sessions | filter: sessionFilter" data-ng-controller="SessionController">
+		<li data-ng-repeat="session in sessions | filter: sessionFilter" data-ng-controller="SessionController">
 
-			<div class="row ">
-
-				<div class="voting-buttons pull-right">
-					<button type="button" class="btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!votes.voted">
+			<div class="row">
+  				<div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
+  					<h4>{{session.Title}}</h4>
+  				</div>
+  				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
+  					<button type="button" class="btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!votes.voted">
 						<i class="fa fa-thumbs-o-up"></i>
 					</button>
 
 					<button type="button" class="btn btn-warning" data-ng-click="downVote(session)" data-ng-show="votes.voted">
 						<i class="fa fa-times"></i>
 					</button>
+  				</div>
+			</div>
+			<div class="row">
+				<div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
+					<p><i>with:</i> {{session['First Name']}} {{session['Last Name']}}</p>
 				</div>
+				<div class="category col-xs-7 col-sm-7 col-md-7">
+					<!-- <p><i>categories:</i></p> -->
+					<span class="label label-default pull-right" data-ng-repeat="category in session['Session Category']">{{category}}</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12">
+					<p>{{session.Body | words: 16}}</p>
+				</div>
+				<hr/>
+			</div>
 
-				<div class="sessionTitle">
+
+<!-- 			<div class="row ">
+				<div class="sessionTitle col-md-8">
 					<h3>{{session.Title}}</h3>
 				</div>
 
@@ -56,7 +76,17 @@
 					<p>Categories: <span class="label label-default" data-ng-repeat="category in session['Session Category']">{{category}}</span></p>
 				</div>
 
-			</div>
+				<div class="voting-buttons col-md-2">
+					<button type="button" class="btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!votes.voted">
+						<i class="fa fa-thumbs-o-up"></i>
+					</button>
+
+					<button type="button" class="btn btn-warning" data-ng-click="downVote(session)" data-ng-show="votes.voted">
+						<i class="fa fa-times"></i>
+					</button>
+				</div>
+
+			</div> -->
 		</li>
 	</ul>
 </div>

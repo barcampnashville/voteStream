@@ -13,8 +13,8 @@ footer {
 
 .category {
 	.label {
-		padding: 3px 5px;
 		margin: 0px 2px;
+		margin-bottom: 2px;
 	}
 }
 
@@ -47,25 +47,29 @@ blockquote {
 	background-color: #ddedf0;
 }
 
-.well {
-	padding-left: 30px;
-	padding-right: 30px;
-}
-
-
 .header {
-   position:fixed;
-   left: 0;
-   top: 0;
-   height: 60px;
-   width: 100%;
-   @include background-image(linear-gradient(top, $primary-color, $primary-color-darker));
-   color: white;
-   padding: 10px;
+	position:fixed;
+	left: 0;
+	top: 0;
+	height: 50px;
+	width: 100%;
+	@include background-image(linear-gradient(top, $primary-color, $primary-color-darker));
+	color: white;
+	
+	padding: 14px 15px;
+	z-index: 10000;
+	
+	#category-filter {
+   		width: 60%;
+	}
+
+	#vote-counter {
+		width: 40%;
+	}
 }
 
 .container {
-	padding-top: 25px;
+	padding-top: 30px;
 }
 
 .label-success {
@@ -79,7 +83,6 @@ blockquote {
 
 .voting-buttons {
 	.btn-primary {
-		width: 125%;
 		background-color: $primary-color;
 		border-color: $primary-color-darker;
 		&:hover {
@@ -88,7 +91,6 @@ blockquote {
 		}
 	}
 	.btn-warning {
-		width: 125%;
 		background-color: $secondary-color;
 		&:hover {
 			background-color: $secondary-color-lighter;
@@ -106,5 +108,9 @@ blockquote {
 		& select {
 			width: 80%;
 		}
+	}
+	//Adding padding per bootstrap fully fluid layout guidance
+	.sessions {
+		padding: 0 15px;
 	}
 }
