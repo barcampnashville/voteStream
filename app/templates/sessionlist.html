@@ -1,3 +1,4 @@
+{{sessions.length}}
 <div class="container sessions">
 
 	<p class="label label-warning">{{votesRemaining}} votes left</p>
@@ -49,7 +50,7 @@
 				</div>
 
 				<div class="sessionDescription">
-					<p>{{session.Body}}</p>
+					<p>{{session.Body | words: 25}}</p>
 				</div>
 
 				<div class="category">
