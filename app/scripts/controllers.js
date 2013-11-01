@@ -25,15 +25,17 @@
 					multiSelect: false,
 					enableColumnReordering: true,
 					enableCellEditOnFocus: true,
+					// Sorting syntax does not work :( -Bill Butler
+					//sortInfo: { fields: ['total_votes'], direction: 'desc' },
 					//showColumnMenu: true,
 					//showFilter: true,
 					columnDefs: [{field: 'id', displayName: 'ID', enableCellEdit: false, width: '10%'}, 
 								{field: 'Title', displayName: 'Title', enableCellEdit: false, width: '30%'},
-								{field: 'Username', displayName: 'Username', enableCellEdit: true, width: '20%'},
+								{field: 'Username', displayName: 'Username', enableCellEdit: false, width: '20%'},
 								{field:'Room', displayName:'Room', enableCellEdit: true, width: '8%'},
 								{field:'Time', displayName:'Time', enableCellEdit: true, width: '8%'},
 								{field:'Availability', displayName:'Availability', enableCellEdit: true, width: '12%'},
-								{field:'total_votes', displayName:'Votes', enableCellEdit: true, width: '10%'}]
+								{field:'total_votes', displayName:'Votes', enableCellEdit: false, width: '10%'}]
 					};
 		},
 
