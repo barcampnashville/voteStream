@@ -33,11 +33,11 @@
   					<h4>{{session.Title}}</h4>
   				</div>
   				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-  					<button type="button" class="btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!votes.voted">
+  					<button type="button" class="pull-right btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!votes.voted">
 						<i class="fa fa-thumbs-o-up"></i>
 					</button>
 
-					<button type="button" class="btn btn-warning" data-ng-click="downVote(session)" data-ng-show="votes.voted">
+					<button type="button" class="pull-right btn btn-warning" data-ng-click="downVote(session)" data-ng-show="votes.voted">
 						<i class="fa fa-times"></i>
 					</button>
   				</div>
