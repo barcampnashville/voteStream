@@ -408,5 +408,5 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-    grunt.registerTask('heroku', 'grunt server');
+    grunt.registerTask('heroku', 'server');
 };
