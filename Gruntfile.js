@@ -388,7 +388,7 @@ module.exports = function (grunt) {
         'clean:dist',
         'preprocess:dist', // generate html
         'compass:dist',
-        'less:dist',
+        //'less:dist',
         'concurrent:min', // copy and minify assets
         //'autoprefixer', // autoprefix css to .tmp
         'jade',
