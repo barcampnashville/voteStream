@@ -57,7 +57,7 @@ module.exports = function (grunt) {
               port: 80,
               livereload: 35729,
               // change this to '0.0.0.0' to access the server from outside
-              hostname: '0.0.0.0',
+              //hostname: '0.0.0.0',
               middleware: function (connect, options) {
                 //console.log(lrSnippet);
                 var middlewares = [proxySnippet,
