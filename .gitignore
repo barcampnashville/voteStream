@@ -11,7 +11,6 @@ pids
 logs
 *.swp
 npm-debug.log
-node_modules
 .idea/*
 bower_components/*
 release/*
