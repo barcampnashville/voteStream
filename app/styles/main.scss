@@ -33,3 +33,24 @@ blockquote {
 	padding-left: 30px;
 	padding-right: 30px;
 }
+
+.header {
+   position:fixed;
+   left: 0;
+   top: 0;
+   height: 90px;
+   width: 100%;
+   background-color: black;
+   color: white;
+   padding: 10px;
+}
+
+.container {
+	padding-top: 30px;
+}
+
+.label-success {
+	margin-right: 5px;
+	margin-top: 4px;
+}
+

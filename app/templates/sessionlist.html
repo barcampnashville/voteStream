@@ -1,11 +1,7 @@
-<div class="container sessions">
 
-	<p class="label label-warning">{{votesRemaining}} votes left</p>
-	<ul>
-		<li data-ng-repeat="mysession in mysessionlist">
-			{{mysession.Title}}
-		</li>
-	</ul>
+<div class="header">
+	
+	Categories: 
 
 	<select data-ng-model="sessionFilter['Session Category']">
 		<option value="">All</option>
@@ -25,6 +21,15 @@
 		<option value="Other">Other</option>
 	</select>
 
+	<p class="label label-warning">{{votesRemaining}} votes left</p>
+
+	<div class="label label-success" data-ng-repeat="mysession in mysessionlist">
+		{{mysession.Title | limitTo: 10}}
+	</div>
+
+</div>
+
+<div class="container sessions">
 	<ul class="list-unstyled">
 		<li class="well" data-ng-repeat="session in sessions | filter: sessionFilter" data-ng-controller="SessionController">
 
