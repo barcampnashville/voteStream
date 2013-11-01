@@ -7,15 +7,7 @@
   },
   "dependencies": {
     "express": "3.4.2",
-    "winston": "*",
-    "winston-mongodb": "*",
-    "connect-mongo": "*",
-    "uglify-js": "*",
-    "socket.io": "*",
-    "mongodb": "*",
-    "q": "*",
-    "imagemin": "*",
-    "request": "*"
+    "q": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -41,7 +33,6 @@
     "grunt-contrib-less": "0.7.x",
     "grunt-git-describe": "2.0.x",
     "grunt-preprocess": "2.3.x",
-    "connect-modrewrite": "0.2.3",
     "grunt-connect-proxy": "*",
     "connect-livereload": "*",
     "grunt-contrib-jade": "*",
