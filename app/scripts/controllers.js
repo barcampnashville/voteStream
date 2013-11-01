@@ -113,6 +113,10 @@
 			});
 		},
 
+		SessionDetailController: function($scope, $location) {
+			$scope.sessionId = $routeParams.sessionId
+		},
+
 		SessionController: function ($scope, SessionService) {
 			$scope.votes = {voted: false};
 
@@ -120,7 +124,7 @@
 				if ($scope.votesRemaining === 0) {
 					return;
 				}
-				$scope.mysessionlist.push(session);
+				// $scope.mysessionlist.push(session);
 				$scope.votes.voted = true;
 				$scope.$emit('upVote');
 				SessionService.increaseVote(session);
@@ -131,7 +135,7 @@
 				if ($scope.votesRemaining > 4) {
 					return;
 				}
-				$scope.mysessionlist.splice($scope.mysessionlist.indexOf(session), 1);
+				// $scope.mysessionlist.splice($scope.mysessionlist.indexOf(session), 1);
 				$scope.votes.voted = false;
 				$scope.$emit('downVote');
 				SessionService.decreaseVote(session);

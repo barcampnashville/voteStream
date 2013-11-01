@@ -1,13 +1,20 @@
 @import 'compass';
 
+$primary-color: #932318;
+$primary-color-lighter: lighten( $primary-color, 10%);
+$primary-color-darker: darken( $primary-color, 10%);
+$secondary-color: #feb336;
+$secondary-color-lighter: lighten( $secondary-color, 10%);
+$secondary-color-darker: darken( $secondary-color, 10%);
+
 footer {
 	padding: 20px 0;
 }
 
 .category {
 	.label {
-		padding: 3px 5px;
 		margin: 0px 2px;
+		margin-bottom: 2px;
 	}
 }
 
@@ -40,11 +47,76 @@ blockquote {
 	background-color: #ddedf0;
 }
 
-.well {
-	padding-left: 30px;
-	padding-right: 30px;
+.header {
+	position:fixed;
+	left: 0;
+	top: 0;
+	height: 50px;
+	width: 100%;
+	@include background-image(linear-gradient(top, $primary-color, $primary-color-darker));
+	color: white;
+	
+	padding: 14px 15px;
+	z-index: 10000;
+	
+	#category-filter {
+   		width: 60%;
+	}
+
+	#vote-counter {
+		width: 40%;
+	}
+}
+
+.container .sessions, .container .results {
+	padding-top: 55px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 .sessionDescription{
 	word-wrap: break-word;	
+}
+
+.label-success {
+	margin-right: 5px;
+	margin-top: 4px;
+}
+
+.label-warning {
+	background-color: $secondary-color;
+}
+
+.btn-primary {
+	background-color: $primary-color;
+	border-color: $primary-color-darker;
+	&:hover, &:disabled {
+		background-color: $primary-color-lighter;
+		border-color: $primary-color;
+	}
+}
+.btn-warning {
+	background-color: $secondary-color;
+	&:hover {
+		background-color: $secondary-color-lighter;
+		border-color: $secondary-color;
+	}
+}
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {  
+	border-color: $secondary-color;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(254, 179, 54, 0.5);
+	outline: 0 none;
+}
+
+@media (max-width: 480px) {
+	.header {
+		& select {
+			width: 80%;
+		}
+	}
+	//Adding padding per bootstrap fully fluid layout guidance
+	.sessions {
+		padding: 0 15px;
+	}
 }
