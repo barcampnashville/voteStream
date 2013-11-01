@@ -1,14 +1,15 @@
 {
   "name": "VotingApp",
   "version": "0.0.1",
+  "description": "pii-vote",
   "private": true,
   "scripts": {
     "start": "grunt server"
   },
-  "dependencies": {
-    "express": "3.4.2",
-    "q": "*"
-  },
+   "dependencies": {
+    "express": "~3.4.0",
+    "node-static": "~0.7.1"
+  } /*
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",
@@ -36,5 +37,5 @@
     "grunt-contrib-jade": "*",
     "grunt-contrib-compass": "~0.6.0",
     "bower": "*"
-  }
+  }*/
 }
