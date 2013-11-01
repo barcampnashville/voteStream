@@ -1,1 +1,1 @@
-web: grunt server
+web: ./node_modules/grunt/.bin/grunt server
