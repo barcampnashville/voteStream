@@ -19,11 +19,21 @@
 					return sessionRef[id];
 				}
 
+				function increaseUserVote(sessionid) {
+					var userRef = new Firebase('https://barcamp.firebaseio.com/Users');
+					var uidRef = userRef.child($scope.user.d.id).child('Votes');
+					uidRef.transaction(function (data) {
+						var item = [data];
+						return item.push(sessionid);
+					});
+				}
+
 				return {
 					list: function () {},
 
 					increaseVote: function (session) {
 						var childRef = createReference(session.id);
+						increaseUserVote(session.id);
 						childRef.transaction(function (data) {
 							data.total_votes += 1;
 							return data;
@@ -44,7 +54,7 @@
 		AuthService: [
 			'angularFireAuth', '$http',
 			function (angularFireAuth, $http) {
-				
+
 				function onAuthResponse(response) {
 					return angularFireAuth.login(response.data);
 				}

@@ -101,6 +101,11 @@
 		SessionListingController: function ($scope) {
 			var sessionList;
 
+			var userRef = new Firebase('https://barcamp.firebaseio.com/Users');
+			userRef.child($scope.user.d.id).child('Votes').on('value', function (snapshot) {
+				console.log(snapshot.val());
+			});
+
 			$scope.votesRemaining = 4;
 
 			var morningCutoff = new Date(2013, 10, 2, 10);
@@ -131,6 +136,7 @@
 			$scope.$on('downVote', function () {
 				$scope.votesRemaining += 1;
 			});
+			console.log($scope.user.d);
 		},
 
 		SessionController: function ($scope, SessionService) {
