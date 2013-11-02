@@ -122,10 +122,6 @@
 			});
 		},
 
-		SessionDetailController: function($scope, $location) {
-			$scope.sessionId = $routeParams.sessionId;
-		},
-
 		SessionController: function ($scope, SessionService) {
 			$scope.castlot = {vote: false};
 
