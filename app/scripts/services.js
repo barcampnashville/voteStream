@@ -4,7 +4,7 @@
 	var app = angular.module('ng');
 
 	app.factory({
-
+		
 		SessionService: [
 			function () {
 				var ref = new Firebase('https://barcamp.firebaseio.com/Sessions/'),
