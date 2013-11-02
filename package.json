@@ -1,5 +1,5 @@
 {
-  "name": "angular",
+  "name": "pii-vote",
   "version": "0.0.0",
   "description": "vote",
   "main": "web.js",
@@ -16,8 +16,17 @@
   },
   "engines": {
     "node": "0.10.21",
-    "npm":  "1.3.11"
+    "npm": "1.3.11"
   },
   "author": "blah@blah.com",
-  "license": "BSD-2-Clause"
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-compass": "~0.6.0",
+    "grunt-contrib-uglify": "~0.2.4",
+    "matchdep": "~0.3.0"
+  }
 }
