@@ -35,6 +35,9 @@
 
 		SessionListingController: function ($scope, $location) {
 			var sessionList;
+			// $scope.inRoom = function (item) {
+			// 	return item.Room ? item.Room.length > 0;
+			// };
 
 			$scope.myVotes = [];
 			$scope.votesRemaining = 4;

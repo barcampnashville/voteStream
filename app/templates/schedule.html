@@ -1,6 +1,13 @@
 <div class="container sessions">
+	<div class="header schedule">
+		<h3 class="text-center">Schedule</h3>
+	</div>
+
+	<img id="event-logo"  src="/images/event-logo.png">
+	<hr />
+
 	<ul class="list-unstyled">
-		<li data-ng-repeat="session in sessions | orderBy: Time" data-ng-controller="SessionController">
+		<li data-ng-repeat="session in sessions | orderBy: Time | filter: inRoom " data-ng-controller="SessionController">
 			<div class="row">
   				<div class="sessionTitle col-lg-12">
   					<p class="text-center strong"><strong>{{session.Title}}</strong></p>
