@@ -1,3 +1,4 @@
+/*jshint node:true */
 'use strict';
 
 // # Globbing
@@ -405,6 +406,10 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', [
         'jshint',
+        'build'
+    ]);
+
+    grunt.registerTask('heroku', [
         'build'
     ]);
 
