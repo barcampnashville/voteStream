@@ -18,7 +18,11 @@
 				.when('/sessions', {
 					templateUrl: '/templates/sessionlist.html',
 					controller: 'SessionListingController'
-				}).
+				})
+                .when('/rooms', {
+                    templateUrl: '/templates/room.html',
+                    controller: 'SessionListingController'
+                }).
 				when('/sessions/:sessionId', {
 					templateUrl: 'templates/sessiondetail.html',
 					controller: 'SessionDetailController'

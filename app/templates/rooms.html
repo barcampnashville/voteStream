@@ -1,0 +1,19 @@
+<div class="container sessions">
+	<ul class="list-unstyled">
+		<li data-ng-repeat="session in sessions | orderBy: Time" data-ng-controller="SessionController">
+			<div class="row">
+  				<div class="sessionTitle col-lg-12">
+  					<p class="text-center strong">{{session.Title}}</p>
+  				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<p class="text-center"><strong>Time: {{session.Time}}</strong></p>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<p class="text-center">Room: {{session.Room}}</p>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
