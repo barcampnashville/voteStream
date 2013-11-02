@@ -36,6 +36,11 @@
 				$location.path('/login');
 			});
 
+			var pollingStateRef = new Firebase('https://barcamp.firebaseio.com/PollingState');
+			pollingStateRef.on('value', function(snapshot) {
+				$scope.pollingIsActive = snapshot.val();
+			});
+
 		},
 
 		SigninController: function ($scope, AuthService) {
