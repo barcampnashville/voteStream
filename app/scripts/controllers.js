@@ -35,21 +35,23 @@
 
 		SessionListingController: function ($scope, $location) {
 			var sessionList;
-			// $scope.inRoom = function (item) {
-			// 	return item.Room ? item.Room.length > 0;
-			// };
 
-			$scope.myVotes = [];
+			$scope.inRoom = function (item) {
+				return item.Room ? item.Room.length > 0 : false;
+			};
+
 			$scope.votesRemaining = 4;
 
 			var noon = new Date(2013, 10, 2, 10);
 
-			var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
-			SessionsRef.once('value', function (snapshot) {
-				$scope.$apply(function () {
-					$scope.sessions = snapshot.val();
+			if (!$scope.sessions) {
+				var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
+				SessionsRef.once('value', function (snapshot) {
+					$scope.$apply(function () {
+						$scope.sessions = snapshot.val();
+					});
 				});
-			});
+			}
 
 			if (noon.valueOf() > Date.now()) {
 				sessionList = 'Morning';
@@ -80,7 +82,6 @@
 				$scope.castlot.vote = true;
 				$scope.$emit('upVote');
 				SessionService.increaseVote(session);
-				$scope.myVotes.push(session);
 			};
 
 			$scope.downVote = function (session) {
