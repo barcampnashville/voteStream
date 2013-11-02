@@ -47,7 +47,7 @@
 				});
 			});
 
-			if (noon < new Date()) {
+			if (noon.valueOf() > Date.now()) {
 				sessionList = 'Morning';
 			} else {
 				sessionList = 'Afternoon';
@@ -58,14 +58,12 @@
 				Room: ''
 			};
 
-			$scope.$on('upVote', function (session) {
+			$scope.$on('upVote', function () {
 				$scope.votesRemaining -= 1;
-				myVotes.push(session);
 			});
 
 			$scope.$on('downVote', function () {
 				$scope.votesRemaining += 1;
-				myVotes.splice(myVotes.indexOf(myVotes[session]));
 			});
 		},
 
@@ -81,7 +79,7 @@
 					return;
 				}
 				$scope.castlot.vote = true;
-				$scope.$emit('upVote', session);
+				$scope.$emit('upVote');
 				SessionService.increaseVote(session);
 
 			};
@@ -91,7 +89,7 @@
 					return;
 				}
 				$scope.castLot.voted = false;
-				$scope.$emit('downVote', session);
+				$scope.$emit('downVote');
 				SessionService.decreaseVote(session);
 			};
 		}
