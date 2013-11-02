@@ -21,7 +21,10 @@
 				})
                 .when('/schedule', {
                     templateUrl: '/templates/schedule.html',
-                    controller: 'SessionListingController'
+                    controller: 'ScheduleController'
+                })
+                .otherwise({
+                    redirectTo: '/'
                 });
 		}
 	]);

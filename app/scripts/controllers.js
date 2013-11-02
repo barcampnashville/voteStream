@@ -33,12 +33,23 @@
 			};
 		},
 
-		SessionListingController: function ($scope, $location) {
-			var sessionList;
+		ScheduleController: function ($scope) {
+			var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
 
-			$scope.inRoom = function (item) {
-				return item.Room ? item.Room.length > 0 : false;
-			};
+			SessionsRef.on('value', function (snapshot) {
+				$scope.$apply(function () {
+					$scope.sessions = snapshot.val();
+				});
+			});
+
+
+			// $scope.inRoom = function (item) {
+			// return item.Room ? item.Room.length > 0 : false;
+			// };
+		},
+
+		SessionListingController: function ($scope) {
+			var sessionList;
 
 			$scope.votesRemaining = 4;
 
