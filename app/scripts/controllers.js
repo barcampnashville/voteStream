@@ -34,8 +34,9 @@
 		},
 
 		SessionListingController: function ($scope, $location) {
-			var myVotes = [],
-				sessionList;
+			var sessionList;
+
+			$scope.myVotes = [];
 			$scope.votesRemaining = 4;
 
 			var noon = new Date(2013, 10, 2, 10);
@@ -54,8 +55,7 @@
 			}
 
 			$scope.sessionFilter = {
-				Availability: sessionList,
-				Room: ''
+				Availability: sessionList
 			};
 
 			$scope.$on('upVote', function () {
@@ -77,14 +77,14 @@
 				$scope.castlot.vote = true;
 				$scope.$emit('upVote');
 				SessionService.increaseVote(session);
-
+				$scope.myVotes.push(session);
 			};
 
 			$scope.downVote = function (session) {
 				if ($scope.votesRemaining > 4) {
 					return;
 				}
-				$scope.castLot.voted = false;
+				$scope.castlot.vote = false;
 				$scope.$emit('downVote');
 				SessionService.decreaseVote(session);
 			};

@@ -49,15 +49,11 @@ blockquote {
   background-image: -o-linear-gradient(top, #932318, #671911);
   background-image: linear-gradient(top, #932318, #671911);
   color: white;
-  padding: 14px 15px;
+  padding: 8px 15px;
   z-index: 10000;
 }
-.header #category-filter {
-  width: 60%;
-}
-.header #vote-counter {
-  width: 40%;
-}
+
+.votesremaning {width: 30%; vertical-align: bottom;}
 
 .container .sessions, .container .results {
   padding-top: 55px;
