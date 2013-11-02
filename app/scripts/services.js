@@ -66,21 +66,6 @@
 				};
 			}
 		],
-
-		UserService: [
-		function () {
-			var userRef = new Firebase('https://barcamp.firebaseio.com/Users');
-			userRef.child(userid).on('value', function (snapshot) {
-				var userobj = {
-					getUser: function() {
-
-					}
-				};
-
-			});
-		}
-		],
-
 		AuthService: [
 			'angularFireAuth', '$http', 'webStorage', '$q',
 			function (angularFireAuth, $http, webStorage, $q) {

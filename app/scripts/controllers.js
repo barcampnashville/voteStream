@@ -113,7 +113,7 @@
 			};
 		},
 
-		SessionListingController: function ($scope, UserService) {
+		SessionListingController: function ($scope) {
 			var sessionList;
 
 			var userRef = new Firebase('https://barcamp.firebaseio.com/Users');
@@ -182,7 +182,7 @@
 			});
 		},
 
-		SessionController: function ($scope, SessionService, UserService) {
+		SessionController: function ($scope, SessionService) {
 			$scope.castlot = {vote: false};
 
 			$scope.upVote = function (session) {
