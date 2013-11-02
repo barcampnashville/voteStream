@@ -50,32 +50,6 @@ module.exports = function (grunt) {
                 '!<%= config.app %>/scripts/vendor/*',
                 'test/spec/{,*/}*.js'
             ]
-        },
-
-        compass: {
-          options: {
-            sassDir: '<%= config.app %>/styles',
-            cssDir: '<%= config.dist %>/styles',
-            generatedImagesDir: '.tmp/images/generated',
-            imagesDir: '<%= config.app %>/images',
-            javascriptsDir: '<%= config.app %>/scripts',
-            fontsDir: '<%= config.app %>/styles/fonts',
-            httpImagesPath: '/images',
-            httpGeneratedImagesPath: '/images/generated',
-            httpFontsPath: '/styles/fonts',
-            relativeAssets: false,
-            noLineComments: true
-          },
-          dist: {
-            options: {
-              generatedImagesDir: '<%= config.dist %>/images/generated'
-            }
-          },
-          server: {
-            options: {
-              debugInfo: true
-            }
-          }
         }
 
     });
@@ -86,8 +60,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'copy:dist',
-        //'compass:dist'
+        'copy:dist'
+        // probably should have something to process here...
     ]);
 
     grunt.registerTask('default', [
