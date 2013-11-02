@@ -59,7 +59,12 @@ blockquote {
 .schedule h3 {
   margin-top: 5px;
 }
-.votesremaning {width: 30%; vertical-align: bottom;}
+.votesremaning {
+  width: 50px;
+  vertical-align: bottom;
+    margin-left: 20px;
+    margin-right: auto;
+}
 
 .container .sessions, .container .results {
   padding-top: 55px;
