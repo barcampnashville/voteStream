@@ -160,7 +160,7 @@
 
 		},
 
-		SessionController: function ($scope, SessionService, angularFire, angularFireAuth) {
+		SessionController: function ($scope, SessionService) {
 			$scope.castlot = {vote: false};
 
 			$scope.upVote = function (session) {

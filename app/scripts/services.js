@@ -65,29 +65,6 @@
 				};
 			}
 		],
-		UserService: [
-			'$q',
-			function ($q) {
-				var ref = new Firebase('https://barcamp.firebaseio.com/Users');
-				return {
-					getUser: function (id) {
-						var userRef = ref.child(id),
-							userData,
-							deferred = $q.defer();
-
-						setTimeout(function () {
-							userRef.on('value', function (snapshot) {
-								userData = snapshot.val();
-							});
-						}, 200);
-
-						deferred.resolve(userData);
-
-						return deferred.promise;
-					}
-				};
-			}
-		],
 		AuthService: [
 			'angularFireAuth', '$http', 'webStorage', '$q',
 			function (angularFireAuth, $http, webStorage, $q) {
