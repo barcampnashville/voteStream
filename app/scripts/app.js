@@ -20,7 +20,7 @@
 					controller: 'SessionListingController'
 				})
                 .when('/rooms', {
-                    templateUrl: '/templates/room.html',
+                    templateUrl: '/templates/rooms.html',
                     controller: 'SessionListingController'
                 }).
 				when('/sessions/:sessionId', {
