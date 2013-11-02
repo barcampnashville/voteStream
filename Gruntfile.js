@@ -34,7 +34,7 @@ module.exports = function (grunt) {
                     cwd: '<%= config.app %>',
                     dest: '<%= config.dist %>',
                     src: [
-                        '**/*.{ico,png,txt,webp,gif,png,jpeg,jpg,html,js}'
+                        '**/*.{ico,png,txt,webp,gif,png,jpeg,jpg,html,js,css}'
                     ]
                 }]
             }
@@ -87,7 +87,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'copy:dist',
-        'compass:dist'
+        //'compass:dist'
     ]);
 
     grunt.registerTask('default', [
