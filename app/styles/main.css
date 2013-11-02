@@ -65,9 +65,17 @@ blockquote {
   padding-right: 0px;
 }
 
-.sessionDescription{
+.sessionDescription {
   word-wrap: break-word;
   line-height:1.2em;  
+}
+
+.toggle-collapsed {
+    font-weight:normal;
+}
+
+.toggle-text {
+    font-weight:bold;
 }
 
 .collapsed {
