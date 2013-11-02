@@ -7,7 +7,7 @@
 
 		BarcampController: function ($scope, angularFireAuth) {},
 
-		SigninController: function ($scope, AuthService, $location) {
+		SigninController: function ($scope, AuthService) {
 			var ref = new Firebase('https://barcamp.firebaseio.com/');
 
 			$scope.authCallback = function (error, user) {
@@ -68,30 +68,30 @@
 
 			$scope.sessions = angularFire(ref, $scope, 'sessions');
 			$scope.gridOptions = {
-					data: 'sessions' ,
-					enableColumnResize: true,
-					enableRowSelection: true,
-					multiSelect: false,
-					enableColumnReordering: true,
-					enableCellEditOnFocus: true,
-					// Sorting syntax does not work :( -Bill Butler
-					//sortInfo: { fields: ['total_votes'], direction: 'desc' },
-					//showColumnMenu: true,
-					//showFilter: true,
-					columnDefs: [{field: 'id', displayName: 'ID', enableCellEdit: false, width: '10%'},
-								{field: 'Title', displayName: 'Title', enableCellEdit: false, width: '30%'},
-								{field: "Username", displayName: 'Username', enableCellEdit: false, width: '10%'},
-								{field: 'Room', displayName:'Room', enableCellEdit: true, width: '8%'},
-								{field: 'Time', displayName:'Time', enableCellEdit: true, width: '8%'},
-								{field: 'Availability', displayName:'Availability', enableCellEdit: true, width: '24%'},
-								{field: 'total_votes', displayName:'Votes', enableCellEdit: false, width: '10%'}]
-					};
+				data: 'sessions' ,
+				enableColumnResize: true,
+				enableRowSelection: true,
+				multiSelect: false,
+				enableColumnReordering: true,
+				enableCellEditOnFocus: true,
+				columnDefs: [
+					{field: 'id', displayName: 'ID', enableCellEdit: false, width: '10%'},
+					{field: 'Title', displayName: 'Title', enableCellEdit: false, width: '30%'},
+					{field: "Username", displayName: 'Username', enableCellEdit: false, width: '10%'},
+					{field: 'Room', displayName:'Room', enableCellEdit: true, width: '8%'},
+					{field: 'Time', displayName:'Time', enableCellEdit: true, width: '8%'},
+					{field: 'Availability', displayName:'Availability', enableCellEdit: true, width: '24%'},
+					{field: 'total_votes', displayName:'Votes', enableCellEdit: false, width: '10%'}
+				]
+			};
 		},
 
 		SessionListingController: function ($scope, $location) {
-
+			var myVotes = [],
+				sessionList;
 			$scope.votesRemaining = 4;
-			$scope.mysessionlist = [];
+
+			var noon = new Date(2013, 10, 2, 10);
 
 			var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
 			SessionsRef.once('value', function (snapshot) {
@@ -100,16 +100,25 @@
 				});
 			});
 
+			if (noon < new Date()) {
+				sessionList = 'Morning';
+			} else {
+				sessionList = 'Afternoon';
+			}
+
 			$scope.sessionFilter = {
-				Availability: 'Morning'
+				Availability: sessionList,
+				Room: ''
 			};
 
-			$scope.$on('upVote', function () {
+			$scope.$on('upVote', function (session) {
 				$scope.votesRemaining -= 1;
+				myVotes.push(session);
 			});
 
 			$scope.$on('downVote', function () {
 				$scope.votesRemaining += 1;
+				myVotes.splice(myVotes.indexOf(myVotes[session]));
 			});
 		},
 
@@ -118,15 +127,14 @@
 		},
 
 		SessionController: function ($scope, SessionService) {
-			$scope.votes = {voted: false};
+			$scope.castlot = {vote: false};
 
 			$scope.upVote = function (session) {
 				if ($scope.votesRemaining === 0) {
 					return;
 				}
-				// $scope.mysessionlist.push(session);
-				$scope.votes.voted = true;
-				$scope.$emit('upVote');
+				$scope.castlot.vote = true;
+				$scope.$emit('upVote', session);
 				SessionService.increaseVote(session);
 
 			};
@@ -135,9 +143,8 @@
 				if ($scope.votesRemaining > 4) {
 					return;
 				}
-				// $scope.mysessionlist.splice($scope.mysessionlist.indexOf(session), 1);
-				$scope.votes.voted = false;
-				$scope.$emit('downVote');
+				$scope.castLot.voted = false;
+				$scope.$emit('downVote', session);
 				SessionService.decreaseVote(session);
 			};
 		}
