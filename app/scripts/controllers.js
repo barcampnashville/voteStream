@@ -40,8 +40,9 @@
 
 		SigninController: function ($scope, AuthService) {
 
-			AuthService.logout();
-
+			if (AuthService.initializing) {
+				AuthService.logout();
+			}
 
 			$scope.login = function (id) {
 				$scope.thinking = true;
@@ -88,9 +89,11 @@
 			var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
 
 			SessionsRef.on('value', function (snapshot) {
-				$scope.$apply(function () {
-					$scope.sessions = snapshot.val();
-				});
+				$scope.sessions = snapshot.val();
+				if (!$scope.$$phase) {
+					$scope.$apply();
+				}
+
 			});
 
 			$scope.inRoom = function (item) {
@@ -117,29 +120,30 @@
 			//if before 8am on Nov. 2
 			if (nowTime < startOfFirstPoll) {
 				var firstPollHours = startOfFirstPoll.getHours();
-				amOrPm = firstPollHours >= 12 ? 'pm' : 'am'
+				amOrPm = firstPollHours >= 12 ? 'pm' : 'am';
 				$scope.pollingMessage = "Polling has not yet begun. Please check back at " + firstPollHours + " " + amOrPm + ".";
 			}
 			//else if after 9:15am but before 12:10pm on Nov. 2
 			else if (nowTime > endOfFirstPoll && nowTime < startOfSecondPoll) {
 				var secondPollHours = startOfSecondPoll.getHours();
-				amOrPm = secondPollHours >= 12 ? 'pm' : 'am'
+				amOrPm = secondPollHours >= 12 ? 'pm' : 'am';
 				$scope.pollingMessage = "Polling has not yet begun. Please check back at " + secondPollHours + " " + amOrPm + ".";
 			}
 			//else if after 1:30pm on Nov. 2
 			else if (nowTime > endOfSecondPoll) {
 				$scope.pollingMessage = "Polling has concluded. Please read about the sessions below, or view the schedule.";
 			}
-			else { 
+			else {
 				$scope.isPollingOpen = true;
 			}
 
 			if (!$scope.sessions) {
 				var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
 				SessionsRef.once('value', function (snapshot) {
-					$scope.$apply(function () {
-						$scope.sessions = snapshot.val();
-					});
+					$scope.sessions = snapshot.val();
+					if (!$scope.$$phase) {
+						$scope.$apply();
+					}
 				});
 			}
 

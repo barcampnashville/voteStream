@@ -1,7 +1,7 @@
 (function (angular) {
 	'use strict';
 
-	var app = angular.module('BarcampApp',['ngRoute','firebase','ngGrid']);
+	var app = angular.module('BarcampApp',['ngRoute','firebase','ngGrid','webStorageModule']);
 
 	app.config([
 		'$routeProvider',
@@ -13,7 +13,8 @@
 				})
 				.when('/sessions', {
 					templateUrl: '/templates/sessionlist.html',
-					controller: 'SessionListingController'
+					controller: 'SessionListingController',
+					allowAnonymousAccess:true
 				})
 				.when('/schedule', {
 					templateUrl: '/templates/schedule.html',
