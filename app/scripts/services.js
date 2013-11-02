@@ -19,21 +19,27 @@
 					return sessionRef[id];
 				}
 
-				function increaseUserVote(sessionid) {
+				function increaseUserVote(sessionid,userId) {
 					var userRef = new Firebase('https://barcamp.firebaseio.com/Users');
-					var uidRef = userRef.child($scope.user.d.id).child('Votes');
-					uidRef.transaction(function (data) {
-						var item = [data];
-						return item.push(sessionid);
+					var uidRef = userRef.child(userId);
+					uidRef.once('value', function (snapshot) {
+						if (snapshot.val().Votes) {
+							uidRef.transaction(function (data) {
+								data.Votes.push(sessionid);
+								return data;
+							});
+						} else {
+							uidRef.set({'Votes':[sessionid]});
+						}
 					});
 				}
 
 				return {
 					list: function () {},
 
-					increaseVote: function (session) {
+					increaseVote: function (session, userId) {
 						var childRef = createReference(session.id);
-						increaseUserVote(session.id);
+						increaseUserVote(session.id,userId);
 						childRef.transaction(function (data) {
 							data.total_votes += 1;
 							return data;

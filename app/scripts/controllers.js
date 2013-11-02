@@ -141,7 +141,6 @@
 			$scope.$on('downVote', function () {
 				$scope.votesRemaining += 1;
 			});
-			console.log($scope.user.d);
 		},
 
 		SessionController: function ($scope, SessionService) {
@@ -153,7 +152,7 @@
 				}
 				$scope.castlot.vote = true;
 				$scope.$emit('upVote');
-				SessionService.increaseVote(session);
+				SessionService.increaseVote(session, $scope.user.d.id);
 			};
 
 			$scope.downVote = function (session) {
