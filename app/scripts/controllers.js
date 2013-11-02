@@ -5,9 +5,60 @@
 
 	app.controller({
 
-		BarcampController: function ($scope, angularFireAuth) {},
+		BarcampController: function ($scope, $location, AuthService) {
+			var lastPath;
 
-		SigninController: function ($scope, AuthService) {},
+			$scope.logout = AuthService.logout;
+
+			$scope.$on("$routeChangeStart", function(evt, next, current) {
+				// User navigating
+				if (!AuthService.user && !(next && next.$$route && next.$$route.allowAnonymousAccess)) {
+					lastPath = next && next.path;
+					evt.preventDefault();
+					$location.path('/login');
+				}
+			});
+
+			$scope.$on("angularFireAuth:login", function(evt, user) {
+				// return to the attempted authenticated location
+				$scope.user = user;
+				lastPath = '';
+				$location.path(lastPath || '/sessions');
+			});
+
+			$scope.$on("angularFireAuth:logout", function(evt, user) {
+				// User logged out.
+				$location.path('/login');
+			});
+
+			$scope.$on("angularFireAuth:error", function(evt, err) {
+				// There was an error during authentication.
+				$location.path('/login');
+			});
+
+		},
+
+		SigninController: function ($scope, AuthService) {
+
+			AuthService.logout();
+
+
+			$scope.login = function (id) {
+				$scope.thinking = true;
+				$scope.error = null;
+				AuthService.login(id)
+					.then(
+						function () {
+							$scope.thinking = false;
+							// expect redirect now
+						},
+						function (error) {
+							$scope.thinking = false;
+							$scope.error = error;
+						}
+					);
+			};
+		},
 
 		ResultsController: function($scope, angularFire) {
 

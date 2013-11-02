@@ -42,32 +42,32 @@
 		],
 
 		AuthService: [
-			function () {
-				var barcampRef = new Firebase('https://barcamp.firebaseio.com/');
-
-				function signIn (id) {
-					var auth,
-						validId = true;
-					if (validId) {
-						auth = new FirebaseSimpleLogin(barcampRef, function (err, user) {
-							if (err) {
-								console.log(err);
-							} else {
-								return user;
-							}
-						});
-					}
-					return auth;
+			'angularFireAuth', '$http',
+			function (angularFireAuth, $http) {
+				
+				function onAuthResponse(response) {
+					return angularFireAuth.login(response.data);
 				}
 
-				return {
-					login: function (id) {
-						var auth = signIn(id);
-						auth.login('anonymous');
-					},
+				var ref = new Firebase('https://barcamp.firebaseio.com/'),
+					api = {
+						login: function (id) {
+							return $http.post('/login', { id: id })
+								.then(onAuthResponse);
+						},
 
-					logout: function () {}
-				};
+						isAuthenticated: function () {
+							return false;
+						},
+
+						logout: function () {
+							angularFireAuth.logout();
+						}
+					};
+
+				angularFireAuth.initialize(ref, {scope: api, name: "user"});
+
+				return api;
 			}
 		]
 	})
