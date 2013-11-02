@@ -8,8 +8,9 @@
 		SessionService: [
 			function () {
 				var ref = new Firebase('https://barcamp.firebaseio.com/Sessions/'),
+					userRef = new Firebase('https://barcamp.firebaseio.com/Users'),
 				// object to store all references
-				sessionRef = {};
+					sessionRef = {};
 
 				// Returns the Firebase reference for given Session ID
 				function createReference (id) {
@@ -20,17 +21,25 @@
 				}
 
 				function increaseUserVote(sessionid,userId) {
-					var userRef = new Firebase('https://barcamp.firebaseio.com/Users');
 					var uidRef = userRef.child(userId);
 					uidRef.once('value', function (snapshot) {
-						if (snapshot.val().Votes) {
-							uidRef.transaction(function (data) {
-								data.Votes.push(sessionid);
-								return data;
-							});
-						} else {
-							uidRef.set({'Votes':[sessionid]});
-						}
+						uidRef.transaction(function (data) {
+							if (!data.Votes) {
+								data.Votes = {};
+							}
+							data.Votes[sessionid] = true;
+							data.voteCounts = Object.keys(data.Votes).length;
+							return data;
+						});
+					});
+				}
+
+				function decreaseUserVote (sessionid, userId) {
+					var uidRef = userRef.child(userId);
+					uidRef.transaction(function (data) {
+						delete data.Votes[sessionid];
+						data.voteCounts = Object.keys(data.Votes).length;
+						return data;
 					});
 				}
 
@@ -46,8 +55,9 @@
 						});
 					},
 
-					decreaseVote: function (session) {
+					decreaseVote: function (session, userId) {
 						var childRef = createReference(session.id);
+						decreaseUserVote(session.id, userId);
 						childRef.transaction(function (data) {
 							data.total_votes -= 1;
 							return data;
@@ -55,6 +65,20 @@
 					}
 				};
 			}
+		],
+
+		UserService: [
+		function () {
+			var userRef = new Firebase('https://barcamp.firebaseio.com/Users');
+			userRef.child(userid).on('value', function (snapshot) {
+				var userobj = {
+					getUser: function() {
+
+					}
+				};
+
+			});
+		}
 		],
 
 		AuthService: [

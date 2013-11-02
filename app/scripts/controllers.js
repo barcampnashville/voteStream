@@ -37,8 +37,11 @@
 			});
 
 			var pollingStateRef = new Firebase('https://barcamp.firebaseio.com/PollingState');
-			pollingStateRef.on('value', function(snapshot) {
+			pollingStateRef.on('value', function (snapshot) {
 				$scope.pollingIsActive = snapshot.val();
+				if (!$scope.$$phase) {
+					$scope.$apply();
+				}
 			});
 
 		},
@@ -106,15 +109,14 @@
 			};
 		},
 
-		SessionListingController: function ($scope) {
+		SessionListingController: function ($scope, UserService) {
 			var sessionList;
 
 			var userRef = new Firebase('https://barcamp.firebaseio.com/Users');
-			userRef.child($scope.user.d.id).child('Votes').on('value', function (snapshot) {
-				console.log(snapshot.val());
-			});
 
-			$scope.votesRemaining = 4;
+			userRef.child($scope.user.d.id).child('voteCounts').on('value', function (snapshot) {
+				$scope.votesRemaining = 4 - (snapshot.val() || 0);
+			});
 
 			var morningCutoff = new Date(2013, 10, 2, 10);
 			// var nowTime = Date.now();
@@ -176,7 +178,7 @@
 			});
 		},
 
-		SessionController: function ($scope, SessionService) {
+		SessionController: function ($scope, SessionService, UserService) {
 			$scope.castlot = {vote: false};
 
 			$scope.upVote = function (session) {
@@ -194,7 +196,7 @@
 				}
 				$scope.castlot.vote = false;
 				$scope.$emit('downVote');
-				SessionService.decreaseVote(session);
+				SessionService.decreaseVote(session, $scope.user.d.id);
 			};
 		}
 	});
