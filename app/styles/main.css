@@ -65,9 +65,8 @@ blockquote {
   padding-right: 0px;
 }
 
-.sessionDescription {
-  word-wrap: break-word;
-  line-height:1.2em;  
+.sessionDescription label p {
+  word-wrap: break-word; 
 }
 
 .toggle-collapsed {
