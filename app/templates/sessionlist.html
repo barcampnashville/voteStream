@@ -29,6 +29,7 @@
 
 <div class="container sessions">
 	<img id="event-logo"  src="/images/event-logo.png">
+	<div ng-show="!pollingIsActive" class="alert alert-danger">Polling is currently closed.<br />Your votes will not be counted at this time.</div>
 	<hr>
 	<ul class="list-unstyled">
 		<li data-ng-repeat="session in sessions | filter: sessionFilter" data-ng-controller="SessionController">
@@ -69,5 +70,3 @@
 		</li>
 	</ul>
 </div>
-{{pollingMessage}}
-{{pollingIsOpen}}
