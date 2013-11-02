@@ -84,29 +84,73 @@
 			};
 		},
 
-		SessionListingController: function ($scope, $location) {
-			var myVotes = [],
-				sessionList;
-			$scope.votesRemaining = 4;
-
-			var noon = new Date(2013, 10, 2, 10);
-
+		ScheduleController: function ($scope) {
 			var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
-			SessionsRef.once('value', function (snapshot) {
+
+			SessionsRef.on('value', function (snapshot) {
 				$scope.$apply(function () {
 					$scope.sessions = snapshot.val();
 				});
 			});
 
-			if (noon.valueOf() > Date.now()) {
+			$scope.inRoom = function (item) {
+				return item.Room ? item.Room.length > 0 : false;
+			};
+		},
+
+		SessionListingController: function ($scope) {
+			var sessionList;
+
+			$scope.votesRemaining = 4;
+
+			var morningCutoff = new Date(2013, 10, 2, 10);
+			// var nowTime = Date.now();
+			var nowTime = new Date(2013, 10, 2, 12, 30);
+			// ### This line above this is for testing!!
+			var startOfFirstPoll = new Date(2013, 10, 2, 8);
+			var endOfFirstPoll = new Date(2013, 10, 2, 9, 15);
+			var startOfSecondPoll = new Date(2013, 10, 2, 12, 10);
+			var endOfSecondPoll = new Date(2013, 10, 2, 13, 30);
+			var amOrPm = 'am';
+			$scope.isPollingOpen = false;
+
+			//if before 8am on Nov. 2
+			if (nowTime < startOfFirstPoll) {
+				var firstPollHours = startOfFirstPoll.getHours();
+				amOrPm = firstPollHours >= 12 ? 'pm' : 'am'
+				$scope.pollingMessage = "Polling has not yet begun. Please check back at " + firstPollHours + " " + amOrPm + ".";
+			}
+			//else if after 9:15am but before 12:10pm on Nov. 2
+			else if (nowTime > endOfFirstPoll && nowTime < startOfSecondPoll) {
+				var secondPollHours = startOfSecondPoll.getHours();
+				amOrPm = secondPollHours >= 12 ? 'pm' : 'am'
+				$scope.pollingMessage = "Polling has not yet begun. Please check back at " + secondPollHours + " " + amOrPm + ".";
+			}
+			//else if after 1:30pm on Nov. 2
+			else if (nowTime > endOfSecondPoll) {
+				$scope.pollingMessage = "Polling has concluded. Please read about the sessions below, or view the schedule.";
+			}
+			else { 
+				$scope.isPollingOpen = true;
+			}
+
+			if (!$scope.sessions) {
+				var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
+				SessionsRef.once('value', function (snapshot) {
+					$scope.$apply(function () {
+						$scope.sessions = snapshot.val();
+					});
+				});
+			}
+
+			if (morningCutoff.valueOf() > Date.now()) {
 				sessionList = 'Morning';
 			} else {
 				sessionList = 'Afternoon';
 			}
 
 			$scope.sessionFilter = {
-				Availability: sessionList,
-				Room: ''
+				Availability: sessionList
 			};
 
 			$scope.$on('upVote', function () {
@@ -128,14 +172,13 @@
 				$scope.castlot.vote = true;
 				$scope.$emit('upVote');
 				SessionService.increaseVote(session);
-
 			};
 
 			$scope.downVote = function (session) {
 				if ($scope.votesRemaining > 4) {
 					return;
 				}
-				$scope.castLot.voted = false;
+				$scope.castlot.vote = false;
 				$scope.$emit('downVote');
 				SessionService.decreaseVote(session);
 			};

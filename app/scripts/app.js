@@ -17,7 +17,7 @@
 				})
 				.when('/schedule', {
 					templateUrl: '/templates/schedule.html',
-					controller: 'SessionListingController'
+					controller: 'ScheduleController'
 				})
 				.when('/login', {
 					templateUrl : '/templates/signin.html',

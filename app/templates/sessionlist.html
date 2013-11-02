@@ -1,30 +1,35 @@
-<div class="header">
-	<select id="category-filter" data-ng-model="sessionFilter['Session Category']">
-		<option value="">All Categories</option>
-		<option value="Code">Code</option>
-		<option value="Content">Content</option>
-		<option value="Creative Enterprise">Creative Enterprise</option>
-		<option value="Design">Design</option>
-		<option value="Gear">Gear</option>
-		<option value="Infrastructure">Infrastructure</option>
-		<option value="Lifehacks">Lifehacks></option>
-		<option value="Marketing">Marketing</option>
-		<option value="Mobile">Mobile</option>
-		<option value="Social">Social</option>
-		<option value="Social Enterprise">Social Enterprise</option>
-		<option value="Start Up">Start Up</option>
-		<option value="UX/IA">UX/IA</option>
-		<option value="Other">Other</option>
-	</select>
+<div class="container">
+	<div class="header">
+		<div class="row">
+			<div class="col-xs-8 col-sm-5 col-md-4 col-lg-3">
+				<select id="category-filter" class="form-control" data-ng-model="sessionFilter['Session Category']">
+					<option value="">All Categories</option>
+					<option value="Code">Code</option>
+					<option value="Content">Content</option>
+					<option value="Creative Enterprise">Creative Enterprise</option>
+					<option value="Design">Design</option>
+					<option value="Gear">Gear</option>
+					<option value="Infrastructure">Infrastructure</option>
+					<option value="Lifehacks">Lifehacks</option>
+					<option value="Marketing">Marketing</option>
+					<option value="Mobile">Mobile</option>
+					<option value="Social">Social</option>
+					<option value="Social Enterprise">Social Enterprise</option>
+					<option value="Start Up">Start Up</option>
+					<option value="UX/IA">UX/IA</option>
+					<option value="Other">Other</option>
+				</select>
+			</div>
 
-	<p id="vote-counter" class="label label-warning">{{votesRemaining}} votes left</p>
+			<p class="label label-warning votesremaning">{{votesRemaining}} votes left</p>
 
-	<div class="label label-success" data-ng-repeat="mysession in mysessionlist">
-		{{mysession.Title | limitTo: 10}}
+		</div>
 	</div>
-
 </div>
+
 <div class="container sessions">
+	<img id="event-logo"  src="/images/event-logo.png">
+	<hr>
 	<ul class="list-unstyled">
 		<li data-ng-repeat="session in sessions | filter: sessionFilter" data-ng-controller="SessionController">
 
@@ -33,11 +38,11 @@
   					<h4>{{session.Title}}</h4>
   				</div>
   				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-  					<button type="button" class="pull-right btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!castlot.vote">
+  					<button type="button" class="pull-right btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!castlot.vote" data-ng-disabled="!ispollingOpen" >
 						<i class="fa fa-thumbs-o-up"></i>
 					</button>
 
-					<button type="button" class="pull-right btn btn-warning" data-ng-click="downVote(session)" data-ng-show="castlot.vote">
+					<button type="button" class="pull-right btn btn-warning" data-ng-click="downVote(session)" data-ng-show="castlot.vote" data-ng-disabled="!ispollingOpen">
 						<i class="fa fa-times"></i>
 					</button>
   				</div>
@@ -64,3 +69,5 @@
 		</li>
 	</ul>
 </div>
+{{pollingMessage}}
+{{pollingIsOpen}}
