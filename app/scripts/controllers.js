@@ -52,7 +52,7 @@
 
 			$scope.votesRemaining = 4;
 
-			var morningCutoff = new Date(2013, 10, 2, 10);
+			var morningCutoff = new Date(2013, 10, 2, 12, 10);
 
 			if (!$scope.sessions) {
 				var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
