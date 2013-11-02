@@ -7,7 +7,7 @@
 		<option value="Design">Design</option>
 		<option value="Gear">Gear</option>
 		<option value="Infrastructure">Infrastructure</option>
-		<option value="Life Hacks">Life Hacks</option>
+		<option value="Lifehacks">Lifehacks></option>
 		<option value="Marketing">Marketing</option>
 		<option value="Mobile">Mobile</option>
 		<option value="Social">Social</option>
@@ -52,7 +52,12 @@
 			</div>
 			<div class="row">
 				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12">
-					<p>{{session.Body | words: 16}}</p>
+					<p data-ng-class="{ collapsed: !showText }">{{session.Body}}</p>
+					<label class="toggle-collapsed">
+        				<input type="checkbox" data-ng-model="showText" />
+        				<div data-ng-hide="showText"><i>show more</i></div>
+        				<div data-ng-show="showText"><i>show less</i></div>
+    				</label>
 				</div>
 				<hr/>
 			</div>

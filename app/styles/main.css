@@ -65,8 +65,33 @@ blockquote {
   padding-right: 0px;
 }
 
-.sessionDescription {
+.sessionDescription{
   word-wrap: break-word;
+  line-height:1.2em;  
+}
+
+.collapsed {
+    line-height: 1em;
+    height: 2em;
+    overflow: hidden;
+}
+
+.toggle-collapsed input {
+    display: none;
+}
+
+/* Extra styles to add faux-ellipsis to multi-line text */
+.collapsed {
+    position:relative;
+}
+
+.collapsed::after {
+    content:'\2026';
+    display: block;
+    position:absolute;
+    bottom:0;
+    right:0;
+    background-color:#fff;
 }
 
 .label-success {
