@@ -7,10 +7,6 @@
 		'$routeProvider',
 		function ($routeProvider) {
 			$routeProvider
-				.when('/', {
-					templateUrl : '/templates/signin.html',
-					controller : 'SigninController'
-				})
 				.when('/results', {
 					templateUrl : '/templates/results.html',
 					controller : 'ResultsController'
@@ -19,10 +15,22 @@
 					templateUrl: '/templates/sessionlist.html',
 					controller: 'SessionListingController'
 				})
-                .when('/schedule', {
-                    templateUrl: '/templates/schedule.html',
-                    controller: 'SessionListingController'
-                });
+				.when('/schedule', {
+					templateUrl: '/templates/schedule.html',
+					controller: 'SessionListingController'
+				})
+				.when('/login', {
+					templateUrl : '/templates/signin.html',
+					controller : 'SigninController',
+					allowAnonymousAccess:true
+				})
+				.when('/logout', {
+					redirectTo:'/login',
+					allowAnonymousAccess:true
+				})
+				.otherwise({
+					redirectTo:'/sessions'
+				});
 		}
 	]);
 }(window.angular));

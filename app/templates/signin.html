@@ -1,5 +1,5 @@
 
-<form name="voterDetails" data-role="form">
+<form name="voterDetails" data-role="form" data-ng-submit="login(badgeId)">
 
 	<div class="form-group">
 		<label for="badgeId">Badge ID</label>
@@ -8,7 +8,7 @@
 			<input type="text" name="badgeId" id="badgeId" class="form-control" data-ng-model="badgeId" required autofocus/>
 
 		</div>
-		<span ng-show="voterDetails.badgeId.$error.required && voterDetails.$dirty" class="help-block">Please enter your badge ID</span>
+		<span ng-show="voterDetails.badgeId.$error.required &amp;&amp; voterDetails.$dirty" class="help-block">Please enter your badge ID</span>
 	</div>
 
 	<button type="submit" class="btn btn-primary btn-login" data-ng-disabled="voterDetails.$invalid" data-ng-click="submitDetails(badgeId)">Submit</button>
