@@ -19,8 +19,8 @@
 					templateUrl: '/templates/sessionlist.html',
 					controller: 'SessionListingController'
 				})
-                .when('/rooms', {
-                    templateUrl: '/templates/rooms.html',
+                .when('/schedule', {
+                    templateUrl: '/templates/schedule.html',
                     controller: 'SessionListingController'
                 });
 		}
