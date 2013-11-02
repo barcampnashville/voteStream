@@ -42,10 +42,9 @@
 				});
 			});
 
-
-			// $scope.inRoom = function (item) {
-			// return item.Room ? item.Room.length > 0 : false;
-			// };
+			$scope.inRoom = function (item) {
+				return item.Room ? item.Room.length > 0 : false;
+			};
 		},
 
 		SessionListingController: function ($scope) {
@@ -53,7 +52,7 @@
 
 			$scope.votesRemaining = 4;
 
-			var noon = new Date(2013, 10, 2, 10);
+			var morningCutoff = new Date(2013, 10, 2, 10);
 
 			if (!$scope.sessions) {
 				var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions');
@@ -64,7 +63,7 @@
 				});
 			}
 
-			if (noon.valueOf() > Date.now()) {
+			if (morningCutoff.valueOf() > Date.now()) {
 				sessionList = 'Morning';
 			} else {
 				sessionList = 'Afternoon';

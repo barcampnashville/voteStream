@@ -7,7 +7,7 @@
 	<hr />
 
 	<ul class="list-unstyled">
-		<li data-ng-repeat="session in sessions | orderBy: scheduleResults" data-ng-controller="SessionController">
+		<li data-ng-repeat="session in sessions | orderObjectBy:'Room':true | orderObjectBy:'Time':true ">
 			<div class="row">
   				<div class="sessionTitle col-lg-12">
   					<p class="text-center strong"><strong>{{session.Title}}</strong></p>
