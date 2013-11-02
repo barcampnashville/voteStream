@@ -303,8 +303,10 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('default', [
-        //'build'
+        'build'
     ]);
+
+    grunt.registerTask('heroku:', ['build']);
 
     //grunt.registerTask('heroku', 'server');
 };
