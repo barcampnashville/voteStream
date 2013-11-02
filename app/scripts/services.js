@@ -11,7 +11,6 @@
 					userRef = new Firebase('https://barcamp.firebaseio.com/Users'),
 				// object to store all references
 					sessionRef = {};
-
 				// Returns the Firebase reference for given Session ID
 				function createReference (id) {
 					if (!sessionRef.hasOwnProperty(id)) {
@@ -62,6 +61,29 @@
 							data.total_votes -= 1;
 							return data;
 						});
+					}
+				};
+			}
+		],
+		UserService: [
+			'$q',
+			function ($q) {
+				var ref = new Firebase('https://barcamp.firebaseio.com/Users');
+				return {
+					getUser: function (id) {
+						var userRef = ref.child(id),
+							userData,
+							deferred = $q.defer();
+
+						setTimeout(function () {
+							userRef.on('value', function (snapshot) {
+								userData = snapshot.val();
+							});
+						}, 200);
+
+						deferred.resolve(userData);
+
+						return deferred.promise;
 					}
 				};
 			}

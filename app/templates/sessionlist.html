@@ -28,8 +28,15 @@
 </div>
 
 <div class="container sessions">
+	<ul class='list-unstyled mylist-wrapper'>
+		<li data-ng-repeat="mysession in myList" class="mylist">
+			{{mysession.Title}}
+		</li>
+	</ul>
 	<img id="event-logo"  src="/images/event-logo.png">
+
 	<hr>
+
 	<ul class="list-unstyled">
 		<li data-ng-repeat="session in sessions | filter: sessionFilter" data-ng-controller="SessionController">
 

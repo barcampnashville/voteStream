@@ -36,7 +36,11 @@ blockquote {
 .ngRow:hover {
   background-color: #ddedf0;
 }
-
+.mylist-wrapper {width: 100%;padding: 0;}
+.mylist {
+  display: inline-block;
+  margin-left: 20px;
+}
 .header {
   position: fixed;
   left: 0;

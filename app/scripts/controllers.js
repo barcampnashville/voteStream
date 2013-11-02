@@ -114,6 +114,7 @@
 		},
 
 		SessionListingController: function ($scope) {
+			$scope.myList = [];
 			var sessionList;
 
 			var userRef = new Firebase('https://barcamp.firebaseio.com/Users');
@@ -180,18 +181,21 @@
 			$scope.$on('downVote', function () {
 				$scope.votesRemaining += 1;
 			});
+
+
 		},
 
-		SessionController: function ($scope, SessionService) {
+		SessionController: function ($scope, SessionService, angularFire, angularFireAuth) {
 			$scope.castlot = {vote: false};
 
 			$scope.upVote = function (session) {
 				if ($scope.votesRemaining === 0) {
 					return;
 				}
-				$scope.castlot.vote = true;
-				$scope.$emit('upVote');
 				SessionService.increaseVote(session, $scope.user.d.id);
+				$scope.$emit('upVote');
+				$scope.castlot.vote = true;
+				$scope.myList.push(session);
 			};
 
 			$scope.downVote = function (session) {
@@ -201,6 +205,7 @@
 				$scope.castlot.vote = false;
 				$scope.$emit('downVote');
 				SessionService.decreaseVote(session, $scope.user.d.id);
+				$scope.myList.splice($scope.myList.indexOf(session), 1);
 			};
 		}
 	});

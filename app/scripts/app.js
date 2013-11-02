@@ -9,7 +9,8 @@
 			$routeProvider
 				.when('/results', {
 					templateUrl : '/templates/results.html',
-					controller : 'ResultsController'
+					controller : 'ResultsController',
+					allowAnonymousAccess:false
 				})
 				.when('/sessions', {
 					templateUrl: '/templates/sessionlist.html',
