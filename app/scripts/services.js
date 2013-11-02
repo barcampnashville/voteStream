@@ -58,10 +58,14 @@
 		],
 
 		AuthService: [
-			'angularFireAuth', '$http',
-			function (angularFireAuth, $http) {
-
+			'angularFireAuth', '$http', 'webStorage', '$q',
+			function (angularFireAuth, $http, webStorage, $q) {
+				//webStorage.order = ['session','memory'];
+				var token = webStorage.get('user'),
+					pendingReady = $q.defer();
 				function onAuthResponse(response) {
+					var token = response.data;
+					webStorage.add('user', token);
 					return angularFireAuth.login(response.data);
 				}
 
@@ -72,16 +76,31 @@
 								.then(onAuthResponse);
 						},
 
-						isAuthenticated: function () {
-							return false;
-						},
+						ready: pendingReady.promise,
 
 						logout: function () {
 							angularFireAuth.logout();
+							webStorage.remove('user');
 						}
 					};
 
-				angularFireAuth.initialize(ref, {scope: api, name: "user"});
+				angularFireAuth.initialize(ref, {
+					scope: api,
+					name: "user",
+					callback: function (err, user) {
+						if (err) {
+							pendingReady.reject(err);
+
+						} else {
+							pendingReady.resolve(user);
+
+						}
+					}
+				});
+
+				if (token) {
+					angularFireAuth.login(token);
+				}
 
 				return api;
 			}
