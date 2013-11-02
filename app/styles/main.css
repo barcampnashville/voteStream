@@ -61,9 +61,22 @@ blockquote {
   padding-right: 0px;
 }
 
-.sessionDescription{
-  word-wrap: break-word;
-  line-height:1.2em;  
+.sessions img {
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
+
+.sessionDescription label p {
+  word-wrap: break-word; 
+}
+
+.toggle-collapsed {
+    font-weight:normal;
+}
+
+.toggle-text {
+    font-weight:bold;
 }
 
 .collapsed {

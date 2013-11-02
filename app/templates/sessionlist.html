@@ -28,6 +28,8 @@
 </div>
 
 <div class="container sessions">
+	<img id="event-logo"  src="/images/event-logo.png">
+	<hr>
 	<ul class="list-unstyled">
 		<li data-ng-repeat="session in sessions | filter: sessionFilter" data-ng-controller="SessionController">
 
@@ -55,11 +57,11 @@
 			</div>
 			<div class="row">
 				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12">
-					<p data-ng-class="{ collapsed: !showText }">{{session.Body}}</p>
 					<label class="toggle-collapsed">
-        				<input type="checkbox" data-ng-model="showText" />
-        				<div data-ng-hide="showText"><i>show more</i></div>
-        				<div data-ng-show="showText"><i>show less</i></div>
+						<p data-ng-class="{ collapsed: !showText }">{{session.Body}}</p>
+    					<input type="checkbox" data-ng-model="showText" />
+    					<div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
+        				<div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
     				</label>
 				</div>
 				<hr/>
