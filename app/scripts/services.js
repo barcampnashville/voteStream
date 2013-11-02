@@ -44,7 +44,6 @@
 		AuthService: [
 			'angularFireAuth', '$http', 'webStorage', '$q',
 			function (angularFireAuth, $http, webStorage, $q) {
-				//webStorage.order = ['session','memory'];
 				var token = webStorage.get('user'),
 					pendingReady = $q.defer();
 				
