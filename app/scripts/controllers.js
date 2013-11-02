@@ -74,11 +74,6 @@
 
 		ResultsController: function($scope, angularFire) {
 
-			var pollingStateRef = new Firebase('https://barcamp.firebaseio.com/PollingState');
-			$scope.$watch("pollingIsActive", function (newValue) {
-				pollingStateRef.set(newValue);
-			});
-
 			var ref = new Firebase('https://barcamp.firebaseio.com/Sessions');
 
 			$scope.sessions = angularFire(ref, $scope, 'sessions');
@@ -99,6 +94,11 @@
 					{field: 'total_votes', displayName:'Votes', enableCellEdit: false, width: '10%'}
 				]
 			};
+
+			var pollingStateRef = new Firebase('https://barcamp.firebaseio.com/PollingState');
+			$scope.$watch("pollingIsActive", function (newValue) {
+				pollingStateRef.set(newValue);
+			});
 		},
 
 		ScheduleController: function ($scope) {
