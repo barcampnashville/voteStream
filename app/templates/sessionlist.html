@@ -1,43 +1,56 @@
-<div class="header">
-	<select id="category-filter" data-ng-model="sessionFilter['Session Category']">
-		<option value="">All Categories</option>
-		<option value="Code">Code</option>
-		<option value="Content">Content</option>
-		<option value="Creative Enterprise">Creative Enterprise</option>
-		<option value="Design">Design</option>
-		<option value="Gear">Gear</option>
-		<option value="Infrastructure">Infrastructure</option>
-		<option value="Life Hacks">Life Hacks</option>
-		<option value="Marketing">Marketing</option>
-		<option value="Mobile">Mobile</option>
-		<option value="Social">Social</option>
-		<option value="Social Enterprise">Social Enterprise</option>
-		<option value="Start Up">Start Up</option>
-		<option value="UX/IA">UX/IA</option>
-		<option value="Other">Other</option>
-	</select>
+<div class="container">
+	<div class="header">
+		<div class="row">
+			<!-- <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3">
+				<select id="category-filter" class="form-control" data-ng-model="sessionFilter['Session Category']">
+					<option value="">All Categories</option>
+					<option value="Code">Code</option>
+					<option value="Content">Content</option>
+					<option value="Creative Enterprise">Creative Enterprise</option>
+					<option value="Design">Design</option>
+					<option value="Gear">Gear</option>
+					<option value="Infrastructure">Infrastructure</option>
+					<option value="Lifehacks">Lifehacks</option>
+					<option value="Marketing">Marketing</option>
+					<option value="Mobile">Mobile</option>
+					<option value="Social">Social</option>
+					<option value="Social Enterprise">Social Enterprise</option>
+					<option value="Start Up">Start Up</option>
+					<option value="UX/IA">UX/IA</option>
+					<option value="Other">Other</option>
+				</select>
+			</div> -->
 
-	<p id="vote-counter" class="label label-warning">{{votesRemaining}} votes left</p>
-	
-	<div class="label label-success" data-ng-repeat="mysession in mysessionlist">
-		{{mysession.Title | limitTo: 10}}
+			<p class="label label-warning votesremaning">{{votesRemaining}} votes left</p>
+
+		</div>
 	</div>
-
 </div>
+
 <div class="container sessions">
+	<ul class='list-unstyled mylist-wrapper'>
+		<li data-ng-repeat="mysession in myList" class="mylist">
+			{{mysession.Title}}
+		</li>
+	</ul>
+	<img id="event-logo"  src="/images/event-logo.png">
+
+	<div ng-show="!pollingIsActive" class="alert alert-danger">Polling is currently closed.<br />Your votes will not be counted at this time.</div>
+	<hr>
+
 	<ul class="list-unstyled">
-		<li data-ng-repeat="session in sessions | filter: sessionFilter" data-ng-controller="SessionController">
+		<li data-ng-repeat="session in sessions | filter: sessionFilter | filter: 'Room' === '' " data-ng-controller="SessionController">
 
 			<div class="row">
   				<div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
   					<h4>{{session.Title}}</h4>
   				</div>
   				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-  					<button type="button" class="pull-right btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!votes.voted">
+  					<button type="button" class="pull-right btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!castlot.vote" data-ng-disabled="!pollingIsActive" >
 						<i class="fa fa-thumbs-o-up"></i>
 					</button>
 
-					<button type="button" class="pull-right btn btn-warning" data-ng-click="downVote(session)" data-ng-show="votes.voted">
+					<button type="button" class="pull-right btn btn-warning" data-ng-click="downVote(session)" data-ng-show="castlot.vote" data-ng-disabled="!pollingIsActive">
 						<i class="fa fa-times"></i>
 					</button>
   				</div>
@@ -47,46 +60,20 @@
 					<p><i>with:</i> {{session['First Name']}} {{session['Last Name']}}</p>
 				</div>
 				<div class="category col-xs-7 col-sm-7 col-md-7">
-					<!-- <p><i>categories:</i></p> -->
 					<span class="label label-default pull-right" data-ng-repeat="category in session['Session Category']">{{category}}</span>
 				</div>
 			</div>
 			<div class="row">
 				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12">
-					<p>{{session.Body | words: 16}}</p>
+					<label class="toggle-collapsed">
+						<p data-ng-class="{ collapsed: !showText }">{{session.Body}}</p>
+    					<input type="checkbox" data-ng-model="showText" />
+    					<div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
+        				<div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
+    				</label>
 				</div>
 				<hr/>
 			</div>
-
-
-<!-- 			<div class="row ">
-				<div class="sessionTitle col-md-8">
-					<h3>{{session.Title}}</h3>
-				</div>
-
-				<div class="sessionSpeaker">
-					<p><i>with:</i> {{session['First Name']}} {{session['Last Name']}}</p>
-				</div>
-
-				<div class="sessionDescription">
-					<p>{{session.Body | words: 20}}</p>
-				</div>
-
-				<div class="category">
-					<p>Categories: <span class="label label-default" data-ng-repeat="category in session['Session Category']">{{category}}</span></p>
-				</div>
-
-				<div class="voting-buttons col-md-2">
-					<button type="button" class="btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!votes.voted">
-						<i class="fa fa-thumbs-o-up"></i>
-					</button>
-
-					<button type="button" class="btn btn-warning" data-ng-click="downVote(session)" data-ng-show="votes.voted">
-						<i class="fa fa-times"></i>
-					</button>
-				</div>
-
-			</div> -->
 		</li>
 	</ul>
 </div>
