@@ -3,10 +3,10 @@
   <head>
 	<title>Vote</title>
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="//angular-ui.github.com/ng-grid/css/ng-grid.css" />
-	<!-- build:css(./) css/style.css-->
 
+	<!-- build:css(./) css/style.css-->
+	<link href="/bower_components/bootstrap-css/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="http://angular-ui.github.com/ng-grid/css/ng-grid.css" />
 	<link href="/styles/main.css" rel="stylesheet" type="text/css">
 	<!-- endbuild-->
 
@@ -22,30 +22,25 @@
 	</div>
 
 	<footer class="container">
-		<div class="row">
-			<div class="col-xs-6">
-				<img id="event-logo" class="logo pull-left" src="/images/event-logo.png">
-			</div>
-			<div class="col-xs-6">
-				<img id="vendor-spotlight" class="logo pull-right" src="/images/firebase-logo.png">
-			</div>
-		</div>
+		<img id="event-logo" class="pull-left" src="/images/event-logo.png">
+		<img id="vendor-spotlight" class="pull-right" src="/images/firebase-logo.png">
 	</footer>
 
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-	<script type="text/javascript" src="//cdn.firebase.com/v0/firebase.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.min.js"></script>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular-route.min.js"></script>
-	<script type="text/javascript" src="//angular-ui.github.com/ng-grid/lib/ng-grid.debug.js"></script>
-	<script type="text/javascript" src="scripts/vendor/angular-webstorage.js"></script>
-	<script type="text/javascript" src='//cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js'></script>
-	<script type="text/javascript" src='//cdn.firebase.com/v0/firebase-simple-login.js'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script src="https://cdn.firebase.com/v0/firebase.js"></script>
+	<script src="/bower_components/angular/angular.js"></script>
+	<script type="text/javascript" src="http://angular-ui.github.com/ng-grid/lib/ng-grid.debug.js"></script>
+	<script src="/bower_components/angular-route/angular-route.js"></script>
+	<script src="/bower_components/angular-touch/angular-touch.js"></script>
+	<script src='https://cdn.firebase.com/libs/angularfire/0.3.0/angularfire.min.js'></script>
+	<script src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
+
+	<!-- build:js(./) js/app.min.js-->
+	<script src="/app/scripts/services.js"></script>
+	<script src="/app/scripts/controllers.js"></script>
+	<script src="/app/scripts/app.js"></script>
 
 
-	<!-- build:js js/app.min.js-->
-	<script src="scripts/services.js"></script>
-	<script src="scripts/controllers.js"></script>
-	<script src="scripts/app.js"></script>
 	<!-- endbuild-->
   </body>
 </html>

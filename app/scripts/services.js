@@ -4,13 +4,13 @@
 	var app = angular.module('ng');
 
 	app.factory({
-		
+
 		SessionService: [
 			function () {
 				var ref = new Firebase('https://barcamp.firebaseio.com/Sessions/'),
-					userRef = new Firebase('https://barcamp.firebaseio.com/Users'),
 				// object to store all references
-					sessionRef = {};
+				sessionRef = {};
+
 				// Returns the Firebase reference for given Session ID
 				function createReference (id) {
 					if (!sessionRef.hasOwnProperty(id)) {
@@ -19,44 +19,19 @@
 					return sessionRef[id];
 				}
 
-				function increaseUserVote(sessionid,userId) {
-					var uidRef = userRef.child(userId);
-					uidRef.once('value', function (snapshot) {
-						uidRef.transaction(function (data) {
-							if (!data.Votes) {
-								data.Votes = {};
-							}
-							data.Votes[sessionid] = true;
-							data.voteCounts = Object.keys(data.Votes).length;
-							return data;
-						});
-					});
-				}
-
-				function decreaseUserVote (sessionid, userId) {
-					var uidRef = userRef.child(userId);
-					uidRef.transaction(function (data) {
-						delete data.Votes[sessionid];
-						data.voteCounts = Object.keys(data.Votes).length;
-						return data;
-					});
-				}
-
 				return {
 					list: function () {},
 
-					increaseVote: function (session, userId) {
+					increaseVote: function (session) {
 						var childRef = createReference(session.id);
-						increaseUserVote(session.id,userId);
 						childRef.transaction(function (data) {
 							data.total_votes += 1;
 							return data;
 						});
 					},
 
-					decreaseVote: function (session, userId) {
+					decreaseVote: function (session) {
 						var childRef = createReference(session.id);
-						decreaseUserVote(session.id, userId);
 						childRef.transaction(function (data) {
 							data.total_votes -= 1;
 							return data;
@@ -65,69 +40,36 @@
 				};
 			}
 		],
+
 		AuthService: [
-			'angularFireAuth', '$http', 'webStorage', '$q',
-			function (angularFireAuth, $http, webStorage, $q) {
-				var token = webStorage.get('user'),
-					pendingReady = $q.defer();
-				function onAuthResponse(response) {
-					var token = response.data;
-					webStorage.add('user', token);
-					return angularFireAuth.login(response.data);
-				}
+			function () {
+				var barcampRef = new Firebase('https://barcamp.firebaseio.com/');
 
-				var ref = new Firebase('https://barcamp.firebaseio.com/'),
-					api = {
-						login: function (id) {
-							return $http.post('/login', { id: id })
-								.then(onAuthResponse);
-						},
-
-						ready: pendingReady.promise,
-
-						logout: function () {
-							angularFireAuth.logout();
-							webStorage.remove('user');
-						}
-					};
-
-				angularFireAuth.initialize(ref, {
-					scope: api,
-					name: "user",
-					callback: function (err, user) {
-						if (err) {
-							pendingReady.reject(err);
-
-						} else {
-							pendingReady.resolve(user);
-
-						}
+				function signIn (id) {
+					var auth,
+						validId = true;
+					if (validId) {
+						auth = new FirebaseSimpleLogin(barcampRef, function (err, user) {
+							if (err) {
+								console.log(err);
+							} else {
+								return user;
+							}
+						});
 					}
-				});
-
-				if (token) {
-					angularFireAuth.login(token);
+					return auth;
 				}
 
-				return api;
+				return {
+					login: function (id) {
+						var auth = signIn(id);
+						auth.login('anonymous');
+					},
+
+					logout: function () {}
+				};
 			}
 		]
-	})
-
-	.filter('orderObjectBy', function () {
-		return function (items, field, reverse) {
-			var filtered = [];
-			angular.forEach(items, function (item) {
-				filtered.push(item);
-			});
-			filtered.sort(function (a, b) {
-				if(a[field] > b[field]) return 1;
-				if (a[field] < b[field]) return -1;
-				return 0;
-			});
-			if(reverse) filtered.reverse();
-			return filtered;
-		};
 	});
 }(window.angular));
 
