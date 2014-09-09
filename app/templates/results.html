@@ -6,3 +6,10 @@
 		<div class="gridStyle" ng-grid="gridOptions"></div>
 </div>
 
+<div class="polling-checkbox">
+	<label>
+    	<input type="checkbox" ng-model="pollingIsActive">
+    	<p ng-show="pollingIsActive">Disable Voting</p>
+    	<p ng-show="!pollingIsActive">Enable Voting</p>
+	</label>
+</div>
