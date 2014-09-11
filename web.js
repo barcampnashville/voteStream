@@ -1,22 +1,26 @@
-var Firebase = require('firebase'),
+var TOKEN = '2mRa3sWimzeObqBtByub4ZaV1TriagKsD2T0fsn1',
+	Firebase = require('firebase'),
 	Root = new Firebase('https://barcamp.firebaseio.com/'),
 	Users = Root.child('Users'),
 	FirebaseTokenGenerator = require("firebase-token-generator"),
-	tokenGenerator = new FirebaseTokenGenerator('2mRa3sWimzeObqBtByub4ZaV1TriagKsD2T0fsn1'),
+	tokenGenerator = new FirebaseTokenGenerator(TOKEN),
 	express = require("express"),
-	app = express();
+	app = express(),
+	port = 5000 || process.env.PORT || 8083;
 
-app.use(express.logger());
+	var server = new Firebase('https://barcamp.firebaseio.com/Users');
+	server.auth(TOKEN);
+
+// app.use(express.logger());
 app.use(express.bodyParser());
 
 app.post('/login', function(req, res) {
-
 	var id = req.body.id;
 	if (!id) {
 		return res.send(401, { error: 'Invalid User ID' });
 	}
 
-	Users.child(id).once('value', function(snapshot) {
+	server.child(id).once('value', function(snapshot) {
 
 		var userData = snapshot.val();
 		console.log('login.user.value', id, userData);
@@ -51,7 +55,7 @@ app.post('/login', function(req, res) {
 });
 
 app.get('/logout', function (req, res, next) {
-	Users.unauth();
+	// Users.unauth();
 
 	if ((/(?:text|application)\/x?html(?:\+xml)/i).test(req.headers.accept)) {
 		res.redirect('/');
@@ -63,5 +67,5 @@ app.get('/logout', function (req, res, next) {
 
 // This serves up all the HTML pages on the site
 // The port designation allows us to develop on 8083 but serve from heroku on standard ports
-app.use("/", express.static(__dirname + "/app")).listen(process.env.PORT || 8083);
-console.log("APP Server started successfully.");
+app.use("/", express.static(__dirname + "/app")).listen(port);
+console.log("APP Server started successfully on port " + port);

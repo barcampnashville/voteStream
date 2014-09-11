@@ -23,6 +23,8 @@
 
 			<p class="label label-warning votesremaning">{{votesRemaining}} votes left</p>
 
+			<button class="btn btn-primary" data-ng-click="logout()">Log Out!</button>
+
 		</div>
 	</div>
 </div>
@@ -39,7 +41,7 @@
 	<hr>
 
 	<ul class="list-unstyled">
-		<li data-ng-repeat="session in sessions | filter: sessionFilter | filter: 'Room' === '' " data-ng-controller="SessionController">
+		<li data-ng-repeat="session in sessions | filter: sessionFilter | filter: 'Room' === '' ">
 
 			<div class="row">
   				<div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
