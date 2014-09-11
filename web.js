@@ -26,7 +26,7 @@ app.post('/login', function(req, res) {
 		}
 
 		var token = tokenGenerator.createToken({
-			id: id,
+			user_id: id,
 			is_admin: (userData.admin === true)
 		});
 
