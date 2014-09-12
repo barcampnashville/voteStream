@@ -6,8 +6,8 @@ var TOKEN = '2mRa3sWimzeObqBtByub4ZaV1TriagKsD2T0fsn1',
 	tokenGenerator = new FirebaseTokenGenerator(TOKEN),
 	express = require("express"),
 	app = express(),
-	port = 5000 || process.env.PORT || 8083;
-
+	port = process.env.PORT || 8083;
+console.log(process.env);
 	var server = new Firebase('https://barcamp.firebaseio.com/Users');
 	server.auth(TOKEN);
 
