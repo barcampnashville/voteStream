@@ -2,7 +2,7 @@ var Firebase = require('firebase'),
 	Root = new Firebase('https://barcamp.firebaseio.com/'),
 	Users = Root.child('Users'),
 	FirebaseTokenGenerator = require("firebase-token-generator"),
-	tokenGenerator = new FirebaseTokenGenerator('2mRa3sWimzeObqBtByub4ZaV1TriagKsD2T0fsn1'),
+	tokenGenerator = new FirebaseTokenGenerator('WENJKlCRd2gxckVcKYV4MowHuKcHL3yby6O1Zeat'),
 	express = require("express"),
 	app = express();
 
