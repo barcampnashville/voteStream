@@ -1,4 +1,4 @@
-var TOKEN = 'WENJKlCRd2gxckVcKYV4MowHuKcHL3yby6O1Zeat',
+var TOKEN = process.env.FIREBASE_TOKEN,
 	Firebase = require('firebase'),
 	Root = new Firebase('https://barcamp.firebaseio.com/'),
 	Users = Root.child('Users'),
