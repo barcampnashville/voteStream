@@ -1,119 +1,47 @@
-(function (angular) {
-	'use strict';
+angular.module('BarcampApp')
+	.factory('AuthService', function ($http, webStorage, $q, $location, $rootScope, $firebase) {
+		var user = webStorage.get('user'),
+			defer = $q.defer(),
+			ref = new Firebase('https://barcamp.firebaseio.com/');
 
-	var app = angular.module('ng');
-
-	app.factory({
-		
-		SessionService: [
-			function () {
-				var ref = new Firebase('https://barcamp.firebaseio.com/Sessions/'),
-					userRef = new Firebase('https://barcamp.firebaseio.com/Users'),
-				// object to store all references
-					sessionRef = {};
-				// Returns the Firebase reference for given Session ID
-				function createReference (id) {
-					if (!sessionRef.hasOwnProperty(id)) {
-						sessionRef[id] = ref.child(id);
-					}
-					return sessionRef[id];
+		if (user) {
+			ref.auth(user.token, function (err) {
+				if (!err) {
+					$rootScope.user = user;
+					$location.path('/sessions');
+					$rootScope.$apply();
 				}
+			});
+		}
+		var sync = $firebase(ref);
+		console.log(sync.$asObject());
 
-				function increaseUserVote(sessionid,userId) {
-					var uidRef = userRef.child(userId);
-					uidRef.once('value', function (snapshot) {
-						uidRef.transaction(function (data) {
-							if (!data.Votes) {
-								data.Votes = {};
-							}
-							data.Votes[sessionid] = true;
-							data.voteCounts = Object.keys(data.Votes).length;
-							return data;
-						});
-					});
+		function onAuthResponse(response) {
+			var user = response.data;
+			webStorage.add('user', user);
+			ref.auth(user.token, function (err, me) {
+				if (!err) {
+					console.log(me);
+					$rootScope.user = user;
+					$location.path('/sessions');
+					$rootScope.$apply();
 				}
+			});
+		}
 
-				function decreaseUserVote (sessionid, userId) {
-					var uidRef = userRef.child(userId);
-					uidRef.transaction(function (data) {
-						delete data.Votes[sessionid];
-						data.voteCounts = Object.keys(data.Votes).length;
-						return data;
-					});
-				}
+		return {
+			login: function (id) {
+				return $http.post('/login', { id: id }).then(onAuthResponse);
+			},
 
-				return {
-					list: function () {},
-
-					increaseVote: function (session, userId) {
-						var childRef = createReference(session.id);
-						increaseUserVote(session.id,userId);
-						childRef.transaction(function (data) {
-							data.total_votes += 1;
-							return data;
-						});
-					},
-
-					decreaseVote: function (session, userId) {
-						var childRef = createReference(session.id);
-						decreaseUserVote(session.id, userId);
-						childRef.transaction(function (data) {
-							data.total_votes -= 1;
-							return data;
-						});
-					}
-				};
+			logout: function () {
+				ref.unauth();
+				$rootScope.user = null
+				webStorage.remove('user');
+				$location.path('/login');
 			}
-		],
-		AuthService: [
-			'angularFireAuth', '$http', 'webStorage', '$q',
-			function (angularFireAuth, $http, webStorage, $q) {
-				var token = webStorage.get('user'),
-					pendingReady = $q.defer();
-				function onAuthResponse(response) {
-					var token = response.data;
-					webStorage.add('user', token);
-					return angularFireAuth.login(response.data);
-				}
-
-				var ref = new Firebase('https://barcamp.firebaseio.com/'),
-					api = {
-						login: function (id) {
-							return $http.post('/login', { id: id })
-								.then(onAuthResponse);
-						},
-
-						ready: pendingReady.promise,
-
-						logout: function () {
-							angularFireAuth.logout();
-							webStorage.remove('user');
-						}
-					};
-
-				angularFireAuth.initialize(ref, {
-					scope: api,
-					name: "user",
-					callback: function (err, user) {
-						if (err) {
-							pendingReady.reject(err);
-
-						} else {
-							pendingReady.resolve(user);
-
-						}
-					}
-				});
-
-				if (token) {
-					angularFireAuth.login(token);
-				}
-
-				return api;
-			}
-		]
+		};
 	})
-
 	.filter('orderObjectBy', function () {
 		return function (items, field, reverse) {
 			var filtered = [];
@@ -128,8 +56,5 @@
 			if(reverse) filtered.reverse();
 			return filtered;
 		};
-	});
-}(window.angular));
-
-
-
+	})
+;

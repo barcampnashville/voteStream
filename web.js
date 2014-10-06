@@ -7,7 +7,6 @@ var TOKEN = process.env.FIREBASE_TOKEN,
 	express = require("express"),
 	app = express(),
 	port = process.env.PORT || 8083;
-console.log(process.env);
 	var server = new Firebase('https://barcamp.firebaseio.com/Users');
 	server.auth(TOKEN);
 
@@ -20,21 +19,24 @@ app.post('/login', function(req, res) {
 		return res.send(401, { error: 'Invalid User ID' });
 	}
 
-	server.child(id).once('value', function(snapshot) {
+	server.child(id).on('value', function(snapshot) {
 
 		var userData = snapshot.val();
-		console.log('login.user.value', id, userData);
+		console.log(userData);
 
 		if (!userData) {
 			return res.send(401, { error: 'Invalid User ID' });
 		}
+		userData.id = id;
 
 		var token = tokenGenerator.createToken({
-			user_id: id,
-			is_admin: (userData.admin === true)
+			uid: id.toString(),
+			admin: (userData.admin === true)
 		});
 
-		Users.auth(token, function(error) {
+		res.send(200, {token: token, user: userData});
+
+		/*Users.auth(token, function(error) {
 
 			if(error) {
 				res.send(400, error);
@@ -44,18 +46,18 @@ app.post('/login', function(req, res) {
 				res.redirect('/');
 
 			} else {
-				res.send(200, token);
+				res.send(200, {token: token, user: userData});
 
 			}
 
-		});
+		});*/
 
 	});
 
 });
 
-app.get('/logout', function (req, res, next) {
-	// Users.unauth();
+app.get('/logout/:id', function (req, res, next) {
+	Users.child(req.params.id).unauth();
 
 	if ((/(?:text|application)\/x?html(?:\+xml)/i).test(req.headers.accept)) {
 		res.redirect('/');

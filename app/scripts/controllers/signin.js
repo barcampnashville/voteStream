@@ -1,9 +1,5 @@
 angular.module('BarcampApp')
-    .controller('SigninCtrl', function ($scope, AuthService) {
-        if (AuthService.initializing) {
-            AuthService.logout();
-        }
-
+    .controller('SigninCtrl', function ($scope, AuthService, $location) {
         $scope.$watch('badgeId', function () {
             $scope.error = null;
         });
@@ -13,7 +9,7 @@ angular.module('BarcampApp')
             $scope.error = null;
             AuthService.login(id).then(function () {
                 $scope.thinking = false;
-                // expect redirect now
+		        $location.path('/sessions');
             },
             function (response) {
                 $scope.thinking = false;

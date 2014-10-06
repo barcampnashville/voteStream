@@ -41,34 +41,30 @@
 	<hr>
 
 	<ul class="list-unstyled">
-		<li data-ng-repeat="session in sessions | filter: sessionFilter | filter: 'Room' === '' ">
+		<li data-ng-repeat="session in sessions">
 
 			<div class="row">
   				<div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
-  					<h4>{{session.Title}}</h4>
+  					<h4>{{session.title}}</h4>
   				</div>
   				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-  					<button type="button" class="pull-right btn btn-primary" data-ng-click="upVote(session)" data-ng-show="!castlot.vote" data-ng-disabled="!pollingIsActive" >
+  					<button type="button" class="pull-right btn btn-primary" data-ng-click="vote(session)">
 						<i class="fa fa-thumbs-o-up"></i>
-					</button>
-
-					<button type="button" class="pull-right btn btn-warning" data-ng-click="downVote(session)" data-ng-show="castlot.vote" data-ng-disabled="!pollingIsActive">
-						<i class="fa fa-times"></i>
 					</button>
   				</div>
 			</div>
 			<div class="row">
 				<div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-					<p><i>with:</i> {{session['First Name']}} {{session['Last Name']}}</p>
+					<p><i>with:</i> {{session.speaker.name}}</p>
 				</div>
 				<div class="category col-xs-7 col-sm-7 col-md-7">
-					<span class="label label-default pull-right" data-ng-repeat="category in session['Session Category']">{{category}}</span>
+					<span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{category}}</span>
 				</div>
 			</div>
 			<div class="row">
 				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12">
 					<label class="toggle-collapsed">
-						<p data-ng-class="{ collapsed: !showText }">{{session.Body}}</p>
+						<p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
     					<input type="checkbox" data-ng-model="showText" />
     					<div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
         				<div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
