@@ -1,25 +1,6 @@
 <div class="container">
 	<div class="header">
 		<div class="row">
-			<!-- <div class="col-xs-8 col-sm-5 col-md-4 col-lg-3">
-				<select id="category-filter" class="form-control" data-ng-model="sessionFilter['Session Category']">
-					<option value="">All Categories</option>
-					<option value="Code">Code</option>
-					<option value="Content">Content</option>
-					<option value="Creative Enterprise">Creative Enterprise</option>
-					<option value="Design">Design</option>
-					<option value="Gear">Gear</option>
-					<option value="Infrastructure">Infrastructure</option>
-					<option value="Lifehacks">Lifehacks</option>
-					<option value="Marketing">Marketing</option>
-					<option value="Mobile">Mobile</option>
-					<option value="Social">Social</option>
-					<option value="Social Enterprise">Social Enterprise</option>
-					<option value="Start Up">Start Up</option>
-					<option value="UX/IA">UX/IA</option>
-					<option value="Other">Other</option>
-				</select>
-			</div> -->
 
 			<p class="label label-warning votesremaning">{{votesRemaining}} votes left</p>
 
@@ -55,7 +36,7 @@
 			</div>
 			<div class="row">
 				<div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-					<p><i>with:</i> {{session.speaker.name}}</p>
+					<p><i>with:</i> {{session.speaker.firstName}} {{session.speaker.lastName}}</p>
 				</div>
 				<div class="category col-xs-7 col-sm-7 col-md-7">
 					<span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{category}}</span>

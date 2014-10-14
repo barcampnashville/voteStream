@@ -21,8 +21,11 @@ angular.module('BarcampApp')
 			webStorage.add('user', user);
 			ref.auth(user.token, function (err, me) {
 				if (!err) {
-					console.log(me);
-					$rootScope.user = user;
+					$rootScope.user = {
+						id: user.user.id,
+						admin: user.user.admin,
+						voteCounts: user.user.voteCounts
+					};
 					$location.path('/sessions');
 					$rootScope.$apply();
 				}
