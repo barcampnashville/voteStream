@@ -1,9 +1,9 @@
 angular.module('BarcampApp')
 	.factory('Session', function ($firebase) {
 		var Session = function (session) {
-			var id = session.id;
-			this.ref = new Firebase('https://barcamp.firebaseio.com/Sessions/' + id);
-			this.id = session.id;
+			var id = session.$id;
+			this.ref = new Firebase('https://barcamp.firebaseio.com/Sessions2013/' + id);
+			this.id = session.$id;
 			this.availability = session.Availability;
 			this.summary = session.Body;
 			this.speaker = {
@@ -13,8 +13,9 @@ angular.module('BarcampApp')
 			};
 			this.categories = session['Session Category'];
 			this.totalSignUps = session['Signup Counts'];
-			this.time = session.Time;
+			this.time = session["Time Slot"];
 			this.title = session.Title;
+			this.room = session.Room;
 			this.hashtag = session['Twitter Hashtag'];
 			this.totalVotes = session.total_votes;
 		};
@@ -33,7 +34,7 @@ angular.module('BarcampApp')
 		if (items.length > 0) {
 			defer.resolve(items);
 		}
-		var list = $firebase(new Firebase('https://barcamp.firebaseio.com/Sessions')).$asArray();
+		var list = $firebase(new Firebase('https://barcamp.firebaseio.com/Sessions2014')).$asArray();
 		list.$loaded().then(function (sessions) {
 			sessions.forEach(function (sess) {
 				items.push(new Session(sess));
