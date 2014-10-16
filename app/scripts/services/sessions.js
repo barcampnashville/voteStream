@@ -1,8 +1,10 @@
 angular.module('BarcampApp')
-	.factory('Session', function ($firebase) {
+	.factory('Session', function ($firebase, $rootScope) {
 		var Session = function (session) {
-			var id = session.$id;
-			this.ref = new Firebase('https://barcamp.firebaseio.com/Sessions2013/' + id);
+			var ref = new Firebase('https://barcamp.firebaseio.com/Sessions2014/' + session.$id);
+			this.voteCountRef = $firebase(ref.child('total_votes'));
+			this.ref = $firebase(ref);
+			this.inSync = this.ref.$asObject();
 			this.id = session.$id;
 			this.availability = session.Availability;
 			this.summary = session.Body;
@@ -11,19 +13,37 @@ angular.module('BarcampApp')
 					lastName: session['Last Name'],
 					email: session['E-mail']
 			};
-			this.categories = session['Session Category'];
+			// Categories is currently broken. It is stored as a string in the db not 
+			// as an array of strings - 10/15/14 --Blake
+			// this.categories = session['Session Category'];
 			this.totalSignUps = session['Signup Counts'];
 			this.time = session["Time Slot"];
 			this.title = session.Title;
 			this.room = session.Room;
 			this.hashtag = session['Twitter Hashtag'];
-			this.totalVotes = session.total_votes;
+			this.totalVotes = this.inSync.total_votes;
+			this.userVoted = false;
 		};
 
-		Session.prototype.vote = function () {
-			/*this.voteRef.transaction(function (current) {
-				return current + val;
-			});*/
+		Session.prototype.updateUserVoteStatus = function () {
+			this.userVoted = !this.userVoted;
+		}
+
+		Session.prototype.vote = function (user) {
+			if (user.voting) return;
+			var val;
+			user.updateSessions(this.id, function () {
+				val = user.sync.sessions.indexOf(this.id) > -1 ? 1 : -1;
+				this.userVoted = !this.userVoted;
+				
+				this.voteCountRef.$transaction(function (current) {
+					return current + val;
+				}).then(function (snapshot) {
+					user.voting = false;
+				}, function () {
+					user.voting = false;
+				});
+			}.bind(this));
 		};
 
 		return Session;
@@ -41,6 +61,7 @@ angular.module('BarcampApp')
 			});
 			defer.resolve(items);
 		});
+
 		return defer.promise;
 	})
 ;

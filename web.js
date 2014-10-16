@@ -1,3 +1,5 @@
+// test user with admin privledges: 03sbtn
+
 var TOKEN = process.env.FIREBASE_TOKEN,
 	Firebase = require('firebase'),
 	Root = new Firebase('https://barcamp.firebaseio.com/'),
@@ -10,7 +12,6 @@ var TOKEN = process.env.FIREBASE_TOKEN,
 	var server = new Firebase('https://barcamp.firebaseio.com/Users');
 	server.auth(TOKEN);
 
-// app.use(express.logger());
 app.use(express.bodyParser());
 
 app.post('/login', function(req, res) {
@@ -31,27 +32,11 @@ app.post('/login', function(req, res) {
 
 		var token = tokenGenerator.createToken({
 			uid: id.toString(),
+			user_id : id.toString(),
 			admin: (userData.admin === true)
 		});
 
 		res.send(200, {token: token, user: userData});
-
-		/*Users.auth(token, function(error) {
-
-			if(error) {
-				res.send(400, error);
-
-			} else if ((/(?:text|application)\/x?html(?:\+xml)/i).test(req.headers.accept)) {
-				res.cookie('auth', token);
-				res.redirect('/');
-
-			} else {
-				res.send(200, {token: token, user: userData});
-
-			}
-
-		});*/
-
 	});
 
 });

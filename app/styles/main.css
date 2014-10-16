@@ -60,10 +60,7 @@ blockquote {
   margin-top: 5px;
 }
 .votesremaning {
-  width: 50px;
   vertical-align: bottom;
-    margin-left: 20px;
-    margin-right: auto;
 }
 
 .container .sessions, .container .results {
@@ -136,9 +133,17 @@ img.logo {
   background-color: #932318;
   border-color: #671911;
 }
-.btn-primary:hover, .btn-primary:disabled {
+.btn-primary:hover, 
+.btn-primary:active, 
+.btn-primary:focus,
+.btn-primary:disabled {
   background-color: #bf2d1f;
   border-color: #932318;
+}
+
+.btn.voted {
+  background-color: #feb336;
+  border-color: #FF7429;
 }
 
 .btn-warning {

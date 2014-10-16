@@ -1,10 +1,8 @@
 <div class="container">
 	<div class="header">
-		<div class="row">
-
-			<p class="label label-warning votesremaning">{{votesRemaining}} votes left</p>
-
-			<button class="btn btn-primary" data-ng-click="logout()">Log Out!</button>
+		<div class="row text-center">
+			<button class="btn btn-primary pull-left" data-ng-click="logout()">Log Out!</button>
+			<p class="label label-warning votesremaning">{{4 - user.sync.sessions.length}} votes left</p>
 
 		</div>
 	</div>
@@ -29,8 +27,9 @@
   					<h4>{{session.title}}</h4>
   				</div>
   				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-  					<button type="button" class="pull-right btn btn-primary" data-ng-click="session.vote()">
-						<i class="fa fa-thumbs-o-up"></i>
+  					<button type="button" class="pull-right btn btn-primary" data-ng-class="{voted: session.userVoted}" data-ng-click="session.vote(user)">
+						<i class="fa" data-ng-class="{'fa-thumbs-up': !session.userVoted, 'fa-thumbs-down': session.userVoted}"></i>
+						{{session.inSync.total_votes}}
 					</button>
   				</div>
 			</div>

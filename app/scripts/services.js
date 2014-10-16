@@ -1,13 +1,12 @@
 angular.module('BarcampApp')
-	.factory('AuthService', function ($http, webStorage, $q, $location, $rootScope, $firebase) {
+	.factory('AuthService', function ($http, webStorage, $location, $rootScope, $firebase, User) {
 		var user = webStorage.get('user'),
-			defer = $q.defer(),
 			ref = new Firebase('https://barcamp.firebaseio.com/');
 
 		if (user) {
 			ref.auth(user.token, function (err) {
 				if (!err) {
-					$rootScope.user = user;
+					$rootScope.user = new User(user.user);
 					$location.path('/sessions');
 					$rootScope.$apply();
 				}
@@ -21,11 +20,7 @@ angular.module('BarcampApp')
 			webStorage.add('user', user);
 			ref.auth(user.token, function (err, me) {
 				if (!err) {
-					$rootScope.user = {
-						id: user.user.id,
-						admin: user.user.admin,
-						voteCounts: user.user.voteCounts
-					};
+					$rootScope.user = new User(user.user);
 					$location.path('/sessions');
 					$rootScope.$apply();
 				}

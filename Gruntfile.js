@@ -16,15 +16,15 @@ module.exports = function (grunt) {
         watch: {
             html: {
                 files: ['<%= config.app %>/{,**/}*.html'],
-                tasks: ['copy:dist']
+                tasks: ['build']
             },
             js: {
                 files: ['<%= config.app %>/scripts/{,**/}*.js'],
-                tasks: ['copy:dist']
+                tasks: ['build']
             },
             css: {
             files: ['<%= config.app %>/styles/{,**/}*.css'],
-                tasks: ['copy:dist']
+                tasks: ['build']
             }
         },
 
