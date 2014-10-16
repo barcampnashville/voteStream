@@ -13,6 +13,7 @@ angular.module('BarcampApp',[
 					templateUrl : '/templates/admin.html',
 					controller : 'AdminCtrl',
 					allowAnonymousAccess:false,
+					adminAccess: true,
 					resolve: {
 						Sessions: function (SessionListing) {
 							return SessionListing;
@@ -28,12 +29,7 @@ angular.module('BarcampApp',[
 							return SessionListing;
 						}
 					}
-				})
-				.when('/schedule', {
-					templateUrl: '/templates/schedule.html',
-					controller: 'ScheduleCtrl'
-				})
-				.when('/login', {
+				}).when('/login', {
 					templateUrl : '/templates/signin.html',
 					controller : 'SigninCtrl',
 					allowAnonymousAccess:true
@@ -57,6 +53,9 @@ angular.module('BarcampApp',[
 	$rootScope.$on("$routeChangeStart", function(evt, next) {
 		// User navigating
 		if (!$rootScope.user && !(next && next.$$route && next.$$route.allowAnonymousAccess)) {
+			if (next.$$route.adminAccess && !$rootScope.user.admin) {
+				$location.path('/sessions');
+			}
 			lastPath = next && next.path;
 			evt.preventDefault();
 			$location.path('/login');

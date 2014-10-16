@@ -5,6 +5,7 @@ angular.module('BarcampApp')
 			this.voteCountRef = $firebase(ref.child('total_votes'));
 			this.ref = $firebase(ref);
 			this.inSync = this.ref.$asObject();
+			this.availability = session.Availability;
 			this.id = session.$id;
 			this.summary = session.Body;
 			this.speaker = {
@@ -18,25 +19,29 @@ angular.module('BarcampApp')
 			this.title = session.Title;
 			this.room = session.Room;
 			this.hashtag = session['Twitter Hashtag'];
-			this.userVoted = false;
+			this.uservoted = false;
 			
 			this.inSync.$loaded().then(function () {
 				this.inSync.removed = this.inSync.removed || false;
-				this.totalVotes = this.inSync.total_votes;
+				this.totalVotes = this.inSync.total_votes || null;
 				this.availability = this.inSync.Availability;
 			}.bind(this))
 		};
 
 		Session.prototype.updateUserVoteStatus = function () {
-			this.userVoted = !this.userVoted;
+			this.uservoted = !this.uservoted;
 		}
 
 		Session.prototype.vote = function (user) {
-			if (user.voting) return;
-			var val;
+			if (user.voting || !$rootScope.pollingSync.open) return;
 			user.updateSessions(this.id, function () {
-				val = user.sync.sessions.indexOf(this.id) > -1 ? 1 : -1;
-				this.userVoted = !this.userVoted;
+				var val;
+				if (user.sync.sessions) {
+					val = user.sync.sessions.indexOf(this.id) > -1 ? 1 : -1;
+				} else {
+					val = -1;
+				}
+				this.uservoted = !this.uservoted;
 				
 				this.voteCountRef.$transaction(function (current) {
 					return current + val;
