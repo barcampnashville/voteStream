@@ -6,23 +6,25 @@ angular.module('BarcampApp')
 			this.ref = $firebase(ref);
 			this.inSync = this.ref.$asObject();
 			this.id = session.$id;
-			this.availability = session.Availability;
 			this.summary = session.Body;
 			this.speaker = {
 					firstName: session['First Name'],
 					lastName: session['Last Name'],
 					email: session['E-mail']
 			};
-			// Categories is currently broken. It is stored as a string in the db not 
-			// as an array of strings - 10/15/14 --Blake
 			// this.categories = session['Session Category'];
 			this.totalSignUps = session['Signup Counts'];
 			this.time = session["Time Slot"];
 			this.title = session.Title;
 			this.room = session.Room;
 			this.hashtag = session['Twitter Hashtag'];
-			this.totalVotes = this.inSync.total_votes;
 			this.userVoted = false;
+			
+			this.inSync.$loaded().then(function () {
+				this.inSync.removed = this.inSync.removed || false;
+				this.totalVotes = this.inSync.total_votes;
+				this.availability = this.inSync.Availability;
+			}.bind(this))
 		};
 
 		Session.prototype.updateUserVoteStatus = function () {

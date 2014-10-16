@@ -115,7 +115,10 @@ blockquote {
 .btn-primary {
 	background-color: $primary-color;
 	border-color: $primary-color-darker;
-	&:hover, &:disabled {
+	&:hover, 
+	&:disabled,
+	&:focus,
+	&:active {
 		background-color: $primary-color-lighter;
 		border-color: $primary-color;
 	}
@@ -126,6 +129,11 @@ blockquote {
 		background-color: $secondary-color-lighter;
 		border-color: $secondary-color;
 	}
+}
+
+.btn.voted {
+	background-color: $secondary-color;
+	border-color: $secondary-color-darker;
 }
 
 textarea:focus,
@@ -149,6 +157,18 @@ input[type="color"]:focus,
 	outline: 0 none;
 }
 
+.admin-link {
+	color: #fff;
+}
+
+.admin-container {
+	margin-top: 70px;
+}
+
+.timeofday {
+	margin-left: 30px;
+}
+
 @media (max-width: 480px) {
 	.header {
 		& select {
@@ -160,3 +180,4 @@ input[type="color"]:focus,
 		padding: 0 15px;
 	}
 }
+

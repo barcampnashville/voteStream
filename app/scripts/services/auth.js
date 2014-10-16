@@ -7,13 +7,17 @@ angular.module('BarcampApp')
 			ref.auth(user.token, function (err) {
 				if (!err) {
 					$rootScope.user = new User(user.user);
-					$location.path('/sessions');
+					console.log($rootScope.user);
+					if (user.user.admin) {
+						$location.path('/sessions');
+					} else {
+						$location.path('/sessions');
+					}
 					$rootScope.$apply();
 				}
 			});
 		}
 		var sync = $firebase(ref);
-		console.log(sync.$asObject());
 
 		function onAuthResponse(response) {
 			var user = response.data;
@@ -21,7 +25,11 @@ angular.module('BarcampApp')
 			ref.auth(user.token, function (err, me) {
 				if (!err) {
 					$rootScope.user = new User(user.user);
-					$location.path('/sessions');
+					if (user.user.admin) {
+						$location.path('/admin');
+					} else {
+						$location.path('/sessions');
+					}
 					$rootScope.$apply();
 				}
 			});

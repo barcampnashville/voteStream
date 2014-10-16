@@ -3,6 +3,9 @@
 		<div class="row text-center">
 			<button class="btn btn-primary pull-left" data-ng-click="logout()">Log Out!</button>
 			<p class="label label-warning votesremaning">{{4 - user.sync.sessions.length}} votes left</p>
+			<button class="btn btn-primary pull-right" data-ng-if="user.admin">
+				<a href="#/admin" class="admin-link">Admin</a>
+			</button>
 
 		</div>
 	</div>
@@ -19,8 +22,8 @@
 	<div ng-show="!pollingIsActive" class="alert alert-danger">Polling is currently closed.<br />Your votes will not be counted at this time.</div>
 	<hr>
 
-	<ul class="list-unstyled">
-		<li data-ng-repeat="session in sessions">
+	<ul class="list-unstyled" data-ng-if="polling.open">
+		<li data-ng-repeat="session in sessions | filter:{availability: pollingSync.sessions, inSync:{removed: false}}">
 
 			<div class="row">
   				<div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
@@ -43,12 +46,10 @@
 			</div>
 			<div class="row">
 				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12">
-					<label class="toggle-collapsed">
 						<p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
-    					<input type="checkbox" data-ng-model="showText" />
-    					<div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
-        				<div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
-    				</label>
+	    				<div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
+	        			<div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
+	    				
 				</div>
 				<hr/>
 			</div>
