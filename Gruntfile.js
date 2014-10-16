@@ -13,6 +13,21 @@ module.exports = function (grunt) {
             dist: 'release'
         },
 
+        watch: {
+            html: {
+                files: ['<%= config.app %>/{,**/}*.html'],
+                tasks: ['copy:dist']
+            },
+            js: {
+                files: ['<%= config.app %>/scripts/{,**/}*.js'],
+                tasks: ['copy:dist']
+            },
+            css: {
+            files: ['<%= config.app %>/styles/{,**/}*.css'],
+                tasks: ['copy:dist']
+            }
+        },
+
         clean: {
             dist: {
                 files: [{
@@ -54,13 +69,14 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('server', [
-        'build'
+    grunt.registerTask('dev', [
+        'build',
+        'watch'
     ]);
 
     grunt.registerTask('build', [
         'clean:dist',
-        'copy:dist'
+        'copy:dist',
         // probably should have something to process here...
     ]);
 
