@@ -13,7 +13,7 @@ angular.module('BarcampApp')
 					lastName: session['Last Name'],
 					email: session['E-mail']
 			};
-			// this.categories = session['Session Category'];
+			this.categories = session['Session Category'];
 			this.totalSignUps = session['Signup Counts'];
 			this.time = session["Time Slot"];
 			this.title = session.Title;
