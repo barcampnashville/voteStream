@@ -112,6 +112,10 @@ blockquote {
 	background-color: $secondary-color;
 }
 
+.btn:focus {
+	outline: none;
+}
+
 .btn-primary {
 	background-color: $primary-color;
 	border-color: $primary-color-darker;
@@ -157,8 +161,9 @@ input[type="color"]:focus,
 	outline: 0 none;
 }
 
-.admin-link {
+.admin-link, .admin-link:hover{
 	color: #fff;
+	text-decoration: none;
 }
 
 .admin-container {
