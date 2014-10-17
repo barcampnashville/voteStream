@@ -1,57 +1,48 @@
-var Firebase = require('firebase'),
+// test user with admin privledges: 03sbtn
+
+var TOKEN = process.env.FIREBASE_TOKEN,
+	Firebase = require('firebase'),
 	Root = new Firebase('https://barcamp.firebaseio.com/'),
 	Users = Root.child('Users'),
 	FirebaseTokenGenerator = require("firebase-token-generator"),
-	tokenGenerator = new FirebaseTokenGenerator('WENJKlCRd2gxckVcKYV4MowHuKcHL3yby6O1Zeat'),
+	tokenGenerator = new FirebaseTokenGenerator(TOKEN),
 	express = require("express"),
-	app = express();
+	app = express(),
+	port = process.env.PORT || 8083;
+	var server = new Firebase('https://barcamp.firebaseio.com/Users2014');
+	server.auth(TOKEN);
 
-app.use(express.logger());
 app.use(express.bodyParser());
 
 app.post('/login', function(req, res) {
-
 	var id = req.body.id;
 	if (!id) {
 		return res.send(401, { error: 'Invalid User ID' });
 	}
 
-	Users.child(id).once('value', function(snapshot) {
+	server.child(id).on('value', function(snapshot) {
 
 		var userData = snapshot.val();
-		console.log('login.user.value', id, userData);
+		console.log(userData);
 
 		if (!userData) {
 			return res.send(401, { error: 'Invalid User ID' });
 		}
+		userData.id = id;
 
 		var token = tokenGenerator.createToken({
-			id: id,
-			is_admin: (userData.admin === true)
+			uid: id.toString(),
+			user_id : id.toString(),
+			admin: (userData.admin === true)
 		});
 
-		Users.auth(token, function(error) {
-
-			if(error) {
-				res.send(400, error);
-
-			} else if ((/(?:text|application)\/x?html(?:\+xml)/i).test(req.headers.accept)) {
-				res.cookie('auth', token);
-				res.redirect('/');
-
-			} else {
-				res.send(200, token);
-
-			}
-
-		});
-
+		res.send(200, {token: token, user: userData});
 	});
 
 });
 
-app.get('/logout', function (req, res, next) {
-	Users.unauth();
+app.get('/logout/:id', function (req, res, next) {
+	Users.child(req.params.id).unauth();
 
 	if ((/(?:text|application)\/x?html(?:\+xml)/i).test(req.headers.accept)) {
 		res.redirect('/');
@@ -63,5 +54,10 @@ app.get('/logout', function (req, res, next) {
 
 // This serves up all the HTML pages on the site
 // The port designation allows us to develop on 8083 but serve from heroku on standard ports
-app.use("/", express.static(__dirname + "/app")).listen(process.env.PORT || 8083);
-console.log("APP Server started successfully.");
+if (app.get('env') === 'development') {
+	app.use("/", express.static(__dirname + "/app")).listen(port);
+} else {
+	app.use("/", express.static(__dirname + "/release")).listen(port);
+}
+
+console.log("APP Server started successfully on port " + port);
