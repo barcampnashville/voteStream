@@ -19,13 +19,15 @@
 	<table class="table">
 		<thead>
 			<tr>
+				<th class="text-center">Rank</th>
 				<th>Title</th>
 				<th>Votes</th>
 				<th>Remove</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-ng-repeat="s in sessions | orderBy:'s.-inSync.total_votes' | filter:{availability: polling.sessions}">
+			<tr data-ng-repeat="s in sessions | orderBy:['-inSync.total_votes', 'title'] | filter:{availability: polling.sessions}">
+				<td class="text-center">{{$index + 1}}</td>
 				<td>{{s.title}}</td>
 				<td>{{s.inSync.total_votes}}</td>
 				<td>
