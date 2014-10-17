@@ -3,6 +3,9 @@
 		<div class="row text-center">
 			<button class="btn btn-primary pull-left" data-ng-click="logout()">Log Out!</button>
 			<p class="label label-warning votesremaning">{{4 - user.sync.sessions.length}} votes left</p>
+			<button class="btn btn-primary pull-right" data-ng-if="!user.admin">
+				<a href="{{scheduleUrl}}" class="schedule-link">Schedule</a>
+			</button>
 			<button class="btn btn-primary pull-right" data-ng-if="user.admin">
 				<a href="#/admin" class="admin-link">Admin</a>
 			</button>

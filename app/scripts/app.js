@@ -45,7 +45,10 @@ angular.module('BarcampApp',[
 	])
 .run(function ($rootScope, $location, $firebase, AuthService, User) {
 	var lastPath,
-		pollingRef = new Firebase('https://barcamp.firebaseio.com/PollingState');
+		pollingRef = new Firebase('https://barcamp.firebaseio.com/PollingState'),
+		scheduleUrlRef = new Firebase('https://barcamp.firebaseio.com/ScheduleURL');
+
+	scheduleUrlRef.once('value', function (snapshot) { $rootScope.scheduleUrl = snapshot.val(); });
 
 	$rootScope.pollingSync = $firebase(pollingRef).$asObject();
 	$rootScope.logout = AuthService.logout;
