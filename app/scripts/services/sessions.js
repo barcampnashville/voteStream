@@ -9,9 +9,9 @@ angular.module('BarcampApp')
 			this.id = session.$id;
 			this.summary = session.Body;
 			this.speaker = {
-					firstName: session['First Name'],
-					lastName: session['Last Name'],
-					email: session['E-mail']
+				firstName: session['First Name'],
+				lastName: session['Last Name'],
+				email: session['E-mail']
 			};
 			this.categories = session['Session Category'];
 			this.totalSignUps = session['Signup Counts'];
