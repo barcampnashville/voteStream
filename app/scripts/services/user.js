@@ -1,14 +1,13 @@
 angular.module('BarcampApp')
 	.factory('User', function ($firebase) {
 		var User = function (user) {
-			this.ref = new Firebase('https://barcamp.firebaseio.com/Users/' + user.id);
+			this.ref = new Firebase('https://barcamp.firebaseio.com/Users2014/' + user.id);
 			this.sync = $firebase(this.ref).$asObject();
+			this.sessions = user.sessions || null;
 			this.id = user.id;
 			this.admin = user.admin;
 			this.voting = false;
 		};
-
-
 
 		User.prototype.updateSessions = function (id, cb) {
 			this.voting = true;

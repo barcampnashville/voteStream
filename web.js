@@ -9,7 +9,7 @@ var TOKEN = process.env.FIREBASE_TOKEN,
 	express = require("express"),
 	app = express(),
 	port = process.env.PORT || 8083;
-	var server = new Firebase('https://barcamp.firebaseio.com/Users');
+	var server = new Firebase('https://barcamp.firebaseio.com/Users2014');
 	server.auth(TOKEN);
 
 app.use(express.bodyParser());

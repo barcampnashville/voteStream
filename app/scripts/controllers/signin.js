@@ -7,10 +7,7 @@ angular.module('BarcampApp')
         $scope.login = function (id) {
             $scope.thinking = true;
             $scope.error = null;
-            AuthService.login(id).then(function () {
-                $scope.thinking = false;
-		        $location.path('/sessions');
-            },
+            AuthService.login(id).then(function () {},
             function (response) {
                 $scope.thinking = false;
                 $scope.error = response.status == 401 ? "I have no memory of this ID" : "I'm afraid I can't do that, Chuck.";
