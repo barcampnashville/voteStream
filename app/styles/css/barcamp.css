@@ -176,29 +176,30 @@ input[type="color"]:focus,
   outline: 0 none;
 }
 
-/* line 164, ../scss/barcamp.scss */
-.admin-link, .admin-link:hover {
+/* line 165, ../scss/barcamp.scss */
+.admin-link, .admin-link:hover,
+.schedule-link, .schedule-link:hover {
   color: #fff;
   text-decoration: none;
 }
 
-/* line 169, ../scss/barcamp.scss */
+/* line 170, ../scss/barcamp.scss */
 .admin-container {
   margin-top: 70px;
 }
 
-/* line 173, ../scss/barcamp.scss */
+/* line 174, ../scss/barcamp.scss */
 .timeofday {
   margin-left: 30px;
 }
 
 @media (max-width: 480px) {
-  /* line 179, ../scss/barcamp.scss */
+  /* line 180, ../scss/barcamp.scss */
   .header select {
     width: 80%;
   }
 
-  /* line 184, ../scss/barcamp.scss */
+  /* line 185, ../scss/barcamp.scss */
   .sessions {
     padding: 0 15px;
   }
