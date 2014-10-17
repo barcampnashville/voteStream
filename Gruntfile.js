@@ -10,7 +10,8 @@ module.exports = function (grunt) {
 
 		config: {
 			app: 'app',
-			dist: 'release'
+			dist: 'release',
+			tmp: '.tmp'
 		},
 
 		watch: {
@@ -28,6 +29,12 @@ module.exports = function (grunt) {
 				}
 		},
 
+		ngAnnotate: {
+			dist: {
+				src: '<%= config.tmp %>/scripts/app.js'
+			}
+		},
+
 		clean: {
 			dist: {
 				files: [{
@@ -38,6 +45,25 @@ module.exports = function (grunt) {
 						'!<%= config.dist %>/.git*'
 					]
 				}]
+			},
+			tmp: {
+				files: {
+					src: '.tmp'
+				}
+			}
+		},
+
+		concat: {
+			dist: {
+				src: '<%= config.app %>/scripts/{,**/}*.js',
+				dest: '<%= config.tmp %>/scripts/app.js'
+			}
+		},
+
+		uglify: {
+			dist: {
+				src: '<%= config.tmp %>/scripts/app.js',
+				dest: '<%= config.dist %>/scripts/app.min.js'
 			}
 		},
 
@@ -72,10 +98,19 @@ module.exports = function (grunt) {
 					cwd: '<%= config.app %>',
 					dest: '<%= config.dist %>',
 					src: [
-						'**/*.{ico,png,txt,webp,gif,png,jpeg,jpg,html,js,css}'
+						'**/*.{ico,png,txt,webp,gif,png,jpeg,jpg,html,css}',
+						'scripts/vendor/*.js'
 					]
 				}]
 			}
+		},
+
+		useminPrepare: {
+			html: 'index.html',
+		},
+
+		usemin: {
+			html: '<%= config.dist %>/index.html'
 		},
 
 		jshint: {
@@ -101,7 +136,12 @@ module.exports = function (grunt) {
 		'clean:dist',
 		'compass:dist',
 		'copy:dist',
-		// probably should have something to process here...
+		'useminPrepare',
+		'concat',
+		'ngAnnotate',
+		'uglify',
+		'usemin',
+		'clean:tmp'
 	]);
 
 	grunt.registerTask('default', [

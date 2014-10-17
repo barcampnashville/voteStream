@@ -52,9 +52,6 @@ angular.module('BarcampApp',[
 	$rootScope.$on("$routeChangeStart", function(evt, next) {
 		// User navigating
 		if (!$rootScope.user && !(next && next.$$route && next.$$route.allowAnonymousAccess)) {
-			if (next.$$route.adminAccess && !$rootScope.user.admin) {
-				$location.path('/sessions');
-			}
 			lastPath = next && next.path;
 			evt.preventDefault();
 			$location.path('/login');
