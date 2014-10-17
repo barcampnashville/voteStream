@@ -22,6 +22,7 @@
 			<tr>
 				<th class="text-center">Rank</th>
 				<th>Title</th>
+				<th>Speaker</th>
 				<th>Votes</th>
 				<th>Remove</th>
 			</tr>
@@ -30,6 +31,7 @@
 			<tr data-ng-repeat="s in sessions | orderBy:['-inSync.total_votes', 'title'] | filter:{availability: polling.sessions}">
 				<td class="text-center">{{$index + 1}}</td>
 				<td>{{s.title}}</td>
+				<td>{{s.speaker.firstName}} {{s.speaker.lastName}}</td>
 				<td>{{s.inSync.total_votes}}</td>
 				<td>
 					<button data-ng-if="!s.inSync.removed" type="button" class="btn btn-primary" data-ng-click="remove(s)">Remove</button>
