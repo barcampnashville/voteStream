@@ -15,7 +15,7 @@ angular.module('BarcampApp',[
 					adminAccess: true,
 					resolve: {
 						Sessions: function (SessionListing) {
-							return SessionListing;
+							return SessionListing();
 						}
 					}
 				})
