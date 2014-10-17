@@ -8,7 +8,7 @@ angular.module('BarcampApp')
 				if (!err) {
 					$rootScope.user = new User(user.user);
 					if (user.user.admin) {
-						$location.path('/sessions');
+						$location.path('/admin');
 					} else {
 						$location.path('/sessions');
 					}
@@ -24,7 +24,7 @@ angular.module('BarcampApp')
 				if (!err) {
 					$rootScope.user = new User(user.user);
 					if (user.user.admin) {
-						$location.path('/sessions');
+						$location.path('/admin');
 					} else {
 						$location.path('/sessions');
 					}
