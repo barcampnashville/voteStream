@@ -3,6 +3,7 @@ angular.module('BarcampApp')
 		var User = function (user) {
 			this.ref = new Firebase('https://barcamp.firebaseio.com/Users/' + user.id);
 			this.sync = $firebase(this.ref).$asObject();
+			this.sessions = user.sessions || null;
 			this.id = user.id;
 			this.admin = user.admin;
 			this.voting = false;

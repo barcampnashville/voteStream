@@ -1,7 +1,6 @@
 angular.module('BarcampApp',[
 	'ngRoute',
 	'firebase',
-	'ngGrid',
 	'webStorageModule'
 ])
 
@@ -26,7 +25,7 @@ angular.module('BarcampApp',[
 					allowAnonymousAccess:false,
 					resolve: {
 						Sessions: function (SessionListing) {
-							return SessionListing;
+							return SessionListing();
 						}
 					}
 				}).when('/login', {
