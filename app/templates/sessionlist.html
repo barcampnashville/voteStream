@@ -10,19 +10,10 @@
 				<a href="#/admin" class="admin-link">Admin</a>
 			</button>
 		</div>
-		<div ng-show="!polling.open" class="row text-center alert alert-danger">
-			Polling is currently closed.<br />Your votes will not be counted at this time.
-		</div>
 	</div>
 </div>
 
 <div class="container sessions">
-	<h3 class="text-center">BarCamp Nashville 2014</h3>
-	<ul class='list-unstyled mylist-wrapper'>
-		<li data-ng-repeat="mysession in myList" class="mylist">
-			{{mysession.Title}}
-		</li>
-	</ul>
 
 	<div ng-show="!polling.open" class="alert alert-danger text-center">Polling is currently closed.<br />Your votes will not be counted at this time.</div>
 
