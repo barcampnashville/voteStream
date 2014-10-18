@@ -145,7 +145,7 @@ module.exports = function (grunt) {
 	]);
 
 	grunt.registerTask('default', [
-		'build'
+		'prod'
 	]);
 
 	grunt.registerTask('heroku', [
