@@ -35,7 +35,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}" data-ng-repeat="s in sessions | orderBy:['-inSync.total_votes', 'title'] | filter:{availability: polling.sessions}">
+			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}" data-ng-repeat="s in sessions | orderBy:['inSync.removed', '-inSync.total_votes', 'title'] | filter:{availability: polling.sessions}">
 				<td class="text-center">{{$index + 1}}</td>
 				<td>{{s.title}}</td>
 				<td>{{s.speaker.firstName}} {{s.speaker.lastName}}</td>
