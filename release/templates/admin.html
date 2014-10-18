@@ -1,6 +1,6 @@
 <div class="header">
 	<button class="btn btn-primary pull-left" data-ng-click="logout()">Log Out!</button>
-	<p class="text-center">Admin | {{currenttime}}</p>
+	<p class="text-center">{{currenttime}}</p>
 </div>
 
 <section class="container admin-container">
@@ -14,9 +14,16 @@
 		    	<option value="morning">Morning</option>
 		    	<option value="afternoon">Afternoon</option>
 		    </select>
-		</div>
-	</div>
 
+			<label style="margin-left: 30px;">Hide Removed From Admin View</label>
+			<input type="checkbox" data-ng-model="hideRemoved">
+		</div>
+
+		<p>The <em>Hide Removed From Admin View</em> just hides the removed sessions from the admin view. This is to present a cleaner list for better visibility into afternoon session rankings</p>
+		
+		<p>Clicking the removed button will hide the session from the voting page. It is for those sessions that are presented in the morning but aslo available in the afternoon. Clicking remove will keep them from showing up in the vote page during the afternoon session</p>
+
+	</div>
 	<table class="table">
 		<thead>
 			<tr>
@@ -28,7 +35,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-ng-repeat="s in sessions | orderBy:['-inSync.total_votes', 'title'] | filter:{availability: polling.sessions}">
+			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}" data-ng-repeat="s in sessions | orderBy:['-inSync.total_votes', 'title'] | filter:{availability: polling.sessions}">
 				<td class="text-center">{{$index + 1}}</td>
 				<td>{{s.title}}</td>
 				<td>{{s.speaker.firstName}} {{s.speaker.lastName}}</td>
