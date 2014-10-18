@@ -1,9 +1,5 @@
 .DS_Store
 node_modules
 #release
-bower_components
-app/bower_components
-bower_components
 .sass-cache
-.sass*
 .idea
