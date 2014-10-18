@@ -3,7 +3,7 @@
 var TOKEN = process.env.FIREBASE_TOKEN,
 	Firebase = require('firebase'),
 	Root = new Firebase('https://barcamp.firebaseio.com/'),
-	Users = Root.child('Users'),
+	Users = Root.child('Users2014'),
 	FirebaseTokenGenerator = require("firebase-token-generator"),
 	tokenGenerator = new FirebaseTokenGenerator(TOKEN),
 	express = require("express"),
