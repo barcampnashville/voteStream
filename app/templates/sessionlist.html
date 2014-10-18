@@ -41,7 +41,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12">
+				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12" data-ng-click="showText = !showText">
 					<p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
     				<div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
         			<div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
