@@ -1,63 +1,63 @@
 angular.module('BarcampApp',[
-	'ngRoute',
-	'firebase',
-	'webStorageModule'
+  'ngRoute',
+  'firebase',
+  'webStorageModule'
 ])
 
 .config([
-		'$routeProvider',
-		function ($routeProvider) {
-			$routeProvider
-				.when('/admin', {
-					templateUrl : '/templates/admin.html',
-					controller : 'AdminCtrl',
-					allowAnonymousAccess:false,
-					adminAccess: true,
-					resolve: {
-						Sessions: function (SessionListing) {
-							return SessionListing();
-						}
-					}
-				})
-				.when('/sessions', {
-					templateUrl: '/templates/sessionlist.html',
-					controller: 'SessionListingCtrl',
-					allowAnonymousAccess:false,
-					resolve: {
-						Sessions: function (SessionListing) {
-							return SessionListing();
-						}
-					}
-				}).when('/login', {
-					templateUrl : '/templates/signin.html',
-					controller : 'SigninCtrl',
-					allowAnonymousAccess:true
-				})
-				.when('/logout', {
-					redirectTo:'/login',
-					allowAnonymousAccess:true
-				})
-				.otherwise({
-					redirectTo:'/sessions'
-				});
-		}
-	])
+    '$routeProvider',
+    function ($routeProvider) {
+      $routeProvider
+        .when('/admin', {
+          templateUrl : '/templates/admin.html',
+          controller : 'AdminCtrl',
+          allowAnonymousAccess:false,
+          adminAccess: true,
+          resolve: {
+            Sessions: function (SessionListing) {
+              return SessionListing();
+            }
+          }
+        })
+        .when('/sessions', {
+          templateUrl: '/templates/sessionlist.html',
+          controller: 'SessionListingCtrl',
+          allowAnonymousAccess:false,
+          resolve: {
+            Sessions: function (SessionListing) {
+              return SessionListing();
+            }
+          }
+        }).when('/login', {
+          templateUrl : '/templates/signin.html',
+          controller : 'SigninCtrl',
+          allowAnonymousAccess:true
+        })
+        .when('/logout', {
+          redirectTo:'/login',
+          allowAnonymousAccess:true
+        })
+        .otherwise({
+          redirectTo:'/sessions'
+        });
+    }
+  ])
 .run(function ($rootScope, $location, $firebase, AuthService, User) {
-	var lastPath,
-		pollingRef = new Firebase('https://barcamp.firebaseio.com/PollingState'),
-		scheduleUrlRef = new Firebase('https://barcamp.firebaseio.com/ScheduleURL');
+  var lastPath,
+    pollingRef = new Firebase('https://nashvillebarcamp.firebaseio.com/PollingState'),
+    scheduleUrlRef = new Firebase('https://nashvillebarcamp.firebaseio.com/ScheduleURL');
 
-	scheduleUrlRef.once('value', function (snapshot) { $rootScope.scheduleUrl = snapshot.val(); });
+  scheduleUrlRef.once('value', function (snapshot) { $rootScope.scheduleUrl = snapshot.val(); });
 
-	$rootScope.pollingSync = $firebase(pollingRef).$asObject();
-	$rootScope.logout = AuthService.logout;
+  $rootScope.pollingSync = $firebase(pollingRef).$asObject();
+  $rootScope.logout = AuthService.logout;
 
-	$rootScope.$on("$routeChangeStart", function(evt, next) {
-		// User navigating
-		if (!$rootScope.user && !(next && next.$$route && next.$$route.allowAnonymousAccess)) {
-			lastPath = next && next.path;
-			evt.preventDefault();
-			$location.path('/login');
-		}
-	});
+  $rootScope.$on("$routeChangeStart", function(evt, next) {
+    // User navigating
+    if (!$rootScope.user && !(next && next.$$route && next.$$route.allowAnonymousAccess)) {
+      lastPath = next && next.path;
+      evt.preventDefault();
+      $location.path('/login');
+    }
+  });
 });
