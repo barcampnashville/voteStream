@@ -1,14 +1,7 @@
-vote
+voteStream
 ====
 
 A voting system initially built at HackNashville 4 to collect audience input by which the winner of the hackathon was chosen. This build is more geared towards the needs of [BarCamp Nashville](http://www.barcampnashville.org/) 2013. BarCamp '13 was held November 2, 2013. BarCamp '14 is set for October 18, 2014.
-
-2014 Conference Logistics
-=========================
-
-An anticipated 200+ attendees will arrive between 8:00am and 9:00am the day of the event. At some point that morning the polls will be open for participants to cast their votes among the forty-eight (48) sessions total capacity. Speakers are available for morning, afternoon, or both session times. There are two (2) voting periods. Twenty-four (24) sessions will be chosen during the morning sessions. Twenty-four (24) more sessions will be chosen for the afternoon sessions. Those sessions that did not get selected for the morning will be reentered into the options for the afternoon should the speaker be available. Chosen morning sessions will not be eligible for the afternoon round of voting.
-
-During the polling period, tabulation is viewable live. Once polling has ended, the room assignment is performed by BarCamp staff. During voting, attendees will get to place 4 votes, one for each time slot.
 
 ##Model - [Firebase](https://barcamp.firebaseio.com/)
 ###Sessions
@@ -28,7 +21,7 @@ A collection of sessions. Individual objects the details on a Speaker's presenta
  * id - Firebase id
  * total_votes - Number of votes tabulated for the session
  
-###Categories: 2 each session; 15 total
+###Categories: 0, 1, or 2 for each session; 15 total
  * all
  * code
  * content
@@ -59,7 +52,7 @@ The default view upon successful authentication (valid user code). Here a user h
 This view reveals a table listing of sessions in a realtime link to Firebase. The columns are sortable and should probably default to show the highest scoring sessions by vote count in descending order. It also contains the toggle to enable/disable voting which *must* be put behind something more secure. Seriously, this isn't secure or even obfuscated well.
 
 ###Schedule
-The plan currently is to include the schedule as updated on the [BarCamp website](http://www.barcampnashville.org/bcn13/sessions) in the application via an iframe. This page is updated manually once votes are tallied and is set up to reveal the time slots and room assignments. It also has the ability to show the user a list of their custom sessions composed of favorites they've marked ahead of time.
+The plan currently is to include the schedule as updated on the [BarCamp website](http://www.barcampnashville.org/bcn14/sessions) in the application via an iframe. This page is updated manually once votes are tallied and is set up to reveal the time slots and room assignments. It also has the ability to show the user a list of their custom sessions composed of favorites they've marked ahead of time.
 
 ## Run the Voting App
 Install with:
