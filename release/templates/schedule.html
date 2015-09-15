@@ -1,27 +1,27 @@
 <div class="container sessions">
-	<div class="header schedule">
-		<h3 class="text-center">Schedule</h3>
-	</div>
+  <div class="header schedule">
+    <h3 class="text-center">Schedule</h3>
+  </div>
 
-	<img id="event-logo"  src="/images/event-logo.png">
-	<hr />
+  <img id="event-logo"  src="/images/event-logo.png">
+  <hr />
 
-	<ul class="list-unstyled">
-		<li data-ng-repeat="session in sessions | filter: 'Room' !== '' | orderObjectBy:'Room':true | orderObjectBy:'Time':true ">
-			<div class="row">
+  <ul class="list-unstyled">
+    <li data-ng-repeat="session in sessions | filter: 'Room' !== '' | orderObjectBy:'Room':true | orderObjectBy:'Time':true ">
+      <div class="row">
   				<div class="sessionTitle col-lg-12">
   					<p class="text-center strong"><strong>{{session.Title}}</strong></p>
   				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-					<p class="text-center">Time: {{session.Time}}</p>
-				</div>
-				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-					<p class="text-center">Room: {{session.Room}}</p>
-				</div>
-			</div>
-			<hr/>
-		</li>
-	</ul>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <p class="text-center">Time: {{session.Time}}</p>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <p class="text-center">Room: {{session.Room}}</p>
+        </div>
+      </div>
+      <hr/>
+    </li>
+  </ul>
 </div>
