@@ -2,14 +2,14 @@
 
 var TOKEN = process.env.FIREBASE_TOKEN,
 	Firebase = require('firebase'),
-	Root = new Firebase('https://barcamp.firebaseio.com/'),
+	Root = new Firebase('https://nashvillebarcamp.firebaseio.com/'),
 	Users = Root.child('Users2014'),
 	FirebaseTokenGenerator = require("firebase-token-generator"),
 	tokenGenerator = new FirebaseTokenGenerator(TOKEN),
 	express = require("express"),
 	app = express(),
 	port = process.env.PORT || 8083;
-	var server = new Firebase('https://barcamp.firebaseio.com/Users2014');
+	var server = new Firebase('https://nashvillebarcamp.firebaseio.com/Users2014');
 	server.auth(TOKEN);
 
 app.use(express.bodyParser());

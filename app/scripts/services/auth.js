@@ -1,7 +1,7 @@
 angular.module('BarcampApp')
 	.factory('AuthService', function ($http, $q, webStorage, $location, $rootScope, $firebase, User) {
 		var user = webStorage.get('user'),
-			ref = new Firebase('https://barcamp.firebaseio.com/');
+			ref = new Firebase('https://nashvillebarcamp.firebaseio.com/');
 
 		if (user) {
 			ref.authWithCustomToken(user.token, function (err) {
