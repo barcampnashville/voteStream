@@ -38,7 +38,7 @@ In order to help my favorite sessions get presented
 	  When the "Welcome to BarCamp" landing page displays
 	  Then there should be instructions there on how to vote, voting timeframe 
 	    for morning and afternoon, and when the schedules should be ready
-	  And I will be instructed to click the hamberget menu at top-right to begin
+	  And I will be instructed to click the hamburger menu at top-right to begin
 	  	 
 	Scenario: Number of votes should update
 	  Given I am an authenticated user of the Voting App
