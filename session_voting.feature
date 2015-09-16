@@ -27,12 +27,17 @@ In order to help my favorite sessions get presented
 	  Then I should see a landing page that says, "Welcome to BarCamp Nashville 2015"
 	  And I should see a hamburger menu at top-right
 	  And the menu should have four items in the nav
-	  And the items should be "BarCamp Nashville 2015", "Morning Voting", "Afternoon Voting", "Favorites from Website"
+	  And the items should be 
+	    "BarCamp Nashville 2015", 
+	    "Morning Voting", 
+	    "Afternoon Voting", 
+	    "Favorites from Website"
 
-	Scenario: Instructions
+	Scenario: View instructions
 	  Given I am an authenticated user of the Voting App
 	  When the "Welcome to BarCamp" landing page displays
-	  Then there should be instructions there on how to vote, voting timeframe for morning and afternoon, and when the schedules should be ready
+	  Then there should be instructions there on how to vote, voting timeframe 
+	    for morning and afternoon, and when the schedules should be ready
 	  And I will be instructed to click the hamberget menu at top-right to begin
 	  	 
 	Scenario: Number of votes should update
@@ -45,7 +50,8 @@ In order to help my favorite sessions get presented
 	  And I should see that I have four votes left
 
 	Scenario: Check favorites
-	  # For this scenario, I think we need to authenticate the user to the BCN website in order to get the favorites. Otherwise this won't work. I'm not sure of another way to do this.   
+	  # For this scenario, I think we need to authenticate the user to the BCN website 
+	  # in order to get the favorites. Otherwise this won't work. I'm not sure of another way to do this.   
 	  Given I have been choosing my Favorites at the Website
 	  And I am an authenicated user on the Voting App
 	  When I am on the view for sessions that I can vote for on the Voting App
@@ -79,7 +85,8 @@ In order to help my favorite sessions get presented
 	  
 	Scenario: Security
 	  
-	  #I don't know enough about how the toggle to enable/disable voting is a security risk to write a feature on this. But it seems to me it should be done
+	  # I don't know enough about how the toggle to enable/disable voting is a security risk 
+	  # to write a feature on this. But it seems to me it should be done
 	  
 
 	Scenario: View schedule
