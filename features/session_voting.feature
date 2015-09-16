@@ -21,27 +21,38 @@ In order to help my favorite sessions get presented
 	  Then I should be an authenticated user
 	  And I should see a landing page that says, "Welcome to BarCamp Nashville 2015"
 
-	Scenario: Views
-	  Given I am an authenticated user of the Voting App
+	Scenario: Views - public
+	  Given I am an authenticated public user of the Voting App
+	  When I look at the first screen
+	  Then I should see a landing page that says, "Welcome to BarCamp Nashville 2015"
+	  And I should see a hamburger menu at top-right
+	  And the menu should have three items in the nav
+	  And the items should be 
+	    "BarCamp Nashville 2015", 
+	    "Voting", 
+	    "Favorites from Website"
+
+	Scenario: Views - admin
+	  Given I am an authenticated admin user of the Voting App
 	  When I look at the first screen
 	  Then I should see a landing page that says, "Welcome to BarCamp Nashville 2015"
 	  And I should see a hamburger menu at top-right
 	  And the menu should have four items in the nav
 	  And the items should be 
 	    "BarCamp Nashville 2015", 
-	    "Morning Voting", 
-	    "Afternoon Voting", 
-	    "Favorites from Website"
+	    "Voting", 
+	    "Favorites from Website",
+        "Voting Results"
 
 	Scenario: View instructions
-	  Given I am an authenticated user of the Voting App
+	  Given I am an authenticated public or admin user of the Voting App
 	  When the "Welcome to BarCamp" landing page displays
 	  Then there should be instructions there on how to vote, voting timeframe 
 	    for morning and afternoon, and when the schedules should be ready
 	  And I will be instructed to click the hamburger menu at top-right to begin
 	  	 
 	Scenario: Number of votes should update
-	  Given I am an authenticated user of the Voting App
+	  Given I am an authenticated public or admin user of the Voting App
 	  When navigate to a voting view
 	  Then I see that I can vote for four sessions
 	  And I can vote for a session, which should mark it as selected
@@ -49,18 +60,6 @@ In order to help my favorite sessions get presented
 	  And I can revoke my previous vote 
 	  And I should see that I have four votes left
 
-	Scenario: Check favorites
-	  # For this scenario, I think we need to authenticate the user to the BCN website 
-	  # in order to get the favorites. Otherwise this won't work. I'm not sure of another way to do this.   
-	  Given I have been choosing my Favorites at the Website
-	  And I am an authenicated user on the Voting App
-	  When I am on the view for sessions that I can vote for on the Voting App
-	  And I choose "My Favorites from Website"
-	  Then I should see a modal to authenticate my BCN credentials
-	  And I should then be able to toggle to a view of Favorites from the Website
-	  And I should be able to toggle back to the Voting App via the same button
-	  And the Voting App view should persist from its previous state
-	
 	Scenario: Signout warning
 	  Given I have chosen four sessions on the Voting App
 	  And I feel good about my votes
