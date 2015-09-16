@@ -45,7 +45,7 @@ In order to help my favorite sessions get presented
 	  And I should see that I have four votes left
 
 	Scenario: Check favorites
-	  // For this scenario, I think we need to authenticate the user to the BCN website in order to get the favorites. Otherwise this won't work. I'm not sure of another way to do this.   
+	  # For this scenario, I think we need to authenticate the user to the BCN website in order to get the favorites. Otherwise this won't work. I'm not sure of another way to do this.   
 	  Given I have been choosing my Favorites at the Website
 	  And I am an authenicated user on the Voting App
 	  When I am on the view for sessions that I can vote for on the Voting App
@@ -78,9 +78,9 @@ In order to help my favorite sessions get presented
 	  And the default view should be from highest scoring session to lowest
 	  
 	Scenario: Security
-	  /*
-	  I don't know enough about how the toggle to enable/disable voting is a security risk to write a feature on this. But it seems to me it should be done
-	  */
+	  
+	  #I don't know enough about how the toggle to enable/disable voting is a security risk to write a feature on this. But it seems to me it should be done
+	  
 
 	Scenario: View schedule
 	  Given that BCN has updated the final tally after morning voting ends
