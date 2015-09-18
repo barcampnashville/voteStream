@@ -3,7 +3,7 @@ voteStream
 
 A voting system initially built at HackNashville 4 to collect audience input by which the winner of the hackathon was chosen. This build is more geared towards the needs of [BarCamp Nashville](http://www.barcampnashville.org/) 2013. BarCamp '13 was held November 2, 2013. BarCamp '14 is set for October 18, 2014.
 
-##Model - [Firebase](https://barcamp.firebaseio.com/)
+##Model - [Firebase](https://nashvillebarcamp.firebaseio.com/)
 ###Sessions
 A collection of sessions. Individual objects the details on a Speaker's presentation as well as their availability and vote tabulation.
  * Availability (Morning || Afternoon || Both)
@@ -20,7 +20,7 @@ A collection of sessions. Individual objects the details on a Speaker's presenta
  * Username - BarCamp website username
  * id - Firebase id
  * total_votes - Number of votes tabulated for the session
- 
+
 ###Categories: 0, 1, or 2 for each session; 15 total
  * all
  * code

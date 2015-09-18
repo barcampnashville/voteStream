@@ -49,7 +49,7 @@ app.get('/logout/:id', function (req, res, next) {
 	} else {
 		res.send(204);
 	}
-	
+
 });
 
 // This serves up all the HTML pages on the site
