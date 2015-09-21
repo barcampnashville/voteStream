@@ -8,6 +8,11 @@ angular.module('BarcampApp',[
 		'$routeProvider',
 		function ($routeProvider) {
 			$routeProvider
+//adds home route
+				.when('/', {
+					templateUrl : '/templates/home.html',
+					allowAnonymousAccess:false,
+				})
 				.when('/admin', {
 					templateUrl : '/templates/admin.html',
 					controller : 'AdminCtrl',
@@ -38,7 +43,7 @@ angular.module('BarcampApp',[
 					allowAnonymousAccess:true
 				})
 				.otherwise({
-					redirectTo:'/sessions'
+					redirectTo:'/'
 				});
 		}
 	])
@@ -51,7 +56,7 @@ angular.module('BarcampApp',[
 
 	$rootScope.pollingSync = $firebase(pollingRef).$asObject();
 	$rootScope.logout = AuthService.logout;
-
+  
 	$rootScope.$on("$routeChangeStart", function(evt, next) {
 		// User navigating
 		if (!$rootScope.user && !(next && next.$$route && next.$$route.allowAnonymousAccess)) {

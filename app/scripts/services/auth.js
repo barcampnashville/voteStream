@@ -27,9 +27,9 @@ angular.module('BarcampApp')
 						$location.path('/admin');
 					} else {
 						$location.path('/sessions');
-					}
+					} 
 					$rootScope.$apply();
-				}
+				} 
 			});
 		}
 

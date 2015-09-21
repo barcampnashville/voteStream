@@ -12,12 +12,12 @@
 		</div>
 	</div>
 </div>
+<!--switcher starts here-->
+<div ng-controller="SwitchCtrl">
 
-<div class="container sessions">
-
-	<hr>
-
-	<ul class="list-unstyled">
+<select ng-model="switcher" ng-options="item for item in items"></select>
+	<div class="container sessions animate-switch-container" ng-switch on="morning">
+  		<ul class="list-unstyled">
 		<li data-ng-repeat="session in sessions | orderBy: 'title' | publicSessions">
 
 			<div class="row">
@@ -48,4 +48,8 @@
 			</div>
 		</li>
 	</ul>
+</div>
+  <div class="container sessions animate-switch-container" ng-switch on="afternoon">
+    <h2>Afternoon content goes here</h2>
+  </div>
 </div>
