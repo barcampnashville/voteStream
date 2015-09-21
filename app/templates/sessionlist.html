@@ -15,13 +15,14 @@
 <!--switcher starts here-->
 <div ng-controller="SwitchCtrl">
 
-<select ng-model="switcher" ng-options="item for item in items"></select>
-	<div class="container sessions animate-switch-container" ng-switch on="morning">
+<select ng-model="selection" ng-options="item for item in items"></select>
+	<div class="container sessions animate-switch-container" ng-switch on="selection">
+     <h3>{{selection}}</h3>
   		<ul class="list-unstyled">
 		<li data-ng-repeat="session in sessions | orderBy: 'title' | publicSessions">
 
-			<div class="row">
-  				<div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
+			<div class="row" ng-controller="SessionListingCtrl"> 
+  				<div class="sessionTitle col-xs-10 col-sm-9 col-md-10" >
   					<h4>{{session.title}}</h4>
   				</div>
   				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
@@ -30,7 +31,7 @@
 					</button>
   				</div>
 			</div>
-			<div class="row">
+			<div class="row" ng-controller="SessionListingCtrl">
 				<div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
 					<p><i>with:</i> {{session.speaker.firstName}} {{session.speaker.lastName}}</p>
 				</div>
@@ -38,7 +39,7 @@
 					<span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{category}}</span>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" ng-controller="SessionListingCtrl">
 				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12" data-ng-click="showText = !showText">
 					<p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
     				<div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>

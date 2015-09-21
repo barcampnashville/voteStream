@@ -1,18 +1,19 @@
 angular.module('BarcampApp',[
 	'ngRoute',
 	'firebase',
-	'webStorageModule'
+	'webStorageModule',
+	
 ])
 
 .config([
 		'$routeProvider',
 		function ($routeProvider) {
 			$routeProvider
-//adds home route
+/*//adds home route
 				.when('/', {
 					templateUrl : '/templates/home.html',
 					allowAnonymousAccess:false,
-				})
+				})*/
 				.when('/admin', {
 					templateUrl : '/templates/admin.html',
 					controller : 'AdminCtrl',
@@ -23,6 +24,32 @@ angular.module('BarcampApp',[
 							return SessionListing();
 						}
 					}
+				})
+				.when('/favs', {
+					templateUrl : '/templates/favorites.html',
+					controller : 'FavsCtrl',
+					allowAnonymousAccess:false,
+/*
+					adminAccess: true,
+					resolve: {
+						Sessions: function (SessionListing) {
+							return SessionListing();
+						}
+					}
+*/
+				})
+				.when('/fullschedule', {
+					templateUrl : '/templates/fullschedule.html',
+					controller : 'FullScheduleCtrl',
+					allowAnonymousAccess:false,
+/*
+					adminAccess: true,
+					resolve: {
+						Sessions: function (SessionListing) {
+							return SessionListing();
+						}
+					}
+*/
 				})
 				.when('/sessions', {
 					templateUrl: '/templates/sessionlist.html',
@@ -43,7 +70,7 @@ angular.module('BarcampApp',[
 					allowAnonymousAccess:true
 				})
 				.otherwise({
-					redirectTo:'/'
+					redirectTo:'/sessions'
 				});
 		}
 	])
