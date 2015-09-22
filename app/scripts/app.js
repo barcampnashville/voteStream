@@ -28,7 +28,7 @@ angular.module('BarcampApp',[
 				.when('/favs', {
 					templateUrl : '/templates/favorites.html',
 					controller : 'FavsCtrl',
-					allowAnonymousAccess:false,
+					allowAnonymousAccess:false
 /*
 					adminAccess: true,
 					resolve: {
@@ -41,7 +41,7 @@ angular.module('BarcampApp',[
 				.when('/fullschedule', {
 					templateUrl : '/templates/fullschedule.html',
 					controller : 'FullScheduleCtrl',
-					allowAnonymousAccess:false,
+					allowAnonymousAccess:false
 /*
 					adminAccess: true,
 					resolve: {
