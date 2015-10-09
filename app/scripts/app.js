@@ -1,12 +1,13 @@
 angular.module('BarcampApp',[
 	'ngRoute',
 	'firebase',
-	'webStorageModule',
+	'webStorageModule'
 	
 ])
 
 .config([
 		'$routeProvider',
+        '$httpProvider',
 		function ($routeProvider) {
 			$routeProvider
 /*//adds home route
