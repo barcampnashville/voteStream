@@ -64,7 +64,6 @@ Favorites</a></li>
   </div>
   
   <!--afternoon voting-->
-  
 <div role="tabpanel" class="tab-pane active container sessions" id="pmVote">
     <ul class="list-unstyled">
     <li data-ng-repeat="session in sessions | orderBy: 'title' | afternoon">
@@ -97,7 +96,34 @@ Favorites</a></li>
       </div>
     </li>
   </ul>
-  </div></div></div>
+
+
+  </div>
+
+    <!--favorites-->
+  <div role="tabpanel" class="tab-pane active container sessions" id="favs">
+  <ul class="list-unstyled">
+    <li data-ng-repeat="favs in favorites | orderBy: 'title' | myFavorites">
+      <div class="row">
+       <form class="col-xs-10 col-sm-9 col-md-10">
+        <input type="text" placeholder="BarCamp Username">
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+      </div>
+      <div class="row">
+        <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
+          <h4>{{favorites}}</h4>
+        </div>
+
+      </div>
+      <div>
+        <h4></h4>
+
+      </div>
+    </li>
+
+  </ul>
+  </div>  </div></div>
 <script>
   $('#myTabs a').click(function (e) {
     e.preventDefault()
