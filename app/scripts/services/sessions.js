@@ -1,7 +1,7 @@
 angular.module('BarcampApp')
 	.factory('Session', function ($firebase, $rootScope, $timeout) {
 		var Session = function (session) {
-			var ref = new Firebase('https://nashvillebarcamp.firebaseio.com/Sessions2014/' + session.$id);
+			var ref = new Firebase('https://nashvillebarcamp.firebaseio.com/Sessions/' + session.$id);
 			this.voteCountRef = $firebase(ref.child('total_votes'));
 			this.ref = $firebase(ref);
 			this.inSync = this.ref.$asObject();
@@ -62,7 +62,7 @@ angular.module('BarcampApp')
 			if (items.length > 0) {
 				defer.resolve(items);
 			}
-			var list = $firebase(new Firebase('https://nashvillebarcamp.firebaseio.com/Sessions2014')).$asArray();
+			var list = $firebase(new Firebase('https://nashvillebarcamp.firebaseio.com/Sessions')).$asArray();
 			list.$loaded().then(function (sessions) {
 				sessions.forEach(function (sess) {
 					items.push(new Session(sess));

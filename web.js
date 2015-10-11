@@ -3,15 +3,15 @@
 var TOKEN = process.env.FIREBASE_TOKEN,
 	Firebase = require('firebase'),
 	Root = new Firebase('https://nashvillebarcamp.firebaseio.com/'),
-	Users = Root.child('Users2014'),
-	Sessions = Root.child('Sessions2014'),
+	Users = Root.child('Users'),
+	Sessions = Root.child('Sessions'),
 	FirebaseTokenGenerator = require("firebase-token-generator"),
 	tokenGenerator = new FirebaseTokenGenerator(TOKEN),
 	express = require("express"),
 	request = require("request"),
 	app = express(),
 	port = process.env.PORT || 8083;
-	var server = new Firebase('https://nashvillebarcamp.firebaseio.com/Users2014');
+	var server = new Firebase('https://nashvillebarcamp.firebaseio.com/Users');
 	server.auth(TOKEN);
 
 app.use(express.bodyParser());
