@@ -56,13 +56,13 @@ app.get('/logout/:id', function (req, res, next) {
 
 app.get('/favorites/:token/:bcnusername', function (req, res, next) {
 	var bcnusername = req.params.bcnusername;
-	var favoritesIds = [];
 	// Create a request to the BCN14 site
 	// TODO: Make this more generic. We shouldn't be looking at bcn14 statically.
 	request({uri: "http://www.barcampnashville.org/bcn14/users/"+ bcnusername +"/attending"}, function(error, response, body) {
 		var data = JSON.parse(body);
 		var userRef = Users.child(req.params.token);
 		var titleArray = [];
+		var favoritesNids = [];
 
 		// Prepare a list of the favorite choices from the BCN website for this user
 		data['favorited sessions'].forEach(function (item) {
@@ -73,12 +73,12 @@ app.get('/favorites/:token/:bcnusername', function (req, res, next) {
 		Sessions.once("value", function (sessionSnapshot) {
 			sessionSnapshot.forEach(function (childSnapshot) {
 				if (titleArray.indexOf(childSnapshot.val().Title) > -1) {
-					favoritesIds.push(childSnapshot.name());
+					favoritesNids.push(childSnapshot.val().Nid);
 				}
 			});
 			// Update the token's list of favorites with what we just got back from the bcn website
-			userRef.update({favorites: favoritesIds});
-			res.send(200, {favorites: favoritesIds});
+			userRef.update({favoriteIds: favoritesNids});
+			res.send(200, {favoriteIds: favoritesNids});
 		});
 	});
 });
