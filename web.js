@@ -58,28 +58,15 @@ app.get('/favorites/:token/:bcnusername', function (req, res, next) {
 	var bcnusername = req.params.bcnusername;
 	// Create a request to the BCN14 site
 	// TODO: Make this more generic. We shouldn't be looking at bcn14 statically.
-	request({uri: "http://www.barcampnashville.org/bcn14/users/"+ bcnusername +"/attending"}, function(error, response, body) {
-		var data = JSON.parse(body);
+	request.get("http://www.barcampnashville.org/bcn14/users/"+ bcnusername +"/attending", function(error, response, body) {
+		var data = JSON.parse(body)['favorited sessions'].map(function(session) {return session.session});
 		var userRef = Users.child(req.params.token);
-		var titleArray = [];
-		var favoritesNids = [];
-
-		// Prepare a list of the favorite choices from the BCN website for this user
-		data['favorited sessions'].forEach(function (item) {
-			titleArray.push(item.session.Title);
+		var favoriteNids = data.map(function(fav) {
+			return fav.Nid;
 		});
 
-		// Take a look at the sessions in firebase, and compare the titles (no ids from BCN - next best thing is the title)
-		Sessions.once("value", function (sessionSnapshot) {
-			sessionSnapshot.forEach(function (childSnapshot) {
-				if (titleArray.indexOf(childSnapshot.val().Title) > -1) {
-					favoritesNids.push(childSnapshot.val().Nid);
-				}
-			});
-			// Update the token's list of favorites with what we just got back from the bcn website
-			userRef.update({favoriteIds: favoritesNids});
-			res.send(200, {favoriteIds: favoritesNids});
-		});
+		userRef.update({favoriteIds: favoriteNids});
+		res.status(200).send({favoriteIds: favoriteNids});
 	});
 });
 

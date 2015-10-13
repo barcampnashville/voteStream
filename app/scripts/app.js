@@ -8,7 +8,8 @@ angular.module('BarcampApp',[
 .config([
 		'$routeProvider',
         '$httpProvider',
-		function ($routeProvider) {
+		function ($routeProvider, $locationProvider) {
+
 			$routeProvider
 /*//adds home route
 				.when('/', {
@@ -61,7 +62,7 @@ angular.module('BarcampApp',[
 					redirectTo:'/sessions'
 				});
 		}
-	])
+])
 .run(function ($rootScope, $location, $firebase, AuthService, User) {
 	var lastPath,
 		pollingRef = new Firebase('https://nashvillebarcamp.firebaseio.com/PollingState'),
