@@ -117,7 +117,7 @@
 					<h4>{{session.title}}</h4>
 				</div>
 				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-					<button type="button" ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" data-ng-class="{voted: session.uservoted}" data-ng-click="session.vote(user)">
+					<button type="button" ng-show="polling.open && session.availability.toLowerCase().indexOf(polling.sessions) > -1" class="pull-right btn btn-primary" data-ng-class="{voted: session.uservoted}" data-ng-click="session.vote(user)">
 						<i class="fa" data-ng-class="{'fa-square': !session.uservoted, 'fa-thumbs-up': session.uservoted}"></i>
 					</button>
 				</div>
