@@ -2,7 +2,7 @@ angular.module('BarcampApp',[
 	'ngRoute',
 	'firebase',
 	'webStorageModule'
-	
+
 ])
 
 .config([
@@ -25,19 +25,6 @@ angular.module('BarcampApp',[
 							return SessionListing();
 						}
 					}
-				})
-				.when('/favs', {
-					templateUrl : '/templates/favorites.html',
-					controller : 'FavsCtrl',
-					allowAnonymousAccess:false
-/*
-					adminAccess: true,
-					resolve: {
-						Sessions: function (SessionListing) {
-							return SessionListing();
-						}
-					}
-*/
 				})
 				.when('/fullschedule', {
 					templateUrl : '/templates/fullschedule.html',
@@ -84,7 +71,7 @@ angular.module('BarcampApp',[
 
 	$rootScope.pollingSync = $firebase(pollingRef).$asObject();
 	$rootScope.logout = AuthService.logout;
-  
+
 	$rootScope.$on("$routeChangeStart", function(evt, next) {
 		// User navigating
 		if (!$rootScope.user && !(next && next.$$route && next.$$route.allowAnonymousAccess)) {

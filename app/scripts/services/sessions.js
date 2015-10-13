@@ -7,6 +7,7 @@ angular.module('BarcampApp')
 			this.inSync = this.ref.$asObject();
 			this.availability = session.Availability;
 			this.id = session.$id;
+			this.nid = session.Nid;
 			this.summary = session.Body;
 			this.speaker = {
 				firstName: session['First Name'],

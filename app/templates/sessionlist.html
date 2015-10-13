@@ -14,111 +14,106 @@
 </div>
 
 <div class="container sessions" id="myTabs">
-
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#amVote" aria-controls="home" role="tab" data-toggle="tab">Morning</a></li>
-    <li role="presentation"><a href="#pmVote" aria-controls="profile" role="tab" data-toggle="tab">
-Afternoon</a></li>
-    <li role="presentation"><a href="#favs" aria-controls="profile" role="tab" data-toggle="tab">
-Favorites</a></li>
+    <li role="presentation"><a href="#pmVote" aria-controls="profile" role="tab" data-toggle="tab">Afternoon</a></li>
+    <li role="presentation"><a href="#favs" aria-controls="profile" role="tab" data-toggle="tab">Favorites</a></li>
   </ul>
-
+</div>
 
 
 <div class="tab-content">
+  <!--morning voting-->
+  <div role="tabpanel" class="tab-pane active container sessions" id="amVote">
+    <ul class="list-unstyled">
+      <li data-ng-repeat="session in sessions | orderBy: 'title' | morning">
 
-<!--morning voting-->
-<div role="tabpanel" class="tab-pane active container sessions" id="amVote">
-  <ul class="list-unstyled">
-    <li data-ng-repeat="session in sessions | orderBy: 'title' | morning">
+        <div class="row">
+          <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
+            <h4>{{session.title}}</h4>
+          </div>
+          <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
+            <button type="button" ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" data-ng-class="{voted: session.uservoted}" data-ng-click="session.vote(user)">
+              <i class="fa" data-ng-class="{'fa-square': !session.uservoted, 'fa-thumbs-up': session.uservoted}"></i>
+            </button>
+          </div>
+        </div>
 
-      <div class="row">
-        <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
-          <h4>{{session.title}}</h4>
+        <div class="row">
+          <div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
+            <p><i>with:</i> {{session.speaker.firstName}} {{session.speaker.lastName}}</p>
+          </div>
+          <div class="category col-xs-7 col-sm-7 col-md-7">
+            <span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{category}}</span>
+          </div>
         </div>
-        <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-          <button type="button" ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" data-ng-class="{voted: session.uservoted}" data-ng-click="session.vote(user)">
-            <i class="fa" data-ng-class="{'fa-square': !session.uservoted, 'fa-thumbs-up': session.uservoted}"></i>
-          </button>
+
+        <div class="row">
+          <div class="sessionDescription col-xs-12 col-sm-12 col-md-12" data-ng-click="showText = !showText">
+            <p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
+            <div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
+            <div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
+          </div>
+          <hr/>
         </div>
-      </div>
-      <div class="row">
-        <div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-          <p><i>with:</i> {{session.speaker.firstName}} {{session.speaker.lastName}}</p>
-        </div>
-        <div class="category col-xs-7 col-sm-7 col-md-7">
-          <span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{category}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="sessionDescription col-xs-12 col-sm-12 col-md-12" data-ng-click="showText = !showText">
-          <p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
-          <div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
-          <div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
-        </div>
-        <hr/>
-      </div>
-    </li>
-  </ul>
+
+      </li>
+    </ul>
   </div>
 
   <!--afternoon voting-->
-<div role="tabpanel" class="tab-pane container sessions" id="pmVote">
+  <div role="tabpanel" class="tab-pane container sessions" id="pmVote">
     <ul class="list-unstyled">
-    <li data-ng-repeat="session in sessions | orderBy: 'title' | afternoon">
+      <li data-ng-repeat="session in sessions | orderBy: 'title' | afternoon">
 
-      <div class="row">
-        <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
-          <h4>{{session.title}}</h4>
+        <div class="row">
+          <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
+            <h4>{{session.title}}</h4>
+          </div>
+          <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
+            <button type="button" ng-show="polling.open && polling.sessions==='afternoon'" class="pull-right btn btn-primary" data-ng-class="{voted: session.uservoted}" data-ng-click="session.vote(user)">
+              <i class="fa" data-ng-class="{'fa-square': !session.uservoted, 'fa-thumbs-up': session.uservoted}"></i>
+            </button>
+          </div>
         </div>
-        <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-          <button type="button" ng-show="polling.open && polling.sessions==='afternoon'" class="pull-right btn btn-primary" data-ng-class="{voted: session.uservoted}" data-ng-click="session.vote(user)">
-            <i class="fa" data-ng-class="{'fa-square': !session.uservoted, 'fa-thumbs-up': session.uservoted}"></i>
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-          <p><i>with:</i> {{session.speaker.firstName}} {{session.speaker.lastName}}</p>
-        </div>
-        <div class="category col-xs-7 col-sm-7 col-md-7">
-          <span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{category}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="sessionDescription col-xs-12 col-sm-12 col-md-12" data-ng-click="showText = !showText">
-          <p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
-          <div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
-          <div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
-        </div>
-        <hr/>
-      </div>
-    </li>
-  </ul>
 
+        <div class="row">
+          <div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
+            <p><i>with:</i> {{session.speaker.firstName}} {{session.speaker.lastName}}</p>
+          </div>
+          <div class="category col-xs-7 col-sm-7 col-md-7">
+            <span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{category}}</span>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="sessionDescription col-xs-12 col-sm-12 col-md-12" data-ng-click="showText = !showText">
+            <p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
+            <div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
+            <div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
+          </div>
+          <hr/>
+        </div>
+
+      </li>
+    </ul>
   </div>
 
-    <!--favorites-->
-  <div role="tabpanel" class="tab-pane active container sessions" id="favs">
-  <ul class="list-unstyled">
-    <li data-ng-repeat="session in sessions | orderBy: 'title' | myFavorites">
-      <div class="row">
-       <form class="col-xs-10 col-sm-9 col-md-10">
-        <input type="text" placeholder="BarCamp Username">
-        <button class="btn btn-primary" type="submit">Submit</button>
-      </form>
-      </div>
-      <div class="row">
-        <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
-          <h4>{{favorites}}</h4>
-        </div>
-      </div>
-    </li>
+  <!--favorites-->
+  <div role="tabpanel" class="tab-pane container sessions" id="favs">
+    <form ng-show="!userFavorites" class="col-xs-10 col-sm-9 col-md-10">
+      <input type="text" placeholder="BarCamp Username">
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+    <ul class="list-unstyled">
+      <li data-ng-repeat="session in sessions | orderBy: 'title' | myFavorites:userFavorites">
+        <h1>{{session.title}}</h1>
+      </li>
+    </ul>
+  </div>
 
-  </ul>
-  </div>  </div></div>
+</div>
 <script>
   $('#myTabs a').click(function (e) {
     e.preventDefault()

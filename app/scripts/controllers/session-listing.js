@@ -17,13 +17,16 @@ angular.module('BarcampApp')
 			}
 		});
 
-    $scope.usersFavorites = favoritesFromUser = [];
+    var favoritesFromUser = [];
     $rootScope.user.ref.once('value', function (snapshot){
-      if (snapshot.hasChild('favorites')) {
+      if (snapshot.hasChild('favoriteIds')) {
         $scope.userHasFavorites = true;
-        favoritesFromUser = snapshot.favorites.val();
+        Sessions.forEach(function (session) {
+          if (snapshot.val().favoriteIds.indexOf(session.nid) > -1){
+            favoritesFromUser.push(session);
+          }
+        });
       }
     });
+    $scope.userFavorites = favoritesFromUser;
 });
-
-//need to write a method that takes the information from the sessions and changes them based on whether someone favorited them and return that array as a view in the sessionlist.html
