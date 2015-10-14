@@ -1,6 +1,6 @@
 angular.module('BarcampApp')
     .controller('ScheduleCtrl', function ($scope) {
-        var SessionsRef = new Firebase('https://barcamp.firebaseio.com/Sessions2014');
+        var SessionsRef = new Firebase('https://nashvillebarcamp.firebaseio.com/Sessions');
 
 /*        SessionsRef.on('value', function (snapshot) {
             $scope.sessions = snapshot.val();
