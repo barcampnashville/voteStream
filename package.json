@@ -40,7 +40,7 @@
     "matchdep": "~0.3.0"
   },
   "scripts": {
-    "postinstall": "grunt",
+    "postinstall": "grunt heroku",
     "start": "node web.js"
   }
 }
