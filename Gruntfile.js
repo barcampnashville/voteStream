@@ -84,8 +84,7 @@ module.exports = function (grunt) {
 					sassDir: '<%= config.app %>/styles/scss',
 					cssDir: '<%= config.dist %>/styles/css',
 					imagesDir: '<%= config.dist %>/images',
-					javascriptsDir: '<%= config.dist %>/scripts',
-
+					javascriptsDir: '<%= config.dist %>/scripts'
 				}
 			}
 		},
@@ -106,7 +105,7 @@ module.exports = function (grunt) {
 		},
 
 		useminPrepare: {
-			html: 'index.html',
+			html: 'index.html'
 		},
 
 		usemin: {
