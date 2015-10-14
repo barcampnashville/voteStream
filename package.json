@@ -10,9 +10,10 @@
     "express": "~3.4.0",
     "firebase": "~0.6.6",
     "firebase-token-generator": "~0.1.4",
+    "grunt": "~0.4.1",
+    "grunt-cli": "0.1.13",
     "node-static": "~0.7.1",
-    "request": "^2.64.0",
-    "grunt": "~0.4.1"
+    "request": "^2.64.0"
   },
   "repository": {
     "type": "git",
