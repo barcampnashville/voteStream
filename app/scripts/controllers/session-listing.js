@@ -20,13 +20,13 @@ angular.module('BarcampApp')
 		$scope.userFavorites = [];
 
 		$rootScope.user.ref.once('value', function(snapshot) {
-			if (snapshot.hasChild('favorites')) {
-				$scope.userHasFavorites = true;
+			var data = snapshot.val();
+			if (data.favoriteIds.length) {
 				Sessions.forEach(function(session) {
-					if (snapshot.val().favoriteIds.indexOf(session.nid) > -1) {
+					if (data.favoriteIds.indexOf(session.nid) > -1) {
 						$scope.userFavorites.push(session);
 					}
-				});
+				})
 			}
 		});
 
