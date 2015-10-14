@@ -39,7 +39,7 @@
   "author": "blah@blah.com",
   "license": "BSD-2-Clause",
   "scripts": {
-    "postinstall": "grunt",
+    "postinstall": "gem install compass && grunt",
     "start": "node web.js"
   }
 }
