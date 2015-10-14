@@ -4,7 +4,7 @@
 module.exports = function (grunt) {
 
 	// load all grunt tasks
-	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+	require('load-grunt-tasks')(grunt);
 
 	grunt.initConfig({
 
@@ -85,7 +85,7 @@ module.exports = function (grunt) {
 					cssDir: '<%= config.dist %>/styles/css',
 					imagesDir: '<%= config.dist %>/images',
 					javascriptsDir: '<%= config.dist %>/scripts',
-					
+
 				}
 			}
 		},
