@@ -130,7 +130,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('prod', [
 		'clean:dist',
-		'sass:dist',
+		// 'sass:dist', Commit your changes to the css to deploy updates
 		'copy:dist',
 		'useminPrepare',
 		'concat',
