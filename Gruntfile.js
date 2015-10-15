@@ -67,24 +67,21 @@ module.exports = function (grunt) {
 			}
 		},
 
-		compass: {
+		sass: {
 			dev: {
 				options: {
-					sassDir: '<%= config.app %>/styles/scss',
-					cssDir: '<%= config.app %>/styles/css',
-					imagesDir: '<%= config.app %>/images',
-					javascriptsDir: '<%= config.app %>/scripts',
-					outputStyle: 'expanded'
+					style: 'expanded'
+				},
+				files: {
+					'<%= config.app %>/styles/css/barcamp.css':'<%= config.app %>/styles/scss/barcamp.scss'
 				}
 			},
 			dist: {
 				options: {
-					environment: 'production',
-					outputStyle: 'compress',
-					sassDir: '<%= config.app %>/styles/scss',
-					cssDir: '<%= config.dist %>/styles/css',
-					imagesDir: '<%= config.dist %>/images',
-					javascriptsDir: '<%= config.dist %>/scripts'
+					style: 'compress'
+				},
+				files: {
+					'<%= config.app %>/styles/css/barcamp.css':'<%= config.app %>/styles/scss/barcamp.scss'
 				}
 			}
 		},
@@ -127,17 +124,17 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerTask('dev', [
-		'compass:dev',
+		'sass:dev',
 		'watch'
 	]);
 
 	grunt.registerTask('prod', [
 		'clean:dist',
-		'compass:dist',
+		'sass:dist',
 		'copy:dist',
 		'useminPrepare',
 		'concat',
-		'ngAnnotate',
+		//'ngAnnotate',
 		'uglify',
 		'usemin',
 		'clean:tmp'
