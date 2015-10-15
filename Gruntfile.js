@@ -124,13 +124,12 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerTask('dev', [
-		'sass:dev',
+		'sass',
 		'watch'
 	]);
 
 	grunt.registerTask('prod', [
 		'clean:dist',
-		'sass:dist',
 		'copy:dist',
 		'useminPrepare',
 		'concat',
