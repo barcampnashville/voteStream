@@ -14,25 +14,30 @@ module.exports = function (grunt) {
 			tmp: '.tmp'
 		},
 
-		watch: {
-			// html: {
-			// 	files: ['<%= config.app %>/{,**/}*.html'],
-			// 	tasks: ['copy']
-			// },
-			// js: {
-			// 	files: ['<%= config.app %>/scripts/{,**/}*.js'],
-			// 	tasks: ['copy']
-			// },
-			scss: {
-				files: ['<%= config.app %>/styles/scss/{,**/}*.scss'],
-					tasks: ['compass:dev']
+		sass: {
+			dev: {
+				options: {
+					style: 'expanded'
+				},
+				files: {
+					'<%= config.app %>/styles/css/barcamp.css':'<%= config.app %>/styles/scss/barcamp.scss'
 				}
+			},
+			dist: {
+				options: {
+					style: 'compress'
+				},
+				files: {
+					'<%= config.app %>/styles/css/barcamp.css':'<%= config.app %>/styles/scss/barcamp.scss'
+				}
+			}
 		},
 
-		ngAnnotate: {
-			dist: {
-				src: '<%= config.tmp %>/scripts/app.js'
-			}
+		watch: {
+			scss: {
+				files: ['<%= config.app %>/styles/scss/{,**/}*.scss'],
+					tasks: ['sass:dev']
+				}
 		},
 
 		clean: {
@@ -53,39 +58,6 @@ module.exports = function (grunt) {
 			}
 		},
 
-		concat: {
-			dist: {
-				src: '<%= config.app %>/scripts/{,**/}*.js',
-				dest: '<%= config.tmp %>/scripts/app.js'
-			}
-		},
-
-		uglify: {
-			dist: {
-				src: '<%= config.tmp %>/scripts/app.js',
-				dest: '<%= config.dist %>/scripts/app.min.js'
-			}
-		},
-
-		sass: {
-			dev: {
-				options: {
-					style: 'expanded'
-				},
-				files: {
-					'<%= config.app %>/styles/css/barcamp.css':'<%= config.app %>/styles/scss/barcamp.scss'
-				}
-			},
-			dist: {
-				options: {
-					style: 'compress'
-				},
-				files: {
-					'<%= config.app %>/styles/css/barcamp.css':'<%= config.app %>/styles/scss/barcamp.scss'
-				}
-			}
-		},
-
 		copy: {
 			dist: {
 				files: [{
@@ -98,6 +70,34 @@ module.exports = function (grunt) {
 						'scripts/vendor/*.js'
 					]
 				}]
+			}
+		},
+
+		concat: {
+			dist: {
+				src: [
+					'<%= config.app %>/scripts/{,**/}*.js',
+					'!<%= config.app %>/scripts/vendor/*'
+				],
+				dest: '<%= config.tmp %>/scripts/app.js'
+			}
+		},
+
+		ngAnnotate: {
+			dist: {
+				files: [
+					{
+						src: '<%= config.tmp %>/scripts/app.js',
+						dest: '<%= config.tmp %>/scripts/app.js'
+					}
+				]
+			}
+		},
+
+		uglify: {
+			dist: {
+				src: '<%= config.tmp %>/scripts/app.js',
+				dest: '<%= config.dist %>/scripts/app.min.js'
 			}
 		},
 
@@ -124,16 +124,17 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerTask('dev', [
-		'sass',
+		'sass:dev',
 		'watch'
 	]);
 
 	grunt.registerTask('prod', [
 		'clean:dist',
+		'sass:dist',
 		'copy:dist',
 		'useminPrepare',
 		'concat',
-		//'ngAnnotate',
+		'ngAnnotate',
 		'uglify',
 		'usemin',
 		'clean:tmp'
