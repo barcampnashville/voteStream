@@ -58,7 +58,7 @@ app.get('/favorites/:token/:bcnusername', function (req, res, next) {
 	var bcnusername = req.params.bcnusername;
 	// Create a request to the BCN14 site
 	// TODO: Make this more generic. We shouldn't be looking at bcn14 statically.
-	request.get("http://www.barcampnashville.org/bcn14/users/"+ bcnusername +"/attending", function(error, response, body) {
+	request.get("http://www.barcampnashville.org/bcn15/users/"+ bcnusername +"/attending", function(error, response, body) {
 		var data = JSON.parse(body)['favorited sessions'].map(function(session) {return session.session});
 		var userRef = Users.child(req.params.token);
 		var favoriteNids = data.map(function(fav) {
