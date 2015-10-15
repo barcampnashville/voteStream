@@ -1,212 +1,147 @@
 #greeting {
-	text-align: center;
-}
+  text-align: center; }
 
-/* line 10, ../scss/barcamp.scss */
 footer {
-  padding: 20px 0;
-}
+  padding: 20px 0; }
 
-/* line 15, ../scss/barcamp.scss */
 .category .label {
   margin: 0px 2px;
-  margin-bottom: 2px;
-}
+  margin-bottom: 2px; }
 
-/* line 21, ../scss/barcamp.scss */
 blockquote {
   font-size: 8pt;
   padding: 3;
-  margin: 0;
-}
+  margin: 0; }
 
-/* line 27, ../scss/barcamp.scss */
 .gridStyle {
   border: 2px solid #d4d4d4;
   width: 100%;
-  height: 500px;
-}
+  height: 500px; }
 
-/* line 34, ../scss/barcamp.scss */
 .ng-invalid.ng-dirty {
   color: #b94a48;
   border-color: #b94a48;
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-/* line 39, ../scss/barcamp.scss */
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
 .ng-invalid.ng-dirty:focus {
   border-color: #953b39;
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-}
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392; }
 
-/* line 46, ../scss/barcamp.scss */
 .ngRow:hover {
-  background-color: #ddedf0;
-}
+  background-color: #ddedf0; }
 
-/* line 50, ../scss/barcamp.scss */
 .header {
   position: fixed;
   left: 0;
   top: 0;
   height: 50px;
   width: 100%;
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzkzMjMxOCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzY3MTkxMSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
-  background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #932318), color-stop(100%, #671911));
-  background-image: -moz-linear-gradient(top, #932318, #671911);
+  background-color: #932318;
+  /* fallback color if gradients are not supported */
   background-image: -webkit-linear-gradient(top, #932318, #671911);
-  background-image: linear-gradient(to bottom, #932318, #671911);
+  /* For Chrome 25 and Safari 6, iOS 6.1, Android 4.3 */
+  background-image: -moz-linear-gradient(top, #932318, #671911);
+  /* For Firefox (3.6 to 15) */
+  background-image: -o-linear-gradient(top, #932318, #671911);
+  /* For old Opera (11.1 to 12.0) */
+  background-image: linear-gradient(top, #932318, #671911);
+  /* Standard syntax; must be last */
   color: white;
   padding: 14px 15px;
-  z-index: 9999;
-}
-/* line 61, ../scss/barcamp.scss */
+  z-index: 9999; }
 .header #category-filter {
-  width: 60%;
-}
-/* line 65, ../scss/barcamp.scss */
+  width: 60%; }
 .header #vote-counter {
-  width: 40%;
-}
+  width: 40%; }
 
-/* line 70, ../scss/barcamp.scss */
-.container .sessions,
-.container .results {
+.container .sessions, .container .results {
   padding-top: 55px;
   padding-left: 0px;
-  padding-right: 0px;
-}
+  padding-right: 0px; }
 
-/* line 77, ../scss/barcamp.scss */
 .sessionDescription {
   word-wrap: break-word;
   line-height: 1.2em;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
-/* line 83, ../scss/barcamp.scss */
 .collapsed {
   line-height: 1em;
   height: 2em;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
-/* line 89, ../scss/barcamp.scss */
 .toggle-collapsed input {
-  display: none;
-}
+  display: none; }
 
 /* Extra styles to add faux-ellipsis to multi-line text */
-/* line 94, ../scss/barcamp.scss */
 .collapsed {
-  position: relative;
-}
+  position: relative; }
 
-/* line 98, ../scss/barcamp.scss */
 .collapsed::after {
   content: '\2026';
   display: block;
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #fff;
-}
+  background-color: #fff; }
 
-/* line 107, ../scss/barcamp.scss */
 .label-success {
   margin-right: 5px;
-  margin-top: 4px;
-}
+  margin-top: 4px; }
 
-/* line 112, ../scss/barcamp.scss */
 .label-warning {
-  background-color: #feb336;
-}
+  background-color: #feb336; }
 
-/* line 116, ../scss/barcamp.scss */
 .btn:focus {
-  outline: none;
-}
+  outline: none; }
 
-/* line 120, ../scss/barcamp.scss */
 .btn-primary {
   background-color: #932318;
-  border-color: #671911;
-}
-/* line 123, ../scss/barcamp.scss */
+  border-color: #671911; }
 .btn-primary:hover, .btn-primary:disabled, .btn-primary:focus, .btn-primary:active {
   background-color: #bf2d1f;
-  border-color: #932318;
-}
+  border-color: #932318; }
 
-/* line 131, ../scss/barcamp.scss */
 .btn-warning {
-  background-color: #feb336;
-}
-/* line 133, ../scss/barcamp.scss */
+  background-color: #feb336; }
 .btn-warning:hover {
   background-color: #fec669;
-  border-color: #feb336;
-}
+  border-color: #feb336; }
 
-/* line 139, ../scss/barcamp.scss */
 .btn.voted {
   background-color: #feb336;
-  border-color: #fea003;
-}
+  border-color: #fea003; }
 
-/* line 144, ../scss/barcamp.scss */
-textarea:focus,
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus,
-input[type="date"]:focus,
-input[type="month"]:focus,
-input[type="time"]:focus,
-input[type="week"]:focus,
-input[type="number"]:focus,
-input[type="email"]:focus,
-input[type="url"]:focus,
-input[type="search"]:focus,
-input[type="tel"]:focus,
-input[type="color"]:focus,
-.uneditable-input:focus {
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
   border-color: #feb336;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(254, 179, 54, 0.5);
-  outline: 0 none;
-}
+  outline: 0 none; }
 
-/* line 165, ../scss/barcamp.scss */
-.admin-link, .admin-link:hover,
-.schedule-link, .schedule-link:hover {
+.admin-link, .admin-link:hover, .schedule-link, .schedule-link:hover {
   color: #fff;
-  text-decoration: none;
-}
+  text-decoration: none; }
 
-/* line 171, ../scss/barcamp.scss */
 .admin-container {
-  margin-top: 70px;
-}
+  margin-top: 70px; }
 
-/* line 175, ../scss/barcamp.scss */
 .timeofday {
-  margin-left: 30px;
-}
+  margin-left: 30px; }
 
 @media (max-width: 480px) {
-  /* line 181, ../scss/barcamp.scss */
   .header select {
-    width: 80%;
-  }
+    width: 80%; }
 
-  /* line 186, ../scss/barcamp.scss */
   .sessions {
-    padding: 0 15px;
-  }
-}
+    padding: 0 15px; } }
+/*** ANIMATIONS *********/
+.animate-switch.ng-animate {
+  transition: all cubit-bezier(0.25, 0.45, 0.94) 0.5s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.animate-switch.ng-leave-active, animate-switch.ng-enter {
+  top: 50px; }
+
+.animate-switch.ng-leave, .animate-switch.ng-enter-active {
+  top: 0; }
