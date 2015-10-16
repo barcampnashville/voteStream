@@ -54,20 +54,43 @@ app.get('/logout/:id', function (req, res, next) {
 
 });
 
-app.get('/favorites/:token/:bcnusername', function (req, res, next) {
-	var bcnusername = req.params.bcnusername;
-	// Create a request to the BCN14 site
-	// TODO: Make this more generic. We shouldn't be looking at bcn14 statically.
-	request.get("http://www.barcampnashville.org/bcn15/users/"+ bcnusername +"/attending", function(error, response, body) {
-		var data = JSON.parse(body)['favorited sessions'].map(function(session) {return session.session});
-		var userRef = Users.child(req.params.token);
-		var favoriteNids = data.map(function(fav) {
-			return fav.Nid;
-		});
+app.get('/favorites/:token/:bcnusername', function(req, res, next) {
+  var bcnusername = req.params.bcnusername;
+  // TODO: Make this more generic. We shouldn't be looking at bcn14 statically.
+  request({
+    url: "http://www.barcampnashville.org/bcn15/users/" + bcnusername + "/attending",
+    method: 'GET',
+    timeout: 20000, // 20 second timeout
+		headers: {
+			'Accept' : 'application/json'
+		}
+  }, function(error, response, body) {
+    if (error) {
+      console.log(error);
+      res.status(500).send();
+    } else {
+			try {
+	      var data = JSON.parse(body)['favorited sessions'].map(function(session) {
+	        return session.session
+	      });
+			} catch(err) {
+				console.log("Error parsing body! Invalid Username: " + bcnusername);
+				res.status(500).send();
+				return false;
+			}
+      var userRef = Users.child(req.params.token);
+      var favoriteNids = data.map(function(fav) {
+        return fav.Nid;
+      });
 
-		userRef.update({favoriteIds: favoriteNids});
-		res.status(200).send({favoriteIds: favoriteNids});
-	});
+      userRef.update({
+        favoriteIds: favoriteNids
+      });
+      res.status(200).send({
+        favoriteIds: favoriteNids
+      });
+    }
+  });
 });
 
 // This serves up all the HTML pages on the site
