@@ -39,6 +39,9 @@ angular.module('BarcampApp')
 						$scope.userFavorites.push(session);
 					}
 				});
+				$scope.invalidUsername = false;
+			}, function (errorResponse) {
+				$scope.invalidUsername = true;
 			}).finally(function() {
 				delete $scope.submitting;
 			});

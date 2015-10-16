@@ -74,8 +74,10 @@ app.get('/favorites/:token/:bcnusername', function(req, res, next) {
 	        return session.session
 	      });
 			} catch(err) {
-				console.log("Error parsing body! Invalid Username: " + bcnusername);
-				res.status(500).send();
+				console.log("Error parsing Favorites data! Invalid Username: " + bcnusername);
+				res.status(400).send({
+					username: bcnusername
+				});
 				return false;
 			}
       var userRef = Users.child(req.params.token);
