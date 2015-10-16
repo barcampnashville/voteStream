@@ -11,5 +11,17 @@ angular.module('BarcampApp')
             s.inSync.removed = !s.inSync.removed;
             s.inSync.$save();
         }
+
+        $scope.resetVotes = function() {
+          if (confirm("Are you sure you want to reset the votes for all sessions?")) {
+            Sessions.forEach(function(session) {
+              session.total_votes = 1;
+              session.inSync.$save();
+              console.log(session.total_votes);
+            });
+          } else {
+            return;
+          }
+        }
     })
 ;
