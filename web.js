@@ -11,15 +11,15 @@ var TOKEN = process.env.FIREBASE_TOKEN,
 	request = require("request"),
 	app = express(),
 	port = process.env.PORT || 8083;
-	var server = new Firebase('https://nashvillebarcamp.firebaseio.com/Users');
-	server.auth(TOKEN);
+var server = new Firebase('https://nashvillebarcamp.firebaseio.com/Users');
+server.auth(TOKEN);
 
 app.use(express.bodyParser());
 
 app.post('/login', function(req, res) {
 	var id = req.body.id;
 	if (!id) {
-		return res.send(401, { error: 'Invalid User ID' });
+		return res.send(401, {error: 'Invalid User ID'});
 	}
 
 	server.child(id).on('value', function(snapshot) {
@@ -28,13 +28,13 @@ app.post('/login', function(req, res) {
 		console.log(userData);
 
 		if (!userData) {
-			return res.send(401, { error: 'Invalid User ID' });
+			return res.send(401, {error: 'Invalid User ID'});
 		}
 		userData.id = id;
 
 		var token = tokenGenerator.createToken({
 			uid: id.toString(),
-			user_id : id.toString(),
+			user_id: id.toString(),
 			admin: (userData.admin === true)
 		});
 
@@ -43,7 +43,7 @@ app.post('/login', function(req, res) {
 
 });
 
-app.get('/logout/:id', function (req, res, next) {
+app.get('/logout/:id', function(req, res, next) {
 	Users.child(req.params.id).unauth();
 
 	if ((/(?:text|application)\/x?html(?:\+xml)/i).test(req.headers.accept)) {
@@ -55,44 +55,46 @@ app.get('/logout/:id', function (req, res, next) {
 });
 
 app.get('/favorites/:token/:bcnusername', function(req, res, next) {
-  var bcnusername = req.params.bcnusername;
-  // TODO: Make this more generic. We shouldn't be looking at bcn14 statically.
-  request({
-    url: "http://www.barcampnashville.org/bcn15/users/" + bcnusername + "/attending",
-    method: 'GET',
-    timeout: 20000, // 20 second timeout
+	var bcnusername = req.params.bcnusername;
+	// TODO: Make this more generic. We shouldn't be looking at bcn14 statically.
+	request({
+		url: "http://www.barcampnashville.org/bcn15/users/" + bcnusername + "/attending",
+		method: 'GET',
+		timeout: 20000, // 20 second timeout
 		headers: {
-			'Accept' : 'application/json'
+			'Accept': 'application/json'
 		}
-  }, function(error, response, body) {
-    if (error) {
-      console.log(error);
-      res.status(500).send();
-    } else {
+	}, function(error, response, body) {
+		if (error) {
+			console.log(error);
+			res.status(500).send();
+		} else {
 			try {
-	      var data = JSON.parse(body)['favorited sessions'].map(function(session) {
-	        return session.session
-	      });
-			} catch(err) {
+				var data = JSON.parse(body)['favorited sessions'].map(function(session) {
+					return session.session
+				});
+
+				var userRef = Users.child(req.params.token);
+				var favoriteNids = data.map(function(fav) {
+					return fav.Nid;
+				});
+
+				userRef.update({
+					favoriteIds: favoriteNids
+				});
+
+				res.status(200).send({
+					favoriteIds: favoriteNids
+				});
+
+			} catch (err) {
 				console.log("Error parsing Favorites data! Invalid Username: " + bcnusername);
 				res.status(400).send({
 					username: bcnusername
 				});
-				return false;
 			}
-      var userRef = Users.child(req.params.token);
-      var favoriteNids = data.map(function(fav) {
-        return fav.Nid;
-      });
-
-      userRef.update({
-        favoriteIds: favoriteNids
-      });
-      res.status(200).send({
-        favoriteIds: favoriteNids
-      });
-    }
-  });
+		}
+	});
 });
 
 // This serves up all the HTML pages on the site
