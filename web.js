@@ -55,7 +55,8 @@ app.get('/logout/:id', function (req, res, next) {
 });
 
 app.get('/favorites/:token/:bcnusername', function(req, res, next) {
-  var bcnusername = req.params.bcnusername;
+  var bcnusername = req.params.bcnusername.toUpperCase();
+
   // TODO: Make this more generic. We shouldn't be looking at bcn14 statically.
   request({
     url: "http://www.barcampnashville.org/bcn15/users/" + bcnusername + "/attending",
