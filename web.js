@@ -82,7 +82,7 @@ app.get('/favorites/:token/:bcnusername', function(req, res, next) {
 			}
       var userRef = Users.child(req.params.token);
       var favoriteNids = data.map(function(fav) {
-        return fav.Nid;
+        return +fav.Nid;
       });
 
       userRef.update({
