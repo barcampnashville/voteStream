@@ -56,6 +56,7 @@ app.get('/logout/:id', function (req, res, next) {
 
 app.get('/favorites/:token/:bcnusername', function(req, res, next) {
   var bcnusername = req.params.bcnusername;
+
   // TODO: Make this more generic. We shouldn't be looking at bcn14 statically.
   request({
     url: "http://www.barcampnashville.org/bcn15/users/" + bcnusername + "/attending",
@@ -80,7 +81,7 @@ app.get('/favorites/:token/:bcnusername', function(req, res, next) {
 				});
 				return false;
 			}
-      var userRef = Users.child(req.params.token);
+      var userRef = Users.child(req.params.token.toUpperCase());
       var favoriteNids = data.map(function(fav) {
         return +fav.Nid;
       });
