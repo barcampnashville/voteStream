@@ -59,7 +59,7 @@ app.get('/favorites/:token/:bcnusername', function(req, res, next) {
 
   // TODO: Make this more generic. We shouldn't be looking at bcn14 statically.
   request({
-    url: "http://www.barcampnashville.org/bcn15/users/" + bcnusername + "/attending",
+    url: "http://www.barcampnashville.org/bcn16/users/" + bcnusername + "/attending",
     method: 'GET',
     timeout: 20000, // 20 second timeout
 		headers: {
