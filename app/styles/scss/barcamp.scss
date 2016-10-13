@@ -1,5 +1,9 @@
-@import 'compass';
-
+@mixin linear-gradient($params...) {
+	background-image: -webkit-linear-gradient($params); /* For Chrome 25 and Safari 6, iOS 6.1, Android 4.3 */
+	background-image:    -moz-linear-gradient($params); /* For Firefox (3.6 to 15) */
+	background-image:      -o-linear-gradient($params); /* For old Opera (11.1 to 12.0) */
+	background-image:         linear-gradient($params); /* Standard syntax; must be last */
+}
 $primary-color: #932318;
 $primary-color-lighter: lighten( $primary-color, 10%);
 $primary-color-darker: darken( $primary-color, 10%);
@@ -38,11 +42,11 @@ blockquote {
 	&.ng-dirty {
 		color: #b94a48;
 		border-color: #b94a48;
-		@include box-shadow(inset 0 1px 1px rgba(0,0,0,0.075));
+		box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 
 		&:focus {
 			border-color: #953b39;
-			@include box-shadow(inset 0 1px 1px rgba(0,0,0,0.075),0 0 6px #d59392);
+			box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 6px #d59392;
 		}
 	}
 }
@@ -57,7 +61,8 @@ blockquote {
 	top: 0;
 	height: 50px;
 	width: 100%;
-	@include background-image(linear-gradient(top, $primary-color, $primary-color-darker));
+	background-color: $primary-color; /* fallback color if gradients are not supported */
+	@include linear-gradient(top, $primary-color, $primary-color-darker);
 	color: white;
 	padding: 14px 15px;
 	z-index: 9999;
@@ -167,7 +172,7 @@ input[type="color"]:focus,
 }
 
 .admin-link, .admin-link:hover,
-.schedule-link, .schedule-link:hover {
+.header-link, .header-link:hover {
 	color: #fff;
 	text-decoration: none;
 }

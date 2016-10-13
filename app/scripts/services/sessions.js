@@ -15,6 +15,9 @@ angular.module('BarcampApp')
 				email: session['E-mail']
 			};
 			this.categories = session['Session Category'];
+			if (this.categories) {
+				this.categories = this.categories.split(",");
+			}
 			this.totalSignUps = session['Signup Counts'];
 			this.time = session["Time Slot"];
 			this.title = session.Title;
