@@ -1,7 +1,12 @@
 #greeting {
   text-align: center;
 }
-
+#event-logo {
+    margin-bottom: 1em;
+}
+#vendor-spotlight {
+    margin-bottom: 1em;
+}
 footer {
   padding: 20px 0;
 }
