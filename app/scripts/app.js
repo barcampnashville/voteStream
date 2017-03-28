@@ -19,7 +19,7 @@ angular.module('BarcampApp',[
 				.when('/admin', {
 					templateUrl : '/templates/admin.html',
 					controller : 'AdminCtrl',
-					allowAnonymousAccess:false,
+					allowAnonymousAccess:true,
 					adminAccess: true,
 					resolve: {
 						Sessions: function (SessionListing) {
@@ -30,7 +30,7 @@ angular.module('BarcampApp',[
 				.when('/fullschedule', {
 					templateUrl : '/templates/fullschedule.html',
 					controller : 'FullScheduleCtrl',
-					allowAnonymousAccess:false
+					allowAnonymousAccess:true
 /*
 					adminAccess: true,
 					resolve: {
@@ -43,7 +43,7 @@ angular.module('BarcampApp',[
 				.when('/sessions', {
 					templateUrl: '/templates/sessionlist.html',
 					controller: 'SessionListingCtrl',
-					allowAnonymousAccess:false,
+					allowAnonymousAccess:true,
 					resolve: {
 						Sessions: function (SessionListing) {
 							return SessionListing();

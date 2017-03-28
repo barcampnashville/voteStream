@@ -1,6 +1,6 @@
 // test user with admin privledges: 03sbtn
 
-var TOKEN = process.env.FIREBASE_TOKEN,
+var TOKEN = process.env.FIREBASE_TOKEN || "03sbtn",
 	Firebase = require('firebase'),
 	Root = new Firebase('https://nashvillebarcamp.firebaseio.com/'),
 	Users = Root.child('Users'),
@@ -11,7 +11,7 @@ var TOKEN = process.env.FIREBASE_TOKEN,
 	request = require("request"),
 	app = express(),
 	port = process.env.PORT || 8083;
-	var server = new Firebase('https://nashvillebarcamp.firebaseio.com/Users');
+	const server = new Firebase('https://nashvillebarcamp.firebaseio.com/Users');
 	server.auth(TOKEN);
 
 app.use(express.bodyParser());
