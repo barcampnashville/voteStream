@@ -1,13 +1,20 @@
+// Initialize Firebase
+var firebase = firebase.initializeApp({
+	apiKey: "AIzaSyDTq31jc44cEWcM4u0PDXouqVfwP5SNiFw",
+	authDomain: "nashvillebarcamp.firebaseapp.com",
+	databaseURL: "https://nashvillebarcamp.firebaseio.com",
+	projectId: "firebase-nashvillebarcamp",
+	storageBucket: "firebase-nashvillebarcamp.appspot.com",
+	messagingSenderId: "248645383569"
+});
+
 angular.module('BarcampApp',[
 	'ngRoute',
 	'firebase',
 	'webStorageModule'
-
 ])
 
-.config([
-		'$routeProvider',
-        '$httpProvider',
+.config([ '$routeProvider', '$httpProvider',
 		function ($routeProvider, $locationProvider) {
 
 			$routeProvider
@@ -63,22 +70,6 @@ angular.module('BarcampApp',[
 				});
 		}
 ])
-.run(function ($rootScope, $location, $firebase, AuthService, User) {
-	var lastPath,
-		pollingRef = new Firebase('https://nashvillebarcamp.firebaseio.com/PollingState'),
-		scheduleUrlRef = new Firebase('https://nashvillebarcamp.firebaseio.com/ScheduleURL');
+.run(function ($rootScope, $location) {
 
-	scheduleUrlRef.once('value', function (snapshot) { $rootScope.scheduleUrl = snapshot.val(); });
-
-	$rootScope.pollingSync = $firebase(pollingRef).$asObject();
-	$rootScope.logout = AuthService.logout;
-
-	$rootScope.$on("$routeChangeStart", function(evt, next) {
-		// User navigating
-		if (!$rootScope.user && !(next && next.$$route && next.$$route.allowAnonymousAccess)) {
-			lastPath = next && next.path;
-			evt.preventDefault();
-			$location.path('/login');
-		}
-	});
 });
