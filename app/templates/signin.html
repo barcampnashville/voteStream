@@ -1,18 +1,13 @@
-<form name="voterDetails" data-role="form" data-ng-submit="login(badgeId)">
 
-	<div class="form-group">
-		<label for="badgeId">Badge ID</label>
-		<div class="input-group">
-			<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-			<input type="text" name="badgeId" id="badgeId" class="form-control" data-ng-model="badgeId" required autofocus/>
+<div class="input-group">
+		<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>			<input type="text" name="badgeId" id="badgeId" class="form-control" data-ng-model="badgeId" required autofocus/>
 
-		</div>
-		<span ng-show="voterDetails.badgeId.$error.required &amp;&amp; voterDetails.$dirty" class="help-block">Please enter your badge ID</span>
+	</div>	
 		<span ng-show="error" class="help-block">{{ error }}</span>
-	</div>
+</div>
 
-	<button type="submit" class="btn btn-primary btn-login" data-ng-disabled="voterDetails.$invalid">Submit</button>
-</form>
+<button type="submit" class="btn btn-primary btn-login" ng-click="login(badgeId)" data-ng-disabled="voterDetails.$invalid">Submit</button>
+
 <h2 id="greeting">Welcome to BarCamp Nashville 2016!</h2>
 
 <p>We're excited to have you. Please log in with the Badge ID found on your name tag to get started. See the folks at the check-in desk if you are missing a Badge ID.</p>

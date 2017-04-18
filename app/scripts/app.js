@@ -9,9 +9,7 @@ var firebase = firebase.initializeApp({
 });
 
 angular.module('BarcampApp',[
-	'ngRoute',
-	'firebase',
-	'webStorageModule'
+	'ngRoute'
 ])
 
 .config([ '$routeProvider', '$httpProvider',
