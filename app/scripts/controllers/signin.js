@@ -11,7 +11,7 @@ angular.module('BarcampApp')
 	        	Object.keys($scope.badges).forEach((badge)=>{
 	        		if ($scope.badgeId.toUpperCase() === badge){
 	        			console.log("logged in")
-	        			$location.path('#!/sessions')
+	        			$location.path('/#!/sessions')
 	        			$route.reload()
 	        		}
 	        	})
