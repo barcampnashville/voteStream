@@ -26,11 +26,11 @@
   <!--morning voting-->
   <div role="tabpanel" class="tab-pane active container sessions" id="amVote">
     <ul class="list-unstyled">
-      <!-- <li data-ng-repeat="session in sessions | orderBy: 'title' | morning"> -->
+      <li ng-repeat="session in sessions" ng-if="session.Availability.includes('Morning')">
 
         <div class="row">
           <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
-            <h4>{{session.title}}</h4>
+            <h4>{{session.Title}}</h4>
           </div>
           <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
             <button type="button" ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" data-ng-class="{voted: session.uservoted}" data-ng-click="session.vote(user)">
@@ -41,16 +41,16 @@
 
         <div class="row">
           <div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-            <p><i>with:</i> {{session.speaker.firstName}} {{session.speaker.lastName}}</p>
+            <p><i>with:</i> {{session["First Name"]}} {{session["Last Name"]}}</p>
           </div>
           <div class="category col-xs-7 col-sm-7 col-md-7">
-            <span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{category}}</span>
+            <span class="label label-default pull-right">{{session["Session Category"]}}</span>
           </div>
         </div>
 
         <div class="row">
           <div class="sessionDescription col-xs-12 col-sm-12 col-md-12" data-ng-click="showText = !showText">
-            <p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
+            <p data-ng-class="{ collapsed: !showText }">{{session.Body}}</p>
             <div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
             <div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
           </div>
@@ -64,11 +64,11 @@
   <!--afternoon voting-->
   <div role="tabpanel" class="tab-pane container sessions" id="pmVote">
     <ul class="list-unstyled">
-      <!-- <li data-ng-repeat="session in sessions | orderBy: 'title' | afternoon"> -->
+      <li ng-repeat="session in sessions" ng-if="session.Availability.includes('Afternoon')">
 
         <div class="row">
           <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
-            <h4>{{session.title}}</h4>
+            <h4>{{session.Title}}</h4>
           </div>
           <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
             <button type="button" ng-show="polling.open && polling.sessions==='afternoon'" class="pull-right btn btn-primary" data-ng-class="{voted: session.uservoted}" data-ng-click="session.vote(user)">
@@ -79,16 +79,16 @@
 
         <div class="row">
           <div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-            <p><i>with:</i> {{session.speaker.firstName}} {{session.speaker.lastName}}</p>
+            <p><i>with:</i> {{session["First Name"]}} {{session["Last Name"]}}</p>
           </div>
           <div class="category col-xs-7 col-sm-7 col-md-7">
-            <span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{category}}</span>
+            <span class="label label-default pull-right">{{session["Session Category"]}}</span>
           </div>
         </div>
 
         <div class="row">
           <div class="sessionDescription col-xs-12 col-sm-12 col-md-12" data-ng-click="showText = !showText">
-            <p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
+            <p data-ng-class="{ collapsed: !showText }">{{session.Body}}</p>
             <div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
             <div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
           </div>
@@ -121,7 +121,7 @@
 
 			<div class="row">
 				<div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
-					<h4>{{session.title}}</h4>
+					<h4>{{session.Title}}</h4>
 				</div>
 				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
 					<button type="button" ng-show="polling.open && session.availability.toLowerCase().indexOf(polling.sessions) > -1" class="pull-right btn btn-primary" data-ng-class="{voted: session.uservoted}" data-ng-click="session.vote(user)">
@@ -132,16 +132,16 @@
 
 			<div class="row">
 				<div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-					<p><i>with:</i> {{session.speaker.firstName}} {{session.speaker.lastName}}</p>
+					<p><i>with:</i> {{session["First Name"]}} {{session["Last Name"]}}</p>
 				</div>
 				<div class="category col-xs-7 col-sm-7 col-md-7">
-					<span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{category}}</span>
+					<span class="label label-default pull-right" data-ng-repeat="category in session.categories">{{session["Session Category"]}}</span>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12" data-ng-click="showText = !showText">
-					<p data-ng-class="{ collapsed: !showText }">{{session.summary}}</p>
+					<p data-ng-class="{ collapsed: !showText }">{{session.Body}}</p>
 					<div class="toggle-text" data-ng-hide="showText"><i>show more</i></div>
 					<div class="toggle-text" data-ng-show="showText"><i>show less</i></div>
 				</div>
@@ -153,9 +153,3 @@
   </div>
 
 </div>
-<script>
-  $('#myTabs a').click(function (e) {
-    e.preventDefault()
-    $(this).tab('show')
-  })
-</script>
