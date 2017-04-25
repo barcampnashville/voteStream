@@ -1,19 +1,22 @@
-angular.module('BarcampApp')
-	.controller('SigninCtrl', function ($scope,$route, $location,AuthService) {
-	    $scope.$watch('badgeId', function () {
-	        $scope.error = null;
-	    });
+'use strict';
 
-	      AuthService.Users().then((database)=>{
-	      $scope.badges=database.data.Users
-	    })
-	      $scope.login=(id)=>{
-	        	Object.keys($scope.badges).forEach((badge)=>{
-	        		if ($scope.badgeId.toUpperCase() === badge){
-	        			console.log("logged in")
-	        			$location.path('/#!/sessions')
-	        			$route.reload()
-	        		}
-	        	})
-	     	 }      
-})
+app.controller('SigninCtrl', function ($scope,$route, $location,AuthService) {
+
+	AuthService.getAllUsers().then((userList)=>{
+		$scope.badges = userList;
+		// console.log($scope.badges);
+	});
+
+	$scope.$watch('badgeId', function () {
+      $scope.error = null;
+  });
+
+  $scope.login = (id) => {
+  	Object.keys($scope.badges).forEach((badge)=>{
+  		if ($scope.badgeId.toUpperCase() === badge){
+  			$location.path('/#!/sessions');
+  		};
+  	});
+ 	};
+
+});
