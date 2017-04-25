@@ -4,7 +4,7 @@ app.controller('SigninCtrl', function ($scope, $location, AuthService) {
 
 	AuthService.getAllUsers().then((userList)=>{
 		$scope.badges = userList;
-		// console.log($scope.badges);
+		console.log($scope.badges);
 	});
 
   $scope.login = (id) => {
