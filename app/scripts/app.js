@@ -49,11 +49,6 @@ angular.module('BarcampApp',[
 					templateUrl: '/templates/sessionlist.html',
 					controller: 'SessionListingCtrl',
 					allowAnonymousAccess:false,
-					resolve: {
-						Sessions: function (SessionListing) {
-							return SessionListing();
-						}
-					}
 				}).when('/login', {
 					templateUrl : '/templates/signin.html',
 					controller : 'SigninCtrl',
