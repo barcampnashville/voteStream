@@ -9,5 +9,9 @@ app.factory('Session', function ($http) {
 		return $http.get('https://nashvillebarcamp.firebaseio.com/Sessions.json')
 		.then(data => data.data);
 	}
-	return {getAllSessions}
+	const getFavoritesList = (userName) => {
+		return $http.get(`http://www.barcampnashville.org/bcn16/users/${userName}/attending`)
+		.then(data => data.data["favorited sessions"])
+	}
+	return {getAllSessions, getFavoritesList}
 });
