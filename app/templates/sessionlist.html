@@ -117,11 +117,11 @@
       <hr />
     </div>
     <ul class="list-unstyled">
-		<li ng-repeat="session in favoriteSessions | orderBy: 'Title'">
+		<li ng-repeat="favoriteSession in favoritesArray">
 
 			<div class="row">
 				<div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
-					<h4>{{session.session.Title}}</h4>
+					<h4>{{favoriteSession.Title}}</h4>
 				</div>
 				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
 					<button type="button" ng-show="polling.open && session.availability.toLowerCase().indexOf(polling.sessions) > -1" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-click="session.vote(user)">
@@ -132,16 +132,16 @@
 
 			<div class="row">
 				<div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-					<p><i>with:</i> {{session["First Name"]}} {{session["Last Name"]}}</p>
+					<p><i>with:</i> {{favoriteSession["First Name"]}} {{favoriteSession["Last Name"]}}</p>
 				</div>
 				<div class="category col-xs-7 col-sm-7 col-md-7">
-					<span class="label label-default pull-right">{{session["Session Category"]}}</span>
+					<span class="label label-default pull-right">{{favoriteSession["Session Category"]}}</span>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12" ng-click="showText = !showText">
-					<p ng-class="{ collapsed: !showText }">{{session.Body}}</p>
+					<p ng-class="{ collapsed: !showText }">{{favoriteSession.Body}}</p>
 					<div class="toggle-text" ng-hide="showText"><i>show more</i></div>
 					<div class="toggle-text" ng-show="showText"><i>show less</i></div>
 				</div>
