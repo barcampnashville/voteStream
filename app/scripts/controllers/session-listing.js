@@ -7,6 +7,24 @@ app.controller('SessionListingCtrl', function($scope, SessionListing) {
     $(this).tab('show')
   })
 
+	// TODO will make better i promise 
+  $scope.polling = {
+  	open: true,
+  	sessions: 'morning'
+  }
+
+  $scope.user = '1FY13NK8'
+	$scope.voteArray = []
+
+  $scope.vote = (index) => {
+  	//Need to make sure user can't vote for a session twice
+  	//Need error handling for more than 3 votes
+  	if( $scope.voteArray.length < 3) {
+  		$scope.voteArray.push(index)
+  		console.log("voteArray: ", $scope.voteArray)
+  	} 
+  }
+
 	SessionListing.getAllSessions().
 	then(sessionList => {
 			$scope.sessions = sessionList

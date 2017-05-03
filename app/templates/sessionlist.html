@@ -26,14 +26,14 @@
   <!--morning voting-->
   <div role="tabpanel" class="tab-pane active container sessions" id="amVote">
     <ul class="list-unstyled">
-      <li ng-repeat="session in sessions" ng-if="session.Availability.includes('Morning')">
+      <li ng-repeat="session in sessions track by $index" ng-show="session.Availability.includes('Morning')">
 
         <div class="row">
           <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
             <h4>{{session.Title}}</h4>
           </div>
           <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-            <button type="button" ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-click="session.vote(user)">
+            <button type="button" ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-click="vote($index)">
               <i class="fa" ng-class="{'fa-square': !session.uservoted, 'fa-thumbs-up': session.uservoted}"></i>
             </button>
           </div>
