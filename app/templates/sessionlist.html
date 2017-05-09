@@ -26,6 +26,9 @@
   <!--morning voting-->
   <div role="tabpanel" class="tab-pane active container sessions" id="amVote">
     <ul class="list-unstyled">
+
+      <!-- ALL OBJECTS/VARIABLES/FUNCTIONS COME FROM session-listing.js -->
+      <!-- filters for all Morning sessions -->
       <li ng-repeat="session in sessions track by $index" ng-show="session.Availability.includes('Morning')">
 
         <div class="row">
@@ -64,6 +67,8 @@
   <!--afternoon voting-->
   <div role="tabpanel" class="tab-pane container sessions" id="pmVote">
     <ul class="list-unstyled">
+
+      <!-- filters for all Afternoon sessions -->
       <li ng-repeat="session in sessions" ng-if="session.Availability.includes('Afternoon')">
 
         <div class="row">
@@ -101,6 +106,8 @@
 
   <!--favorites-->
   <div role="tabpanel" class="tab-pane container sessions" id="favs">
+
+  <!-- will show if getFavorites() returns something -->
     <form ng-show="!favoriteSessions.length" class="col-xs-10 col-sm-9 col-md-10" ng-submit="getFavorites(barcampUsername)">
       <div>
         <p ng-show="invalidUsername" class="label label-warning">Invalid Username!</p>

@@ -1,9 +1,14 @@
 <div class="input-group">
 		<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+
+		<!-- text input models to badgeId, which gets sent to ng-click on the button below--> 
 		<input type="text" name="badgeId" class="form-control" ng-model="badgeId" required autofocus/>
 
+		<!-- error variable comes from singin.js -->
 		<span ng-show="error" class="help-block">{{error}}</span>
 </div>
+
+<!-- calls login function from signin.js with badgeId -->
 <button type="submit" class="btn btn-primary btn-login" ng-click="login(badgeId)">Submit</button>
 
 

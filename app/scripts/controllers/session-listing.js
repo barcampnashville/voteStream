@@ -2,6 +2,7 @@
 
 app.controller('SessionListingCtrl', function($scope, SessionListing) {
 	
+	//jquery to control session tabs
 	$('#myTabs a').click(function (e) {
     e.preventDefault()
     $(this).tab('show')
@@ -25,14 +26,18 @@ app.controller('SessionListingCtrl', function($scope, SessionListing) {
   	} 
   }
 
+  //returns all sessions from sessions.js in services
 	SessionListing.getAllSessions().
 	then(sessionList => {
 			$scope.sessions = sessionList
 			console.log($scope.sessions)
 	})
 
+	//takes barcampUsername from ng-submit in sessionlist.html
 	$scope.getFavorites = (userName) => {
 		$scope.favoritesArray = []
+
+		//returns specific user's favorites from list coming from sessions.js
 		SessionListing.getFavoritesList(userName)
 		.then(favoritesList => {
 			$scope.favoriteSessions = favoritesList
