@@ -202,3 +202,7 @@ input[type="color"]:focus,
 .animate-switch.ng-leave, .animate-switch.ng-enter-active {
   top: 0;
 }
+/*** Remove once task runner working**/
+#error-modal .modal-content {
+  margin-top: 10em;
+}
