@@ -4,7 +4,7 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 
-gulp.task('sass', function () {
+gulp.task('sass', () => {
  return gulp.src('./app/styles/scss/*.scss')
   .pipe(sourcemaps.init())
   .pipe(sass.sync().on('error', sass.logError))
