@@ -2,11 +2,14 @@
 
 const gulp = require('gulp');
 const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
 
-gulp.task('sass', () => {
-  return gulp.src('./app/styles/scss/*.scss')
-    .pipe(sass.sync().on('error', sass.logError))
-    .pipe(gulp.dest('./app/styles/css'));
+gulp.task('sass', function () {
+ return gulp.src('./app/styles/scss/*.scss')
+  .pipe(sourcemaps.init())
+  .pipe(sass.sync().on('error', sass.logError))
+  .pipe(sourcemaps.write('./maps'))
+  .pipe(gulp.dest('./app/styles/css'));
 });
 
 gulp.task('default', () => {
