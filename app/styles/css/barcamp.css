@@ -161,6 +161,5 @@ input[type="color"]:focus,
   top: 50px; }
 
 .animate-switch.ng-leave, .animate-switch.ng-enter-active {
-  top: 0; }
-
-/*# sourceMappingURL=maps/barcamp.css.map */
+  top: 0;
+}
