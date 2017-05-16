@@ -2,6 +2,8 @@
 
 app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
 	
+  $scope.maxVotes = 4
+
 	//jquery to control session tabs
 	$('#myTabs a').click(function (e) {
     e.preventDefault()
@@ -17,25 +19,17 @@ app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
   $scope.user = '1FY13NK8'
 	$scope.voteArray = []
 
-  $scope.vote = (index) => {
-  	//Need to make sure user can't vote for a session twice
-  	//Need error handling for more than 3 votes
-  	
-	// check to see if the array is empty
-		if ($scope.voteArray.length === 0){
-			$scope.voteArray.push(index)
-			// check to see if length is less than three AND voteArray does note include duplicate
-		} else if( $scope.voteArray.length < 3 && !$scope.voteArray.includes(index)) {
-  		$scope.voteArray.push(index)
-		} else {
-  		$scope.errorMessage = "You may select only 3 sessions.";
-  		$("#error-modal").modal("show");
-		}
+  $scope.vote = (index, isChecked) => {
+    if ($scope.voteArray.length < $scope.maxVotes && !$scope.voteArray.includes(index)){
+      $scope.voteArray.push(index)
+    } else if (!isChecked) {  //if checked box value is checked remove from voteArray
+      $scope.voteArray.splice($scope.voteArray.indexOf(index), 1)
+    }
   }
 
   $scope.voteSubmit = () => {
-  	if($scope.voteArray.length < 3) {
-  		$scope.errorMessage = "Please vote for 3 sessions before submitting!";
+  	if($scope.voteArray.length < $scope.maxVotes) {
+  		$scope.errorMessage = "Please vote for 4 sessions before submitting!";
   	} else {
 
   	//****We don't have access to firebase to post yet****

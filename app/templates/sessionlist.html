@@ -34,9 +34,7 @@
             <h4>{{session.Title}}</h4>
           </div>
           <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-            <button type="button" ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-click="vote($index)">
-              <i class="fa" ng-class="{'fa-square': !session.uservoted, 'fa-thumbs-up': session.uservoted}"></i>
-            </button>
+            <input type="checkbox" ng-disabled="voteArray.length == maxVotes && !voteArray.includes($index) " ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-model="isChecked" ng-click="vote($index, isChecked)"/>
           </div>
         </div>
 
