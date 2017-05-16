@@ -20,10 +20,20 @@ app.controller('SessionListingCtrl', function($scope, SessionListing) {
   $scope.vote = (index) => {
   	//Need to make sure user can't vote for a session twice
   	//Need error handling for more than 3 votes
-  	if( $scope.voteArray.length < 3) {
+  	
+	// check to see if the array is empty
+	if ($scope.voteArray.length === 0){
+		$scope.voteArray.push(index)
+
+	// check to see if length is less than three AND voteArray does note include duplicate
+	} else if( $scope.voteArray.length < 3 && !$scope.voteArray.includes(index)) {
   		$scope.voteArray.push(index)
   		console.log("voteArray: ", $scope.voteArray)
-  	} 
+  	
+  	//display error message
+  	} else {
+  		console.log("else statement")
+  	}
   }
 
   //returns all sessions from sessions.js in services
