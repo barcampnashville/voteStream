@@ -1,46 +1,33 @@
 #greeting {
-  text-align: center;
-}
-#event-logo {
-    margin-bottom: 1em;
-}
-#vendor-spotlight {
-    margin-bottom: 1em;
-}
+  text-align: center; }
+
 footer {
-  padding: 20px 0;
-}
+  padding: 20px 0; }
 
 .category .label {
   margin: 0px 2px;
-  margin-bottom: 2px;
-}
+  margin-bottom: 2px; }
 
 blockquote {
   font-size: 8pt;
   padding: 3;
-  margin: 0;
-}
+  margin: 0; }
 
 .gridStyle {
   border: 2px solid #d4d4d4;
   width: 100%;
-  height: 500px;
-}
+  height: 500px; }
 
 .ng-invalid.ng-dirty {
   color: #b94a48;
   border-color: #b94a48;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-.ng-invalid.ng-dirty:focus {
-  border-color: #953b39;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
-}
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .ng-invalid.ng-dirty:focus {
+    border-color: #953b39;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392; }
 
 .ngRow:hover {
-  background-color: #ddedf0;
-}
+  background-color: #ddedf0; }
 
 .header {
   position: fixed;
@@ -60,42 +47,34 @@ blockquote {
   /* Standard syntax; must be last */
   color: white;
   padding: 14px 15px;
-  z-index: 9999;
-}
-.header #category-filter {
-  width: 60%;
-}
-.header #vote-counter {
-  width: 40%;
-}
+  z-index: 9999; }
+  .header #category-filter {
+    width: 60%; }
+  .header #vote-counter {
+    width: 40%; }
 
 .container .sessions,
 .container .results {
   padding-top: 55px;
   padding-left: 0px;
-  padding-right: 0px;
-}
+  padding-right: 0px; }
 
 .sessionDescription {
   word-wrap: break-word;
   line-height: 1.2em;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .collapsed {
   line-height: 1em;
   height: 2em;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .toggle-collapsed input {
-  display: none;
-}
+  display: none; }
 
 /* Extra styles to add faux-ellipsis to multi-line text */
 .collapsed {
-  position: relative;
-}
+  position: relative; }
 
 .collapsed::after {
   content: '\2026';
@@ -103,43 +82,34 @@ blockquote {
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #fff;
-}
+  background-color: #fff; }
 
 .label-success {
   margin-right: 5px;
-  margin-top: 4px;
-}
+  margin-top: 4px; }
 
 .label-warning {
-  background-color: #feb336;
-}
+  background-color: #feb336; }
 
 .btn:focus {
-  outline: none;
-}
+  outline: none; }
 
 .btn-primary {
   background-color: #932318;
-  border-color: #671911;
-}
-.btn-primary:hover, .btn-primary:disabled, .btn-primary:focus, .btn-primary:active {
-  background-color: #bf2d1f;
-  border-color: #932318;
-}
+  border-color: #671911; }
+  .btn-primary:hover, .btn-primary:disabled, .btn-primary:focus, .btn-primary:active {
+    background-color: #bf2d1f;
+    border-color: #932318; }
 
 .btn-warning {
-  background-color: #feb336;
-}
-.btn-warning:hover {
-  background-color: #fec669;
-  border-color: #feb336;
-}
+  background-color: #feb336; }
+  .btn-warning:hover {
+    background-color: #fec669;
+    border-color: #feb336; }
 
 .btn.voted {
   background-color: #feb336;
-  border-color: #fea003;
-}
+  border-color: #fea003; }
 
 textarea:focus,
 input[type="text"]:focus,
@@ -159,32 +129,25 @@ input[type="color"]:focus,
 .uneditable-input:focus {
   border-color: #feb336;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(254, 179, 54, 0.5);
-  outline: 0 none;
-}
+  outline: 0 none; }
 
 .admin-link, .admin-link:hover,
 .header-link, .header-link:hover {
   color: #fff;
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 .admin-container {
-  margin-top: 70px;
-}
+  margin-top: 70px; }
 
 .timeofday {
-  margin-left: 30px;
-}
+  margin-left: 30px; }
 
 @media (max-width: 480px) {
   .header select {
-    width: 80%;
-  }
-
+    width: 80%; }
   .sessions {
-    padding: 0 15px;
-  }
-}
+    padding: 0 15px; } }
+
 /*** ANIMATIONS *********/
 .animate-switch.ng-animate {
   transition: all cubit-bezier(0.25, 0.45, 0.94) 0.5s;
@@ -192,12 +155,10 @@ input[type="color"]:focus,
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-}
+  bottom: 0; }
 
 .animate-switch.ng-leave-active, animate-switch.ng-enter {
-  top: 50px;
-}
+  top: 50px; }
 
 .animate-switch.ng-leave, .animate-switch.ng-enter-active {
   top: 0;

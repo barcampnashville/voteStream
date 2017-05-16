@@ -2,8 +2,6 @@
   <div class="header">
     <div class="row text-center">
       <button class="btn btn-primary pull-left" ng-click="logout()">Log Out!</button>
-      <p class="label label-warning votesremaning">{{4 - user.sync.sessions.length}} votes left</p>
-      <button class="btn btn-primary pull-right" ng-if="!user.admin">
         <a href="{{scheduleUrl}}" target="_blank" class="header-link">Schedule</a>
       </button>
       <button class="btn btn-primary pull-right" ng-if="user.admin">
@@ -62,6 +60,11 @@
 
       </li>
     </ul>
+    <div class="row">
+      <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()">Submit</button>
+      <button class="btn btn-danger" type="button">Reset</button>
+
+    </div>
   </div>
 
   <!--afternoon voting-->
@@ -157,6 +160,13 @@
 
 		</li>
     </ul>
+  </div> <!--end container-->
+</div>
+  <div class="modal fade bs-example-modal-sm" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <p>{{errorMessage}}</p>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
   </div>
-
 </div>
