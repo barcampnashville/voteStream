@@ -163,6 +163,7 @@ input[type="color"]:focus,
 .animate-switch.ng-leave, .animate-switch.ng-enter-active {
   top: 0; }
 
+
 /****Popup Modal******/
 #error-modal .modal-content {
   font-size: 2em;
