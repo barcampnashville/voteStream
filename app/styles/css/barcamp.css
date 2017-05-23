@@ -161,5 +161,18 @@ input[type="color"]:focus,
   top: 50px; }
 
 .animate-switch.ng-leave, .animate-switch.ng-enter-active {
-  top: 0;
-}
+  top: 0; }
+
+
+/****Popup Modal******/
+#error-modal .modal-content {
+  font-size: 2em;
+  margin-top: 33%; }
+
+#error-dialog {
+  padding-left: 2em; }
+
+#error-modal .btn {
+  margin-left: 10%; }
+
+/*# sourceMappingURL=maps/barcamp.css.map */

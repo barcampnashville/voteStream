@@ -13,8 +13,9 @@ app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
 	// TODO will make better i promise 
   $scope.polling = {
   	open: true,
-  	sessions: 'morning'
+  	sessions: 'afternoon'
   }
+
 
   $scope.user = '1FY13NK8'
 	$scope.voteArray = []
@@ -33,13 +34,13 @@ app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
   	} else {
 
   	//****We don't have access to firebase to post yet****
-  		
-  		// $http.post('https://nashvillebarcamp.firebaseio.com/Users/1FY13NK8/sessions.json', $scope.voteArray)
-  		// .then(function(response){
-  		// 	console.log(response)
-  		// })
-  		//submit to Firebase
-
+  		let jsonArray = JSON.stringify($scope.voteArray);
+  		$http.put(`https://nashvillebarcamp.firebaseio.com/Users/${$scope.user}/sessions.json`, jsonArray)
+  		.then(function(response){
+  			console.log(response)
+  		})
+  		// submit to Firebase
+      $scope.errorMessage = "Thanks!";
   	}
   }
   //returns all sessions from sessions.js in services
