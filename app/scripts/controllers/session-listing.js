@@ -54,14 +54,16 @@ app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
 //increments the total vote count, is called after storing session votes to user object in firebase
   $scope.incrementingSessionVoteCount = () => {
     angular.forEach($scope.voteArray, function(session){
-      var bob = firebase.database().ref();
-      var bobRef = bob.child(`Sessions/${session}/total_votes`);
-      bobRef.transaction(function(voteCount) {
-        console.log("Vote Count", voteCount)
+      var voteCountRef = firebase.database().ref(`Sessions/${session}/total_votes`);
+      voteCountRef.transaction(function(voteCount) {
         return voteCount + 1;
-    }) 
-  });
-}
+      },(err, wasCommited, afterSnap) => {
+        console.log('err', err);
+        console.log('wasCommited', wasCommited);
+        console.log('afterSnap', afterSnap.val());
+      }) 
+    });
+  }
 
 	//takes barcampUsername from ng-submit in sessionlist.html
 	$scope.getFavorites = (userName) => {
