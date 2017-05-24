@@ -13,16 +13,16 @@ app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
 	// TODO will make better i promise 
   $scope.polling = {
   	open: true,
-  	sessions: 'afternoon'
+  	sessions: 'morning'
   }
 
 
-  $scope.user = '1FY13NK8'
-	$scope.voteArray = []
+  $scope.user = '1GW5Z18M'
+	$scope.voteArray = [];
 
   $scope.vote = (index, isChecked) => {
     if ($scope.voteArray.length < $scope.maxVotes && !$scope.voteArray.includes(index)){
-      $scope.voteArray.push(index)
+      $scope.voteArray.push(index.toString())
     } else if (!isChecked) {  //if checked box value is checked remove from voteArray
       $scope.voteArray.splice($scope.voteArray.indexOf(index), 1)
     }
@@ -38,6 +38,7 @@ app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
   		$http.put(`https://nashvillebarcamp.firebaseio.com/Users/${$scope.user}/sessions.json`, jsonArray)
   		.then(function(response){
   			console.log(response)
+        $scope.incrementingSessionVoteCount();
   		})
   		// submit to Firebase
       $scope.errorMessage = "Thanks!";
@@ -49,6 +50,18 @@ app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
 			$scope.sessions = sessionList
 			console.log($scope.sessions)
 	})
+
+//increments the total vote count, is called after storing session votes to user object in firebase
+  $scope.incrementingSessionVoteCount = () => {
+    angular.forEach($scope.voteArray, function(session){
+      var bob = firebase.database().ref();
+      var bobRef = bob.child(`Sessions/${session}/total_votes`);
+      bobRef.transaction(function(voteCount) {
+        console.log("Vote Count", voteCount)
+        return voteCount + 1;
+    }) 
+  });
+}
 
 	//takes barcampUsername from ng-submit in sessionlist.html
 	$scope.getFavorites = (userName) => {
@@ -71,4 +84,7 @@ app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
 			console.log("list after comparison:", $scope.favoritesArray)
 		})
 	}
+
+
+
 });
