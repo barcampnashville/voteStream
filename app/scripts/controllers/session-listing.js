@@ -1,8 +1,10 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
+app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote) {
 	
   $scope.maxVotes = 4
+  $scope.user = '1GW5Z18M' // refactor 
+  $scope.voteArray = [];
 
 	//jquery to control session tabs
 	$('#myTabs a').click(function (e) {
@@ -16,9 +18,12 @@ app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
   	sessions: 'morning'
   }
 
-
-  $scope.user = '1GW5Z18M'
-	$scope.voteArray = [];
+  //returns all sessions from sessions.js in services
+  SessionListing.getAllSessions().
+  then(sessionList => {
+      $scope.sessions = sessionList
+      // console.log($scope.sessions)
+  })
 
   $scope.vote = (index, isChecked) => {
     if ($scope.voteArray.length < $scope.maxVotes && !$scope.voteArray.includes(index)){
@@ -31,25 +36,19 @@ app.controller('SessionListingCtrl', function($scope, SessionListing, $http) {
   $scope.voteSubmit = () => {
   	if($scope.voteArray.length < $scope.maxVotes) {
   		$scope.errorMessage = "Please vote for 4 sessions before submitting!";
-  	} else {
 
-  	//****We don't have access to firebase to post yet****
+  	} else {
   		let jsonArray = JSON.stringify($scope.voteArray);
-  		$http.put(`https://nashvillebarcamp.firebaseio.com/Users/${$scope.user}/sessions.json`, jsonArray)
+
+      Vote.updateUserVotes($scope.user, jsonArray) // refactor $scope.user?
   		.then(function(response){
-  			console.log(response)
         $scope.incrementingSessionVoteCount();
   		})
-  		// submit to Firebase
+  		// update message
       $scope.errorMessage = "Thanks!";
   	}
   }
-  //returns all sessions from sessions.js in services
-	SessionListing.getAllSessions().
-	then(sessionList => {
-			$scope.sessions = sessionList
-			console.log($scope.sessions)
-	})
+
 
 //increments the total vote count, is called after storing session votes to user object in firebase
   $scope.incrementingSessionVoteCount = () => {
