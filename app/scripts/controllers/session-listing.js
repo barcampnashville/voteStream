@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote) {
+app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User) {
 	
 	//jquery to control session tabs
 	$('#myTabs a').click(function (e) {
@@ -10,7 +10,9 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 
 
 	$scope.maxVotes = 4
-	$scope.user = '1GW5Z18M' // TODO 
+ 	$scope.user = User.getUser();
+
+
 	$scope.voteArray = [];
 
 	// TODO 
