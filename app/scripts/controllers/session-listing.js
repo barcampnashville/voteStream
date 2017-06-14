@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User) {
+app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User, Polling) {
 	
 	//jquery to control session tabs
 	$('#myTabs a').click(function (e) {
@@ -8,24 +8,16 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		$(this).tab('show')
 	})
 
-
 	$scope.maxVotes = 4
  	$scope.user = User.getUser();
-
-
 	$scope.voteArray = [];
 
-	// TODO 
-	$scope.polling = {
-		open: true,
-		sessions: 'morning'
-	}
+	Polling.getPollingPeriods().then(period => $scope.polling = period)
 
 	/* Returns all sessions from services/sessions.js */
 	SessionListing.getAllSessions().
 	then(sessionList => {
 		$scope.sessions = sessionList
-		// console.log("$scope.sessions-->", $scope.sessions); 
 	})
 
 	/* User to select up to 4 sessions and add to voteArray */
