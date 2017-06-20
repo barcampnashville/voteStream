@@ -55,7 +55,7 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 		allowAnonymousAccess:true
 	})
 	.otherwise({
-		redirectTo:'/sessions'
+		redirectTo:'/login'
 	});
 
 }])

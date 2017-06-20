@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User, Polling) {
+app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User, Polling, $location) {
 	
 	//jquery to control session tabs
 	$('#myTabs a').click(function (e) {
@@ -68,6 +68,9 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		})
 	}
 
-
+  $scope.logout = () => {
+    User.userLogout()
+    $location.path('/login')
+  }
 
 });

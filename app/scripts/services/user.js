@@ -14,6 +14,11 @@ app.factory('User', function($http) {
 		user = badgeId;
 	}
 
-	return {getUser, setUser};
+	//logout
+	const userLogout = () => {
+		user = ''
+	}
+
+	return {getUser, setUser, userLogout};
 
 });
