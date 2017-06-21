@@ -12,10 +12,8 @@ app.factory('Polling', function ($http) {
 
 	const determineSession = (periods) => {
 
-		let morning = periods[0];
-		let afternoon = periods[1];
-		afternoon.endTime = '13:15pm' //TODO: Remove am/pm change compareTime
-
+		const morning = periods[0];
+		const afternoon = periods[1];
 		if (compareTime(morning)) {
 			return {open: true, sessions: 'morning'}
 		}
@@ -28,14 +26,14 @@ app.factory('Polling', function ($http) {
 
 	const compareTime = (period) => {
 
-		const start = period.startTime.slice(0, -2).split(':'); // ["8", "00"] 
-		const end = period.endTime.slice(0, -2).split(':'); // ["9", "15"]
+		const start = period.startTime.split(':'); // ["8", "00"] 
+		const end = period.endTime.split(':'); // ["9", "15"]
 
 		const startTime = new Date().setHours(start[0], start[1]);
 		const endTime = new Date().setHours(end[0], end[1]);
 
-		const diff1 = startTime - (new Date()).getTime();	
-		const diff2 = endTime - (new Date()).getTime();
+		const diff1 = startTime - new Date().getTime();	
+		const diff2 = endTime - new Date().getTime();
 	
 		if(diff1 < 0 && diff2 > 0 ) 
 		{
