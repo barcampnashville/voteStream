@@ -3,10 +3,15 @@
 app.factory('User', function($http) {
 
 	let user;
-	
+
 	// getter
 	const getUser = () => {
-		return user;
+		return new Promise(function(resolve, reject) {
+			if (user === null || user === undefined) {
+				reject();
+			}
+			resolve(user);
+		});
 	}
 
 	// setter
