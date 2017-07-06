@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User, Polling, $location) {
-	
+app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User, Polling, $location, AuthUser) {
+
 	//jquery to control session tabs
 	$('#myTabs a').click(function (e) {
 		e.preventDefault()
@@ -9,7 +9,7 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 	})
 
 	$scope.maxVotes = 4
- 	$scope.user = User.getUser();
+ 	$scope.user = AuthUser;
 	$scope.voteArray = [];
 
 	Polling.getPollingPeriods().then(period => $scope.polling = period)
@@ -37,7 +37,7 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		} else {
 			let jsonArray = JSON.stringify($scope.voteArray);
 
-			Vote.updateUserVotes($scope.user, jsonArray) // Update votes 
+			Vote.updateUserVotes($scope.user, jsonArray) // Update votes
 			.then(function(response){
 				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
 			})

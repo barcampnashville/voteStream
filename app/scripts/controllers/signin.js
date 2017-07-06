@@ -18,9 +18,8 @@ app.controller('SigninCtrl', function ($scope, $location, AuthService, User) {
 
 			//if badgeId from signin.html matches a badge, route to sessions
 			if ($scope.badgeId.toUpperCase() === badge){
-				
 				User.setUser(badge);
-				$location.path('/#!/sessions');
+				$location.path('/sessions');
 
 			//else return error variable for signin.html
 			} else {
