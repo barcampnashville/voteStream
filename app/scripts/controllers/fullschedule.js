@@ -1,3 +1,12 @@
-/*this is where we display the full schedule, currently a link on the website, which will still exist */
+'use strict'
+
+app.controller('FullScheduleCtrl', function ($scope) {
+
+  firebase.database().ref('/Sessions').on('value', function(session) {
+    $scope.fullSchedule = session.val();
+    $scope.$apply();
+  });
+
+});
 
 
