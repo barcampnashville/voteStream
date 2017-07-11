@@ -1,37 +1,50 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, SessionListing) {
-	
+app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User, Polling, $location, AuthUser) {
+
 	//jquery to control session tabs
 	$('#myTabs a').click(function (e) {
-    e.preventDefault()
-    $(this).tab('show')
-  })
+		e.preventDefault()
+		$(this).tab('show')
+	})
 
-	// TODO will make better i promise 
-  $scope.polling = {
-  	open: true,
-  	sessions: 'morning'
-  }
+	$scope.maxVotes = 4
+ 	$scope.user = AuthUser;
+	$scope.voteArray = [];
 
-  $scope.user = '1FY13NK8'
-	$scope.voteArray = []
+	Polling.getPollingPeriods().then(period => $scope.polling = period)
 
-  $scope.vote = (index) => {
-  	//Need to make sure user can't vote for a session twice
-  	//Need error handling for more than 3 votes
-  	if( $scope.voteArray.length < 3) {
-  		$scope.voteArray.push(index)
-  		console.log("voteArray: ", $scope.voteArray)
-  	} 
-  }
-
-  //returns all sessions from sessions.js in services
+	/* Returns all sessions from services/sessions.js */
 	SessionListing.getAllSessions().
 	then(sessionList => {
-			$scope.sessions = sessionList
-			console.log($scope.sessions)
+		$scope.sessions = sessionList
 	})
+
+	/* User to select up to 4 sessions and add to voteArray */
+	$scope.vote = (index, isChecked) => {
+		if ($scope.voteArray.length < $scope.maxVotes && !$scope.voteArray.includes(index)){
+			$scope.voteArray.push(index.toString())
+		} else if (!isChecked) {  //if checked box value is checked remove from voteArray
+			$scope.voteArray.splice($scope.voteArray.indexOf(index), 1)
+		}
+	}
+
+	/* Submit user's votes and increment session's total_count in services/vote.js */
+	$scope.voteSubmit = () => {
+		if($scope.voteArray.length < $scope.maxVotes) {
+			$scope.errorMessage = "Please vote for 4 sessions before submitting!";
+
+		} else {
+			let jsonArray = JSON.stringify($scope.voteArray);
+
+			Vote.updateUserVotes($scope.user, jsonArray) // Update votes
+			.then(function(response){
+				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
+			})
+			$scope.errorMessage = "Thanks!"; // Update message
+		}
+	}
+
 
 	//takes barcampUsername from ng-submit in sessionlist.html
 	$scope.getFavorites = (userName) => {
@@ -54,4 +67,10 @@ app.controller('SessionListingCtrl', function($scope, SessionListing) {
 			console.log("list after comparison:", $scope.favoritesArray)
 		})
 	}
+
+  $scope.logout = () => {
+    User.userLogout()
+    $location.path('/login')
+  }
+
 });

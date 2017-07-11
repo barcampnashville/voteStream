@@ -17,12 +17,10 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 	$routeProvider
 		// .when('/', {
 		// 	templateUrl : '/templates/home.html',
-		// 	allowAnonymousAccess:false,
 		// })
 	.when('/admin', {
 		templateUrl : '/templates/admin.html',
 		controller : 'AdminCtrl',
-		allowAnonymousAccess:false,
 		adminAccess: true,
 		resolve: {
 			Sessions: function (SessionListing) {
@@ -33,7 +31,6 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 	.when('/fullschedule', {
 		templateUrl : '/templates/fullschedule.html',
 		controller : 'FullScheduleCtrl',
-		allowAnonymousAccess:false,
 		// adminAccess: true,
 		// resolve: {
 		// 	Sessions: function (SessionListing) {
@@ -44,7 +41,13 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 	.when('/sessions', {
 		templateUrl: '/templates/sessionlist.html',
 		controller: 'SessionListingCtrl',
-		allowAnonymousAccess:false,
+		resolve: {
+			AuthUser: function(User, $location) {
+				return User.getUser().catch(err => {
+					$location.path('/login');
+				});
+			}
+		}
 	}).when('/login', {
 		templateUrl : '/templates/signin.html',
 		controller : 'SigninCtrl',
@@ -55,7 +58,7 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 		allowAnonymousAccess:true
 	})
 	.otherwise({
-		redirectTo:'/sessions'
+		redirectTo:'/login'
 	});
 
 }])

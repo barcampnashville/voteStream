@@ -2,8 +2,6 @@
   <div class="header">
     <div class="row text-center">
       <button class="btn btn-primary pull-left" ng-click="logout()">Log Out!</button>
-      <p class="label label-warning votesremaning">{{4 - user.sync.sessions.length}} votes left</p>
-      <button class="btn btn-primary pull-right" ng-if="!user.admin">
         <a href="{{scheduleUrl}}" target="_blank" class="header-link">Schedule</a>
       </button>
       <button class="btn btn-primary pull-right" ng-if="user.admin">
@@ -36,9 +34,7 @@
             <h4>{{session.Title}}</h4>
           </div>
           <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-            <button type="button" ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-click="vote($index)">
-              <i class="fa" ng-class="{'fa-square': !session.uservoted, 'fa-thumbs-up': session.uservoted}"></i>
-            </button>
+            <input type="checkbox" ng-disabled="voteArray.length == maxVotes && !voteArray.includes($index) " ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-model="isChecked" ng-click="vote($index, isChecked)"/>
           </div>
         </div>
 
@@ -62,6 +58,11 @@
 
       </li>
     </ul>
+    <div class="row">
+      <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()">Submit</button>
+      <button class="btn btn-danger" type="button">Reset</button>
+
+    </div>
   </div>
 
   <!--afternoon voting-->
@@ -76,9 +77,8 @@
             <h4>{{session.Title}}</h4>
           </div>
           <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-            <button type="button" ng-show="polling.open && polling.sessions==='afternoon'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-click="session.vote(user)">
-              <i class="fa" ng-class="{'fa-square': !session.uservoted, 'fa-thumbs-up': session.uservoted}"></i>
-            </button>
+
+            <input type="checkbox" ng-disabled="voteArray.length == maxVotes && !voteArray.includes($index)" ng-show="polling.open && polling.sessions==='afternoon'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-model="isChecked" ng-click="vote($index, isChecked)"/>
           </div>
         </div>
 
@@ -102,6 +102,10 @@
 
       </li>
     </ul>
+      <div class="row">
+        <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()">Submit</button>
+        <button class="btn btn-danger" type="button">Reset</button>
+      </div>
   </div>
 
   <!--favorites-->
@@ -157,6 +161,13 @@
 
 		</li>
     </ul>
+  </div> <!--end container-->
+</div>
+  <div class="modal fade bs-example-modal-sm" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <p>{{errorMessage}}</p>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
   </div>
-
 </div>
