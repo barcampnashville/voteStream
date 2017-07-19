@@ -26,11 +26,13 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 			Sessions: function (User, $location, SessionListing) {
 				return User.getUser().catch(err => {
 					$location.path('/admin');
+
 				});
 			}, 
 			SessionList: function(SessionListing){
 				return SessionListing.getAllSessions().then(session => session);
 			} 
+
 		}
 	})
 	.when('/fullschedule', {
