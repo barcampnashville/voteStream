@@ -1,7 +1,6 @@
 <div class="header">
 	<button class="btn btn-primary pull-left" data-ng-click="logout()">Log Out!</button>
 	<button class="btn btn-primary pull-right"><a href="/#/sessions" class="header-link">Sessions</a></button>
-	<p class="text-center">{{currenttime}}</p>
 </div>
 
 <section class="container admin-container">
@@ -25,6 +24,7 @@
 		<p>Clicking the removed button will hide the session from the voting page. It is for those sessions that are presented in the morning but aslo available in the afternoon. Clicking remove will keep them from showing up in the vote page during the afternoon session</p>
 
 	</div>
+	
 	<table class="table">
 		<thead>
 			<tr>
@@ -32,20 +32,21 @@
 				<th>Title</th>
 				<th>Speaker</th>
 				<th>Votes</th>
-				<th>Remove</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}" data-ng-repeat="s in sessions | orderBy:['inSync.removed', '-inSync.total_votes', 'title'] | filter:{availability: polling.sessions}">
+			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}" 
+				data-ng-repeat="s in sessions | orderBy: ['-total_votes', 'title'] | filter:{availability: polling.sessions}">
+				
 				<td class="text-center">{{$index + 1}}</td>
-				<td>{{s.title}}</td>
-				<td>{{s.speaker.firstName}} {{s.speaker.lastName}}</td>
-				<td>{{s.inSync.total_votes}}</td>
+				<td>{{s.Title}}</td>
+				<td>{{s['First Name']}} {{s['Last Name']}}</td>
+				<td>{{s.total_votes}}</td>
 				<td>
-					<button data-ng-if="!s.inSync.removed" type="button" class="btn btn-primary" data-ng-click="remove(s)">Remove</button>
-					<button data-ng-if="s.inSync.removed" type="button" class="btn btn-primary" data-ng-click="remove(s)">Add</button>
+
 				</td>
 			</tr>
 		</tbody>
 	</table>
+
 </section>

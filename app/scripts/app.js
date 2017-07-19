@@ -26,9 +26,13 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 			Sessions: function (User, $location, SessionListing) {
 				return User.getUser().catch(err => {
 					$location.path('/admin');
-				})
 
-			}
+				});
+			}, 
+			SessionList: function(SessionListing){
+				return SessionListing.getAllSessions().then(session => session);
+			} 
+
 		}
 	})
 	.when('/fullschedule', {
@@ -49,6 +53,12 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 				return User.getUser().catch(err => {
 					$location.path('/login');
 				});
+			},
+			PollingPeriod: function(Polling) {
+				return Polling.getPollingPeriods().then(period => period);
+			},
+			SessionList: function(SessionListing){
+				return SessionListing.getAllSessions().then(session => session);
 			}
 		}
 	}).when('/login', {

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User, Polling, $location, AuthUser) {
+app.controller('SessionListingCtrl', function($scope, $http, $location, SessionListing, Vote, User, Polling, AuthUser, PollingPeriod, SessionList) {
 
 	//jquery to control session tabs
 	$('#myTabs a').click(function (e) {
@@ -8,17 +8,12 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		$(this).tab('show')
 	})
 
-	$scope.maxVotes = 4
- 	$scope.user = AuthUser;
+	$scope.user = AuthUser;
+	$scope.polling = PollingPeriod;
+	$scope.sessions = SessionList;
+	$scope.maxVotes = 4;
 	$scope.voteArray = [];
 
-	Polling.getPollingPeriods().then(period => $scope.polling = period)
-
-	/* Returns all sessions from services/sessions.js */
-	SessionListing.getAllSessions().
-	then(sessionList => {
-		$scope.sessions = sessionList
-	})
 
 	/* User to select up to 4 sessions and add to voteArray */
 	$scope.vote = (index, isChecked) => {
@@ -28,6 +23,7 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 			$scope.voteArray.splice($scope.voteArray.indexOf(index), 1)
 		}
 	}
+	
 
 	/* Submit user's votes and increment session's total_count in services/vote.js */
 	$scope.voteSubmit = () => {
@@ -68,9 +64,9 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		})
 	}
 
-  $scope.logout = () => {
-    User.userLogout()
-    $location.path('/login')
-  }
+	$scope.logout = () => {
+		User.userLogout()
+		$location.path('/login')
+	}
 
 });
