@@ -11,9 +11,9 @@ app.factory('Polling', function ($http) {
 	}
 
 	const determineSession = (periods) => {
-
 		const morning = periods[0];
 		const afternoon = periods[1];
+
 		if (compareTime(morning)) {
 			return {open: true, sessions: 'morning'}
 		}
@@ -32,14 +32,15 @@ app.factory('Polling', function ($http) {
 		const startTime = new Date().setHours(start[0], start[1]);
 		const endTime = new Date().setHours(end[0], end[1]);
 
-		const diff1 = startTime - new Date().getTime();	
-		const diff2 = endTime - new Date().getTime();
+		const diff1 = startTime - new Date().setHours(8, 5);	
+		// const diff1 = startTime - new Date().getTime();	
+		// const diff2 = endTime - new Date().getTime();
+		const diff2 = endTime - new Date().setHours(8, 5);
 	
 		if(diff1 < 0 && diff2 > 0 ) 
 		{
 		    return true;
 		} else {
-
 			return false;
 		}
 
