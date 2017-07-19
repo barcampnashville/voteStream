@@ -5,7 +5,6 @@ app.controller('SigninCtrl', function ($scope, $location, AuthService, User) {
 	// calls getAllUsers from auth.js in services, then returns as userList
 	AuthService.getAllUsers().then((userList)=>{
 		$scope.badges = userList;
-		console.log(userList["WAFFFLES"].admin)
 	});
 
 	//takes id from badgeId model in signin.html
