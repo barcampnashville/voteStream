@@ -11,9 +11,21 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 	$scope.maxVotes = 4
  	$scope.user = AuthUser;
 	$scope.voteArray = [];
+	
 
-	Polling.getPollingPeriods().then(period => $scope.polling = period)
+	const getRemainingVotes = () => {
+		console.log('voteArray:', $scope.voteArray)
+		$scope.remainingVotes = $scope.maxVotes - $scope.voteArray.length;
+	}
 
+	getRemainingVotes()
+
+
+	//Polling.getPollingPeriods().then(period => $scope.polling = period)
+	$scope.polling = {
+		open: true,
+		sessions: "morning"
+	}
 	/* Returns all sessions from services/sessions.js */
 	SessionListing.getAllSessions().
 	then(sessionList => {
@@ -22,27 +34,25 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 
 	/* User to select up to 4 sessions and add to voteArray */
 	$scope.vote = (index, isChecked) => {
-		if ($scope.voteArray.length < $scope.maxVotes && !$scope.voteArray.includes(index)){
+		if ($scope.voteArray.length < $scope.maxVotes && !$scope.voteArray.includes(index.toString())){
 			$scope.voteArray.push(index.toString())
+
+
 		} else if (!isChecked) {  //if checked box value is checked remove from voteArray
 			$scope.voteArray.splice($scope.voteArray.indexOf(index), 1)
 		}
+		getRemainingVotes()
 	}
 
 	/* Submit user's votes and increment session's total_count in services/vote.js */
 	$scope.voteSubmit = () => {
-		if($scope.voteArray.length < $scope.maxVotes) {
-			$scope.errorMessage = "Please vote for 4 sessions before submitting!";
+		let jsonArray = JSON.stringify($scope.voteArray);
 
-		} else {
-			let jsonArray = JSON.stringify($scope.voteArray);
-
-			Vote.updateUserVotes($scope.user, jsonArray) // Update votes
-			.then(function(response){
-				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
-			})
-			$scope.errorMessage = "Thanks!"; // Update message
-		}
+		Vote.updateUserVotes($scope.user, jsonArray) // Update votes
+		.then(function(response){
+			Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
+		})
+		$scope.errorMessage = "Thanks!"; // Update message
 	}
 
 
