@@ -67,7 +67,7 @@
 			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}" 
 				data-ng-repeat="s in sessions | orderBy:sortByType:reverseSort | filter:{availability: sessions.availability}">
 				
-				<td class="text-center">{{$index + 1}}</td>
+				<td class="text-center">{{s.Rank}}</td>
 				<td>{{s.total_votes}}</td>
 				<td>{{s.Title}}</td>
 				<td>{{s['First Name']}} {{s['Last Name']}}</td>
