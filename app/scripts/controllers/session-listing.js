@@ -8,11 +8,19 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		$(this).tab('show')
 	})
 
-	$scope.maxVotes = 4
- 	$scope.user = AuthUser;
-	$scope.voteArray = [];
 	//needs to be gotten from the cookies
 	$scope.hasVoted = false;
+
+	$scope.maxVotes = 4
+ 	$scope.user = AuthUser;
+	if (window.document.cookie.includes('voteArray')) {
+		$scope.voteArray = window.document.cookie.split('voteArray=')[1].split(',');
+		$scope.hasVoted = true;
+	}
+	else {
+		$scope.voteArray = [];
+	}
+	
 	
 
 	const getRemainingVotes = () => {
@@ -21,6 +29,13 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 	}
 
 	getRemainingVotes()
+
+	const setCookie = () => {
+    let d = new Date();
+    d.setTime(d.getTime() + (30*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    window.document.cookie = `voteArray=${$scope.voteArray};${expires};`
+  }
 
 
 	//Polling.getPollingPeriods().then(period => $scope.polling = period)
@@ -54,8 +69,15 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 			Vote.updateUserVotes($scope.user, jsonArray) // Update votes
 			.then(function(response){
 				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
+				setCookie();
 			})
-			$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} left.`; // Update message
+			if($scope.voteArray.length < 3 || $scope.voteArray.length === 4) {
+				$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} votes left.`; // Update message
+			}
+			else {
+				$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} vote left.`; // Update message
+			}
+			
 		}
 		else {
 			$scope.errorMessage = "Please select a session.";

@@ -59,7 +59,8 @@
       </li>
     </ul>
     <div class="row">
-      <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()">Submit</button>
+      <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()" ng-if="!hasVoted">Submit</button>
+      <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()" ng-if="hasVoted">Edit</button>
       <!-- <button class="btn btn-danger" type="button">Reset</button> -->
     </div>
   </div>
