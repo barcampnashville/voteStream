@@ -11,6 +11,8 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 	$scope.maxVotes = 4
  	$scope.user = AuthUser;
 	$scope.voteArray = [];
+	//needs to be gotten from the cookies
+	$scope.hasVoted = false;
 	
 
 	const getRemainingVotes = () => {
@@ -46,13 +48,18 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 
 	/* Submit user's votes and increment session's total_count in services/vote.js */
 	$scope.voteSubmit = () => {
-		let jsonArray = JSON.stringify($scope.voteArray);
+		if($scope.voteArray.length != 0) {
+			let jsonArray = JSON.stringify($scope.voteArray);
 
-		Vote.updateUserVotes($scope.user, jsonArray) // Update votes
-		.then(function(response){
-			Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
-		})
-		$scope.errorMessage = "Thanks!"; // Update message
+			Vote.updateUserVotes($scope.user, jsonArray) // Update votes
+			.then(function(response){
+				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
+			})
+			$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} left.`; // Update message
+		}
+		else {
+			$scope.errorMessage = "Please select a session.";
+		}
 	}
 
 
