@@ -10,7 +10,8 @@
 		    <input type="checkbox" ng-model="polling.open" />
 
 		    <label class="timeofday">Sessions</label>
-		    <select ng-model="polling.sessions">
+		    <select ng-model="sessions.Availability">
+		    	<option value="all">All Sessions</option>
 		    	<option value="morning">Morning</option>
 		    	<option value="afternoon">Afternoon</option>
 		    </select>
@@ -24,27 +25,53 @@
 		<p>Clicking the removed button will hide the session from the voting page. It is for those sessions that are presented in the morning but aslo available in the afternoon. Clicking remove will keep them from showing up in the vote page during the afternoon session</p>
 
 	</div>
-	
+
 	<table class="table">
 		<thead>
 			<tr>
-				<th class="text-center">Rank</th>
-				<th>Title</th>
-				<th>Speaker</th>
-				<th>Votes</th>
+				<td><a href="" ng-click="sortByType = 'rank'; reverseSort = !reverseSort">
+				Rank
+					<span ng-show="sortByType == 'rank' && !reverseSort" class="fa fa-caret-down"></span>
+					<span ng-show="sortByType == 'rank' && reverseSort" class="fa fa-caret-up"></span>
+
+
+				</a></td>
+				<td><a href="" ng-click="sortByType = 'total_votes'; reverseSort = !reverseSort">
+				Votes
+					<span ng-show="sortByType == 'total_votes' && !reverseSort" class="fa fa-caret-down""></span>
+					<span ng-show="sortByType == 'total_votes' && reverseSort" class="fa fa-caret-up"></span>
+
+				</a></td>
+				<td><a href="" ng-click="sortByType = 'Title'; reverseSort = !reverseSort">
+				Title
+					<span ng-show="sortByType == 'Title' && !reverseSort" class="fa fa-caret-down""></span>
+					<span ng-show="sortByType == 'Title' && reverseSort" class="fa fa-caret-up"></span>
+
+				</a></td>
+				<td><a href="" ng-click="sortByType = 'speakerName'; reverseSort = !reverseSort">
+				Speaker
+					<span ng-show="sortByType == 'speakerName' && !reverseSort" class="fa fa-caret-down"></span>
+					<span ng-show="sortByType == 'speakerName' && reverseSort" class="fa fa-caret-up"></span>
+
+				</a></td>
+				<td><a href="" ng-click="sortByType = 'Availability'; reverseSort = !reverseSort">
+				Availability
+					<span ng-show="sortByType == 'Availability' && !reverseSort" class="fa fa-caret-down"></span>
+					<span ng-show="sortByType == 'Availability' && reverseSort" class="fa fa-caret-up"></span>
+
+				</a></td>
 			</tr>
 		</thead>
+
 		<tbody>
 			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}" 
-				data-ng-repeat="s in sessions | orderBy: ['-total_votes', 'title'] | filter:{availability: polling.sessions}">
+				data-ng-repeat="s in sessions | orderBy:sortByType:reverseSort | filter:{availability: sessions.availability}">
 				
-				<td class="text-center">{{$index + 1}}</td>
+				<td class="text-center">{{s.Rank}}</td>
+				<td>{{s.total_votes}}</td>
 				<td>{{s.Title}}</td>
 				<td>{{s['First Name']}} {{s['Last Name']}}</td>
-				<td>{{s.total_votes}}</td>
-				<td>
-
-				</td>
+				<td>{{s.Availability}}</td>
 			</tr>
 		</tbody>
 	</table>
