@@ -21,7 +21,19 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		$scope.voteArray = [];
 	}
 	
-	
+	//$scope.isChecked;
+		//need isChecked to return false when unchecked
+	$scope.booleanCheck = (index) => {
+		if ($scope.voteArray.includes(index.toString())) {
+			
+			return true;
+		}
+		else {
+			
+			return false;
+		}
+	}
+
 
 	const getRemainingVotes = () => {
 		console.log('voteArray:', $scope.voteArray)
@@ -49,15 +61,20 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		$scope.sessions = sessionList
 	})
 
+	$scope.editMode = () => {
+		$scope.hasVoted = false;
+		
+	}
+
 	/* User to select up to 4 sessions and add to voteArray */
 	$scope.vote = (index, isChecked) => {
-		if ($scope.voteArray.length < $scope.maxVotes && !$scope.voteArray.includes(index.toString())){
-			$scope.voteArray.push(index.toString())
+		console.log('isChecked:', isChecked)
+				if ($scope.voteArray.length < $scope.maxVotes && !$scope.voteArray.includes(index.toString())){
+		 	$scope.voteArray.push(index.toString());
 
-
-		} else if (!isChecked) {  //if checked box value is checked remove from voteArray
-			$scope.voteArray.splice($scope.voteArray.indexOf(index), 1)
-		}
+		} else if (isChecked === undefined || isChecked === false) {  //if checked box value is checked remove from voteArray
+		 	$scope.voteArray.splice($scope.voteArray.indexOf(index.toString()), 1)
+		 }
 		getRemainingVotes()
 	}
 
@@ -70,6 +87,7 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 			.then(function(response){
 				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
 				setCookie();
+				$scope.hasVoted = true;
 			})
 			if($scope.voteArray.length < 3 || $scope.voteArray.length === 4) {
 				$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} votes left.`; // Update message

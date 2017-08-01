@@ -34,7 +34,7 @@
             <h4>{{session.Title}}</h4>
           </div>
           <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-            <input type="checkbox" ng-disabled="voteArray.length == maxVotes && !voteArray.includes($index) " ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-model="isChecked" ng-click="vote($index, isChecked)"/>
+            <input type="checkbox" ng-disabled="voteArray.length == maxVotes && !voteArray.includes($index.toString()) || hasVoted == true" ng-show="polling.open && polling.sessions==='morning'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-model="isChecked" ng-true-value="'1'" ng-false-value="'0'" ng-checked="isChecked=='1' || booleanCheck($index)" ng-click="vote($index, isChecked)"/>
           </div>
         </div>
 
@@ -60,7 +60,7 @@
     </ul>
     <div class="row">
       <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()" ng-if="!hasVoted">Submit</button>
-      <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()" ng-if="hasVoted">Edit</button>
+      <button class="btn btn-warning" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="editMode()" ng-if="hasVoted">Edit Votes</button>
       <!-- <button class="btn btn-danger" type="button">Reset</button> -->
     </div>
   </div>
