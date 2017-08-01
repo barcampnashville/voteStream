@@ -33,32 +33,36 @@
 				Rank
 					<span ng-show="sortByType == 'rank' && !reverseSort" class="fa fa-caret-down"></span>
 					<span ng-show="sortByType == 'rank' && reverseSort" class="fa fa-caret-up"></span>
-
-
 				</a></td>
 				<td><a href="" ng-click="sortByType = 'total_votes'; reverseSort = !reverseSort">
 				Votes
 					<span ng-show="sortByType == 'total_votes' && !reverseSort" class="fa fa-caret-down""></span>
 					<span ng-show="sortByType == 'total_votes' && reverseSort" class="fa fa-caret-up"></span>
-
 				</a></td>
 				<td><a href="" ng-click="sortByType = 'Title'; reverseSort = !reverseSort">
 				Title
 					<span ng-show="sortByType == 'Title' && !reverseSort" class="fa fa-caret-down""></span>
 					<span ng-show="sortByType == 'Title' && reverseSort" class="fa fa-caret-up"></span>
-
 				</a></td>
 				<td><a href="" ng-click="sortByType = 'speakerName'; reverseSort = !reverseSort">
 				Speaker
 					<span ng-show="sortByType == 'speakerName' && !reverseSort" class="fa fa-caret-down"></span>
 					<span ng-show="sortByType == 'speakerName' && reverseSort" class="fa fa-caret-up"></span>
-
+				</a></td>
+				<td><a href="" ng-click="sortByType = 'Time'; reverseSort = !reverseSort">
+				Time
+					<span ng-show="sortByType == 'Time' && !reverseSort" class="fa fa-caret-down"></span>
+					<span ng-show="sortByType == 'Time' && reverseSort" class="fa fa-caret-up"></span>
+				</a></td>
+				<td><a href="" ng-click="sortByType = 'Room'; reverseSort = !reverseSort">
+				Room
+					<span ng-show="sortByType == 'Room' && !reverseSort" class="fa fa-caret-down"></span>
+					<span ng-show="sortByType == 'Room' && reverseSort" class="fa fa-caret-up"></span>
 				</a></td>
 				<td><a href="" ng-click="sortByType = 'Availability'; reverseSort = !reverseSort">
 				Availability
 					<span ng-show="sortByType == 'Availability' && !reverseSort" class="fa fa-caret-down"></span>
 					<span ng-show="sortByType == 'Availability' && reverseSort" class="fa fa-caret-up"></span>
-
 				</a></td>
 			</tr>
 		</thead>
@@ -71,6 +75,8 @@
 				<td>{{s.total_votes}}</td>
 				<td>{{s.Title}}</td>
 				<td>{{s['First Name']}} {{s['Last Name']}}</td>
+				<td>1:00</td>
+				<td>Room</td>
 				<td>{{s.Availability}}</td>
 			</tr>
 		</tbody>
