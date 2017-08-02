@@ -1,6 +1,8 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User, Polling, $location, AuthUser) {
+app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User, Polling, $location) {
+	// TODO inject this after testing
+	// AuthUser
 
 	//jquery to control session tabs
 	$('#myTabs a').click(function (e) {
@@ -8,28 +10,47 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		$(this).tab('show')
 	})
 
+	// TODO add these to a factory
+	// Used for checkbox directive
+	$scope.addVote = function(index) {
+		//this.voteArray = []; // Example, this will trigger a change
+		$scope.voteArray.push(index.toString());
+	};
+
+	$scope.hasVote = function(index) {
+		return $scope.voteArray.includes(index.toString());
+	};
+
+	$scope.removeVote = function(index) {
+		$scope.voteArray.splice($scope.voteArray.indexOf(index.toString()), 1);
+	};
+
+
 	//needs to be gotten from the cookies
 	$scope.hasVoted = false;
 
 	$scope.maxVotes = 4
- 	$scope.user = AuthUser;
+	// TODO uncomment this after
+ 	// 	$scope.user = AuthUser;
+	$scope.user = '2BFJQPYM';
 	if (window.document.cookie.includes('voteArray')) {
 		$scope.voteArray = window.document.cookie.split('voteArray=')[1].split(',');
 		$scope.hasVoted = true;
 	}
 	else {
-		$scope.voteArray = [];
+		// $scope.voteArray = [];
+		$scope.voteArray = ["0", "2"];
 	}
-	
+
 	//$scope.isChecked;
 		//need isChecked to return false when unchecked
 	$scope.booleanCheck = (index) => {
 		if ($scope.voteArray.includes(index.toString())) {
-			
+
 			return true;
 		}
 		else {
-			
+
 			return false;
 		}
 	}
@@ -63,7 +84,7 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 
 	$scope.editMode = () => {
 		$scope.hasVoted = false;
-		
+
 	}
 
 	/* User to select up to 4 sessions and add to voteArray */
@@ -95,7 +116,7 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 			else {
 				$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} vote left.`; // Update message
 			}
-			
+
 		}
 		else {
 			$scope.errorMessage = "Please select a session.";
@@ -131,3 +152,16 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
   }
 
 });
+// .directive('checkbox', function() {
+//     return {
+//     require: ['ngModel'],
+//     restrict: 'E',
+//     scope: {
+//       title: '@'
+//     },
+//     link: function(scope, element, attrs) {
+//
+//     },
+//     templateUrl: './templates/checkbox.html'
+//   };
+// });

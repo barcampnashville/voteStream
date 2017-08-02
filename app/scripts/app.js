@@ -41,13 +41,13 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 	.when('/sessions', {
 		templateUrl: '/templates/sessionlist.html',
 		controller: 'SessionListingCtrl',
-		resolve: {
-			AuthUser: function(User, $location) {
-				return User.getUser().catch(err => {
-					$location.path('/login');
-				});
-			}
-		}
+		// resolve: {
+		// 	AuthUser: function(User, $location) {
+		// 		return User.getUser().catch(err => {
+		// 			$location.path('/login');
+		// 		});
+		// 	}
+		// }
 	}).when('/login', {
 		templateUrl : '/templates/signin.html',
 		controller : 'SigninCtrl',

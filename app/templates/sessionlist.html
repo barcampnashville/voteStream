@@ -25,6 +25,9 @@
   <div role="tabpanel" class="tab-pane active container sessions" id="amVote">
     <ul class="list-unstyled">
 
+      <checkbox ng-repeat="each in sessions track by $index"
+        session="each" index="$index" votes="voteArray" add-vote="addVote(index)" remove-vote="removeVote(index)" has-vote="hasVote(index)">
+      </checkbox>
       <!-- ALL OBJECTS/VARIABLES/FUNCTIONS COME FROM session-listing.js -->
       <!-- filters for all Morning sessions -->
       <li ng-repeat="session in sessions track by $index" ng-show="session.Availability.includes('Morning')">
