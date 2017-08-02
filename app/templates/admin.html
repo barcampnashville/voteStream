@@ -75,8 +75,10 @@
 				<td>{{s.total_votes}}</td>
 				<td>{{s.Title}}</td>
 				<td>{{s['First Name']}} {{s['Last Name']}}</td>
-				<td>1:00</td>
-				<td>Room</td>
+				<td><select><option ng-repeat="time in times" value="{{time}}">{{time}}</option></select></td>
+
+				<td><select><option ng-repeat="room in rooms" value="{{room}}">{{room}}</option></select></td>
+
 				<td>{{s.Availability}}</td>
 			</tr>
 		</tbody>
