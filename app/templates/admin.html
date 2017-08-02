@@ -75,9 +75,11 @@
 				<td>{{s.total_votes}}</td>
 				<td>{{s.Title}}</td>
 				<td>{{s['First Name']}} {{s['Last Name']}}</td>
-				<td><select><option ng-repeat="time in times" value="{{time}}">{{time}}</option></select></td>
+				<!-- <td><select><option ng-options="time in times" ng-model="checked" value="{{time}}">{{time}}</option></select></td> -->
+				<td><select ng-model="timeSelect" ng-options="time as time for time in times"></select></td>
 
-				<td><select><option ng-repeat="room in rooms" value="{{room}}">{{room}}</option></select></td>
+				<td><select ng-model="timeSelect" ng-options="room as room for room in rooms"></select></td>
+
 
 				<td>{{s.Availability}}</td>
 			</tr>
