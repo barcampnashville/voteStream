@@ -1,6 +1,6 @@
 'use strict';
 
-const SessionCtrl = function($scope, $element, $attrs, Polling) {
+const SessionCtrl = function($scope, $element, $attrs) {
 
   // Variables
   this.isChecked = null;
@@ -14,15 +14,6 @@ const SessionCtrl = function($scope, $element, $attrs, Polling) {
 
   // Component Lifecycle events
 
-  // When the component initializes, set it's checked value to true / false depending on if it's index value is in the voteArray or not
-  this.$onInit = function() {
-    //   Polling.getPollingPeriods()
-    //   .then(res => { this.polling = res; });
-
-    //   console.log('Polling', Polling.getPollingPeriods());
-    // this.checked = this.hasVote({ index: this.index });
-  };
-
   // Can use this when resetting the votearray. This will return a changes.vote array with the new value from the controller. Then I can recheck which checkboxes are checked
   this.$onChanges = function(changes) {
     // Any time there is a change made to $scope.voteArray from the parent controller, this function will fire.
@@ -34,9 +25,7 @@ const SessionCtrl = function($scope, $element, $attrs, Polling) {
 
 
    // Component Methods
-
-  // Helper function to determine if checkboxes are disabled.
-  // Will be disabled if a user is not in edit mode or if a user has voted more than the maxVotes amount
+  // Determines if checkboxes are disabled. Will be disabled if a user is not in edit mode or if a user has voted more than the maxVotes amount
   this.isDisabled = function() {
     if (this.votes.length === this.maxVotes && !this.arrayHasVote()) {
       return true;
@@ -78,6 +67,7 @@ app.component('session', {
 
     bindings: {
         session: '<',
+        polling: '<',
         sessionType: '<',
         index: '<',
         votes: '<',

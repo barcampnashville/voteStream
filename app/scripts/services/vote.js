@@ -1,10 +1,10 @@
 'use strict';
 
-app.factory('Vote', function($http) {
+app.factory('Vote', function($http, Constants) {
 
 	/* Put request to update user's session votes */
 	const updateUserVotes = (user, jsonArray) => {
-		return $http.put(`https://nashvillebarcamp.firebaseio.com/Users/${user}/sessions.json`, jsonArray)
+		return $http.put(`${Constants.firebaseUrl}/Users/${user}/sessions.json`, jsonArray)
 	};
 
 	/* Increase the number of session's total_votes */

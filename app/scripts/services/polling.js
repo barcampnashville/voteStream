@@ -1,9 +1,9 @@
 'use strict';
 
-app.factory('Polling', function ($http) {
+app.factory('Polling', function ($http, Constants) {
 
 	const getPollingPeriods = () => {
-		return $http.get(`https://nashvillebarcamp.firebaseio.com/PollingState.json`)
+		return $http.get(`${Constants.firebaseUrl}/PollingState.json`)
 			.then(data => {
 				const periods = data.data.pollingPeriods;
 				return determineSession(periods);
@@ -12,7 +12,7 @@ app.factory('Polling', function ($http) {
 
 	const determineSession = (periods) => {
 		// TODO remove after testing
-		return {open: true, sessions: 'afternoon'};
+		return {open: true, sessions: 'morning'};
 
 		const morning = periods[0];
 		const afternoon = periods[1];
@@ -37,16 +37,15 @@ app.factory('Polling', function ($http) {
 		const diff1 = startTime - new Date().getTime();
 		const diff2 = endTime - new Date().getTime();
 
-		if(diff1 < 0 && diff2 > 0 )
-		{
+		if(diff1 < 0 && diff2 > 0 ) {
 		    return true;
 		} else {
 
 			return false;
 		}
 
-	}
+	};
 
-	return {getPollingPeriods}
+	return { getPollingPeriods };
 
 });

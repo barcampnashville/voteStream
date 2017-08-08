@@ -28,7 +28,7 @@
   <div role="tabpanel" class="tab-pane active container sessions" id="amVote">
       <session ng-repeat="session in sessions track by $index"
           ng-show="session.Availability.includes('Morning')"
-          session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted"
+          session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted" polling="polling"
           remove-vote="removeVote(index)" session-type="'morning'"
           get-remaining-votes="getRemainingVotes()">
       </session>
@@ -46,7 +46,7 @@
   <div role="tabpanel" class="tab-pane container sessions" id="pmVote">
     <session ng-repeat="session in sessions track by $index"
         ng-show="session.Availability.includes('Afternoon')"
-        session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted"
+        session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted" polling="polling"
         remove-vote="removeVote(index)" session-type="'afternoon'"
         get-remaining-votes="getRemainingVotes()">
     </session>

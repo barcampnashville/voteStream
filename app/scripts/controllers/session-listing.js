@@ -1,29 +1,20 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vote, User, Polling, AuthUser, Constants, $location) {
-
+app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Constants, AuthUser, PollingPeriod, SessionList) {
 	//jQuery activation
 	$('#myTabs a').click(function (e) {
-		e.preventDefault()
-		$(this).tab('show')
+		e.preventDefault();
+		$(this).tab('show');
 	});
 
 	// Scoped Variables
 	$scope.maxVotes = Constants.maxVotes;
 	$scope.user = AuthUser;
-	SessionListing.getAllSessions()
-	.then(sessionList => {
-		$scope.sessions = sessionList;
-	});
-	$scope.polling = { sessions: 'afternoon', open: true };
-
-	// // TODO uncomment this after testing
-	// $scope.user = '2BFJQPYM';
-
+	$scope.polling = PollingPeriod;
+	$scope.sessions = SessionList;
 
 	// Methods
-
-	$scope.addVote = (index) => {
+	$scope.addVote = index => {
 		// $scope.voteArray = ["5", "7"]; // This will change which checkboxes are checked
 		//this.voteArray = []; // Example, this will trigger a change
 		$scope.voteArray.push(index.toString());
@@ -38,12 +29,16 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		$scope.remainingVotes = $scope.maxVotes - $scope.voteArray.length;
 	};
 
+	$scope.isVotingOpen = (session) => {
+		return ($scope.polling.open && $scope.polling.sessions === session);
+	};
+
 	$scope.logout = () => {
 		User.userLogout();
 		$location.path('/login');
 	};
 
-	$scope.removeVote = (index) => {
+	$scope.removeVote = index => {
 		$scope.voteArray.splice($scope.voteArray.indexOf(index.toString()), 1);
 		console.log('this.voteArray', $scope.voteArray);
 	};
@@ -61,7 +56,7 @@ app.controller('SessionListingCtrl', function($scope, $http, SessionListing, Vot
 		}
 
 		$scope.getRemainingVotes();
-		console.log("$scope.voteArray", $scope.voteArray);
+		console.log("reset $scope.voteArray", $scope.voteArray);
 	};
 
 	$scope.setCookie = () => {
