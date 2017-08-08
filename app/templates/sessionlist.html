@@ -5,8 +5,10 @@
 
             <a href="{{scheduleUrl}}" target="_blank" class="header-link">Schedule</a>
 
+            <span> | Votes Remaining: {{remainingVotes}}</span>
+
             <button class="btn btn-primary pull-right" ng-if="user.admin">
-            <a href="#/admin" class="admin-link">Admin</a>
+              <a href="#/admin" class="admin-link">Admin</a>
             </button>
         </div>
     </div>
@@ -18,136 +20,53 @@
         <li role="presentation" class="active"><a href="#amVote" aria-controls="home" role="tab" data-toggle="tab">Morning</a></li>
 
         <li role="presentation"><a href="#pmVote" aria-controls="profile" role="tab" data-toggle="tab">Afternoon</a></li>
-
-        <li role="presentation"><a href="#favs" aria-controls="profile" role="tab" data-toggle="tab">Favorites</a></li>
     </ul>
 </div>
-
-<div>{{remainingVotes}}</div>
 
 <div class="tab-content">
   <!--morning voting-->
-    <div role="tabpanel" class="tab-pane active container sessions" id="amVote">
-        <checkbox ng-repeat="session in sessions track by $index"
-            ng-show="session.Availability.includes('Morning')"
-            session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasVoted"
-            remove-vote="removeVote(index)" session-type="'morning'"
-            array-has-vote="arrayHasVote(index)"
-            get-remaining-votes="getRemainingVotes()">
-        </checkbox>
+  <div role="tabpanel" class="tab-pane active container sessions" id="amVote">
+      <session ng-repeat="session in sessions track by $index"
+          ng-show="session.Availability.includes('Morning')"
+          session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted"
+          remove-vote="removeVote(index)" session-type="'morning'"
+          get-remaining-votes="getRemainingVotes()">
+      </session>
 
-        <div class="row">
-            <!-- data-toggle="modal" data-target=".bs-example-modal-sm" -->
-            <button class="btn btn-success" type="button" ng-click="voteSubmit()" ng-if="!hasVoted">Submit</button>
+      <div class="row" ng-if="polling.sessions === 'morning'">
+          <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()" ng-if="!hasUserVoted">Submit</button>
 
-            <button class="btn btn-danger" type="button" ng-click="resetVote()" ng-if="!hasVoted">Reset</button>
+          <button class="btn btn-danger" type="button" ng-click="resetVote()" ng-if="!hasUserVoted">Reset</button>
 
-            <button class="btn btn-warning" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="editMode()" ng-if="hasVoted">Edit Votes</button>
-        </div>
-    </div>
-
-  <!--afternoon voting-->
-  <div role="tabpanel" class="tab-pane container sessions" id="pmVote">
-    <ul class="list-unstyled">
-
-      <!-- filters for all Afternoon sessions -->
-      <li ng-repeat="session in sessions" ng-if="session.Availability.includes('Afternoon')">
-
-        <div class="row">
-          <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
-            <h4>{{session.Title}}</h4>
-          </div>
-          <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-
-            <input type="checkbox" ng-disabled="voteArray.length == maxVotes && !voteArray.includes($index)" ng-show="polling.open && polling.sessions==='afternoon'" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-model="isChecked" ng-click="vote($index, isChecked)"/>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-            <p><i>with:</i> {{session["First Name"]}} {{session["Last Name"]}}</p>
-          </div>
-          <div class="category col-xs-7 col-sm-7 col-md-7">
-            <span class="label label-default pull-right">{{session["Session Category"]}}</span>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="sessionDescription col-xs-12 col-sm-12 col-md-12" ng-click="showText = !showText">
-            <p ng-class="{ collapsed: !showText }">{{session.Body}}</p>
-            <div class="toggle-text" ng-hide="showText"><i>show more</i></div>
-            <div class="toggle-text" ng-show="showText"><i>show less</i></div>
-          </div>
-          <hr/>
-        </div>
-
-      </li>
-    </ul>
-      <div class="row">
-        <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()">Submit</button>
-        <button class="btn btn-danger" type="button">Reset</button>
+          <button class="btn btn-warning" type="button" ng-click="editMode()" ng-if="hasUserVoted">Edit Votes</button>
       </div>
   </div>
 
-  <!--favorites-->
-  <div role="tabpanel" class="tab-pane container sessions" id="favs">
+  <!--afternoon voting-->
+  <div role="tabpanel" class="tab-pane container sessions" id="pmVote">
+    <session ng-repeat="session in sessions track by $index"
+        ng-show="session.Availability.includes('Afternoon')"
+        session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted"
+        remove-vote="removeVote(index)" session-type="'afternoon'"
+        get-remaining-votes="getRemainingVotes()">
+    </session>
 
-  <!-- will show if getFavorites() returns something -->
-    <form ng-show="!favoriteSessions.length" class="col-xs-10 col-sm-9 col-md-10" ng-submit="getFavorites(barcampUsername)">
-      <div>
-        <p ng-show="invalidUsername" class="label label-warning">Invalid Username!</p>
-      </div>
-      <input type="text" placeholder="BarCamp Username" ng-model="barcampUsername">
-      <button ng-show="!favoriteSessions.length" class="btn btn-primary" type="submit">
-        <span ng-if="!submitting">Submit</span>
-        <span ng-if="submitting"><i class="fa fa-spinner fa-spin"></i></span>
-	    </button>
-      <p>Enter your Barcamp website username to load this screen with sessions you've marked as a favorite.</p>
-    </form>
-    <div ng-show="favoriteSessions.length">
-      <p>Vote for your favorites for the current polling session!</p>
-      <hr />
+    <div class="row" ng-if="polling.sessions === 'afternoon'">
+        <button class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm" type="button" ng-click="voteSubmit()" ng-if="!hasUserVoted">Submit</button>
+
+        <button class="btn btn-danger" type="button" ng-click="resetVote()" ng-if="!hasUserVoted">Reset</button>
+
+        <button class="btn btn-warning" type="button" ng-click="editMode()" ng-if="hasUserVoted">Edit Votes</button>
     </div>
-    <ul class="list-unstyled">
-		<li ng-repeat="favoriteSession in favoritesArray">
-
-			<div class="row">
-				<div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
-					<h4>{{favoriteSession.Title}}</h4>
-				</div>
-				<div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
-					<button type="button" ng-show="polling.open && session.availability.toLowerCase().indexOf(polling.sessions) > -1" class="pull-right btn btn-primary" ng-class="{voted: session.uservoted}" ng-click="session.vote(user)">
-						<i class="fa" ng-class="{'fa-square': !session.uservoted, 'fa-thumbs-up': session.uservoted}"></i>
-					</button>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-					<p><i>with:</i> {{favoriteSession["First Name"]}} {{favoriteSession["Last Name"]}}</p>
-				</div>
-				<div class="category col-xs-7 col-sm-7 col-md-7">
-					<span class="label label-default pull-right">{{favoriteSession["Session Category"]}}</span>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="sessionDescription col-xs-12 col-sm-12 col-md-12" ng-click="showText = !showText">
-					<p ng-class="{ collapsed: !showText }">{{favoriteSession.Body}}</p>
-					<div class="toggle-text" ng-hide="showText"><i>show more</i></div>
-					<div class="toggle-text" ng-show="showText"><i>show less</i></div>
-				</div>
-				<hr/>
-			</div>
-
-		</li>
-    </ul>
-  </div> <!--end container-->
+  </div>
 </div>
-  <div class="modal fade bs-example-modal-sm" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+
+
+<div class="modal fade bs-example-modal-sm" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <p>{{errorMessage}}</p>
+
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     </div>
   </div>

@@ -1,13 +1,18 @@
 'use strict';
 
-const HeroListController = function($scope, $element, $attrs, Polling) {
+const SessionCtrl = function($scope, $element, $attrs, Polling) {
 
-  this.checked = null;
+  // Variables
+  this.isChecked = null;
   this.polling = null;
 
   // TODO remove after testing
-  this.polling = { open: true, sessions: 'morning' };
+  // this.polling = { open: true, sessions: 'morning' };
+  this.polling = { open: true, sessions: 'afternoon' };
   this.maxVotes = 4;
+
+
+  // Component Lifecycle events
 
   // When the component initializes, set it's checked value to true / false depending on if it's index value is in the voteArray or not
   this.$onInit = function() {
@@ -16,48 +21,60 @@ const HeroListController = function($scope, $element, $attrs, Polling) {
 
     //   console.log('Polling', Polling.getPollingPeriods());
     // this.checked = this.hasVote({ index: this.index });
-  }
+  };
 
-   // Can use this when resetting the votearray. This will return a changes.vote array with the new value from the controller. Then I can recheck which checkboxes are checked
-   this.$onChanges = function(changes) {
-       // Any time there is a change made to $scope.voteArray from the parent controller, this function will fire.
-       // Using this on init and reset to set each checkbox checked value.
-       if (changes.votes) {
-           this.checked = this.arrayHasVote({ index: this.index });
-       }
-   };
+  // Can use this when resetting the votearray. This will return a changes.vote array with the new value from the controller. Then I can recheck which checkboxes are checked
+  this.$onChanges = function(changes) {
+    // Any time there is a change made to $scope.voteArray from the parent controller, this function will fire.
+    // Using this on init and reset to set each checkbox checked value.
+    if (changes.votes) {
+       this.isChecked = this.arrayHasVote();
+    }
+ };
 
-   this.isDisabled = function() {
-       if (this.votes.length === this.maxVotes && !this.arrayHasVote({ index: this.index })) {
-            return true;
-        } else if (this.hasVoted) {
-            return true;
-        } else {
-            return false;
-        }
-    };
 
-    this.shouldShow = function() {
-        return (this.polling.open && this.polling.sessions === this.sessionType);
-    };
+   // Component Methods
 
-    this.isChecked = function() {
-        // If a checkbox has been checked and is not in the voteArray, add the index to the array
-        if (this.checked && !this.arrayHasVote({ index: this.index })) {
-            this.addVote({ index: this.index });
-        // If a checkbox has been unchecked and is in the voteArray, remove the index to the array
-        } else if (!this.checked && this.arrayHasVote({ index: this.index })) {
-            this.removeVote({ index: this.index });
-        }
-        // Calculate remaining votes
-        this.getRemainingVotes();
-    };
+  // Helper function to determine if checkboxes are disabled.
+  // Will be disabled if a user is not in edit mode or if a user has voted more than the maxVotes amount
+  this.isDisabled = function() {
+    if (this.votes.length === this.maxVotes && !this.arrayHasVote()) {
+      return true;
+    } else if (this.hasVoted) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  // Determines if a checkbox will be added / removed from the voteArray when being checked
+  this.check = function() {
+    // If a checkbox has been checked and is not in the voteArray, add the index to the array
+    if (this.isChecked && !this.arrayHasVote()) {
+      this.addVote({ index: this.index });
+      // If a checkbox has been unchecked and is in the voteArray, remove the index to the array
+    } else if (!this.isChecked && this.arrayHasVote()) {
+      this.removeVote({ index: this.index });
+    }
+    // Calculate remaining votes
+    this.getRemainingVotes();
+  };
+
+  // Function that determines if a polling session is open or not. This will hide / show the checkbox
+  this.isVotingOpen = function() {
+      return (this.polling.open && this.polling.sessions === this.sessionType);
+  };
+
+  // Determines if a session instance has been voted for or not
+  this.arrayHasVote = function() {
+		return this.votes.includes(this.index.toString());
+  };
 };
 
-app.component('checkbox', {
-    templateUrl: './templates/checkbox.html',
+app.component('session', {
+    templateUrl: './templates/singleSession.html',
 
-    controller: HeroListController,
+    controller: SessionCtrl,
 
     bindings: {
         session: '<',
@@ -67,7 +84,6 @@ app.component('checkbox', {
         hasVoted: '<',
         addVote: '&',
         removeVote: '&',
-        arrayHasVote: '&',
         getRemainingVotes: '&',
     }
 });

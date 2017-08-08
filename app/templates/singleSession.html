@@ -1,16 +1,13 @@
-<!-- <p>{{ $ctrl.session.Title }}</p>
-<input type="checkbox" ng-model="$ctrl.checked" ng-click="$ctrl.isChecked()" /> -->
-
 <div class="row">
   <div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
     <h4>{{$ctrl.session.Title}}</h4>
   </div>
+
   <div class="voting-buttons col-xs-2 col-sm-3 col-md-2">
     <input type="checkbox" class="pull-right btn btn-primary"
      ng-disabled="$ctrl.isDisabled()"
-     ng-show="$ctrl.shouldShow()"
-     
-     ng-click="$ctrl.isChecked()" ng-model="$ctrl.checked"/>
+     ng-show="$ctrl.isVotingOpen()"
+     ng-click="$ctrl.check()" ng-model="$ctrl.isChecked"/>
   </div>
 </div>
 
@@ -18,6 +15,7 @@
   <div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
     <p><i>with:</i> {{$ctrl.session["First Name"]}} {{$ctrl.session["Last Name"]}}</p>
   </div>
+
   <div class="category col-xs-7 col-sm-7 col-md-7">
     <span class="label label-default pull-right">{{$ctrl.session["Session Category"]}}</span>
   </div>
@@ -26,7 +24,9 @@
 <div class="row">
   <div class="sessionDescription col-xs-12 col-sm-12 col-md-12" ng-click="showText = !showText">
     <p ng-class="{ collapsed: !showText }">{{$ctrl.session.Body}}</p>
+
     <div class="toggle-text" ng-hide="showText"><i>show more</i></div>
+
     <div class="toggle-text" ng-show="showText"><i>show less</i></div>
   </div>
   <hr/>
