@@ -1,8 +1,21 @@
 'use strict';
 
 app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
+  // const roomValue = document.getElementsBy
   $scope.unSortedSessions = SessionList;
   $scope.sessions = [];
+  $scope.rooms = ["Room A", "Room Z", "Tardis", "Bunker"];
+  $scope.times = ["9:30", "10:30", "11:30"];
+
+  $scope.setTime = (e) => {
+   const sessionTime = e;
+
+  }
+
+  $scope.setRoom = (e) => {
+    const sessionRoom = e;
+  }
+
   //filter sessions by total_votes
   $scope.addSessionRankingByVotes = () => {
     $scope.SessionListings = $filter('orderBy')($scope.unSortedSessions, 'total_votes', !$scope.reverse);
@@ -16,25 +29,10 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
 
   }
   $scope.addSessionRankingByVotes();
-  // console.log($scope.sessions)
-
-  
-
-
-  // $scope.addStackRank = () => {
-    
-      
-
-  //   })
-  // }
-  // $scope.addStackRank();
-
 
   $scope.availability = Polling;
   $scope.sortByType = "rank";
   $scope.reverseSort = false;
 
-	// console.log("$scope.sessions-->", $scope.sessions); 
-  console.log("$scope.availability -->", $scope.availability);
 
 });
