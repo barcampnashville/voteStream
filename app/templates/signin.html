@@ -9,7 +9,7 @@
 
         <!-- error variable comes from signin.js -->
     </div>
-    <button type="submit" class="btn btn-primary btn-login col-sm-2" ng-click="login(badgeId)">Submit</button>
+    <button type="submit" class="btn btn-primary btn-login col-sm-2" ng-click="login(badgeId); booleanCheck($index)">Submit</button>
         <div class="col-xs-12">
         <h4><label ng-if="error" class="label label-danger">{{error}}</label></h4>
         </div>
