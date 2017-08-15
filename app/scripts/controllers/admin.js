@@ -2,7 +2,8 @@
 
 app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   // const roomValue = document.getElementsBy
-  $scope.unSortedSessions = SessionList;
+  $scope.unSortedSessionsObject = SessionList;
+  $scope.unSortedSessionsArray = [];
   $scope.sessions = [];
   $scope.rooms = ["Room A", "Room Z", "Tardis", "Bunker"];
   $scope.times = ["9:30", "10:30", "11:30"];
@@ -16,6 +17,13 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
     const sessionRoom = e;
   }
 
+  $scope.MakeUnSortedSessionsArray = () => {
+    let object = $scope.unSortedSessionsObject;
+    angular.forEach(object, function(values, key){
+      $scope.unSortedSessionsArray.push(object[key])
+    });
+  }
+  $scope.MakeUnSortedSessionsArray();
   //filter sessions by total_votes
   $scope.addSessionRankingByVotes = () => {
     $scope.SessionListings = $filter('orderBy')($scope.unSortedSessions, 'total_votes', !$scope.reverse);
