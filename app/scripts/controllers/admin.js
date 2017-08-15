@@ -24,15 +24,18 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
     });
   }
   $scope.MakeUnSortedSessionsArray();
+
   //filter sessions by total_votes
   $scope.addSessionRankingByVotes = () => {
-    $scope.SessionListings = $filter('orderBy')($scope.unSortedSessions, 'total_votes', !$scope.reverse);
+    let SessionListings = $filter('orderBy')($scope.unSortedSessionsArray, 'total_votes', !$scope.reverse);
+    SessionListings.shift();
+    console.log(SessionListings);
     let i = 0;
-      angular.forEach($scope.SessionListings, function(value, key){
-        $scope.SessionListings[i].Rank = i+1;
+      angular.forEach(SessionListings, function(value, key){
+        SessionListings[i].Rank = i+1;
         i++;
       });
-    $scope.sessions = $scope.SessionListings;
+    $scope.sessions = SessionListings;
     console.log($scope.sessions)
 
   }
