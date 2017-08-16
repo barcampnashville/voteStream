@@ -21,7 +21,7 @@ app.factory('User', function($http) {
 
 	//logout
 	const userLogout = () => {
-		user = ''
+		user = '';
 	}
 
 	return {getUser, setUser, userLogout};
