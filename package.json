@@ -6,6 +6,9 @@
   "directories": {
     "test": "test"
   },
+  "scripts": {
+    "gulp-watch": "./node_modules/gulp/bin/gulp.js"
+  },
   "dependencies": {
     "angular": "^1.6.4",
     "angular-route": "^1.6.4",

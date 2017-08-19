@@ -17,9 +17,9 @@
 <div class="container sessions" id="myTabs">
   <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#amVote" aria-controls="home" role="tab" data-toggle="tab">Morning</a></li>
+        <li role="presentation" class="active"><a href="#amVote" aria-controls="home" role="tab" data-toggle="tab" ng-if="polling.sessions === 'morning'">Morning</a></li>
 
-        <li role="presentation"><a href="#pmVote" aria-controls="profile" role="tab" data-toggle="tab">Afternoon</a></li>
+        <li role="presentation"><a href="#pmVote" aria-controls="profile" role="tab" data-toggle="tab" ng-if="polling.sessions === 'afternoon'">Afternoon</a></li>
     </ul>
 </div>
 
@@ -65,9 +65,11 @@
 <div class="modal fade bs-example-modal-sm" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
-      <p>{{errorMessage}}</p>
-
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <h3 id="error-message" style="">{{errorMessage}}</h3>
+      <h5 ng-repeat="title in titlesArray">{{title}}</h5>
+      <div>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>

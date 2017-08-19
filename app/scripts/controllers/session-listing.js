@@ -66,12 +66,21 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			window.document.cookie = `voteArray=${$scope.voteArray};${expires};`
 	};
 
+	$scope.getTitles = () => {
+		$scope.titlesArray = [];
+			for(let i = 0; i < $scope.voteArray.length; i++) {
+				let arrayIndex = parseInt($scope.voteArray[i])
+				let listNumber = i + 1;
+				$scope.titlesArray.push(listNumber + ') ' + $scope.sessions[`${arrayIndex}`].Title)
+			}
+			return $scope.titlesArray
+	}
+
 	$scope.updateModalMsg = () => {
-		if($scope.voteArray.length < 3 || $scope.voteArray.length === 4) {
-			$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} votes left.`; // Update message
-		} else {
-			$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} vote left.`; // Update message
-		}
+		if($scope.voteArray.length <= 4 && $scope.voteArray.length > 0) {
+			$scope.errorMessage = "Thank you for voting, you selected: "
+			$scope.getTitles()
+		} 
 	};
 
 	// Submit user's votes and increment session's total_count in services/vote.js
@@ -88,7 +97,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 
 			$scope.updateModalMsg();
 		} else {
-			$scope.errorMessage = "Please select a session.";
+			$scope.errorMessage = "Please select a session to vote.";
 		}
 	};
 

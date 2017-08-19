@@ -31,12 +31,12 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 	.when('/fullschedule', {
 		templateUrl : '/templates/fullschedule.html',
 		controller : 'FullScheduleCtrl',
-		// adminAccess: true,
-		// resolve: {
-		// 	Sessions: function (SessionListing) {
-		// 		return SessionListing();
-		// 	}
-		// }
+		adminAccess: true,
+		resolve: {
+			SessionList: function(SessionListing){
+				return SessionListing.getAllSessions().then(session => session);
+			}
+		}
 	})
 	.when('/sessions', {
 		templateUrl: '/templates/sessionlist.html',
