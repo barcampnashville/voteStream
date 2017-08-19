@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "grunt": "node_modules/grunt/bin/grunt"
+    "grunt-dev": "node_modules/grunt/bin/grunt dev --verbose"
   },
   "dependencies": {
     "angular": "^1.6.4",
