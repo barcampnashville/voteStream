@@ -76,69 +76,68 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 
 	// Submit user's votes and increment session's total_count in services/vote.js
 	$scope.voteSubmit = () => {
+		let cookie = window.document.cookie.split('voteArray=')[1].split(';')[0]; // returns string "1,2,3,4"
+
+
 		if ($scope.voteArray.length !== 0) {
 			const jsonArray = JSON.stringify($scope.voteArray);
-			let cookie = window.document.cookie.split('voteArray=')[1].split(';')[0]; // returns string "1,2,3,4"
-
-			console.log('cookie', cookie); 
-			console.log('typeof cookie', typeof cookie); 
-
-			// update votes
-			Vote.updateUserVotes($scope.user, jsonArray) // Update votes in services/vote.js
-			.then(function(response){
-
-				console.log('response', response); 
-				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
 			
-				// the decrement should be in here.
-				console.log('$scope.voteArray', $scope.voteArray); 
+			// update votes
+			// Vote.updateUserVotes($scope.user, jsonArray) // Update votes in services/vote.js
+			// .then(function(response){
+			// 	Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
+			
+			// the decrement should be in here.
+			console.log('$scope.voteArray', $scope.voteArray); 
+		}
 
-				// compare old votes to new votes
+		
+		// if a cookie exist, compare old values	
+		if (cookie) { 
+
+			console.log('inside else if cookie exist'); 
 				
-				// if a cookie exsist, compare old values
-				if (cookie) { 
-					
-					// compare to new votes
-					let newVote = $scope.voteArray;
-					let oldVote = cookie.split(',');
+			// compare to new votes
+			let newVote = $scope.voteArray;
+			let oldVote = cookie.split(',');
 
-					console.log('newVote', newVote); 
-					console.log('oldVote', oldVote);  
+			/* User changes their vote. Remove old vote -- decrement. Update new vote -- increment */
+			console.log('newVote', newVote); 
+			console.log('oldVote', oldVote);  
 
-					// do nothing with unchanged votes
-					let unchangedVotes = newVote.filer(x => oldVote.indexOf(x) != 1);
-					console.log('unchangedVotes', unchangedVotes);
-					// do nothing with changed votes
+			//	Returned session array contains items in both arrays. These sessions do not need to be updated.
+			// let unchangedVotes = newVote.filter(x => oldVote.indexOf(x) != 1); 
+			// console.log('unchangedVotes', unchangedVotes);
+		
+			// Returned session array should be incremented.
+			let incrementVote = newVote.filter(x => oldVote.indexOf(x) == -1);
+			console.log('incrementVote', incrementVote); 
 
-					// update changed votes
-					let changedVotes = newVote.filter(x => oldVote.indexOf(x) == -1);
+			// Returned session should be decremented.
+			let decrementVote = oldVote.filter(x => newVote.indexOf(x) == -1);
+			console.log('decrementVote', decrementVote); 
 
-					Vote.decrementSessionVoteCount($scope.user, jsonArray)
-						.then(function(response) {
-							console.log('response', response); 
-							Vote.incrementSessionVoteCount(changedVotes, $scope.sessions) 
-						});
+			// Vote.updateUserVotes($scope.user, jsonArray) // Remove old vote -- decrement
+			// 	.then(function(response) {
+			// 		console.log('response', response); 
+			// 		Vote.decrementSessionVoteCount(changedVotes, $scope.sessions) 
+			// 	});
 
-					console.log('changedVotes', changedVotes); 
-
-				}
-
-
-
-				// let found = arr1.some(r=> arr2.includes(r))
-
-
-
-
-				$scope.setCookie();
-				$scope.hasUserVoted = true;
-			});
-
+			$scope.setCookie();
+			$scope.hasUserVoted = true;
 			$scope.updateModalMsg();
+
+
 		} else {
 			$scope.errorMessage = "Please select a session.";
 		}
+		
 	};
+
+
+
+
+
 
 	// Initial page JS - need methods to be defined before this is executed
 	if (window.document.cookie.includes('voteArray')) {
@@ -166,7 +165,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			if there are sessions that WERE previously voted for, and are now NOT voted for, decrement those sessions.
 			if there are sessions that are identical, do not increment or decrement.
 	*/ 
-
 	
 		// user clicks on the edit button
 		// grab users original votes from cookie		
