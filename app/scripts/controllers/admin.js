@@ -7,14 +7,27 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   $scope.sessions = [];
   $scope.rooms = ["Room A", "Room Z", "Tardis", "Bunker"];
   $scope.times = ["9:30", "10:30", "11:30"];
+  $scope.unsavedSchedule = [];
+
+  let singleSession = {};
+
+  $scope.sessionInfoFromTableRow = (session) => {
+    if (singleSession.Times && singleSession.Room){
+      singleSession.Title = session.Title;
+      singleSession.Speaker = session['First Name'] + " " + session['Last Name'];
+    }
+    console.log(singleSession)
+    return singleSession;
+  }
 
   $scope.setTime = (e) => {
    const sessionTime = e;
-
+   singleSession.Times = sessionTime;
   }
 
   $scope.setRoom = (e) => {
     const sessionRoom = e;
+    singleSession.Room = sessionRoom;
   }
 
   $scope.MakeUnSortedSessionsArray = () => {
@@ -45,5 +58,8 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   $scope.sortByType = "rank";
   $scope.reverseSort = false;
 
+  $scope.checkForConflicts = () => {
+    console.log('hi');
+  }
 
 });
