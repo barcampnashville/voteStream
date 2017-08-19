@@ -75,8 +75,8 @@
 				<td>{{s.total_votes}}</td>
 				<td>{{s.Title}}</td>
 				<td>{{s['First Name']}} {{s['Last Name']}}</td>
-			  <td><select ng-options="time as time for time in times" ng-model="timeSelect" ng-change="setTime(timeSelect)"></select></td>
-				<td><select ng-options="room as room for room in rooms" ng-model="roomSelect" ng-change="setRoom(roomSelect);sessionInfoFromTableRow(s)"></select></td>
+			  <td><select ng-options="time as time for time in times" ng-model="timeSelect" ng-change="setTime(timeSelect, s)"></select></td>
+				<td><select ng-options="room as room for room in rooms" ng-model="roomSelect" ng-change="setRoom(roomSelect, s)"></select></td>
 				<td>{{s.Availability}}</td>
 			</tr>
 		</tbody>
