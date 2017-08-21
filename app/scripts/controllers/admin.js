@@ -13,50 +13,58 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   var unsavedSchedule = {
       "morning_sessions": {
       "rooms": [
-       {
-        "name": "",
-        "times": [
-          {
-            "time": "",
-            "session": {
-              "title": "",
-              "speaker": "",
-              "url": ""
-            }
-          }
-        ] 
-       }
+    //    {
+    //     "name": "",
+    //     "times": [
+    //       {
+    //         "time": "",
+    //         "session": {
+    //           "title": "",
+    //           "speaker": "",
+    //           "url": ""
+    //         }
+    //       }
+    //     ] 
+    //    }
       ]  
     },
     "afternoon_sessions": {
       "rooms": [
-       {
-        "name": "",
-        "times": [
-          {
-           "time": "",
-           "session": {
-            "title": "",
-            "speaker": "",
-            "url": ""
-           } 
-          }
-        ] 
-       }
+    //    {
+    //     "name": "",
+    //     "times": [
+    //       {
+    //        "time": "",
+    //        "session": {
+    //         "title": "",
+    //         "speaker": "",
+    //         "url": ""
+    //        } 
+    //       }
+    //     ] 
+    //    }
       ] 
     }
   };
 
   let buildScheduleTemplate = () => {
-    unsavedSchedule.morning_sessions.rooms[0].name = $scope.rooms[0];
     angular.forEach($scope.rooms, function(room, key){
-      if (!unsavedSchedule.morning_sessions.rooms[key]){
-        let obj = {};
-        obj["name"] = room;
-        unsavedSchedule.morning_sessions.rooms.push(obj);
-      }
-        console.log(unsavedSchedule.morning_sessions)
-      // unsavedSchedule.morning_sessions.rooms[key].name = room;
+      let roomObject = {};
+      roomObject["name"] = room;
+      roomObject["times"] = {};
+      unsavedSchedule.morning_sessions.rooms[key] = roomObject;
+      unsavedSchedule.afternoon_sessions.rooms[key] = roomObject;
+      angular.forEach($scope.times, function(time, key2){
+        let timeObject = {};
+        timeObject["time"] = time;
+        timeObject["session"] = {
+          "title" : "",
+          "speaker" : "",
+          "url" : ""
+        };
+        unsavedSchedule.morning_sessions.rooms[key].times[key2] = timeObject;
+        unsavedSchedule.afternoon_sessions.rooms[key].times[key2] = timeObject;
+      })
     })
   }
   buildScheduleTemplate();
