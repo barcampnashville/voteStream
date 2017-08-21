@@ -12,38 +12,10 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   $scope.reverseSort = false;
   var unsavedSchedule = {
       "morning_sessions": {
-      "rooms": [
-    //    {
-    //     "name": "",
-    //     "times": [
-    //       {
-    //         "time": "",
-    //         "session": {
-    //           "title": "",
-    //           "speaker": "",
-    //           "url": ""
-    //         }
-    //       }
-    //     ] 
-    //    }
-      ]  
+      "rooms": []  
     },
     "afternoon_sessions": {
-      "rooms": [
-    //    {
-    //     "name": "",
-    //     "times": [
-    //       {
-    //        "time": "",
-    //        "session": {
-    //         "title": "",
-    //         "speaker": "",
-    //         "url": ""
-    //        } 
-    //       }
-    //     ] 
-    //    }
-      ] 
+      "rooms": []
     }
   };
 
@@ -64,8 +36,8 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
         };
         unsavedSchedule.morning_sessions.rooms[key].times[key2] = timeObject;
         unsavedSchedule.afternoon_sessions.rooms[key].times[key2] = timeObject;
-      })
-    })
+      });
+    });
   }
   buildScheduleTemplate();
 
@@ -81,19 +53,14 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   $scope.addSessionRankingByVotes = () => {
     let SessionListings = $filter('orderBy')($scope.unSortedSessionsArray, 'total_votes', !$scope.reverse);
     SessionListings.shift();
-    // console.log(SessionListings);
     let i = 0;
       angular.forEach(SessionListings, function(value, key){
         SessionListings[i].Rank = i+1;
         i++;
       });
     $scope.sessions = SessionListings;
-    // console.log($scope.sessions)
-
   }
   $scope.addSessionRankingByVotes();
-
-
 
   $scope.setTime = (e, session) => {
     session.Times = e;
@@ -101,7 +68,6 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   $scope.setRoom = (e, session) => {
     session.Room = e;
   }
-
   $scope.buildScheduleArray = () => {
     angular.forEach($scope.sessions, function(values, key){
       console.log(values.Room)
@@ -109,9 +75,7 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
     })
     console.log($scope.unsavedSchedule);
   }
-
   $scope.checkForConflicts = () => {
-
   }
 
 });
