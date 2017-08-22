@@ -28,7 +28,7 @@ app.factory('Vote', function($http, Constants) {
 	};
 
 
-	/* Decreams the number of session's total_votes */
+	/* Decrement the number of session's total_votes */
 	const decrementSessionVoteCount = (voteArray, session) => {
 		angular.forEach(voteArray, function(session) {
 			const voteCountRef = firebase.database().ref(`Sessions/${session}/total_votes`);
