@@ -2,8 +2,6 @@
 
 app.factory('Vote', function($http, Constants) {
 
-	
-
 	/* Put request to update user's session votes */
 	const updateUserVotes = (user, jsonArray) => {
 		return $http.put(`${Constants.firebaseUrl}/Users/${user}/sessions.json`, jsonArray)
@@ -13,7 +11,6 @@ app.factory('Vote', function($http, Constants) {
 	const getUserVotes = (user) => {
 		return $http.get(`${Constants.firebaseUrl}/Users/${user}/sessions.json`)
 		.then(data => data.data);
-		// https://nashvillebarcamp.firebaseio.com/Users/15AMSNUZ/sessions.json
 	};
 
 	/* Increase the number of session's total_votes */
@@ -39,8 +36,8 @@ app.factory('Vote', function($http, Constants) {
 			return voteCount - 1;
 		}, (err, wasCommited, afterSnap) => {
 			// console.log('err', err);
-			console.log('wasCommited', wasCommited);
-			console.log('afterSnap', afterSnap.val());
+			// console.log('wasCommited', wasCommited);
+			// console.log('afterSnap', afterSnap.val());
 			})
 		})
 	};

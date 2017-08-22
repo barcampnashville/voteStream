@@ -74,68 +74,47 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		}
 	};
 
+	$scope.finishVote = () => {
+		$scope.setCookie();
+		$scope.hasUserVoted = true;
+		$scope.updateModalMsg();
+	}
+
+
 	// Submit user's votes and increment session's total_count in services/vote.js
 	$scope.voteSubmit = () => {
-		let cookie = window.document.cookie.split('voteArray=')[1].split(';')[0]; // returns string "1,2,3,4"
 		const jsonArray = JSON.stringify($scope.voteArray);
-
-		console.log('$scope.voteArray -->', $scope.voteArray); 	
-		console.log('$scope.sessions initial', $scope.sessions); 
-
+	
+		// If there are no votes, then update the votes and set a cookie.
 		if ($scope.voteArray.length === 0) {
-			console.log('inside if $scope.voteArray'); 
-
-			// update votes
 			Vote.updateUserVotes($scope.user, jsonArray)  // Update votes in services/vote.js
 				.then(function(response){
-					Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes			}
+					Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
 				});
+
+			$scope.finishVote();
 		
-			$scope.setCookie();
-			$scope.hasUserVoted = true;
-			$scope.updateModalMsg();
-
-			console.log('$scope.sessions after initial', $scope.sessions); 
-
+		// If the user has already voted, increment or decrement in edit mode.
 		} else if (window.document.cookie.includes('voteArray')) {  // if a cookie exist, compare old values	
+			let cookie = window.document.cookie.split('voteArray=')[1].split(';')[0]; // returns string "1,2,3,4"		
 
-			console.log('inside else if cookie exist'); 
-				
-			// compare to new votes
+			// compare votes
 			let newVote = $scope.voteArray;
 			let oldVote = cookie.split(',');
-
-			/* User changes their vote. Remove old vote -- decrement. Update new vote -- increment */
-			console.log('newVote', newVote); 
-			console.log('oldVote', oldVote);  
-
-			//	Returned session array contains items in both arrays. These sessions do not need to be updated.
-			// let unchangedVotes = newVote.filter(x => oldVote.indexOf(x) != 1); 
+	
+			// let unchangedVotes = newVote.filter(x => oldVote.indexOf(x) != 1); // votes - no change
+			let incrementVote = newVote.filter(x => oldVote.indexOf(x) == -1); // array of votes to decrement
+			let decrementVote = oldVote.filter(x => newVote.indexOf(x) == -1); // array of votes to increment
 		
-			// Returned session array should be incremented.
-			let incrementVote = newVote.filter(x => oldVote.indexOf(x) == -1);
-			console.log('incrementVote', incrementVote); 
-
-			// Returned session should be decremented.
-			let decrementVote = oldVote.filter(x => newVote.indexOf(x) == -1);
-			console.log('decrementVote', decrementVote); 
-
+			// Update votes in services/vote.js
 			Vote.updateUserVotes($scope.user, jsonArray) 
 				.then(function(response) {
-					console.log('decrement votes'); 
-					Vote.decrementSessionVoteCount(decrementVote, $scope.sessions);
-					console.log('$scope.sessions decrement', $scope.sessions); 
+					Vote.decrementSessionVoteCount(decrementVote, $scope.sessions); // decrement
 				}).then(function(response) {
-					console.log('increment votes'); 
-					Vote.incrementSessionVoteCount(incrementVote, $scope.sessions);
-					console.log('$scope.sessions increment', $scope.sessions); 
+					Vote.incrementSessionVoteCount(incrementVote, $scope.sessions); // increment
 				});
 
-			$scope.setCookie();
-			$scope.hasUserVoted = true;
-			$scope.updateModalMsg();
-
-			
+			$scope.finishVote();
 
 		} else {
 			$scope.errorMessage = "Please select a session.";
@@ -152,35 +131,12 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		$scope.voteArray = (votes !== '') ? votes.split(',') : [];
 		$scope.hasUserVoted = (votes !== '') ? true : false;
 	} else {
-		console.log('create an empty voteArray'); 
 		$scope.voteArray = [];
-
 		// Setting cookie to help determine if user has not voted by initially storing an empty voteArray on the cookie
 		$scope.setCookie();
 	}
 
 	$scope.getRemainingVotes();
-
-
-	// User for testing: 15AMSNUZ
-	// Empty user: 1PQVW9Y8
-
-	/* 
-		The decrement function should:
-			compare current vote to preview vote
-			if there are sessions that were not previously voted for, increment those sessions.
-			if there are sessions that WERE previously voted for, and are now NOT voted for, decrement those sessions.
-			if there are sessions that are identical, do not increment or decrement.
-	*/ 
-	
-		// user clicks on the edit button
-		// grab users original votes from cookie		
-		// reset the votes
-		// $scope.resetVote();
-		// user votes again	
-		// compare old votes to new votes
-		// if same -- do nothing
-
 
 
 });
