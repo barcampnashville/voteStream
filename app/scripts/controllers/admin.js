@@ -1,7 +1,6 @@
 'use strict';
 
 app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
-  // const roomValue = document.getElementsBy
   $scope.unSortedSessionsObject = SessionList;
   $scope.unSortedSessionsArray = [];
   $scope.sessions = [];
@@ -10,6 +9,10 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   $scope.availability = Polling;
   $scope.sortByType = "rank";
   $scope.reverseSort = false;
+  var morningSchedule = {};
+  var afternoonSchedule = {};
+  var conflicts = false;
+
   var scheduleTemplate = {
       "morning_sessions": {
       "rooms": []  
@@ -68,15 +71,22 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   $scope.setRoom = (e, session) => {
     session.Room = e;
   }
-  $scope.prepareSchedule = (//scheduleBlock**//
-    ) => {
-    let morningSchedule = scheduleTemplate.morning_sessions;
-    let afternoonSchedule = scheduleTemplate.afternoon_sessions;
+  $scope.prepareSchedule = (//morningOrAfternoon
+      ) => {
+    morningSchedule = scheduleTemplate.morning_sessions;
+    afternoonSchedule = scheduleTemplate.afternoon_sessions;
     // Table saves time slot and room to the sessions object, matching the properties in sessions to the properties in the morning or afternoon schedule
     angular.forEach($scope.sessions, function(session, key){
       angular.forEach(morningSchedule.rooms, function(room, key){
         if (session.Room === room.name){
-          console.log(room)
+          console.log(checkForConflicts(session.Room, session.Times));
+
+          if (checkForConflicts(session.Room, session.Times) === true)
+          {
+            console.log('sad!')
+            return;
+          } else {
+
           angular.forEach(room.times, function(timeSlot, key){
             if (session.Times === timeSlot.time){
               timeSlot.session.speaker = session['First Name'] + " " + session['Last Name'];
@@ -85,13 +95,21 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
               //timeSlot.session.url = ;
             }
           })
-        }
-      })
-
+        };
+        };
+      });
     });
-
   }
-  $scope.checkForConflicts = () => {
+
+ let checkForConflicts = (sessionRoom, sessionTime) => {
+    angular.forEach($scope.session, function(session, key){
+      if (session.Room === sessionRoom && session.Times == sessionTime){
+        console.log(true);
+      }
+    });
+    console.log("room",sessionRoom)
+    console.log("time",sessionTime)
+    console.log("schedule", morningSchedule)
   }
 
 });
