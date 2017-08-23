@@ -10,7 +10,7 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   $scope.availability = Polling;
   $scope.sortByType = "rank";
   $scope.reverseSort = false;
-  var unsavedSchedule = {
+  var scheduleTemplate = {
       "morning_sessions": {
       "rooms": []  
     },
@@ -24,8 +24,8 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
       let roomObject = {};
       roomObject["name"] = room;
       roomObject["times"] = {};
-      unsavedSchedule.morning_sessions.rooms[key] = roomObject;
-      unsavedSchedule.afternoon_sessions.rooms[key] = roomObject;
+      scheduleTemplate.morning_sessions.rooms[key] = roomObject;
+      scheduleTemplate.afternoon_sessions.rooms[key] = roomObject;
       angular.forEach($scope.times, function(time, key2){
         let timeObject = {};
         timeObject["time"] = time;
@@ -34,8 +34,8 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
           "speaker" : "",
           "url" : ""
         };
-        unsavedSchedule.morning_sessions.rooms[key].times[key2] = timeObject;
-        unsavedSchedule.afternoon_sessions.rooms[key].times[key2] = timeObject;
+        scheduleTemplate.morning_sessions.rooms[key].times[key2] = timeObject;
+        scheduleTemplate.afternoon_sessions.rooms[key].times[key2] = timeObject;
       });
     });
   }
@@ -68,12 +68,28 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   $scope.setRoom = (e, session) => {
     session.Room = e;
   }
-  $scope.buildScheduleArray = () => {
-    angular.forEach($scope.sessions, function(values, key){
-      console.log(values.Room)
-      $scope.unsavedSchedule.Room = values.Room;
-    })
-    console.log($scope.unsavedSchedule);
+  $scope.prepareSchedule = (//scheduleBlock**//
+    ) => {
+    let morningSchedule = scheduleTemplate.morning_sessions;
+    let afternoonSchedule = scheduleTemplate.afternoon_sessions;
+    // Table saves time slot and room to the sessions object, matching the properties in sessions to the properties in the morning or afternoon schedule
+    angular.forEach($scope.sessions, function(session, key){
+      angular.forEach(morningSchedule.rooms, function(room, key){
+        if (session.Room === room.name){
+          console.log(room)
+          angular.forEach(room.times, function(timeSlot, key){
+            if (session.Times === timeSlot.time){
+              timeSlot.session.speaker = session['First Name'] + " " + session['Last Name'];
+              timeSlot.session.title = session.Title;
+              //to do
+              //timeSlot.session.url = ;
+            }
+          })
+        }
+      })
+
+    });
+
   }
   $scope.checkForConflicts = () => {
   }
