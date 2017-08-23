@@ -85,8 +85,8 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.voteSubmit = () => {
 		const jsonArray = JSON.stringify($scope.voteArray);
 	
-		// If there are no votes, then update the votes and set a cookie.
-		if ($scope.voteArray.length === 0) {
+		// If user has not voted, increment
+		if (!$scope.hasUserVoted) {
 			Vote.updateUserVotes($scope.user, jsonArray)  // Update votes in services/vote.js
 				.then(function(response){
 					Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
