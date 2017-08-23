@@ -74,29 +74,62 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		}
 	};
 
+	$scope.finishVote = () => {
+		$scope.setCookie();
+		$scope.hasUserVoted = true;
+		$scope.updateModalMsg();
+	}
+
+
 	// Submit user's votes and increment session's total_count in services/vote.js
 	$scope.voteSubmit = () => {
-		if ($scope.voteArray.length !== 0) {
-			const jsonArray = JSON.stringify($scope.voteArray);
+		const jsonArray = JSON.stringify($scope.voteArray);
 
-			Vote.updateUserVotes($scope.user, jsonArray) // Update votes
-			.then(function(response){
-				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
-				$scope.setCookie();
-				$scope.hasUserVoted = true;
-			});
+		// If user has not voted, increment
+		if (!window.document.cookie.includes('voteArray')) {
+			Vote.updateUserVotes($scope.user, jsonArray)  // Update votes in services/vote.js
+				.then(function(response){
+					Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
+				});
 
-			$scope.updateModalMsg();
+			$scope.finishVote();
+
+		// If the user has already voted, increment or decrement in edit mode.
+		} else if (window.document.cookie.includes('voteArray')) {  // if a cookie exist, compare old values
+			let cookie = window.document.cookie.split('voteArray=')[1].split(';')[0]; // returns string "1,2,3,4"
+
+			// compare votes
+			let newVote = $scope.voteArray;
+			let oldVote = (cookie !== "") ? cookie.split(',') : [];
+
+			// let unchangedVotes = newVote.filter(x => oldVote.indexOf(x) != 1); // votes - no change
+			let incrementVote = newVote.filter(x => oldVote.indexOf(x) == -1); // array of votes to decrement
+			let decrementVote = oldVote.filter(x => newVote.indexOf(x) == -1); // array of votes to increment
+
+			console.log('incrementVote', incrementVote);
+			console.log('decrementVote', decrementVote);
+
+			// Update votes in services/vote.js
+			Vote.updateUserVotes($scope.user, jsonArray)
+				.then(function(response) {
+						Vote.decrementSessionVoteCount(decrementVote, $scope.sessions); // decrement
+				}).then(function(response) {
+						Vote.incrementSessionVoteCount(incrementVote, $scope.sessions); // increment
+				});
+
+			$scope.finishVote();
+
 		} else {
 			$scope.errorMessage = "Please select a session.";
 		}
+
 	};
+
 
 	// Initial page JS - need methods to be defined before this is executed
 	if (window.document.cookie.includes('voteArray')) {
 		// Store the votes string e.g. '0,2,5' or ''
 		const votes = window.document.cookie.split('voteArray=')[1].split(';')[0];
-
 		// Determine if votes string has votes or is and empty string and assign voteArray and hasVoted values accordingly
 		$scope.voteArray = (votes !== '') ? votes.split(',') : [];
 		$scope.hasUserVoted = (votes !== '') ? true : false;
@@ -107,4 +140,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	}
 
 	$scope.getRemainingVotes();
+
+
 });
