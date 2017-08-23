@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Constants, AuthUser, PollingPeriod, SessionList) {
+app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Constants, AuthUser, Polling, PollingPeriod, SessionList) {
 	//jQuery activation
 	$('#myTabs a').click(function (e) {
 		e.preventDefault();
@@ -10,8 +10,12 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	// Scoped Variables
 	$scope.maxVotes = Constants.maxVotes;
 	$scope.user = AuthUser;
-	$scope.polling = PollingPeriod;
 	$scope.sessions = SessionList;
+	$scope.polling = PollingPeriod;
+	Polling.realTimePolling.on('value', function(polling){
+    $scope.polling = polling.val();
+    $scope.$apply();
+  });
 
 	// Methods
 	$scope.addVote = index => {

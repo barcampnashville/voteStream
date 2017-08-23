@@ -1,14 +1,8 @@
 'use strict';
 
-app.factory('Polling', function ($http, Constants) {
+app.factory('Polling', function ($q, $http, Constants) {
 
-	const getPollingPeriods = () => {
-		return $http.get(`${Constants.firebaseUrl}/PollingState.json`)
-			.then(data => {
-				const periods = data.data.pollingPeriods;
-				return determineSession(periods);
-		})
-	}
+	const realTimePolling = firebase.database().ref('/PollingState')
 
 	const determineSession = (periods) => {
 		// TODO remove after testing
@@ -46,6 +40,6 @@ app.factory('Polling', function ($http, Constants) {
 
 	};
 
-	return { getPollingPeriods };
+	return { determineSession,  realTimePolling };
 
 });
