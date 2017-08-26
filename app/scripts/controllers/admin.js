@@ -1,6 +1,7 @@
 'use strict';
 
-app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
+app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Constants, $http) {
+
   $scope.unSortedSessionsObject = SessionList;
   $scope.unSortedSessionsArray = [];
   $scope.sessions = [];
@@ -77,11 +78,10 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
 
   let checkForConflicts = (arrayData) => {
     arrayData.sort();
-    console.log(arrayData)
     for (let i = 0; i < arrayData.length -1; i++){
-
       if(arrayData[i+1][0] === arrayData[i][0]  && arrayData[i+1][1] === arrayData[i][1]){
-        console.log('repeat')
+        alert('There are room and time conflicts. Please fix them before continuing.')
+        //todo : highlight table rows where the conflicts are
         return true;
       }
     }
@@ -91,34 +91,37 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
       ) => {
     let tableRowData = $('tbody tr');
     let arrayToCheck = []
-
     angular.forEach(tableRowData, function(row, key){
       let timeValue = row.dataset.timeValue;
       let roomValue = row.dataset.roomValue;
       if (timeValue === "" || roomValue === ""){
-        //
+        //using this to keep the data from checking against empty values for now
       } else {
-      arrayToCheck.push([timeValue, roomValue]);
+        arrayToCheck.push([timeValue, roomValue]);
       }
     })
-    checkForConflicts(arrayToCheck);
-
-    
-    morningSchedule = scheduleTemplate.morning_sessions;
-    afternoonSchedule = scheduleTemplate.afternoon_sessions;
-    // Table saves time slot and room to the sessions object, matching the properties in sessions to the properties in the morning or afternoon schedule
-    angular.forEach($scope.sessions, function(session, key){
-      angular.forEach(morningSchedule.rooms, function(room, key){
-          angular.forEach(room.times, function(timeSlot, key){
-            if (session.Times === timeSlot.time){
-              timeSlot.session.speaker = session['First Name'] + " " + session['Last Name'];
-              timeSlot.session.title = session.Title;
-              //to do
-              //timeSlot.session.url = ;
-            }
+      if(!checkForConflicts(arrayToCheck)){
+        morningSchedule = scheduleTemplate.morning_sessions;
+        afternoonSchedule = scheduleTemplate.afternoon_sessions;
+        // Table saves time slot and room to the sessions object, matching the properties in sessions to the properties in the morning or afternoon schedule
+        angular.forEach($scope.sessions, function(session, key){
+          angular.forEach(morningSchedule.rooms, function(room, key){
+              angular.forEach(room.times, function(timeSlot, key){
+                if (session.Times === timeSlot.time){
+                  timeSlot.session.speaker = session['First Name'] + " " + session['Last Name'];
+                  timeSlot.session.title = session.Title;
+                  //to do
+                  //timeSlot.session.url = ;
+                }
+              });
           });
-      });
-    });
+        });
+      console.log(morningSchedule)
+      updateScheduleToFirebase(morningSchedule)
+      };
+    }
+    const updateScheduleToFirebase = (/*MorningOrAfternoon,*/ morningSchedule) => {
+      return $http.put(`${Constants.firebaseUrl}/Schedules/Morning.json`, morningSchedule)
   }
 
     // console.log("room",sessionRoom)
