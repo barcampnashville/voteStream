@@ -74,8 +74,4 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 		redirectTo:'/login'
 	});
 
-}])
-
-.run(function ($rootScope, $location) {
-
-});
+}]);

@@ -1,72 +1,110 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $http, $location, SessionListing, Vote, User, Polling, AuthUser, PollingPeriod, SessionList) {
-
-	//jquery to control session tabs
+app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Constants, AuthUser, PollingPeriod, SessionList) {
+	//jQuery activation
 	$('#myTabs a').click(function (e) {
-		e.preventDefault()
-		$(this).tab('show')
-	})
+		e.preventDefault();
+		$(this).tab('show');
+	});
 
+	// Scoped Variables
+	$scope.maxVotes = Constants.maxVotes;
 	$scope.user = AuthUser;
 	$scope.polling = PollingPeriod;
 	$scope.sessions = SessionList;
-	$scope.maxVotes = 4;
-	$scope.voteArray = [];
 
+	// Methods
+	$scope.addVote = index => {
+		// $scope.voteArray = ["5", "7"]; // This will change which checkboxes are checked
+		//this.voteArray = []; // Example, this will trigger a change
+		$scope.voteArray.push(index.toString());
+		console.log('this.voteArray', $scope.voteArray);
+	};
 
-	/* User to select up to 4 sessions and add to voteArray */
-	$scope.vote = (index, isChecked) => {
-		if ($scope.voteArray.length < $scope.maxVotes && !$scope.voteArray.includes(index)){
-			$scope.voteArray.push(index.toString())
-		} else if (!isChecked) {  //if checked box value is checked remove from voteArray
-			$scope.voteArray.splice($scope.voteArray.indexOf(index), 1)
+	$scope.editMode = () => {
+		$scope.hasUserVoted = false;
+	};
+
+	$scope.getRemainingVotes = () => {
+		$scope.remainingVotes = $scope.maxVotes - $scope.voteArray.length;
+	};
+
+	$scope.isVotingOpen = (session) => {
+		return ($scope.polling.open && $scope.polling.sessions === session);
+	};
+
+	$scope.logout = () => {
+		User.userLogout();
+		$location.path('/login');
+	};
+
+	$scope.removeVote = index => {
+		$scope.voteArray.splice($scope.voteArray.indexOf(index.toString()), 1);
+		console.log('this.voteArray', $scope.voteArray);
+	};
+
+	$scope.resetVote = () => {
+		// If a user resets votes while there are no votes, do nothing. Display modal?
+		if (!$scope.voteArray.length) {
+			$scope.voteArray = [];
+
+		// Only set hasVoted to true if there have been previous votes
+		} else if ($scope.voteArray.length) {
+			const votes = window.document.cookie.split('voteArray=')[1].split(';')[0];
+			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
+			$scope.hasUserVoted = (votes !== '') ? true : false;
 		}
-	}
-	
 
-	/* Submit user's votes and increment session's total_count in services/vote.js */
-	$scope.voteSubmit = () => {
-		if($scope.voteArray.length < $scope.maxVotes) {
-			$scope.errorMessage = "Please vote for 4 sessions before submitting!";
+		$scope.getRemainingVotes();
+		console.log("reset $scope.voteArray", $scope.voteArray);
+	};
 
+	$scope.setCookie = () => {
+			const d = new Date();
+			d.setTime(d.getTime() + (30*60*1000));
+			const expires = `expires=${d.toUTCString()}`;
+			window.document.cookie = `voteArray=${$scope.voteArray};${expires};`
+	};
+
+	$scope.updateModalMsg = () => {
+		if($scope.voteArray.length < 3 || $scope.voteArray.length === 4) {
+			$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} votes left.`; // Update message
 		} else {
-			let jsonArray = JSON.stringify($scope.voteArray);
+			$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} vote left.`; // Update message
+		}
+	};
+
+	// Submit user's votes and increment session's total_count in services/vote.js
+	$scope.voteSubmit = () => {
+		if ($scope.voteArray.length !== 0) {
+			const jsonArray = JSON.stringify($scope.voteArray);
 
 			Vote.updateUserVotes($scope.user, jsonArray) // Update votes
 			.then(function(response){
 				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
-			})
-			$scope.errorMessage = "Thanks!"; // Update message
+				$scope.setCookie();
+				$scope.hasUserVoted = true;
+			});
+
+			$scope.updateModalMsg();
+		} else {
+			$scope.errorMessage = "Please select a session.";
 		}
+	};
+
+	// Initial page JS - need methods to be defined before this is executed
+	if (window.document.cookie.includes('voteArray')) {
+		// Store the votes string e.g. '0,2,5' or ''
+		const votes = window.document.cookie.split('voteArray=')[1].split(';')[0];
+
+		// Determine if votes string has votes or is and empty string and assign voteArray and hasVoted values accordingly
+		$scope.voteArray = (votes !== '') ? votes.split(',') : [];
+		$scope.hasUserVoted = (votes !== '') ? true : false;
+	} else {
+		$scope.voteArray = [];
+		// Setting cookie to help determine if user has not voted by initially storing an empty voteArray on the cookie
+		$scope.setCookie();
 	}
 
-
-	//takes barcampUsername from ng-submit in sessionlist.html
-	$scope.getFavorites = (userName) => {
-		$scope.favoritesArray = []
-
-		//returns specific user's favorites from list coming from sessions.js
-		SessionListing.getFavoritesList(userName)
-		.then(favoritesList => {
-			$scope.favoriteSessions = favoritesList
-			console.log("list from drupal:", $scope.favoriteSessions)
-
-			//nested loop compares favorites from drupal site with all sessions
-			for (let i = 0; i < $scope.sessions.length; i++) {
-				for (let j = 0; j < $scope.favoriteSessions.length; j++) {
-					if($scope.sessions[i].Nid.toString() === $scope.favoriteSessions[j].session.Nid) {
-						$scope.favoritesArray.push($scope.sessions[i])
-					}
-				}
-			}
-			console.log("list after comparison:", $scope.favoritesArray)
-		})
-	}
-
-	$scope.logout = () => {
-		User.userLogout()
-		$location.path('/login')
-	}
-
+	$scope.getRemainingVotes();
 });

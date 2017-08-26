@@ -33,47 +33,56 @@
 				Rank
 					<span ng-show="sortByType == 'rank' && !reverseSort" class="fa fa-caret-down"></span>
 					<span ng-show="sortByType == 'rank' && reverseSort" class="fa fa-caret-up"></span>
-
-
 				</a></td>
 				<td><a href="" ng-click="sortByType = 'total_votes'; reverseSort = !reverseSort">
 				Votes
 					<span ng-show="sortByType == 'total_votes' && !reverseSort" class="fa fa-caret-down""></span>
 					<span ng-show="sortByType == 'total_votes' && reverseSort" class="fa fa-caret-up"></span>
-
 				</a></td>
 				<td><a href="" ng-click="sortByType = 'Title'; reverseSort = !reverseSort">
 				Title
 					<span ng-show="sortByType == 'Title' && !reverseSort" class="fa fa-caret-down""></span>
 					<span ng-show="sortByType == 'Title' && reverseSort" class="fa fa-caret-up"></span>
-
 				</a></td>
 				<td><a href="" ng-click="sortByType = 'speakerName'; reverseSort = !reverseSort">
 				Speaker
 					<span ng-show="sortByType == 'speakerName' && !reverseSort" class="fa fa-caret-down"></span>
 					<span ng-show="sortByType == 'speakerName' && reverseSort" class="fa fa-caret-up"></span>
-
+				</a></td>
+				<td><a href="" ng-click="sortByType = 'Time'; reverseSort = !reverseSort">
+				Time
+					<span ng-show="sortByType == 'Time' && !reverseSort" class="fa fa-caret-down"></span>
+					<span ng-show="sortByType == 'Time' && reverseSort" class="fa fa-caret-up"></span>
+				</a></td>
+				<td><a href="" ng-click="sortByType = 'Room'; reverseSort = !reverseSort">
+				Room
+					<span ng-show="sortByType == 'Room' && !reverseSort" class="fa fa-caret-down"></span>
+					<span ng-show="sortByType == 'Room' && reverseSort" class="fa fa-caret-up"></span>
 				</a></td>
 				<td><a href="" ng-click="sortByType = 'Availability'; reverseSort = !reverseSort">
 				Availability
 					<span ng-show="sortByType == 'Availability' && !reverseSort" class="fa fa-caret-down"></span>
 					<span ng-show="sortByType == 'Availability' && reverseSort" class="fa fa-caret-up"></span>
-
 				</a></td>
 			</tr>
 		</thead>
 
 		<tbody>
 			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}" 
-				data-ng-repeat="s in sessions | orderBy:sortByType:reverseSort | filter:{availability: sessions.availability}">
+			 		data-time-value="{{timeSelect}}"
+			 		data-room-value="{{roomSelect}}"
+					ng-repeat="s in sessions | orderBy:sortByType:reverseSort | filter:{availability: sessions.availability}">
 				
 				<td class="text-center">{{s.Rank}}</td>
 				<td>{{s.total_votes}}</td>
 				<td>{{s.Title}}</td>
 				<td>{{s['First Name']}} {{s['Last Name']}}</td>
+			  <td><select ng-options="time as time for time in times" ng-model="timeSelect" ng-change="setTime(timeSelect, s)"></select></td>
+				<td><select ng-options="room as room for room in rooms" ng-model="roomSelect" ng-change="setRoom(roomSelect, s)"></select></td>
 				<td>{{s.Availability}}</td>
 			</tr>
 		</tbody>
 	</table>
-
+<button type="button" class="btn btn-primary btn-lg btn-block" data-ng-click="prepareSchedule()">Save</button>
+<button type="button" class="btn btn-secondary btn-lg btn-block">Reset</button>
 </section>

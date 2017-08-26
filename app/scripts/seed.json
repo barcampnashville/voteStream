@@ -48,7 +48,7 @@
 			"name": "room-3",
 			"times": [
 				{
-					"time": "1030",
+					"time": "0930",
 					"session": {
 						"title": "BarCamp Rocks",
 						"speaker": "David",
@@ -104,7 +104,7 @@
 						}
 					},
 					{
-						"time": "1330",
+						"time": "1430",
 						"session": {
 							"title": "No-Sql-Design",
 							"speaker": "Abby",
@@ -125,7 +125,7 @@
 						}
 					},
 					{
-						"time": "1430",
+						"time": "1530",
 						"session": {
 							"title": "Why SQL is better",
 							"speaker": "some effing guy",
@@ -138,7 +138,7 @@
 				"name": "room-3",
 				"times": [
 					{
-						"time": "1500",
+						"time": "1400",
 						"session": {
 							"title": "BarCamp Rocks",
 							"speaker": "David",
@@ -159,7 +159,7 @@
 				"name": "room-4",
 				"times": [
 					{
-						"time": "1600",
+						"time": "1300",
 						"session": {
 							"title": "BarCamp, yo",
 							"speaker": "Jamey",
