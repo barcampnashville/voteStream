@@ -69,7 +69,9 @@
 
 		<tbody>
 			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}" 
-				ng-repeat="s in sessions | orderBy:sortByType:reverseSort | filter:{availability: sessions.availability}">
+			 		data-time-value="{{timeSelect}}"
+			 		data-room-value="{{roomSelect}}"
+					ng-repeat="s in sessions | orderBy:sortByType:reverseSort | filter:{availability: sessions.availability}">
 				
 				<td class="text-center">{{s.Rank}}</td>
 				<td>{{s.total_votes}}</td>
@@ -81,6 +83,6 @@
 			</tr>
 		</tbody>
 	</table>
-<button type="button" class="btn btn-primary btn-lg btn-block" data-ng-click="checkForConflicts(); buildScheduleArray()">Save</button>
+<button type="button" class="btn btn-primary btn-lg btn-block" data-ng-click="prepareSchedule()">Save</button>
 <button type="button" class="btn btn-secondary btn-lg btn-block">Reset</button>
 </section>

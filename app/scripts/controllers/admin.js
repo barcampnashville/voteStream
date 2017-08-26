@@ -22,6 +22,7 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
     }
   };
 
+
   let buildScheduleTemplate = () => {
     angular.forEach($scope.rooms, function(room, key){
       let roomObject = {};
@@ -71,22 +72,43 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
   $scope.setRoom = (e, session) => {
     session.Room = e;
   }
+ 
+
+
+  let checkForConflicts = (arrayData) => {
+    arrayData.sort();
+    console.log(arrayData)
+    for (let i = 0; i < arrayData.length -1; i++){
+
+      if(arrayData[i+1][0] === arrayData[i][0]  && arrayData[i+1][1] === arrayData[i][1]){
+        console.log('repeat')
+        return true;
+      }
+    }
+    return false;
+  }
   $scope.prepareSchedule = (//morningOrAfternoon
       ) => {
+    let tableRowData = $('tbody tr');
+    let arrayToCheck = []
+
+    angular.forEach(tableRowData, function(row, key){
+      let timeValue = row.dataset.timeValue;
+      let roomValue = row.dataset.roomValue;
+      if (timeValue === "" || roomValue === ""){
+        //
+      } else {
+      arrayToCheck.push([timeValue, roomValue]);
+      }
+    })
+    checkForConflicts(arrayToCheck);
+
+    
     morningSchedule = scheduleTemplate.morning_sessions;
     afternoonSchedule = scheduleTemplate.afternoon_sessions;
     // Table saves time slot and room to the sessions object, matching the properties in sessions to the properties in the morning or afternoon schedule
     angular.forEach($scope.sessions, function(session, key){
       angular.forEach(morningSchedule.rooms, function(room, key){
-        if (session.Room === room.name){
-          console.log(checkForConflicts(session.Room, session.Times));
-
-          if (checkForConflicts(session.Room, session.Times) === true)
-          {
-            console.log('sad!')
-            return;
-          } else {
-
           angular.forEach(room.times, function(timeSlot, key){
             if (session.Times === timeSlot.time){
               timeSlot.session.speaker = session['First Name'] + " " + session['Last Name'];
@@ -94,22 +116,14 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling) {
               //to do
               //timeSlot.session.url = ;
             }
-          })
-        };
-        };
+          });
       });
     });
   }
 
- let checkForConflicts = (sessionRoom, sessionTime) => {
-    angular.forEach($scope.session, function(session, key){
-      if (session.Room === sessionRoom && session.Times == sessionTime){
-        console.log(true);
-      }
-    });
-    console.log("room",sessionRoom)
-    console.log("time",sessionTime)
-    console.log("schedule", morningSchedule)
-  }
+    // console.log("room",sessionRoom)
+    // console.log("time",sessionTime)
+    // console.log("schedule", morningSchedule)
+  
 
 });
