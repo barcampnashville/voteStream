@@ -11,10 +11,9 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
   $scope.sortByType = "rank";
   $scope.reverseSort = false;
   let morningSchedule = {};
-  var afternoonSchedule = {};
-  var conflicts = false;
+  let afternoonSchedule = {};
 
-  var scheduleTemplate = {
+  let scheduleTemplate = {
       "morning_sessions": {
       "rooms": []  
     },
