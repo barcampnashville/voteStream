@@ -13,19 +13,17 @@
         </div>
     </div>
 </div>
-
 <div class="container sessions" id="myTabs">
   <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#amVote" aria-controls="home" role="tab" data-toggle="tab" ng-if="polling.sessions === 'morning'">Morning</a></li>
-
-        <li role="presentation"><a href="#pmVote" aria-controls="profile" role="tab" data-toggle="tab" ng-if="polling.sessions === 'afternoon'">Afternoon</a></li>
+    <ul class="nav nav-tabs" >
+        <li ><a ng-click="showTab = 'morning'">Morning</a></li>
+        <li ><a ng-click="showTab = 'afternoon'" >Afternoon</a></li>
     </ul>
 </div>
 
-<div class="tab-content">
+<div>
   <!--morning voting-->
-  <div role="tabpanel" class="tab-pane active container sessions" id="amVote">
+  <div  class="tab-pane active container sessions" ng-if="showTab === 'morning'">
       <session ng-repeat="session in sessions track by $index"
           ng-show="session.Availability.includes('Morning')"
           session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted" polling="polling"
@@ -33,7 +31,7 @@
           get-remaining-votes="getRemainingVotes()">
       </session>
 
-      <div class="row" ng-if="polling.sessions === 'morning'">
+      <div class="row">
           <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()" ng-if="!hasUserVoted">Submit</button>
 
           <button class="btn btn-danger" type="button" ng-click="resetVote()" ng-if="!hasUserVoted">Reset</button>
@@ -43,7 +41,7 @@
   </div>
 
   <!--afternoon voting-->
-  <div role="tabpanel" class="tab-pane container sessions" id="pmVote">
+  <div  class="tab-pane container sessions" ng-if="showTab === 'afternoon'">
     <session ng-repeat="session in sessions track by $index"
         ng-show="session.Availability.includes('Afternoon')"
         session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted" polling="polling"
@@ -62,8 +60,8 @@
 </div>
 
 
-<div class="modal fade bs-example-modal-sm" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
+<div class="modal fade bs-example-modal-sm" id="error-modal" tabindex="-1"  aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" >
     <div class="modal-content">
       <h3 id="error-message" style="">{{errorMessage}}</h3>
       <h5 ng-repeat="title in titlesArray">{{title}}</h5>

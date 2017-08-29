@@ -2,6 +2,7 @@
 
 app.factory('Vote', function($http, Constants) {
 
+
 	/* Put request to update user's session votes */
 	const updateUserVotes = (user, jsonArray) => {
 		return $http.put(`${Constants.firebaseUrl}/Users/${user}/sessions.json`, jsonArray)

@@ -12,7 +12,7 @@ app.factory('Polling', function ($http, Constants) {
 
 	const determineSession = (periods) => {
 		// TODO remove after testing
-		return {open: true, sessions: 'morning'};
+		return {open: true, sessions: 'afternoon'};
 
 		const morning = periods[0];
 		const afternoon = periods[1];

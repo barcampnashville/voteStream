@@ -8,20 +8,13 @@ app.controller('FullScheduleCtrl', function ($scope, SessionList) {
   });
 
   $scope.sessions = SessionList;
+  console.log("SessionList:", SessionList);
+  $scope.sortedSessions = SessionList //by default
 
-  //2BFJQPYM
-
-	 $scope.sortAlphabeticaly = (property) => {	
-	 	let sessionsArray = Object.values($scope.sessions)
-	 	//creat array of objs with property passed in and 
-		let propertyArr = sessionsArray.map(function(session, index) { 
-			let propertyArray = {}
-			propertyArray[property] = session[property]
-			propertyArray.index = index
-			return propertyArray
-		});
+	const sortAlpha = (property) => { 	
+		const propertyArray = Object.values($scope.sessions)
 		//sort based on property alphabetically
-		propertyArr.sort(function(a, b) {
+		propertyArray.sort(function(a, b) {
 			if (a[property].toLowerCase() < b[property].toLowerCase()) {
 				return -1;
 			}
@@ -30,16 +23,9 @@ app.controller('FullScheduleCtrl', function ($scope, SessionList) {
 			}
 			return 0;
 		});
-		//create new array of indexes to filter on
-		$scope.sortedSessions = [];
-		propertyArr.forEach(function(session) {
-			$scope.sortedSessions.push(sessionsArray[`${session.index}`])
-		})
-		console.log($scope.sortedSessions)
+		$scope.sortedSessions = propertyArray;
 	}
-
-	$scope.sortAlphabeticaly('Title')
-
+	sortAlpha('Last Name');
 
 });
 

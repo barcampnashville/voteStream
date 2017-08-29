@@ -12,13 +12,12 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.user = AuthUser;
 	$scope.polling = PollingPeriod;
 	$scope.sessions = SessionList;
+	//TODO: Will make this ternary and set class active on this tab
+	$scope.showTab = 'morning';
 
 	// Methods
 	$scope.addVote = index => {
-		// $scope.voteArray = ["5", "7"]; // This will change which checkboxes are checked
-		//this.voteArray = []; // Example, this will trigger a change
 		$scope.voteArray.push(index.toString());
-		console.log('this.voteArray', $scope.voteArray);
 	};
 
 	$scope.editMode = () => {
@@ -40,7 +39,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 
 	$scope.removeVote = index => {
 		$scope.voteArray.splice($scope.voteArray.indexOf(index.toString()), 1);
-		console.log('this.voteArray', $scope.voteArray);
 	};
 
 	$scope.resetVote = () => {
@@ -56,7 +54,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		}
 
 		$scope.getRemainingVotes();
-		console.log("reset $scope.voteArray", $scope.voteArray);
 	};
 
 	$scope.setCookie = () => {
@@ -83,11 +80,15 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		} 
 	};
 
+	//1INVESSA
+	$scope.removeSelectedSessions = (index) => {
+		$scope.sessions.splice(index, 1);
+	}
+	
 	// Submit user's votes and increment session's total_count in services/vote.js
 	$scope.voteSubmit = () => {
 		if ($scope.voteArray.length !== 0) {
 			const jsonArray = JSON.stringify($scope.voteArray);
-
 			Vote.updateUserVotes($scope.user, jsonArray) // Update votes
 			.then(function(response){
 				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
