@@ -10,7 +10,7 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
   $scope.availability = Polling;
   $scope.sortByType = "rank";
   $scope.reverseSort = false;
-  var morningSchedule = {};
+  let morningSchedule = {};
   var afternoonSchedule = {};
   var conflicts = false;
 
@@ -74,8 +74,6 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
     session.Room = e;
   }
  
-
-
   let checkForConflicts = (arrayData) => {
     arrayData.sort();
     for (let i = 0; i < arrayData.length -1; i++){
@@ -87,27 +85,30 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
     }
     return false;
   }
-  $scope.prepareSchedule = (//morningOrAfternoon
-      ) => {
+  $scope.prepareSchedule = (timeOfDay) => {
+    //capitalize first character for Morning or Afternoon
+    timeOfDay = timeOfDay.split("")[0].toUpperCase() + timeOfDay.slice(1);
     let tableRowData = $('tbody tr');
-    let arrayToCheck = []
+    let arrayToCheck = [];
     angular.forEach(tableRowData, function(row, key){
       let timeValue = row.dataset.timeValue;
       let roomValue = row.dataset.roomValue;
       if (timeValue === "" || roomValue === ""){
         //using this to keep the data from checking against empty values for now
       } else {
+        console.log(arrayToCheck)
         arrayToCheck.push([timeValue, roomValue]);
       }
     })
       if(!checkForConflicts(arrayToCheck)){
+        console.log($scope.sessions)
         morningSchedule = scheduleTemplate.morning_sessions;
         afternoonSchedule = scheduleTemplate.afternoon_sessions;
         // Table saves time slot and room to the sessions object, matching the properties in sessions to the properties in the morning or afternoon schedule
         angular.forEach($scope.sessions, function(session, key){
           angular.forEach(morningSchedule.rooms, function(room, key){
               angular.forEach(room.times, function(timeSlot, key){
-                if (session.Times === timeSlot.time){
+                if (session.Times === timeSlot.time && room.name === session.Room){
                   timeSlot.session.speaker = session['First Name'] + " " + session['Last Name'];
                   timeSlot.session.title = session.Title;
                   //to do
@@ -116,12 +117,16 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
               });
           });
         });
-      console.log(morningSchedule)
-      updateScheduleToFirebase(morningSchedule)
-      };
+      if (timeOfDay === "Morning"){
+        updateScheduleToFirebase(timeOfDay, morningSchedule);
+      } else if (timeOfDay === "Afternoon"){
+        updateScheduleToFirebase(timeOfDay, afternoonSchedule);
+        }
+      }
     }
-    const updateScheduleToFirebase = (/*MorningOrAfternoon,*/ morningSchedule) => {
-      return $http.put(`${Constants.firebaseUrl}/Schedules/Morning.json`, morningSchedule)
+    const updateScheduleToFirebase = (timeOfDay, schedule) => {
+      console.log(schedule)
+      return $http.put(`${Constants.firebaseUrl}/Schedules/${timeOfDay}.json`, schedule)
   }
 
     // console.log("room",sessionRoom)
