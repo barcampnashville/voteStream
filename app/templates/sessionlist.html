@@ -16,8 +16,8 @@
 <div class="container sessions" id="myTabs">
   <!-- Nav tabs -->
     <ul class="nav nav-tabs" >
-        <li ><a ng-click="showTab = 'morning'">Morning</a></li>
-        <li ><a ng-click="showTab = 'afternoon'" >Afternoon</a></li>
+        <li ng-class="{active: showTab === 'morning'}"><a ng-click="showTab = 'morning'">Morning</a></li>
+        <li ng-class="{active: showTab === 'afternoon'}"><a ng-click="showTab = 'afternoon'"  >Afternoon</a></li>
     </ul>
 </div>
 

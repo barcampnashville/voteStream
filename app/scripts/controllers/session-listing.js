@@ -12,8 +12,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.user = AuthUser;
 	$scope.polling = PollingPeriod;
 	$scope.sessions = SessionList;
-	//TODO: Will make this ternary and set class active on this tab
-	$scope.showTab = 'morning';
+	$scope.showTab = $scope.polling.sessions;
 
 	// Methods
 	$scope.addVote = index => {
