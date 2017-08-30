@@ -14,6 +14,8 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.sessions = SessionList;
 	$scope.showTab = $scope.polling.sessions;
 
+
+
 	// Methods
 	$scope.addVote = index => {
 		$scope.voteArray.push(index.toString());
