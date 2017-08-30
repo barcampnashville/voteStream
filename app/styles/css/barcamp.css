@@ -166,13 +166,15 @@ input[type="color"]:focus,
 
 /****Popup Modal******/
 #error-modal .modal-content {
-  font-size: 2em;
-  margin-top: 33%; }
+  font-size: 1.5em;
+  margin-top: 33%; 
+  padding: 30px;
+}
 
 #error-dialog {
   padding-left: 2em; }
 
 #error-modal .btn {
-  margin-left: 10%; }
+  margin: 5%; }
 
 /*# sourceMappingURL=maps/barcamp.css.map */
