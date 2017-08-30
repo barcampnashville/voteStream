@@ -1,9 +1,9 @@
 'use strict'
 
-app.controller('FullScheduleCtrl', function ($scope, SessionList) {
 
-  firebase.database().ref('/Sessions').on('value', function(session) {
-    $scope.fullSchedule = session.val();
+app.controller('FullScheduleCtrl', function ($scope, SessionListing) {
+  SessionListing.realTimeSessions.on('value', function(sessions){
+    $scope.fullSchedule = sessions.val();
     $scope.$apply();
   });
 

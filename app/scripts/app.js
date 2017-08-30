@@ -47,9 +47,9 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 					$location.path('/login');
 				});
 			},
-			PollingPeriod: function(Polling) {
-				return Polling.getPollingPeriods().then(period => period);
-			},
+			// PollingPeriod: function(Polling) {
+			// 	return Polling.getPollingPeriods().then(period => period);
+			// },
 			SessionList: function(SessionListing){
 				return SessionListing.getAllSessions().then(session => session);
 			}

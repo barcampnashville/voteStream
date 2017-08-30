@@ -1,20 +1,29 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Constants, AuthUser, PollingPeriod, SessionList) {
-	//jQuery activation
-	$('#myTabs a').click(function (e) {
-		e.preventDefault();
-		$(this).tab('show');
-	});
+app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Constants, AuthUser, Polling, SessionList) {
 
 	// Scoped Variables
 	$scope.maxVotes = Constants.maxVotes;
 	$scope.user = AuthUser;
-	$scope.polling = PollingPeriod;
+	$scope.polling;
 	$scope.sessions = SessionList;
-	$scope.showTab = $scope.polling.sessions;
+	$scope.tab;
 
+	//$scope.polling = PollingPeriod;
+	Polling.realTimePolling.on('value', function(polling){
+    $scope.polling = Polling.determineSession(polling.val().pollingPeriods)
+    $scope.tab = $scope.polling.sessions;
+    $scope.$apply();
+  });
 
+  // SessionListing.realTimeSessions.on('value', function(session){
+		// $scope.sessions = session.val();
+  //   $scope.$apply();
+  //   console.log("$scope.sessions:", $scope.sessions);
+  // });
+  $scope.showTab = tab => {
+  	$scope.tab = tab;
+  }	
 
 	// Methods
 	$scope.addVote = index => {
