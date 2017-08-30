@@ -2,6 +2,7 @@
 
 app.controller('SigninCtrl', function ($scope, $location, AuthService, User) {
 
+	// get all badges
 	AuthService.getAllUsers().then((userList)=>{
 		$scope.badges = userList;
 	});
