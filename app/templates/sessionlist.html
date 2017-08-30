@@ -1,73 +1,87 @@
 <div class="container">
-    <div class="header">
-        <div class="row text-center">
-            <button class="btn btn-primary pull-left" ng-click="logout()">Log Out!</button>
+	<div class="header">
+		<div class="row text-center">
+			<button class="btn btn-primary pull-left" ng-click="logout()">Log Out!</button>
 
-            <a href="{{scheduleUrl}}" target="_blank" class="header-link">Schedule</a>
+			<a href="{{scheduleUrl}}" target="_blank" class="header-link">Schedule</a>
+			<span> | Votes Remaining: {{remainingVotes}}</span>
 
-            <span> | Votes Remaining: {{remainingVotes}}</span>
-
-            <button class="btn btn-primary pull-right" ng-if="user.admin">
-              <a href="#/admin" class="admin-link">Admin</a>
-            </button>
-        </div>
-    </div>
+			<button class="btn btn-primary pull-right" ng-if="user.admin">
+			  <a href="#/admin" class="admin-link">Admin</a>
+			</button>
+		</div>
+	</div>
 </div>
+
 
 <div class="container sessions" id="myTabs">
   <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#amVote" aria-controls="home" role="tab" data-toggle="tab">Morning</a></li>
-
-        <li role="presentation"><a href="#pmVote" aria-controls="profile" role="tab" data-toggle="tab">Afternoon</a></li>
-    </ul>
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#amVote" aria-controls="home" role="tab" data-toggle="tab">Morning</a></li>
+		<li role="presentation"><a href="#pmVote" aria-controls="profile" role="tab" data-toggle="tab">Afternoon</a></li>
+	</ul>
 </div>
+
 
 <div class="tab-content">
   <!--morning voting-->
-  <div role="tabpanel" class="tab-pane active container sessions" id="amVote">
-      <session ng-repeat="session in sessions track by $index"
-          ng-show="session.Availability.includes('Morning')"
-          session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted" polling="polling"
-          remove-vote="removeVote(index)" session-type="'morning'"
-          get-remaining-votes="getRemainingVotes()">
-      </session>
+	<div role="tabpanel" class="tab-pane active container sessions" id="amVote">
+		<session 
+			ng-repeat="session in sessions track by $index"
+			ng-show="session.Availability.includes('Morning')"
+			session="session" 
+			index="$index" 
+			votes="voteArray"
+			add-vote="addVote(index)" 
+			has-voted="hasUserVoted" 
+			polling="polling"
+			remove-vote="removeVote(index)" 
+			session-type="'morning'"
+			get-remaining-votes="getRemainingVotes()">
+	  </session>
 
-      <div class="row" ng-if="polling.sessions === 'morning'">
-          <button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()" ng-if="!hasUserVoted">Submit</button>
+		<div class="row" ng-if="polling.sessions === 'morning'">
+			<div class="text-center">
+				<button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="voteSubmit()" ng-if="!hasUserVoted">Submit</button>
+				<button class="btn btn-danger" type="button" ng-click="resetVote()" ng-if="!hasUserVoted">Reset</button>
+				<button class="btn btn-warning" type="button" ng-click="editMode()" ng-if="hasUserVoted">Edit Votes</button>
+			</div>
+		</div>
+	</div>
 
-          <button class="btn btn-danger" type="button" ng-click="resetVote()" ng-if="!hasUserVoted">Reset</button>
+	<!--afternoon voting-->
+	<div role="tabpanel" class="tab-pane container sessions" id="pmVote">
+		<session 
+			ng-repeat="session in sessions track by $index"
+			ng-show="session.Availability.includes('Afternoon')"
+			session="session" 
+			index="$index" 
+			votes="voteArray" 
+			add-vote="addVote(index)" 
+			has-voted="hasUserVoted" 
+			polling="polling"
+			remove-vote="removeVote(index)" 
+			session-type="'afternoon'"
+			get-remaining-votes="getRemainingVotes()">
+		</session>
 
-          <button class="btn btn-warning" type="button" ng-click="editMode()" ng-if="hasUserVoted">Edit Votes</button>
-      </div>
-  </div>
+		<div class="row" ng-if="polling.sessions === 'afternoon'">
+			<div class="text-center">
+				<button class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm" type="button" ng-click="voteSubmit()" ng-if="!hasUserVoted">Submit</button>
 
-  <!--afternoon voting-->
-  <div role="tabpanel" class="tab-pane container sessions" id="pmVote">
-    <session ng-repeat="session in sessions track by $index"
-        ng-show="session.Availability.includes('Afternoon')"
-        session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted" polling="polling"
-        remove-vote="removeVote(index)" session-type="'afternoon'"
-        get-remaining-votes="getRemainingVotes()">
-    </session>
-
-    <div class="row" ng-if="polling.sessions === 'afternoon'">
-        <button class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm" type="button" ng-click="voteSubmit()" ng-if="!hasUserVoted">Submit</button>
-
-        <button class="btn btn-danger" type="button" ng-click="resetVote()" ng-if="!hasUserVoted">Reset</button>
-
-        <button class="btn btn-warning" type="button" ng-click="editMode()" ng-if="hasUserVoted">Edit Votes</button>
-    </div>
-  </div>
-</div>
+				<button class="btn btn-danger" type="button" ng-click="resetVote()" ng-if="!hasUserVoted">Reset</button>
+				<button class="btn btn-warning" type="button" ng-click="editMode()" ng-if="hasUserVoted">Edit Votes</button>
+			</div>
+		</div>
+	</div>
+</div> <!--end tab content -->
 
 
 <div class="modal fade bs-example-modal-sm" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
   <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <p>{{errorMessage}}</p>
-
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    </div>
+	<div class="modal-content">
+	  <p>{{errorMessage}}</p>
+	  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
   </div>
 </div>
