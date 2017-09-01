@@ -4,6 +4,7 @@
 	background-image:      -o-linear-gradient($params); /* For old Opera (11.1 to 12.0) */
 	background-image:         linear-gradient($params); /* Standard syntax; must be last */
 }
+
 $primary-color: #932318;
 $primary-color-lighter: lighten( $primary-color, 10%);
 $primary-color-darker: darken( $primary-color, 10%);
@@ -11,33 +12,125 @@ $secondary-color: #feb336;
 $secondary-color-lighter: lighten( $secondary-color, 10%);
 $secondary-color-darker: darken( $secondary-color, 10%);
 
-#greeting {
-	text-align: center;
-}
 
-footer {
-	padding: 20px 0;
-}
+/*	
+	GLOSSARY:
+	HEADER
+	CONTAINER
+	FOOTER
+	DEFAULT (Default Broswer Values)
+	ADMIN (Page)
+	SESSION (Page)
+	ANGULAR / VALIDATION
+	BUTTONS & LABELS
+	INPUTS
+	POPUP MODALS
+	ANIMATIONS
+	MEDIA QUERIES
+/*
 
-.category {
-	.label {
-		margin: 0px 2px;
-		margin-bottom: 2px;
+
+/********* HEADER *********/
+.header {
+	position:fixed;
+	left: 0;
+	top: 0;
+	height: 50px;
+	width: 100%;
+	background-color: $primary-color; /* fallback color if gradients are not supported */
+	@include linear-gradient(top, $primary-color, $primary-color-darker);
+	color: white;
+	padding: 14px 15px;
+	z-index: 9999;
+
+	#category-filter {
+		width: 60%;
+	}
+
+	#vote-counter {
+		width: 40%;
 	}
 }
 
+
+/********* CONTAINER *********/
+.container .sessions,
+.container .results {
+	padding-top: 55px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+
+/********* FOOTER *********/
+.credits {
+  margin: 20px 0;
+}
+
+footer {
+  padding: 20px 0; 
+}
+
+
+/********* DEFAULT *********/
 blockquote {
 	font-size: 8pt;
 	padding: 3;
 	margin: 0;
 }
 
-.gridStyle {
-    border: 2px solid rgb(212,212,212);
-    width: 100%;
-    height: 500px;
+
+/********* ADMIN *********/
+.admin-container {
+	margin-top: 70px;
 }
 
+.admin-link, .admin-link:hover,
+.header-link, .header-link:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
+
+/********* SESSION *********/
+.gridStyle {
+	border: 2px solid rgb(212,212,212);
+	width: 100%;
+	height: 500px;
+}
+
+.sessionDescription{
+	word-wrap: break-word;
+	line-height:1.2em;
+	cursor: pointer;
+}
+
+.collapsed {
+	line-height: 1em;
+	height: 2em;
+	overflow: hidden;
+}
+
+.toggle-collapsed input {
+	display: none;
+}
+
+/* Extra styles to add faux-ellipsis to multi-line text */
+.collapsed {
+	position:relative;
+}
+
+.collapsed::after {
+	content:'\2026';
+	display: block;
+	position:absolute;
+	bottom:0;
+	right:0;
+	background-color:#fff;
+}
+
+
+/********* ANGULAR / VALIDATION *********/
 .ng-invalid {
 	&.ng-dirty {
 		color: #b94a48;
@@ -55,73 +148,8 @@ blockquote {
 	background-color: #ddedf0;
 }
 
-.header {
-	position:fixed;
-	left: 0;
-	top: 0;
-	height: 50px;
-	width: 100%;
-	background-color: $primary-color; /* fallback color if gradients are not supported */
-	@include linear-gradient(top, $primary-color, $primary-color-darker);
-	color: white;
-	padding: 14px 15px;
-	z-index: 9999;
 
-	#category-filter {
-   		width: 60%;
-	}
-
-	#vote-counter {
-		width: 40%;
-	}
-}
-
-.container .sessions,
-.container .results {
-	padding-top: 55px;
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-.sessionDescription{
-	word-wrap: break-word;
-	line-height:1.2em;
-	cursor: pointer;
-}
-
-.collapsed {
-    line-height: 1em;
-    height: 2em;
-    overflow: hidden;
-}
-
-.toggle-collapsed input {
-    display: none;
-}
-
-/* Extra styles to add faux-ellipsis to multi-line text */
-.collapsed {
-    position:relative;
-}
-
-.collapsed::after {
-    content:'\2026';
-    display: block;
-    position:absolute;
-    bottom:0;
-    right:0;
-    background-color:#fff;
-}
-
-.label-success {
-	margin-right: 5px;
-	margin-top: 4px;
-}
-
-.label-warning {
-	background-color: $secondary-color;
-}
-
+/********* BUTTONS & LABELS *********/
 .btn:focus {
 	outline: none;
 }
@@ -150,6 +178,25 @@ blockquote {
 	border-color: $secondary-color-darker;
 }
 
+
+.category {
+	.label {
+		margin: 0px 2px;
+		margin-bottom: 2px;
+	}
+}
+
+.label-success {
+	margin-right: 5px;
+	margin-top: 4px;
+}
+
+.label-warning {
+	background-color: $secondary-color;
+}
+
+
+/********* INPUTS *********/
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -171,20 +218,42 @@ input[type="color"]:focus,
 	outline: 0 none;
 }
 
-.admin-link, .admin-link:hover,
-.header-link, .header-link:hover {
-	color: #fff;
-	text-decoration: none;
+
+/********** POPUP MODALS *********/
+#error-modal .modal-content {
+	font-size: 1.5em;
+	margin-top: 33%; 
+	padding: 30px;
 }
 
-.admin-container {
-	margin-top: 70px;
+#error-dialog {
+	padding-left: 2em; 
 }
 
-.timeofday {
-	margin-left: 30px;
+#error-modal .btn {
+	margin: 5%; 
 }
 
+
+/********* ANIMATIONS *********/
+.animate-switch.ng-animate {
+	transition: all cubit-bezier(0.250, 0.450, 0.940) 0.5s;
+	position:absolute;
+	top:0;
+	left:0;
+	right: 0;
+	bottom:0;
+}
+
+.animate-switch.ng-leave-active, animate-switch.ng-enter {
+	top:50px;
+}
+.animate-switch.ng-leave, .animate-switch.ng-enter-active {
+	top:0;
+}
+
+
+/*** MEDIA QUERIES ***/
 @media (max-width: 480px) {
 	.header {
 		& select {
@@ -195,36 +264,4 @@ input[type="color"]:focus,
 	.sessions {
 		padding: 0 15px;
 	}
-}
-
-/*** ANIMATIONS *********/
-
-.animate-switch.ng-animate {
-  transition: all cubit-bezier(0.250, 0.450, 0.940) 0.5s;
-  position:absolute;
-  top:0;
-  left:0;
-  right: 0;
-  bottom:0;
-}
-
-.animate-switch.ng-leave-active, animate-switch.ng-enter {
-  top:50px;
-}
-.animate-switch.ng-leave, .animate-switch.ng-enter-active {
-  top:0;
-}
-
-/****Popup Modal******/
-#error-modal .modal-content {
-  font-size: 2em;
-  margin-top: 33%;
-}
-
-#error-dialog {
-  padding-left: 2em;
-}
-#error-modal .btn {
-  margin-left: 10%;
-
 }

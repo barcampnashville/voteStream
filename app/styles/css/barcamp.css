@@ -1,34 +1,21 @@
-#greeting {
-  text-align: center; }
+/*	
+	GLOSSARY:
+	HEADER
+	CONTAINER
+	FOOTER
+	DEFAULT (Default Broswer Values)
+	ADMIN (Page)
+	SESSION (Page)
+	ANGULAR / VALIDATION
+	BUTTONS & LABELS
+	INPUTS
+	POPUP MODALS
+	ANIMATIONS
+	MEDIA QUERIES
+/*
 
-footer {
-  padding: 20px 0; }
 
-.category .label {
-  margin: 0px 2px;
-  margin-bottom: 2px; }
-
-blockquote {
-  font-size: 8pt;
-  padding: 3;
-  margin: 0; }
-
-.gridStyle {
-  border: 2px solid #d4d4d4;
-  width: 100%;
-  height: 500px; }
-
-.ng-invalid.ng-dirty {
-  color: #b94a48;
-  border-color: #b94a48;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
-  .ng-invalid.ng-dirty:focus {
-    border-color: #953b39;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392; }
-
-.ngRow:hover {
-  background-color: #ddedf0; }
-
+/********* HEADER *********/
 .header {
   position: fixed;
   left: 0;
@@ -53,11 +40,40 @@ blockquote {
   .header #vote-counter {
     width: 40%; }
 
+/********* CONTAINER *********/
 .container .sessions,
 .container .results {
   padding-top: 55px;
   padding-left: 0px;
   padding-right: 0px; }
+
+/********* FOOTER *********/
+.credits {
+  margin: 20px 0; }
+
+footer {
+  padding: 20px 0; }
+
+/********* DEFAULT *********/
+blockquote {
+  font-size: 8pt;
+  padding: 3;
+  margin: 0; }
+
+/********* ADMIN *********/
+.admin-container {
+  margin-top: 70px; }
+
+.admin-link, .admin-link:hover,
+.header-link, .header-link:hover {
+  color: #fff;
+  text-decoration: none; }
+
+/********* SESSION *********/
+.gridStyle {
+  border: 2px solid #d4d4d4;
+  width: 100%;
+  height: 500px; }
 
 .sessionDescription {
   word-wrap: break-word;
@@ -84,13 +100,19 @@ blockquote {
   right: 0;
   background-color: #fff; }
 
-.label-success {
-  margin-right: 5px;
-  margin-top: 4px; }
+/********* ANGULAR / VALIDATION *********/
+.ng-invalid.ng-dirty {
+  color: #b94a48;
+  border-color: #b94a48;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .ng-invalid.ng-dirty:focus {
+    border-color: #953b39;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392; }
 
-.label-warning {
-  background-color: #feb336; }
+.ngRow:hover {
+  background-color: #ddedf0; }
 
+/********* BUTTONS & LABELS *********/
 .btn:focus {
   outline: none; }
 
@@ -111,6 +133,18 @@ blockquote {
   background-color: #feb336;
   border-color: #fea003; }
 
+.category .label {
+  margin: 0px 2px;
+  margin-bottom: 2px; }
+
+.label-success {
+  margin-right: 5px;
+  margin-top: 4px; }
+
+.label-warning {
+  background-color: #feb336; }
+
+/********* INPUTS *********/
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -131,24 +165,19 @@ input[type="color"]:focus,
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(254, 179, 54, 0.5);
   outline: 0 none; }
 
-.admin-link, .admin-link:hover,
-.header-link, .header-link:hover {
-  color: #fff;
-  text-decoration: none; }
+/********** POPUP MODALS *********/
+#error-modal .modal-content {
+  font-size: 1.5em;
+  margin-top: 33%;
+  padding: 30px; }
 
-.admin-container {
-  margin-top: 70px; }
+#error-dialog {
+  padding-left: 2em; }
 
-.timeofday {
-  margin-left: 30px; }
+#error-modal .btn {
+  margin: 5%; }
 
-@media (max-width: 480px) {
-  .header select {
-    width: 80%; }
-  .sessions {
-    padding: 0 15px; } }
-
-/*** ANIMATIONS *********/
+/********* ANIMATIONS *********/
 .animate-switch.ng-animate {
   transition: all cubit-bezier(0.25, 0.45, 0.94) 0.5s;
   position: absolute;
@@ -163,18 +192,11 @@ input[type="color"]:focus,
 .animate-switch.ng-leave, .animate-switch.ng-enter-active {
   top: 0; }
 
-
-/****Popup Modal******/
-#error-modal .modal-content {
-  font-size: 1.5em;
-  margin-top: 33%; 
-  padding: 30px;
-}
-
-#error-dialog {
-  padding-left: 2em; }
-
-#error-modal .btn {
-  margin: 5%; }
+/*** MEDIA QUERIES ***/
+@media (max-width: 480px) {
+  .header select {
+    width: 80%; }
+  .sessions {
+    padding: 0 15px; } }
 
 /*# sourceMappingURL=maps/barcamp.css.map */
