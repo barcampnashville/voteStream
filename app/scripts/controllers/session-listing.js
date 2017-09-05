@@ -1,24 +1,33 @@
 'use strict';
 
-app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Constants, AuthUser, PollingPeriod, SessionList) {
-	//jQuery activation
-	$('#myTabs a').click(function (e) {
-		e.preventDefault();
-		$(this).tab('show');
-	});
+app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Constants, AuthUser, Polling, SessionList) {
 
 	// Scoped Variables
 	$scope.maxVotes = Constants.maxVotes;
 	$scope.user = AuthUser;
-	$scope.polling = PollingPeriod;
+	$scope.polling;
 	$scope.sessions = SessionList;
+	$scope.tab;
+
+	//$scope.polling = PollingPeriod;
+	Polling.realTimePolling.on('value', function(polling){
+    $scope.polling = Polling.determineSession(polling.val().pollingPeriods)
+    $scope.tab = $scope.polling.sessions;
+    $scope.$apply();
+  });
+
+  // SessionListing.realTimeSessions.on('value', function(session){
+		// $scope.sessions = session.val();
+  //   $scope.$apply();
+  //   console.log("$scope.sessions:", $scope.sessions);
+  // });
+  $scope.showTab = tab => {
+  	$scope.tab = tab;
+  }	
 
 	// Methods
 	$scope.addVote = index => {
-		// $scope.voteArray = ["5", "7"]; // This will change which checkboxes are checked
-		//this.voteArray = []; // Example, this will trigger a change
 		$scope.voteArray.push(index.toString());
-		console.log('this.voteArray', $scope.voteArray);
 	};
 
 	$scope.editMode = () => {
@@ -40,7 +49,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 
 	$scope.removeVote = index => {
 		$scope.voteArray.splice($scope.voteArray.indexOf(index.toString()), 1);
-		console.log('this.voteArray', $scope.voteArray);
 	};
 
 	$scope.resetVote = () => {
@@ -56,7 +64,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		}
 
 		$scope.getRemainingVotes();
-		console.log("reset $scope.voteArray", $scope.voteArray);
 	};
 
 	$scope.setCookie = () => {
@@ -66,12 +73,21 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			window.document.cookie = `voteArray=${$scope.voteArray};${expires};`
 	};
 
+	$scope.getTitles = () => {
+		$scope.titlesArray = [];
+			for(let i = 0; i < $scope.voteArray.length; i++) {
+				let arrayIndex = parseInt($scope.voteArray[i])
+				let listNumber = i + 1;
+				$scope.titlesArray.push(listNumber + ') ' + $scope.sessions[`${arrayIndex}`].Title)
+			}
+			return $scope.titlesArray
+	}
+
 	$scope.updateModalMsg = () => {
-		if($scope.voteArray.length < 3 || $scope.voteArray.length === 4) {
-			$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} votes left.`; // Update message
-		} else {
-			$scope.errorMessage = `Thanks, you have ${$scope.maxVotes - $scope.voteArray.length} vote left.`; // Update message
-		}
+		if($scope.voteArray.length <= 4 && $scope.voteArray.length > 0) {
+			$scope.errorMessage = "Thank you for voting, you selected: "
+			$scope.getTitles()
+		} 
 	};
 
 	$scope.finishVote = () => {
@@ -119,8 +135,18 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 
 			$scope.finishVote();
 
+	// Submit user's votes and increment session's total_count in services/vote.js
+	$scope.voteSubmit = () => {
+		if ($scope.voteArray.length !== 0) {
+			const jsonArray = JSON.stringify($scope.voteArray);
+			Vote.updateUserVotes($scope.user, jsonArray) // Update votes
+			.then(function(response){
+				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
+				$scope.setCookie();
+				$scope.hasUserVoted = true;
+			});
 		} else {
-			$scope.errorMessage = "Please select a session.";
+			$scope.errorMessage = "Please select a session to vote.";
 		}
 
 	};

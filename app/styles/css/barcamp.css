@@ -163,16 +163,19 @@ input[type="color"]:focus,
 .animate-switch.ng-leave, .animate-switch.ng-enter-active {
   top: 0; }
 
-
 /****Popup Modal******/
 #error-modal .modal-content {
-  font-size: 2em;
+  border: 4px #932318 solid;
+  background-color: #ffc25e;
+  padding: 0px 7px 5px 7px;
   margin-top: 33%; }
 
-#error-dialog {
-  padding-left: 2em; }
+#error-message {
+  text-align: center; }
 
 #error-modal .btn {
-  margin-left: 10%; }
+  border: 1px black solid;
+  margin: 0 auto;
+  display: block; }
 
 /*# sourceMappingURL=maps/barcamp.css.map */
