@@ -8,19 +8,17 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.polling;
 	$scope.sessions = SessionList;
 	$scope.tab;
+	let cookieArray; 
 
-	//$scope.polling = PollingPeriod;
 	Polling.realTimePolling.on('value', function(polling){
     $scope.polling = Polling.determineSession(polling.val().pollingPeriods)
     $scope.tab = $scope.polling.sessions;
+    cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
+    setVoteArray()
+    $scope.getRemainingVotes();
     $scope.$apply();
   });
 
-  // SessionListing.realTimeSessions.on('value', function(session){
-		// $scope.sessions = session.val();
-  //   $scope.$apply();
-  //   console.log("$scope.sessions:", $scope.sessions);
-  // });
   $scope.showTab = tab => {
   	$scope.tab = tab;
   }	
@@ -58,19 +56,17 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 
 		// Only set hasVoted to true if there have been previous votes
 		} else if ($scope.voteArray.length) {
-			const votes = window.document.cookie.split('voteArray=')[1].split(';')[0];
+			const votes = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0];
 			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
 			$scope.hasUserVoted = (votes !== '') ? true : false;
 		}
-
-		$scope.getRemainingVotes();
 	};
 
 	$scope.setCookie = () => {
 			const d = new Date();
 			d.setTime(d.getTime() + (30*60*1000));
 			const expires = `expires=${d.toUTCString()}`;
-			window.document.cookie = `voteArray=${$scope.voteArray};${expires};`
+			window.document.cookie = `${cookieArray}=${$scope.voteArray};${expires};`
 	};
 
 	$scope.getTitles = () => {
@@ -102,7 +98,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		const jsonArray = JSON.stringify($scope.voteArray);
 
 		// If user has not voted, increment
-		if (!window.document.cookie.includes('voteArray')) {
+		if (!window.document.cookie.includes(`${cookieArray}`)) {
 			Vote.updateUserVotes($scope.user, jsonArray)  // Update votes in services/vote.js
 				.then(function(response){
 					Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
@@ -111,8 +107,8 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			$scope.finishVote();
 
 		// If the user has already voted, increment or decrement in edit mode.
-		} else if (window.document.cookie.includes('voteArray')) {  // if a cookie exist, compare old values
-			let cookie = window.document.cookie.split('voteArray=')[1].split(';')[0]; // returns string "1,2,3,4"
+		} else if (window.document.cookie.includes(`${cookieArray}`)) {  // if a cookie exist, compare old values
+			let cookie = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0]; // returns string "1,2,3,4"
 
 			// compare votes
 			let newVote = $scope.voteArray;
@@ -134,38 +130,25 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 				});
 
 			$scope.finishVote();
-
-	// Submit user's votes and increment session's total_count in services/vote.js
-	$scope.voteSubmit = () => {
-		if ($scope.voteArray.length !== 0) {
-			const jsonArray = JSON.stringify($scope.voteArray);
-			Vote.updateUserVotes($scope.user, jsonArray) // Update votes
-			.then(function(response){
-				Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
-				$scope.setCookie();
-				$scope.hasUserVoted = true;
-			});
 		} else {
 			$scope.errorMessage = "Please select a session to vote.";
 		}
-
 	};
 
 
 	// Initial page JS - need methods to be defined before this is executed
-	if (window.document.cookie.includes('voteArray')) {
-		// Store the votes string e.g. '0,2,5' or ''
-		const votes = window.document.cookie.split('voteArray=')[1].split(';')[0];
-		// Determine if votes string has votes or is and empty string and assign voteArray and hasVoted values accordingly
-		$scope.voteArray = (votes !== '') ? votes.split(',') : [];
-		$scope.hasUserVoted = (votes !== '') ? true : false;
-	} else {
-		$scope.voteArray = [];
-		// Setting cookie to help determine if user has not voted by initially storing an empty voteArray on the cookie
-		$scope.setCookie();
-	}
-
-	$scope.getRemainingVotes();
-
+	const setVoteArray = () => {
+		if ($scope.polling.open === true && window.document.cookie.includes(`${cookieArray}`)) {
+			// Store the votes string e.g. '0,2,5' or ''
+			const votes = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0];
+			// Determine if votes string has votes or is and empty string and assign voteArray and hasVoted values accordingly
+			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
+			$scope.hasUserVoted = (votes !== '') ? true : false;
+		} else {
+			$scope.voteArray = [];
+			// Setting cookie to help determine if user has not voted by initially storing an empty voteArray on the cookie
+			$scope.setCookie();
+		}
+	} 
 
 });

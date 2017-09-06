@@ -5,6 +5,7 @@ app.factory('Polling', function ($q, $http, Constants) {
 	const realTimePolling = firebase.database().ref('/PollingState')
 
 	const determineSession = (periods) => {
+
 		const morning = periods[0];
 		const afternoon = periods[1];
 
@@ -26,8 +27,8 @@ app.factory('Polling', function ($q, $http, Constants) {
 		const endTime = new Date().setHours(end[0], end[1]);
 
 
-		const diff1 = startTime - new Date().setHours(8, 5);	
-		const diff2 = endTime - new Date().setHours(8, 5);
+		const diff1 = startTime - new Date().getHours();	
+		const diff2 = endTime - new Date().getHours();
 	
 		if(diff1 < 0 && diff2 > 0 ) 
 		{
