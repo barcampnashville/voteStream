@@ -7,15 +7,18 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.user = AuthUser;
 	$scope.polling;
 	$scope.sessions = SessionList;
-	$scope.tab;
+	$scope.tab = undefined;
 	let cookieArray; 
 
 	Polling.realTimePolling.on('value', function(polling){
     $scope.polling = Polling.determineSession(polling.val().pollingPeriods)
-    $scope.tab = $scope.polling.sessions;
-    cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
-    setVoteArray()
-    $scope.getRemainingVotes();
+    //initial funcitons to run when polling object is originally returned	
+   	if ($scope.tab === undefined) {
+   		$scope.tab = $scope.polling.sessions;
+    	cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
+    	setVoteArray();
+    	$scope.getRemainingVotes();
+   	}
     $scope.$apply();
   });
 
