@@ -22,12 +22,22 @@
 </div> <!-- end row -->
 
 
+<!-- <div class="row">
+	<div class="sessionDescription col-xs-12 col-sm-12 col-md-12">
+		<div ng-init="limit = 350; moreShown = false">
+			{{$ctrl.session.Body | limitTo: limit}}{{$ctrl.session.Body.length > limit ? '...' : ''}}
+			<a ng-show="$ctrl.session.Body.length > limit"
+			   href ng-click="limit=$ctrl.session.Body.length; moreShown = true">More</a>
+			<a ng-show="moreShown" href ng-click="limit=150; moreShown=false">Less</a>
+		</div>
+	</div>
+</div> -->
 
 <div class="row">
 	<div class="sessionDescription col-xs-12 col-sm-12 col-md-12" ng-click="showText = !showText">
 		<p ng-class="{ collapsed: !showText }">{{$ctrl.session.Body}}</p>
-		<div class="toggle-text" ng-hide="showText"><i>show more</i></div>
-		<div class="toggle-text" ng-show="showText"><i>show less</i></div>
+		<div class="toggle-text" ng-hide="showText"><em>show more</em></div>
+		<div class="toggle-text" ng-show="showText"><em>show less</em></div>
 	</div>
 	<hr/>
 </div>

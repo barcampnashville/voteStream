@@ -82,24 +82,17 @@ blockquote {
   cursor: pointer; }
 
 .collapsed {
-  line-height: 1em;
-  height: 2em;
-  overflow: hidden; }
-
-.toggle-collapsed input {
-  display: none; }
-
-/* Extra styles to add faux-ellipsis to multi-line text */
-.collapsed {
-  position: relative; }
-
-.collapsed::after {
-  content: '\2026';
   display: block;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #fff; }
+  display: -webkit-box;
+  max-width: 100%;
+  height: 29px;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; }
 
 /********* ANGULAR / VALIDATION *********/
 .ng-invalid.ng-dirty {
@@ -263,6 +256,18 @@ input[type="color"]:focus,
   .header select {
     width: 80%; }
   .sessions {
-    padding: 0 15px; } }
+    padding: 0 15px; }
+  .collapsed {
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    height: 43px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; } }
 
 /*# sourceMappingURL=maps/barcamp.css.map */
