@@ -114,14 +114,12 @@ blockquote {
   background-color: #ddedf0; }
 
 /********* CHECKBOXES *********/
-.checkbox {
-  padding-left: 20px;
-  margin-bottom: 20px; }
+.category {
+  margin: 10px 0; }
 
 .checkbox label {
   display: inline-block;
-  position: relative;
-  padding-left: 5px; }
+  position: relative; }
 
 .checkbox label::before {
   content: "";
@@ -133,10 +131,7 @@ blockquote {
   margin-left: -20px;
   border: 1px solid #cccccc;
   border-radius: 3px;
-  background-color: #fff;
-  -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
-  -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
-  transition: border 0.15s ease-in-out, color 0.15s ease-in-out; }
+  background-color: #fff; }
 
 .checkbox label::after {
   display: inline-block;

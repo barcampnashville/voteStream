@@ -153,15 +153,19 @@ blockquote {
 /********* CHECKBOXES *********/
 // https://bootsnipp.com/snippets/ZkMKE
 
+.category {
+	margin: 10px 0;
+}
+
 .checkbox {
-	padding-left: 20px; 
-	margin-bottom: 20px;
+	// padding-left: 20px; 
+	// margin-bottom: 20px;
 }
   
 .checkbox label {
 	display: inline-block;
 	position: relative;
-	padding-left: 5px; 
+	// padding-left: 5px; 
 }
 
 // checkbox background color
@@ -170,15 +174,15 @@ blockquote {
 	display: inline-block;
 	position: absolute;
 	width: 17px;
-	height: 17px;
+	height: 17px; 
 	left: 0;
 	margin-left: -20px; // needed for checkmark
-	border: 1px solid #cccccc;
+	border: 1px solid #cccccc; // checkbox border
 	border-radius: 3px;
 	background-color: #fff; 
-	-webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
-	-o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
-	transition: border 0.15s ease-in-out, color 0.15s ease-in-out; 
+	// -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+	// -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+	// transition: border 0.15s ease-in-out, color 0.15s ease-in-out; 
 }
 
 // checkbox disable border color
@@ -190,8 +194,8 @@ blockquote {
 	left: 0;
 	top: 0;
 	margin-left: -20px;
-	padding-left: 3px;
-	padding-top: 1px;
+	padding-left: 3px; // checkmark positioning
+	padding-top: 1px; // checkmark positioning
 	font-size: 11px;
 	color: #555555; 
 }
@@ -344,7 +348,10 @@ input[type="color"]:focus,
 
 
 /*** MEDIA QUERIES ***/
+
+// Phones & Handhelds
 @media (max-width: 480px) {
+
 	.header {
 		& select {
 			width: 80%;
@@ -354,4 +361,10 @@ input[type="color"]:focus,
 	.sessions {
 		padding: 0 15px;
 	}
+}
+
+// Laptops & Desktops
+@media only screen and (min-width : 481px) {
+
+
 }

@@ -1,9 +1,10 @@
 <div class="row">
-	<div class="sessionTitle col-xs-10 col-sm-9 col-md-10">
+	<div class="sessionTitle col-xs-9">
 		<h4>{{$ctrl.session.Title}}</h4>
+		<p><i>with:</i> {{$ctrl.session["First Name"]}} {{$ctrl.session["Last Name"]}}</p>
 	</div>
 
-	<div class="col-xs-2 col-sm-3 col-md-2">
+	<div class="col-xs-3 ">
 		<div class="checkbox checkbox-primary pull-right">
 			<input type="checkbox" 
 			ng-disabled="$ctrl.isDisabled()"
@@ -12,19 +13,15 @@
 			ng-model="$ctrl.isChecked"
 			id="checkbox-{{$ctrl.index}}"/>
 			<label for="checkbox-{{$ctrl.index}}"></label>
-		 </div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="sessionSpeaker col-xs-5 col-sm-5 col-md-5">
-		<p><i>with:</i> {{$ctrl.session["First Name"]}} {{$ctrl.session["Last Name"]}}</p>
+		 </div>	 
 	</div>
 
-	<div class="category col-xs-7 col-sm-7 col-md-7">
-		<span class="label label-default pull-right">{{$ctrl.session["Session Category"]}}</span>
+	<div class="col-xs-3 flex-row">
+		<span class="label label-default pull-right category">{{$ctrl.session["Session Category"]}}</span>
 	</div>
-</div>
+</div> <!-- end row -->
+
+
 
 <div class="row">
 	<div class="sessionDescription col-xs-12 col-sm-12 col-md-12" ng-click="showText = !showText">
