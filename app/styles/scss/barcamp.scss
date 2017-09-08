@@ -29,8 +29,7 @@ $background: #ffffff;
 	POPUP MODALS
 	ANIMATIONS
 	MEDIA QUERIES
-/*
-
+*/
 
 /********* HEADER *********/
 .header {
@@ -238,6 +237,11 @@ blockquote {
 }
 
 /********* BUTTONS & LABELS *********/
+
+.logout {
+	margin-left: 20px;
+}
+
 .btn:focus {
 	outline: none;
 }

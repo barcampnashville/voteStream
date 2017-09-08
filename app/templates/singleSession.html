@@ -1,4 +1,6 @@
-<div class="row">
+<!-- Title, Category, Checkbox -->
+<div id="static">
+<div class="row"">
 	<div class="sessionTitle col-xs-9">
 		<h4>{{$ctrl.session.Title}}</h4>
 		<p><i>with:</i> {{$ctrl.session["First Name"]}} {{$ctrl.session["Last Name"]}}</p>
@@ -20,19 +22,10 @@
 		<span class="label label-default pull-right category">{{$ctrl.session["Session Category"]}}</span>
 	</div>
 </div> <!-- end row -->
+</div>
 
 
-<!-- <div class="row">
-	<div class="sessionDescription col-xs-12 col-sm-12 col-md-12">
-		<div ng-init="limit = 350; moreShown = false">
-			{{$ctrl.session.Body | limitTo: limit}}{{$ctrl.session.Body.length > limit ? '...' : ''}}
-			<a ng-show="$ctrl.session.Body.length > limit"
-			   href ng-click="limit=$ctrl.session.Body.length; moreShown = true">More</a>
-			<a ng-show="moreShown" href ng-click="limit=150; moreShown=false">Less</a>
-		</div>
-	</div>
-</div> -->
-
+<!-- Session Description -->
 <div class="row">
 	<div class="sessionDescription col-xs-12 col-sm-12 col-md-12" ng-click="showText = !showText">
 		<p ng-class="{ collapsed: !showText }">{{$ctrl.session.Body}}</p>
@@ -40,4 +33,4 @@
 		<div class="toggle-text" ng-show="showText"><em>show less</em></div>
 	</div>
 	<hr/>
-</div>
+</div> <!--end row -->

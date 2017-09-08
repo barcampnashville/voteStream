@@ -13,9 +13,7 @@
 	POPUP MODALS
 	ANIMATIONS
 	MEDIA QUERIES
-/*
-
-
+*/
 /********* HEADER *********/
 .header {
   position: fixed;
@@ -172,6 +170,9 @@ blockquote {
   color: #fff; }
 
 /********* BUTTONS & LABELS *********/
+.logout {
+  margin-left: 20px; }
+
 .btn:focus {
   outline: none; }
 
