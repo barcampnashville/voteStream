@@ -12,7 +12,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 
 	Polling.realTimePolling.on('value', function(polling){
     $scope.polling = Polling.determineSession(polling.val().pollingPeriods)
-    console.log('$scope.polling', $scope.polling)
     //initial funcitons to run when polling object is originally returned	
    	if ($scope.tab === undefined) {
    		$scope.tab = $scope.polling.sessions;
