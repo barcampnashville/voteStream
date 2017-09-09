@@ -5,10 +5,6 @@ const SessionCtrl = function($scope, $element, $attrs) {
   // Variables
   this.isChecked = null;
   this.polling = null;
-
-  // TODO remove after testing
-  //this.polling = { open: true, sessions: 'morning' };
-  this.polling = { open: true, sessions: 'afternoon' };
   this.maxVotes = 4;
 
 

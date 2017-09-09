@@ -10,11 +10,11 @@
 		<div class="checkbox checkbox-primary pull-right">
 			<input type="checkbox" 
 			ng-disabled="$ctrl.isDisabled()"
-			ng-show="$ctrl.isVotingOpen()"
+			ng-if="$ctrl.isVotingOpen()"
 			ng-click="$ctrl.check()" 
 			ng-model="$ctrl.isChecked"
 			id="checkbox-{{$ctrl.index}}"/>
-			<label for="checkbox-{{$ctrl.index}}"></label>
+			<label ng-if="$ctrl.isVotingOpen()" for="checkbox-{{$ctrl.index}}"></label>
 		 </div>	 
 	</div>
 
