@@ -1,11 +1,12 @@
-<div class="header">
-  <button class="btn btn-primary pull-left" data-ng-click="logout()">Log Out!</button>
-  <button class="btn btn-primary pull-right"><a href="/#/sessions" class="header-link">Sessions</a></button>
-</div>
+
+  <div class="header">
+    <button class="btn btn-primary pull-left" data-ng-click="logout()">Log Out!</button>
+    <button class="btn btn-primary pull-right"><a href="/#/sessions" class="header-link">Sessions</a></button>
+  </div>
 
 
 <!-- ToDo- build this out -->
-<div class="container schedule" id="myTabs">
+<div class="container schedule sessions" id="myTabs">
   <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#time" aria-controls="home" role="tab" data-toggle="tab">Time</a></li>
@@ -19,32 +20,28 @@
 <div class="tab-content">
 <!-- Sort by time -->
   <div role="tabpanel" class="tab-pane active container schedule" id="time">
-      <schedule ng-repeat="session in sessions track by $index"
-          ng-show="session.Availability.includes('Morning')"
-          session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted" polling="polling"
-          remove-vote="removeVote(index)" session-type="'morning'"
-          get-remaining-votes="getRemainingVotes()">
+      <!-- ng-show for tabs?-->
+      <schedule ng-repeat="session in fullSchedule track by $index"
+          ng-show="" 
+          session="session" index="$index" votes="voteArray"
       </schedule>
+      {{session.rooms}}
   </div>
 
 <!-- Sort by room -->
 
   <div role="tabpanel" class="tab-pane container schedule" id="room">
     <schedule ng-repeat="session in sessions track by $index"
-        ng-show="session.Availability.includes('Afternoon')"
-        session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted" polling="polling"
-        remove-vote="removeVote(index)" session-type="'afternoon'"
-        get-remaining-votes="getRemainingVotes()">
+        ng-show=""
+        session="session" index="$index" votes="voteArray"
     </schedule>
   </div>
 
   <!-- Sort by speaker -->  
   <div role="tabpanel" class="tab-pane container schedule" id="speaker">
     <schedule ng-repeat="session in sessions track by $index"
-        ng-show="session.Availability.includes('Afternoon')"
-        session="session" index="$index" votes="voteArray" add-vote="addVote(index)" has-voted="hasUserVoted" polling="polling"
-        remove-vote="removeVote(index)" session-type="'afternoon'"
-        get-remaining-votes="getRemainingVotes()">
+        ng-show=""
+        session="session" index="$index" votes="voteArray"
     </schedule>
   </div>
 </div>
