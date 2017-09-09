@@ -19,7 +19,7 @@
 
 <div class="tab-content" ng-model="filterBy" ng-repeat="session in morningRooms | orderBy:filterBy">
   <div class="schedule" id="morning">
-      <schedule>
+      <schedule ng-hide="!session.session.speaker">
          {{session.room}} | {{session.time}} | {{session.session.speaker}}
       </schedule>
   </div>
