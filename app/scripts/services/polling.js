@@ -5,7 +5,7 @@ app.factory('Polling', function ($q, $http, Constants) {
 	const realTimePolling = firebase.database().ref('/PollingState')
 
 	const determineSession = (periods) => {
-
+		return {open: true, sessions: 'morning'};
 		const morning = periods[0];
 		const afternoon = periods[1];
 

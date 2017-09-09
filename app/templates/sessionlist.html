@@ -61,15 +61,15 @@
             data-target=".bs-example-modal-sm" 
             type="button" 
             ng-click="voteSubmit()" 
-            ng-if="!hasUserVoted" 
-            ng-disabled="!polling.open">Submit</button>
+            ng-if="!hasUserVoted"
+            ng-disabled="!polling.open || !voteArray.length">Submit</button>
 
         <button 
             class="btn btn-danger" 
             type="button" 
             ng-click="resetVote()" 
             ng-if="!hasUserVoted" 
-            ng-disabled="!polling.open">Reset</button>
+            ng-disabled="!polling.open || !hasUserVoted ">Reset</button>
 
         <button 
             class="btn btn-warning" 
