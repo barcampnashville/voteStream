@@ -1,47 +1,38 @@
 
   <div class="header">
-    <button class="btn btn-primary pull-left" data-ng-click="logout()">Log Out!</button>
+    <button class="btn btn-primary pull-left" ng-click="logout()">Log Out!</button>
     <button class="btn btn-primary pull-right"><a href="/#/sessions" class="header-link">Sessions</a></button>
   </div>
 
 
 <!-- ToDo- build this out -->
 <div class="container schedule sessions" id="myTabs">
-  <!-- Nav tabs -->
+
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#time" aria-controls="home" role="tab" data-toggle="tab">Time</a></li>
+        <li role="presentation" class="active"><a href="" aria-controls="home" role="tab" data-toggle="tab" ng-click="setFilterString('time')">Time</a></li>
 
-        <li role="presentation"><a href="#room" aria-controls="profile" role="tab" data-toggle="tab">Room</a></li>
+        <li role="presentation"><a href="" aria-controls="profile" role="tab" data-toggle="tab" ng-click="setFilterString('room')">Room</a></li>
 
-        <li role="presentation"><a href="#speaker" aria-controls="profile" role="tab" data-toggle="tab">Speaker</a></li>
+        <li role="presentation"><a href="" aria-controls="profile" role="tab" data-toggle="tab" ng-click="setFilterString('session.speaker')">Speaker</a></li>
     </ul>
 </div>
 
-<div class="tab-content">
-<!-- Sort by time -->
-  <div role="tabpanel" class="tab-pane active container schedule" id="time">
-      <!-- ng-show for tabs?-->
-      <schedule ng-repeat="session in fullSchedule track by $index"
-          ng-show="" 
-          session="session" index="$index" votes="voteArray"
+<div class="tab-content" ng-model="filterBy" ng-repeat="session in morningRooms | orderBy:filterBy">
+  <div class="schedule" id="morning">
+      <schedule>
+         {{session.room}} | {{session.time}} | {{session.session.speaker}}
       </schedule>
-      {{session.rooms}}
   </div>
+</div>
 
-<!-- Sort by room -->
+<div class="tab-content" ng-model="filterBy" ng-repeat="session in afternoonRooms | orderBy:filterBy">
+  <div class="schedule" id="afternoon">
+      <schedule ng-hide="!session.session.speaker">
+         {{session.room}} | {{session.time}} | {{session.session.speaker}}
+        
+      </schedule>
+</div>
 
-  <div role="tabpanel" class="tab-pane container schedule" id="room">
-    <schedule ng-repeat="session in sessions track by $index"
-        ng-show=""
-        session="session" index="$index" votes="voteArray"
-    </schedule>
-  </div>
 
-  <!-- Sort by speaker -->  
-  <div role="tabpanel" class="tab-pane container schedule" id="speaker">
-    <schedule ng-repeat="session in sessions track by $index"
-        ng-show=""
-        session="session" index="$index" votes="voteArray"
-    </schedule>
-  </div>
+
 </div>

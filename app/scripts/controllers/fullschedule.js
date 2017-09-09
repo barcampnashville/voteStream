@@ -2,22 +2,30 @@
 app.controller('FullScheduleCtrl', function ($scope) {
 
   //change from jQuery
-  $('#myTabs a').click(function (e) {
-    e.preventDefault();
-    $(this).tab('show');
-  });
+ 
 
   $scope.scheduleByTime = [];
   $scope.rooms = [];
+  $scope.filterBy = "time";
+  $scope.morning = false;
+  $scope.afternoon = false;
+  $scope.morningRooms = [];
+  $scope.afternoonRooms = [];
+
   firebase.database().ref('/Schedules').on('value', function(schedule){
-    $scope.$apply();
-    //morning or afternoon switch
+    $scope.rooms = [];
+    $scope.scheduleByTime = [];
     if (schedule.val().Morning){
-    $scope.sortScheduleByTime(schedule.val(), "Morning");
+      $scope.morningRooms = [];
+      $scope.sortScheduleByTime(schedule.val(), "Morning");
+      $scope.morning = true;
     }
     if (schedule.val().Afternoon){
+      $scope.afternoonRooms = [];
       $scope.sortScheduleByTime(schedule.val(), "Afternoon");
+      $scope.afternoon = true;
     }
+    $scope.$apply();
 
   });
 
@@ -27,13 +35,23 @@ app.controller('FullScheduleCtrl', function ($scope) {
     let numberOfRooms = Object.keys(scheduleObj).length;
     for (let i = 0; i <= numberOfRooms -1; i++) {
       for (let j = 0; j < scheduleObj[i].times.length; j++){
-        $scope.rooms.push(scheduleObj[i].times[j])
-        scheduleObj[i].times[j]["room"] = scheduleObj[i].name;
+        if(session === "Morning"){
+          $scope.morningRooms.push(scheduleObj[i].times[j])
+          scheduleObj[i].times[j]["room"] = scheduleObj[i].name;
+        }
+        if(session === "Afternoon"){
+          $scope.afternoonRooms.push(scheduleObj[i].times[j])
+          scheduleObj[i].times[j]["room"] = scheduleObj[i].name;
+        }
       }
     }
-    console.log($scope.rooms)
+    console.log("morning", $scope.morningRooms);
+    console.log("afternoon", $scope.afternoonRooms);
   }
-    
+  
+  $scope.setFilterString = (filterBy) => {
+    $scope.filterBy = filterBy;
+  }
 
 });
 
