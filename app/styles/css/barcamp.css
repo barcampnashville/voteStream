@@ -8,13 +8,12 @@
 	SESSION (Page)
 	ANGULAR / VALIDATION
 	BUTTONS & LABELS
+	CHECKBOXES
 	INPUTS
 	POPUP MODALS
 	ANIMATIONS
 	MEDIA QUERIES
-/*
-
-
+*/
 /********* HEADER *********/
 .header {
   position: fixed;
@@ -81,24 +80,17 @@ blockquote {
   cursor: pointer; }
 
 .collapsed {
-  line-height: 1em;
-  height: 2em;
-  overflow: hidden; }
-
-.toggle-collapsed input {
-  display: none; }
-
-/* Extra styles to add faux-ellipsis to multi-line text */
-.collapsed {
-  position: relative; }
-
-.collapsed::after {
-  content: '\2026';
   display: block;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #fff; }
+  display: -webkit-box;
+  max-width: 100%;
+  height: 29px;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; }
 
 /********* ANGULAR / VALIDATION *********/
 .ng-invalid.ng-dirty {
@@ -112,7 +104,75 @@ blockquote {
 .ngRow:hover {
   background-color: #ddedf0; }
 
+/********* CHECKBOXES *********/
+.category {
+  margin: 10px 0; }
+
+.checkbox label {
+  display: inline-block;
+  position: relative; }
+
+.checkbox label::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  left: 0;
+  margin-left: -20px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  background-color: #fff; }
+
+.checkbox label::after {
+  display: inline-block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 0;
+  top: 0;
+  margin-left: -20px;
+  padding-left: 3px;
+  padding-top: 1px;
+  font-size: 11px;
+  color: #555555; }
+
+.checkbox input[type="checkbox"] {
+  opacity: 0; }
+
+.checkbox input[type="checkbox"]:focus + label::before {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px; }
+
+.checkbox input[type="checkbox"]:checked + label::after {
+  font-family: 'FontAwesome';
+  content: "\f00c"; }
+
+.checkbox input[type="checkbox"]:disabled + label {
+  opacity: 0.65; }
+
+.checkbox input[type="checkbox"]:disabled + label::before {
+  background-color: #eeeeee;
+  cursor: not-allowed; }
+
+.checkbox.checkbox-circle label::before {
+  border-radius: 50%; }
+
+.checkbox.checkbox-inline {
+  margin-top: 0; }
+
+.checkbox-primary input[type="checkbox"]:checked + label::before {
+  background-color: #feb336;
+  border-color: #feb336; }
+
+.checkbox-primary input[type="checkbox"]:checked + label::after {
+  color: #fff; }
+
 /********* BUTTONS & LABELS *********/
+.logout {
+  margin-left: 20px; }
+
 .btn:focus {
   outline: none; }
 
@@ -192,7 +252,6 @@ input[type="color"]:focus,
 .animate-switch.ng-leave, .animate-switch.ng-enter-active {
   top: 0; }
 
-<<<<<<< HEAD
 /****Popup Modal******/
 #error-modal .modal-content {
   border: 4px #932318 solid;
@@ -207,13 +266,26 @@ input[type="color"]:focus,
   border: 1px black solid;
   margin: 0 auto;
   display: block; }
-=======
+
 /*** MEDIA QUERIES ***/
 @media (max-width: 480px) {
   .header select {
     width: 80%; }
   .sessions {
-    padding: 0 15px; } }
->>>>>>> redo
+    padding: 0 15px; } 
+  }
+
+  .collapsed {
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    height: 43px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; } }
 
 /*# sourceMappingURL=maps/barcamp.css.map */

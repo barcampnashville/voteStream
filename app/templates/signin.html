@@ -7,7 +7,7 @@
 
 		<div class="col-xs-8">
 			<!-- text input models to badgeId, which gets sent to ng-click on the button below--> 
-			<input type="text" name="badgeId" class="form-control" ng-model="badgeId" placeholder="Badge ID" required autofocus/>	
+			<input type="text" name="badgeId" class="form-control" ng-model="badgeId" placeholder="Badge ID" ng-keydown="$event.keyCode === 13 && login(badgeId)" required autofocus/>	
 		</div>
 
 		<!-- calls login function from signin.js with badgeId -->
