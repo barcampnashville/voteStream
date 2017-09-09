@@ -11,6 +11,7 @@ $primary-color-darker: darken( $primary-color, 10%);
 $secondary-color: #feb336;
 $secondary-color-lighter: lighten( $secondary-color, 10%);
 $secondary-color-darker: darken( $secondary-color, 10%);
+$background: #ffffff;
 
 
 /*	
@@ -23,12 +24,12 @@ $secondary-color-darker: darken( $secondary-color, 10%);
 	SESSION (Page)
 	ANGULAR / VALIDATION
 	BUTTONS & LABELS
+	CHECKBOXES
 	INPUTS
 	POPUP MODALS
 	ANIMATIONS
 	MEDIA QUERIES
-/*
-
+*/
 
 /********* HEADER *********/
 .header {
@@ -105,28 +106,21 @@ blockquote {
 	cursor: pointer;
 }
 
+
 .collapsed {
-	line-height: 1em;
-	height: 2em;
-	overflow: hidden;
-}
-
-.toggle-collapsed input {
-	display: none;
-}
-
-/* Extra styles to add faux-ellipsis to multi-line text */
-.collapsed {
-	position:relative;
-}
-
-.collapsed::after {
-	content:'\2026';
+	// https://www.consolelog.io/multiple-line-ellipsis-css-effect	
+	// The height property is equal to the number of lines desired multiplied by the font-size plus 1px to account for character descenders
 	display: block;
-	position:absolute;
-	bottom:0;
-	right:0;
-	background-color:#fff;
+	display: -webkit-box;
+	max-width: 100%;
+	height: 29px; // 2 lines
+	margin: 0 auto;
+	font-size: 14px;
+	line-height: 1;
+	-webkit-line-clamp: 2; // 
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 
@@ -149,7 +143,105 @@ blockquote {
 }
 
 
+/********* CHECKBOXES *********/
+// https://bootsnipp.com/snippets/ZkMKE
+
+.category {
+	margin: 10px 0;
+}
+
+.checkbox {
+	// padding-left: 20px; 
+	// margin-bottom: 20px;
+}
+  
+.checkbox label {
+	display: inline-block;
+	position: relative;
+	// padding-left: 5px; 
+}
+
+// checkbox background color
+.checkbox label::before {
+	content: "";
+	display: inline-block;
+	position: absolute;
+	width: 17px;
+	height: 17px; 
+	left: 0;
+	margin-left: -20px; // needed for checkmark
+	border: 1px solid #cccccc; // checkbox border
+	border-radius: 3px;
+	background-color: #fff; 
+	// -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+	// -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+	// transition: border 0.15s ease-in-out, color 0.15s ease-in-out; 
+}
+
+// checkbox disable border color
+.checkbox label::after {
+	display: inline-block;
+	position: absolute;
+	width: 16px;
+	height: 16px;
+	left: 0;
+	top: 0;
+	margin-left: -20px;
+	padding-left: 3px; // checkmark positioning
+	padding-top: 1px; // checkmark positioning
+	font-size: 11px;
+	color: #555555; 
+}
+
+.checkbox input[type="checkbox"] {
+	opacity: 0; 
+}
+
+.checkbox input[type="checkbox"]:focus + label::before {
+	outline: thin dotted;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px; 
+}
+
+.checkbox input[type="checkbox"]:checked + label::after {
+	font-family: 'FontAwesome';
+	content: "\f00c"; 
+}
+
+.checkbox input[type="checkbox"]:disabled + label {
+	opacity: 0.65; 
+}
+
+.checkbox input[type="checkbox"]:disabled + label::before {
+	background-color: #eeeeee;
+	cursor: not-allowed; 
+}
+
+.checkbox.checkbox-circle label::before {
+	border-radius: 50%; 
+}
+
+.checkbox.checkbox-inline {
+	margin-top: 0; 
+}
+
+// checkbox background color
+.checkbox-primary input[type="checkbox"]:checked + label::before {
+	background-color: $secondary-color;
+	border-color: $secondary-color; 
+}
+
+// checkbox checkmark
+.checkbox-primary input[type="checkbox"]:checked + label::after {
+	color: #fff;
+}
+
 /********* BUTTONS & LABELS *********/
+
+.logout {
+	margin-left: 20px;
+}
+
 .btn:focus {
 	outline: none;
 }
@@ -254,7 +346,10 @@ input[type="color"]:focus,
 
 
 /*** MEDIA QUERIES ***/
+
+// Phones & Handhelds
 @media (max-width: 480px) {
+
 	.header {
 		& select {
 			width: 80%;
@@ -264,4 +359,25 @@ input[type="color"]:focus,
 	.sessions {
 		padding: 0 15px;
 	}
+
+	.collapsed {
+		// 3 lines
+		display: block;
+		display: -webkit-box;
+		max-width: 100%;
+		height: 43px; 
+		margin: 0 auto;
+		font-size: 14px;
+		line-height: 1;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
+// Laptops & Desktops
+@media only screen and (min-width : 481px) {
+
+
 }

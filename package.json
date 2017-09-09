@@ -7,6 +7,7 @@
     "test": "test"
   },
   "scripts": {
+    "gulp-watch": "./node_modules/gulp/bin/gulp.js",
     "grunt": "node_modules/grunt/bin/grunt"
   },
   "dependencies": {

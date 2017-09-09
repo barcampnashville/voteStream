@@ -38,12 +38,12 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 	.when('/fullschedule', {
 		templateUrl : '/templates/fullschedule.html',
 		controller : 'FullScheduleCtrl',
-		// adminAccess: true,
-		// resolve: {
-		// 	Sessions: function (SessionListing) {
-		// 		return SessionListing();
-		// 	}
-		// }
+		adminAccess: true,
+		resolve: {
+			SessionList: function(SessionListing){
+				return SessionListing.getAllSessions().then(session => session);
+			}
+		}
 	})
 	.when('/sessions', {
 		templateUrl: '/templates/sessionlist.html',
@@ -54,9 +54,9 @@ const app = angular.module('BarcampApp', ['ngRoute'])
 					$location.path('/login');
 				});
 			},
-			PollingPeriod: function(Polling) {
-				return Polling.getPollingPeriods().then(period => period);
-			},
+			// PollingPeriod: function(Polling) {
+			// 	return Polling.getPollingPeriods().then(period => period);
+			// },
 			SessionList: function(SessionListing){
 				return SessionListing.getAllSessions().then(session => session);
 			}

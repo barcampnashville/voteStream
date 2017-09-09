@@ -10,11 +10,11 @@ app.controller('SigninCtrl', function ($scope, $location, AuthService, User) {
 	//takes id from badgeId model in signin.html
 	$scope.login = (id) => {
 
-		let userBadge = id.toUpperCase();
-		let badgeFound = false;
-		
 		// if no id is entered, return error variable for signin.html
 		if (!id) { return $scope.error = 'Please enter a badge ID.'};
+
+		let userBadge = id.toUpperCase();
+		let badgeFound = false;
 		
 		// loop through all badges for the userBadge
 		for (let badge in $scope.badges) {

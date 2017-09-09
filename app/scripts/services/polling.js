@@ -1,14 +1,8 @@
 'use strict';
 
-app.factory('Polling', function ($http, Constants) {
+app.factory('Polling', function ($q, $http, Constants) {
 
-	const getPollingPeriods = () => {
-		return $http.get(`${Constants.firebaseUrl}/PollingState.json`)
-			.then(data => {
-				const periods = data.data.pollingPeriods;
-				return determineSession(periods);
-		})
-	}
+	const realTimePolling = firebase.database().ref('/PollingState')
 
 	const determineSession = (periods) => {
 
@@ -20,7 +14,7 @@ app.factory('Polling', function ($http, Constants) {
 		} else if (compareTime(afternoon)) {
 			return {open: true, sessions: 'afternoon'};
 		} else {
-			return {open: false, sessions: ''};
+			return {open: false, sessions: 'morning'};
 		}
 	}
 
@@ -32,9 +26,8 @@ app.factory('Polling', function ($http, Constants) {
 		const startTime = new Date().setHours(start[0], start[1]);
 		const endTime = new Date().setHours(end[0], end[1]);
 
-
-		const diff1 = startTime - new Date().setHours(8, 5);	
-		const diff2 = endTime - new Date().setHours(8, 5);
+		const diff1 = startTime - new Date().getHours();	
+		const diff2 = endTime - new Date().getHours();
 	
 		if(diff1 < 0 && diff2 > 0 ) 
 		{
@@ -46,6 +39,6 @@ app.factory('Polling', function ($http, Constants) {
 
 	};
 
-	return { getPollingPeriods };
+	return { determineSession,  realTimePolling };
 
 });
