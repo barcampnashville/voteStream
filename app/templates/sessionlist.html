@@ -16,23 +16,23 @@
   <!-- Nav tabs -->
     <ul class="nav nav-tabs" >
         <li ng-class="{active: tab === 'morning'}"><a ng-click="showTab('morning')">Morning</a></li>
-        <li ng-if="polling.sessions !== 'morning'" ng-class="{active: tab === 'afternoon'}"><a ng-click="showTab('afternoon')"  >Afternoon</a></li>
+        <li ng-if="polling.sessions === 'afternoon' || polling.showAfternoonTab" ng-class="{active: tab === 'afternoon'}"><a ng-click="showTab('afternoon')"  >Afternoon</a></li>
     </ul>
 </div>
 
 <div>
   <!--morning voting-->
     <div  class="tab-pane active container sessions" ng-if="tab === 'morning'">
-        <session 
+        <session
             ng-repeat="session in sessions track by $index"
             ng-show="session.Availability.includes('Morning')"
-            session="session" 
-            index="$index" 
-            votes="voteArray" 
-            add-vote="addVote(index)" 
-            has-voted="hasUserVoted" 
+            session="session"
+            index="$index"
+            votes="voteArray"
+            add-vote="addVote(index)"
+            has-voted="hasUserVoted"
             polling="polling"
-            remove-vote="removeVote(index)" 
+            remove-vote="removeVote(index)"
             session-type="'morning'"
             get-remaining-votes="getRemainingVotes()">
         </session>
@@ -40,41 +40,41 @@
 
   <!--afternoon voting-->
     <div  class="tab-pane container sessions" ng-if="tab === 'afternoon'">
-        <session 
+        <session
             ng-repeat="session in sessions track by $index"
             ng-show="session.Availability.includes('Afternoon')"
-            session="session" 
-            index="$index" 
-            votes="voteArray" 
-            add-vote="addVote(index)" 
-            has-voted="hasUserVoted" 
+            session="session"
+            index="$index"
+            votes="voteArray"
+            add-vote="addVote(index)"
+            has-voted="hasUserVoted"
             polling="polling"
-            remove-vote="removeVote(index)" 
+            remove-vote="removeVote(index)"
             session-type="'afternoon'"
             get-remaining-votes="getRemainingVotes()">
         </session>
     </div>
     <div class="row">
-        <button 
-            class="btn btn-success" 
-            data-toggle="modal" 
-            data-target=".bs-example-modal-sm" 
-            type="button" 
-            ng-click="voteSubmit()" 
-            ng-if="!hasUserVoted" 
+        <button
+            class="btn btn-success"
+            data-toggle="modal"
+            data-target=".bs-example-modal-sm"
+            type="button"
+            ng-click="voteSubmit()"
+            ng-if="!hasUserVoted"
             ng-disabled="!polling.open">Submit</button>
 
-        <button 
-            class="btn btn-danger" 
-            type="button" 
-            ng-click="resetVote()" 
-            ng-if="!hasUserVoted" 
+        <button
+            class="btn btn-danger"
+            type="button"
+            ng-click="resetVote()"
+            ng-if="!hasUserVoted"
             ng-disabled="!polling.open">Reset</button>
 
-        <button 
-            class="btn btn-warning" 
-            type="button" ng-click="editMode()" 
-            ng-if="hasUserVoted" 
+        <button
+            class="btn btn-warning"
+            type="button" ng-click="editMode()"
+            ng-if="hasUserVoted"
             ng-disabled="!polling.open">Edit Votes</button>
     </div>
 </div>

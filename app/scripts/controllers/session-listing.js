@@ -8,24 +8,24 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.polling;
 	$scope.sessions = SessionList;
 	$scope.tab = undefined;
-	let cookieArray; 
+	let cookieArray;
 
 	Polling.realTimePolling.on('value', function(polling){
-    $scope.polling = Polling.determineSession(polling.val().pollingPeriods)
-    console.log('$scope.polling', $scope.polling)
-    //initial funcitons to run when polling object is originally returned	
-   	if ($scope.tab === undefined) {
-   		$scope.tab = $scope.polling.sessions;
-    	cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
-    	setVoteArray();
-    	$scope.getRemainingVotes();
-   	}
-    $scope.$apply();
-  });
+	    $scope.polling = Polling.determineSession(polling.val());
+
+	    //initial funcitons to run when polling object is originally returned
+	   	if ($scope.tab === undefined) {
+	   		$scope.tab = $scope.polling.sessions;
+	    	cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
+	    	setVoteArray();
+	    	$scope.getRemainingVotes();
+	   	}
+	    $scope.$apply();
+	});
 
   $scope.showTab = tab => {
   	$scope.tab = tab;
-  }	
+  }
 
 	// Methods
 	$scope.addVote = index => {
@@ -87,7 +87,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		if($scope.voteArray.length <= 4 && $scope.voteArray.length > 0) {
 			$scope.errorMessage = "Thank you for voting, you selected: "
 			$scope.getTitles()
-		} 
+		}
 	};
 
 	$scope.finishVote = () => {
@@ -153,6 +153,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			// Setting cookie to help determine if user has not voted by initially storing an empty voteArray on the cookie
 			$scope.setCookie();
 		}
-	} 
+	}
 
 });

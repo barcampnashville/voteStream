@@ -15,7 +15,7 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
 
   let scheduleTemplate = {
       "morning_sessions": {
-      "rooms": []  
+      "rooms": []
     },
     "afternoon_sessions": {
       "rooms": []
@@ -72,7 +72,7 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
   $scope.setRoom = (e, session) => {
     session.Room = e;
   }
- 
+
   let checkForConflicts = (arrayData) => {
     arrayData.sort();
     for (let i = 0; i < arrayData.length -1; i++){
@@ -117,7 +117,9 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
           });
         });
       if (timeOfDay === "Morning"){
-        updateScheduleToFirebase(timeOfDay, morningSchedule);
+        updateScheduleToFirebase(timeOfDay, morningSchedule)
+        // After the morning schedule has been built, display the afternoon tab
+        .then(() => Polling.setShowAfternoonTab(true));
       } else if (timeOfDay === "Afternoon"){
         updateScheduleToFirebase(timeOfDay, afternoonSchedule);
         }
@@ -131,6 +133,6 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
     // console.log("room",sessionRoom)
     // console.log("time",sessionTime)
     // console.log("schedule", morningSchedule)
-  
+
 
 });

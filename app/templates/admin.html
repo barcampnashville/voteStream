@@ -11,8 +11,8 @@
 
 		    <label class="timeofday">Sessions</label>
 		    <select ng-model="sessions.Availability">
-		    	<option value="all">All Sessions</option>
-		    	<option value="morning">Morning</option>
+		    	<!-- <option value="all">All Sessions</option> -->
+		    	<option value="morning" selected>Morning</option>
 		    	<option value="afternoon">Afternoon</option>
 		    </select>
 
@@ -21,7 +21,7 @@
 		</div>
 
 		<p>The <em>Hide Removed From Admin View</em> just hides the removed sessions from the admin view. This is to present a cleaner list for better visibility into afternoon session rankings</p>
-		
+
 		<p>Clicking the removed button will hide the session from the voting page. It is for those sessions that are presented in the morning but aslo available in the afternoon. Clicking remove will keep them from showing up in the vote page during the afternoon session</p>
 
 	</div>
@@ -68,11 +68,11 @@
 		</thead>
 
 		<tbody>
-			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}" 
+			<tr data-ng-class="{hide: hideRemoved && s.inSync.removed}"
 			 		data-time-value="{{timeSelect}}"
 			 		data-room-value="{{roomSelect}}"
 					ng-repeat="s in sessions | orderBy:sortByType:reverseSort | filter:{availability: sessions.availability}">
-				
+
 				<td class="text-center">{{s.Rank}}</td>
 				<td>{{s.total_votes}}</td>
 				<td>{{s.Title}}</td>
