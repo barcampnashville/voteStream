@@ -8,6 +8,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.polling;
 	$scope.sessions = SessionList;
 	$scope.tab = undefined;
+	$scope.editMode = true
 	let cookieArray; 
 
 	Polling.realTimePolling.on('value', function(polling){
@@ -31,8 +32,8 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		$scope.voteArray.push(index.toString());
 	};
 
-	$scope.editMode = () => {
-		$scope.hasUserVoted = false;
+	$scope.setEdit = () => {
+		$scope.editMode = true;
 	};
 
 	$scope.getRemainingVotes = () => {
@@ -55,7 +56,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.resetVote = () => {
 		const votes = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0];
 		$scope.voteArray = (votes !== '') ? votes.split(',') : [];
-		$scope.hasUserVoted = (votes !== '') ? true : false;
 	};
 
 	$scope.setCookie = () => {
@@ -85,6 +85,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.finishVote = () => {
 		$scope.setCookie();
 		$scope.hasUserVoted = true;
+		$scope.editMode = false
 		$scope.updateModalMsg();
 	}
 
@@ -104,7 +105,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			$scope.finishVote();
 
 		// If the user has already voted, increment or decrement in edit mode.
-		} else if ($scope.hasUserVoted) {  // if a cookie exist, compare old values
+		} else {  // if a cookie exist, compare old values
 			let cookie = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0]; // returns string "1,2,3,4"
 
 			// compare votes
@@ -124,8 +125,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 				});
 
 			$scope.finishVote();
-		} else {
-			$scope.errorMessage = "Please select a session to vote.";
 		}
 	};
 
@@ -137,6 +136,9 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			// Determine if votes string has votes or is and empty string and assign voteArray and hasVoted values accordingly
 			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
 			$scope.hasUserVoted = (votes !== '') ? true : false;
+			if ($scope.voteArray.length) {
+				$scope.editMode = false
+			}
 		} else {
 			$scope.voteArray = [];
 			$scope.hasUserVoted = false
