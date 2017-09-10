@@ -6,11 +6,30 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.maxVotes = Constants.maxVotes;
 	$scope.user = AuthUser;
 	$scope.polling;
-	$scope.sessions = SessionList;
-	$scope.tab = undefined;
-	$scope.editMode = true;
-	$scope.voteArray = [];
+	$scope.sessions = SessionList; // resolve pattern
+	$scope.tab = undefined; // default, also required to ensure first time variables are set in Polling.realTimePolling
+	$scope.editMode = true; //default
+	$scope.voteArray = []; //default
 	let cookieArray; 
+
+	// Initial page JS - need methods to be defined before this is executed
+	const setVoteArray = () => {
+		if (window.document.cookie.includes(`${cookieArray}`)) {
+			// Store the votes string e.g. '0,2,5' or ''
+			const votes = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0];
+			// Determine if votes string has votes or is and empty string and assign voteArray and hasVoted values accordingly
+			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
+			$scope.hasUserVoted = (votes !== '') ? true : false;
+			if ($scope.voteArray.length) {
+				$scope.editMode = false
+			}
+		} else {
+			$scope.voteArray = [];
+			$scope.hasUserVoted = false
+			// Setting cookie to help determine if user has not voted by initially storing an empty voteArray on the cookie
+			$scope.setCookie();
+		}
+	} 
 
 	Polling.realTimePolling.on('value', function(polling){
     $scope.polling = Polling.determineSession(polling.val().pollingPeriods)
@@ -20,7 +39,10 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
     	cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
     	setVoteArray();
    	}
-    $scope.$apply();
+   	//checks if $digest is in progress, if first time user visit or on refresh $scope.$apply, else simply let digest run 
+   	if (!$scope.$$phase) {
+    	$scope.$apply();
+   	}
   });
 
   $scope.$watch( 'voteArray.length', () => {
@@ -96,7 +118,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 
 	// Submit user's votes and increment session's total_count in services/vote.js
 	$scope.voteSubmit = () => {
-		console.log('$scope.voteArray', $scope.voteArray)
 		const jsonArray = JSON.stringify($scope.voteArray);
 
 		// If user has not voted, increment
@@ -132,23 +153,5 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		}
 	};
 
-	// Initial page JS - need methods to be defined before this is executed
-	const setVoteArray = () => {
-		if (window.document.cookie.includes(`${cookieArray}`)) {
-			// Store the votes string e.g. '0,2,5' or ''
-			const votes = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0];
-			// Determine if votes string has votes or is and empty string and assign voteArray and hasVoted values accordingly
-			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
-			$scope.hasUserVoted = (votes !== '') ? true : false;
-			if ($scope.voteArray.length) {
-				$scope.editMode = false
-			}
-		} else {
-			$scope.voteArray = [];
-			$scope.hasUserVoted = false
-			// Setting cookie to help determine if user has not voted by initially storing an empty voteArray on the cookie
-			$scope.setCookie();
-		}
-	} 
 
 });
