@@ -8,7 +8,8 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.polling;
 	$scope.sessions = SessionList;
 	$scope.tab = undefined;
-	$scope.editMode = true
+	$scope.editMode = true;
+	$scope.voteArray = [];
 	let cookieArray; 
 
 	Polling.realTimePolling.on('value', function(polling){
@@ -18,10 +19,13 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
    		$scope.tab = $scope.polling.sessions;
     	cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
     	setVoteArray();
-    	$scope.getRemainingVotes();
    	}
     $scope.$apply();
   });
+
+  $scope.$watch( 'voteArray.length', () => {
+  	$scope.remainingVotes = $scope.maxVotes - $scope.voteArray.length;
+  })
 
   $scope.showTab = tab => {
   	$scope.tab = tab;
