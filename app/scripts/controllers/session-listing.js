@@ -6,11 +6,39 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.maxVotes = Constants.maxVotes;
 	$scope.user = AuthUser;
 	$scope.polling;
+<<<<<<< HEAD
 	$scope.sessions = SessionList;
 	$scope.tab = undefined;
 	let cookieArray;
+=======
+	$scope.sessions = SessionList; // resolve pattern
+	$scope.tab = undefined; // default, also required to ensure first time variables are set in Polling.realTimePolling
+	$scope.editMode = true; //default
+	$scope.voteArray = []; //default
+	let cookieArray; 
+>>>>>>> origin-http/DCBugFix
+
+	// Initial page JS - need methods to be defined before this is executed
+	const setVoteArray = () => {
+		if (window.document.cookie.includes(`${cookieArray}`)) {
+			// Store the votes string e.g. '0,2,5' or ''
+			const votes = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0];
+			// Determine if votes string has votes or is and empty string and assign voteArray and hasVoted values accordingly
+			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
+			$scope.hasUserVoted = (votes !== '') ? true : false;
+			if ($scope.voteArray.length) {
+				$scope.editMode = false
+			}
+		} else {
+			$scope.voteArray = [];
+			$scope.hasUserVoted = false
+			// Setting cookie to help determine if user has not voted by initially storing an empty voteArray on the cookie
+			$scope.setCookie();
+		}
+	} 
 
 	Polling.realTimePolling.on('value', function(polling){
+<<<<<<< HEAD
 	    $scope.polling = Polling.determineSession(polling.val());
 
 	    //initial funcitons to run when polling object is originally returned
@@ -22,6 +50,24 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	   	}
 	    $scope.$apply();
 	});
+=======
+    $scope.polling = Polling.determineSession(polling.val().pollingPeriods)
+    //initial funcitons to run when polling object is originally returned	
+   	if ($scope.tab === undefined) {
+   		$scope.tab = $scope.polling.sessions;
+    	cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
+    	setVoteArray();
+   	}
+   	//checks if $digest is in progress, if first time user visit or on refresh $scope.$apply, else simply let digest run 
+   	if (!$scope.$$phase) {
+    	$scope.$apply();
+   	}
+  });
+>>>>>>> origin-http/DCBugFix
+
+  $scope.$watch( 'voteArray.length', () => {
+  	$scope.remainingVotes = $scope.maxVotes - $scope.voteArray.length;
+  })
 
   $scope.showTab = tab => {
   	$scope.tab = tab;
@@ -32,8 +78,8 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		$scope.voteArray.push(index.toString());
 	};
 
-	$scope.editMode = () => {
-		$scope.hasUserVoted = false;
+	$scope.setEdit = () => {
+		$scope.editMode = true;
 	};
 
 	$scope.getRemainingVotes = () => {
@@ -54,16 +100,8 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	};
 
 	$scope.resetVote = () => {
-		// If a user resets votes while there are no votes, do nothing. Display modal?
-		if (!$scope.voteArray.length) {
-			$scope.voteArray = [];
-
-		// Only set hasVoted to true if there have been previous votes
-		} else if ($scope.voteArray.length) {
-			const votes = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0];
-			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
-			$scope.hasUserVoted = (votes !== '') ? true : false;
-		}
+		const votes = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0];
+		$scope.voteArray = (votes !== '') ? votes.split(',') : [];
 	};
 
 	$scope.setCookie = () => {
@@ -93,6 +131,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.finishVote = () => {
 		$scope.setCookie();
 		$scope.hasUserVoted = true;
+		$scope.editMode = false
 		$scope.updateModalMsg();
 	}
 
@@ -102,7 +141,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		const jsonArray = JSON.stringify($scope.voteArray);
 
 		// If user has not voted, increment
-		if (!window.document.cookie.includes(`${cookieArray}`)) {
+		if (!$scope.hasUserVoted) {
 			Vote.updateUserVotes($scope.user, jsonArray)  // Update votes in services/vote.js
 				.then(function(response){
 					Vote.incrementSessionVoteCount($scope.voteArray, $scope.sessions) // Increment votes
@@ -111,7 +150,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			$scope.finishVote();
 
 		// If the user has already voted, increment or decrement in edit mode.
-		} else if (window.document.cookie.includes(`${cookieArray}`)) {  // if a cookie exist, compare old values
+		} else {  // if a cookie exist, compare old values
 			let cookie = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0]; // returns string "1,2,3,4"
 
 			// compare votes
@@ -122,9 +161,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			let incrementVote = newVote.filter(x => oldVote.indexOf(x) == -1); // array of votes to decrement
 			let decrementVote = oldVote.filter(x => newVote.indexOf(x) == -1); // array of votes to increment
 
-			console.log('incrementVote', incrementVote);
-			console.log('decrementVote', decrementVote);
-
 			// Update votes in services/vote.js
 			Vote.updateUserVotes($scope.user, jsonArray)
 				.then(function(response) {
@@ -134,12 +170,11 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 				});
 
 			$scope.finishVote();
-		} else {
-			$scope.errorMessage = "Please select a session to vote.";
 		}
 	};
 
 
+<<<<<<< HEAD
 	// Initial page JS - need methods to be defined before this is executed
 	const setVoteArray = () => {
 		if ($scope.polling.open === true && window.document.cookie.includes(`${cookieArray}`)) {
@@ -155,4 +190,6 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		}
 	}
 
+=======
+>>>>>>> origin-http/DCBugFix
 });

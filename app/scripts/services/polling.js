@@ -4,8 +4,12 @@ app.factory('Polling', function ($http, Constants) {
 
 	const realTimePolling = firebase.database().ref('/PollingState')
 
+<<<<<<< HEAD
 	const determineSession = ({ pollingPeriods, showAfternoonTab }) => {
 		const periods = pollingPeriods;
+=======
+	const determineSession = (periods) => {
+>>>>>>> origin-http/DCBugFix
 		const morning = periods[0];
 		const afternoon = periods[1];
 
