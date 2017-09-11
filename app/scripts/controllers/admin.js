@@ -98,7 +98,12 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
   let checkForConflicts = (arrayData) => {
     arrayData.sort();
     for (let i = 0; i < arrayData.length -1; i++){
-      if(arrayData[i+1][0] === arrayData[i][0]  && arrayData[i+1][1] === arrayData[i][1]){
+      // Will skip over nulled out times and rooms
+      if (arrayData[i][0] === null || arrayData[i][1]) {
+          return false;
+      }
+
+      if(arrayData[i+1][0] === arrayData[i][0] && arrayData[i+1][1] === arrayData[i][1]){
         alert('There are room and time conflicts. Please fix them before continuing.')
         //todo : highlight table rows where the conflicts are
         return true;
@@ -154,8 +159,6 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
       } else {
         schedule[timeOfDay] = true;
       }
-
-      console.log("schedule", schedule);
 
       return $http.put(`${Constants.firebaseUrl}/Schedules/${timeOfDay}.json`, schedule)
       .then(() => {

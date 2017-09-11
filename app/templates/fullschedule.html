@@ -12,9 +12,13 @@
         <li role="presentation"><a href="" aria-controls="profile" role="tab" data-toggle="tab" ng-click="setFilterString('session.speaker')">Speaker</a></li>
     </ul>
 
+	<div class="container" ng-if="!scheduleHasLoaded">
+		<h2 class="text-center come-back-message">Loading...</h2>
+	</div>
+
 	<!-- Message to display during morning voting when no schedules are built -->
 	<div class="container" ng-if="!morningRooms.length && scheduleHasLoaded">
-		<h4 class="text-center come-back-message">Check back after voting has ended for the full schedule.</h2>
+		<h4 class="text-center come-back-message">Check back after voting has ended for the full schedule.</h4>
 	</div>
 
 	<!-- Afternoon schedule -->

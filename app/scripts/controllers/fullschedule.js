@@ -52,9 +52,6 @@ app.controller('FullScheduleCtrl', function ($scope) {
             $scope.afternoonRooms = [];
         }
 
-        console.log("$scope.morningRooms", $scope.morningRooms);
-        console.log("$scope.afternoonRooms", $scope.afternoonRooms);
-
         //checks if $digest is in progress, if first time user visit or on refresh $scope.$apply, else simply let digest run
         if (!$scope.$$phase) {
             $scope.$apply();

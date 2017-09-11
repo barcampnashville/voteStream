@@ -41,7 +41,7 @@
 				</a></td>
 				<td><a href="" ng-click="sortByType = 'Title'; reverseSort = !reverseSort">
 				Title
-					<span ng-show="sortByType == 'Title' && !reverseSort" class="fa fa-caret-down""></span>
+					<span ng-show="sortByType == 'Title' && !reverseSort" class="fa fa-caret-down"></span>
 					<span ng-show="sortByType == 'Title' && reverseSort" class="fa fa-caret-up"></span>
 				</a></td>
 				<td><a href="" ng-click="sortByType = 'speakerName'; reverseSort = !reverseSort">
@@ -77,8 +77,26 @@
 				<td>{{s.total_votes}}</td>
 				<td>{{s.Title}}</td>
 				<td>{{s['First Name']}} {{s['Last Name']}}</td>
-			  <td><select ng-options="time as time for time in times" ng-model="timeSelect" ng-change="setTime(timeSelect, s)"></select></td>
-				<td><select ng-options="room as room for room in rooms" ng-model="roomSelect" ng-change="setRoom(roomSelect, s)"></select></td>
+			  	<td>
+				  <select ng-model="timeSelect" ng-change="setTime(timeSelect, s)">
+					  <!-- This will allow for an admin to deselect a value -->
+					  <option value="null" selected>---</option>
+
+					  <option ng-repeat="time in times" value="{{ time }}">{{ time }}</option>
+			  	  </select>
+				</td>
+
+				<!-- <td><select ng-options="room as room for room in rooms" ng-model="roomSelect" ng-change="setRoom(roomSelect, s)"></select></td> -->
+
+				<td>
+				  <select ng-model="roomSelect" ng-change="setRoom(roomSelect, s)">
+					  <!-- This will allow for an admin to deselect a value -->
+					  <option value="null" selected>---</option>
+
+					  <option ng-repeat="room in rooms" value="{{ room }}">{{ room }}</option>
+				  </select>
+				</td>
+
 				<td>{{s.Availability}}</td>
 			</tr>
 		</tbody>
