@@ -21,6 +21,7 @@ app.controller('FullScheduleCtrl', function ($scope) {
       $scope.morning = true;
     }
     if (schedule.val().Afternoon){
+      console.log(schedule.val().Afternoon)
       $scope.afternoonRooms = [];
       $scope.sortScheduleByTime(schedule.val(), "Afternoon");
       $scope.afternoon = true;
@@ -28,6 +29,7 @@ app.controller('FullScheduleCtrl', function ($scope) {
     $scope.$apply();
 
   });
+
 
   $scope.sortScheduleByTime = (schedule, session) => {
 
@@ -45,8 +47,8 @@ app.controller('FullScheduleCtrl', function ($scope) {
         }
       }
     }
-    console.log("morning", $scope.morningRooms);
-    console.log("afternoon", $scope.afternoonRooms);
+
+
   }
   
   $scope.setFilterString = (filterBy) => {

@@ -6,7 +6,8 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
   $scope.unSortedSessionsArray = [];
   $scope.sessions = [];
   $scope.rooms = ["Room A", "Room Z", "Tardis", "Bunker"];
-  $scope.times = ["9:30", "10:30", "11:30"];
+  $scope.times = ["09:30", "10:30", "11:30"];
+  console.log($scope.times)
   $scope.availability = Polling;
   $scope.sortByType = "rank";
   $scope.reverseSort = false;
@@ -85,22 +86,22 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
     return false;
   }
   $scope.prepareSchedule = (timeOfDay) => {
-    //capitalize first character for Morning or Afternoon
     timeOfDay = timeOfDay.split("")[0].toUpperCase() + timeOfDay.slice(1);
     let tableRowData = $('tbody tr');
     let arrayToCheck = [];
+    let valuesExist = false;
     angular.forEach(tableRowData, function(row, key){
       let timeValue = row.dataset.timeValue;
       let roomValue = row.dataset.roomValue;
       if (timeValue === "" || roomValue === ""){
         //using this to keep the data from checking against empty values for now
-      } else {
-        console.log(arrayToCheck)
+
+      } else { 
         arrayToCheck.push([timeValue, roomValue]);
+        valuesExist = true;
       }
     })
       if(!checkForConflicts(arrayToCheck)){
-        console.log($scope.sessions)
         morningSchedule = scheduleTemplate.morning_sessions;
         afternoonSchedule = scheduleTemplate.afternoon_sessions;
         // Table saves time slot and room to the sessions object, matching the properties in sessions to the properties in the morning or afternoon schedule
@@ -117,20 +118,24 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
           });
         });
       if (timeOfDay === "Morning"){
-        updateScheduleToFirebase(timeOfDay, morningSchedule);
+        updateScheduleToFirebase(timeOfDay, morningSchedule, valuesExist);
       } else if (timeOfDay === "Afternoon"){
-        updateScheduleToFirebase(timeOfDay, afternoonSchedule);
+        updateScheduleToFirebase(timeOfDay, afternoonSchedule, valuesExist);
         }
       }
     }
-    const updateScheduleToFirebase = (timeOfDay, schedule) => {
+    const updateScheduleToFirebase = (timeOfDay, schedule, emptyData) => {
       console.log(schedule)
+      if(!emptyData) {
+        schedule[timeOfDay] = false;
+      } else {
+        schedule[timeOfDay] = true;
+      }
+
       return $http.put(`${Constants.firebaseUrl}/Schedules/${timeOfDay}.json`, schedule)
   }
 
-    // console.log("room",sessionRoom)
-    // console.log("time",sessionTime)
-    // console.log("schedule", morningSchedule)
+    
   
 
 });
