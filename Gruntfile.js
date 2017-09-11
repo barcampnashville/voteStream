@@ -4,8 +4,7 @@
 module.exports = function (grunt) {
 
 	// load all grunt tasks
-	require('load-grunt-tasks')(grunt, {pattern: ['grunt-*', 'uglify-es']});
-	grunt.loadNpmTasks('uglify-es');
+	require('load-grunt-tasks')(grunt);
 
 	grunt.initConfig({
 
@@ -95,12 +94,12 @@ module.exports = function (grunt) {
 			}
 		},
 
-		uglifyEs: {
-			dist: {
-				src: '<%= config.tmp %>/scripts/app.js',
-				dest: '<%= config.dist %>/scripts/app.min.js'
-			}
-		},
+		// uglifyEs: {
+		// 	dist: {
+		// 		src: '<%= config.tmp %>/scripts/app.js',
+		// 		dest: '<%= config.dist %>/scripts/app.min.js'
+		// 	}
+		// },
 
 		// uglify: {
 		// 	dist: {
@@ -143,7 +142,7 @@ module.exports = function (grunt) {
 		'useminPrepare',
 		'concat',
 		'ngAnnotate',
-		'uglifyEs',
+		// 'uglifyEs',
 		'usemin',
 		'clean:tmp'
 	]);
