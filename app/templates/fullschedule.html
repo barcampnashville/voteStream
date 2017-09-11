@@ -4,8 +4,6 @@
     <button class="btn btn-primary pull-right"><a href="/#/sessions" class="header-link">Sessions</a></button>
   </div>
 
-
-<!-- ToDo- build this out -->
 <div class="container schedule sessions" id="myTabs">
 
     <ul class="nav nav-tabs" role="tablist">
@@ -15,24 +13,25 @@
 
         <li role="presentation"><a href="" aria-controls="profile" role="tab" data-toggle="tab" ng-click="setFilterString('session.speaker')">Speaker</a></li>
     </ul>
-</div>
 
-<div class="tab-content" ng-model="filterBy" ng-repeat="session in morningRooms | orderBy:filterBy">
-  <div class="schedule" id="morning">
-      <schedule ng-hide="!session.session.speaker">
-         {{session.room}} | {{session.time}} | {{session.session.speaker}}
-      </schedule>
+<section>
+<h2 class="title">Afternoon Schedule</h2>
+  <div class="tab-content" ng-model="filterBy" ng-repeat="session in afternoonRooms | orderBy:filterBy">
+    <div class="schedule" id="afternoon">
+        <schedule ng-hide="!session.session.speaker">
+           {{session.room}} | {{session.time}} | {{session.session.speaker}}
+        </schedule>
+    </div>
   </div>
-</div>
-
-<div class="tab-content" ng-model="filterBy" ng-repeat="session in afternoonRooms | orderBy:filterBy">
-  <div class="schedule" id="afternoon">
-      <schedule ng-hide="!session.session.speaker">
-         {{session.room}} | {{session.time}} | {{session.session.speaker}}
-        
-      </schedule>
-</div>
-
-
-
+</section>
+<section>
+<h2 class="title">Morning Schedule</h2>
+  <div class="tab-content" ng-model="filterBy" ng-repeat="session in morningRooms | orderBy:filterBy">
+    <div class="schedule" id="morning">
+        <schedule ng-hide="!session.session.speaker">
+           {{session.room}} | {{session.time}} | {{session.session.speaker}}
+        </schedule>
+    </div>
+  </div>
+</section>
 </div>
