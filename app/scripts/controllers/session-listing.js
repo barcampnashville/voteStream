@@ -6,17 +6,10 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.maxVotes = Constants.maxVotes;
 	$scope.user = AuthUser;
 	$scope.polling;
-<<<<<<< HEAD
-	$scope.sessions = SessionList;
-	$scope.tab = undefined;
-	let cookieArray;
-=======
 	$scope.sessions = SessionList; // resolve pattern
 	$scope.tab = undefined; // default, also required to ensure first time variables are set in Polling.realTimePolling
-	$scope.editMode = true; //default
 	$scope.voteArray = []; //default
-	let cookieArray; 
->>>>>>> origin-http/DCBugFix
+	let cookieArray;
 
 	// Initial page JS - need methods to be defined before this is executed
 	const setVoteArray = () => {
@@ -27,51 +20,26 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
 			$scope.hasUserVoted = (votes !== '') ? true : false;
 			if ($scope.voteArray.length) {
-				$scope.editMode = false
+				$scope.editMode = false;
+			} else {
+				$scope.editMode = true;
 			}
 		} else {
 			$scope.voteArray = [];
 			$scope.hasUserVoted = false
+			$scope.editMode = true;
 			// Setting cookie to help determine if user has not voted by initially storing an empty voteArray on the cookie
 			$scope.setCookie();
 		}
-	} 
+	}
 
-	Polling.realTimePolling.on('value', function(polling){
-<<<<<<< HEAD
-	    $scope.polling = Polling.determineSession(polling.val());
+	$scope.$watch( 'voteArray.length', () => {
+		$scope.remainingVotes = $scope.maxVotes - $scope.voteArray.length;
+	})
 
-	    //initial funcitons to run when polling object is originally returned
-	   	if ($scope.tab === undefined) {
-	   		$scope.tab = $scope.polling.sessions;
-	    	cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
-	    	setVoteArray();
-	    	$scope.getRemainingVotes();
-	   	}
-	    $scope.$apply();
-	});
-=======
-    $scope.polling = Polling.determineSession(polling.val().pollingPeriods)
-    //initial funcitons to run when polling object is originally returned	
-   	if ($scope.tab === undefined) {
-   		$scope.tab = $scope.polling.sessions;
-    	cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
-    	setVoteArray();
-   	}
-   	//checks if $digest is in progress, if first time user visit or on refresh $scope.$apply, else simply let digest run 
-   	if (!$scope.$$phase) {
-    	$scope.$apply();
-   	}
-  });
->>>>>>> origin-http/DCBugFix
-
-  $scope.$watch( 'voteArray.length', () => {
-  	$scope.remainingVotes = $scope.maxVotes - $scope.voteArray.length;
-  })
-
-  $scope.showTab = tab => {
-  	$scope.tab = tab;
-  }
+	$scope.showTab = tab => {
+		$scope.tab = tab;
+	}
 
 	// Methods
 	$scope.addVote = index => {
@@ -102,6 +70,8 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.resetVote = () => {
 		const votes = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0];
 		$scope.voteArray = (votes !== '') ? votes.split(',') : [];
+		// Turn off edit mode, reset should be more of a cancel action
+		$scope.editMode = false;
 	};
 
 	$scope.setCookie = () => {
@@ -173,23 +143,20 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		}
 	};
 
+	// This JS will execute on pageload
+	Polling.realTimePolling.on('value', function(polling){
+		$scope.polling = Polling.determineSession(polling.val());
 
-<<<<<<< HEAD
-	// Initial page JS - need methods to be defined before this is executed
-	const setVoteArray = () => {
-		if ($scope.polling.open === true && window.document.cookie.includes(`${cookieArray}`)) {
-			// Store the votes string e.g. '0,2,5' or ''
-			const votes = window.document.cookie.split(`${cookieArray}=`)[1].split(';')[0];
-			// Determine if votes string has votes or is and empty string and assign voteArray and hasVoted values accordingly
-			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
-			$scope.hasUserVoted = (votes !== '') ? true : false;
-		} else {
-			$scope.voteArray = [];
-			// Setting cookie to help determine if user has not voted by initially storing an empty voteArray on the cookie
-			$scope.setCookie();
+		//initial funcitons to run when polling object is originally returned
+		if ($scope.tab === undefined) {
+			$scope.tab = $scope.polling.sessions;
+			cookieArray = $scope.tab === 'morning' ? 'morningVoteArray' : 'afternoonVoteArray';
+			setVoteArray();
 		}
-	}
+		//checks if $digest is in progress, if first time user visit or on refresh $scope.$apply, else simply let digest run
+		if (!$scope.$$phase) {
+			$scope.$apply();
+		}
+	});
 
-=======
->>>>>>> origin-http/DCBugFix
 });

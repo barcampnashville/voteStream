@@ -58,9 +58,18 @@
             get-remaining-votes="getRemainingVotes()">
         </session>
     </div>
-    <div class="row">
-        <button
-            class="btn btn-success"
+
+	<!-- Buttons will only show if polling is open and session who's tab is selected is open for voting -->
+    <div class="row voting-button-container" ng-if="polling.open && tab === polling.sessions">
+		<button
+			class="btn btn-danger col-sm-2"
+			type="button"
+			ng-click="resetVote()"
+			ng-if="editMode"
+			ng-disabled="!polling.open || !hasUserVoted">Cancel</button>
+
+		<button
+            class="btn btn-success col-sm-2"
             data-toggle="modal"
             data-target=".bs-example-modal-sm"
             type="button"
@@ -69,14 +78,7 @@
             ng-disabled="!polling.open || !voteArray.length">Submit</button>
 
         <button
-            class="btn btn-danger"
-            type="button"
-            ng-click="resetVote()"
-            ng-if="editMode"
-            ng-disabled="!polling.open || !hasUserVoted">Reset</button>
-
-        <button
-            class="btn btn-warning" 
+            class="btn btn-warning col-sm-2"
             type="button" ng-click="setEdit()"
             ng-if="!editMode"
             ng-disabled="!polling.open">Edit Votes</button>

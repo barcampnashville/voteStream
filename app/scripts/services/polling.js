@@ -4,14 +4,9 @@ app.factory('Polling', function ($http, Constants) {
 
 	const realTimePolling = firebase.database().ref('/PollingState')
 
-<<<<<<< HEAD
 	const determineSession = ({ pollingPeriods, showAfternoonTab }) => {
-		const periods = pollingPeriods;
-=======
-	const determineSession = (periods) => {
->>>>>>> origin-http/DCBugFix
-		const morning = periods[0];
-		const afternoon = periods[1];
+		const morning = pollingPeriods[0];
+		const afternoon = pollingPeriods[1];
 
 		if (compareTime(morning)) {
 			return { open: true, sessions: 'morning', showAfternoonTab };
@@ -34,7 +29,7 @@ app.factory('Polling', function ($http, Constants) {
 		const diff1 = startTime - new Date();
 		const diff2 = endTime - new Date();
 
-		if(diff1 < 0 && diff2 > 0 ) {
+		if(diff1 < 0 && diff2 > 0) {
 		    return true;
 		} else {
 			return false;

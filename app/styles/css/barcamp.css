@@ -1,4 +1,4 @@
-/*	
+/*
 	GLOSSARY:
 	HEADER
 	CONTAINER
@@ -91,6 +91,10 @@ blockquote {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis; }
+
+.voting-button-container {
+  display: flex;
+  justify-content: space-around; }
 
 /********* ANGULAR / VALIDATION *********/
 .ng-invalid.ng-dirty {
@@ -225,6 +229,10 @@ input[type="color"]:focus,
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(254, 179, 54, 0.5);
   outline: 0 none; }
 
+.come-back-message {
+  margin-top: 50px;
+  margin-bottom: 50px; }
+
 /********** POPUP MODALS *********/
 #error-modal .modal-content {
   font-size: 1.5em;
@@ -252,29 +260,12 @@ input[type="color"]:focus,
 .animate-switch.ng-leave, .animate-switch.ng-enter-active {
   top: 0; }
 
-/****Popup Modal******/
-#error-modal .modal-content {
-  border: 4px #932318 solid;
-  background-color: #ffc25e;
-  padding: 0px 7px 5px 7px;
-  margin-top: 33%; }
-
-#error-message {
-  text-align: center; }
-
-#error-modal .btn {
-  border: 1px black solid;
-  margin: 0 auto;
-  display: block; }
-
 /*** MEDIA QUERIES ***/
 @media (max-width: 480px) {
   .header select {
     width: 80%; }
   .sessions {
-    padding: 0 15px; } 
-  }
-
+    padding: 0 15px; }
   .collapsed {
     display: block;
     display: -webkit-box;
@@ -287,5 +278,3 @@ input[type="color"]:focus,
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis; } }
-
-/*# sourceMappingURL=maps/barcamp.css.map */

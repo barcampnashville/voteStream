@@ -2,12 +2,26 @@
 
 app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Constants, $http) {
 
-  $scope.unSortedSessionsObject = SessionList;
+
+    // This JS will execute on page load
+    firebase.database().ref('/Sessions').on('value', (sessions) => {
+        if (sessions.val()) {
+            // $scope.unSortedSessionsObject = sessions.val();
+            $scope.MakeUnSortedSessionsArray(sessions.val());
+            $scope.addSessionRankingByVotes();
+        }
+
+        //checks if $digest is in progress, if first time user visit or on refresh $scope.$apply, else simply let digest run
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+    });
+
   $scope.unSortedSessionsArray = [];
   $scope.sessions = [];
+  // TODO these need to be retreived from FB and loaded using the resolve pattern
   $scope.rooms = ["Room A", "Room Z", "Tardis", "Bunker"];
-  $scope.times = ["09:30", "10:30", "11:30"];
-  console.log($scope.times)
+  $scope.times = ["09:30", "10:30", "11:30", "1:30", "2:30", "3:30" ];
   $scope.availability = Polling;
   $scope.sortByType = "rank";
   $scope.reverseSort = false;
@@ -46,18 +60,23 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
   }
   buildScheduleTemplate();
 
-  $scope.MakeUnSortedSessionsArray = () => {
-    let object = $scope.unSortedSessionsObject;
-    angular.forEach(object, function(values, key){
-      $scope.unSortedSessionsArray.push(object[key])
+  $scope.MakeUnSortedSessionsArray = (sessionsObject) => {
+    $scope.unSortedSessionsObject = [];
+    $scope.unSortedSessionsArray = [];
+
+    angular.forEach(sessionsObject, function(value, key){
+      $scope.unSortedSessionsArray.push(value)
     });
-  }
-  $scope.MakeUnSortedSessionsArray();
+};
+
+// TODO calling this in the real time reference
+// $scope.MakeUnSortedSessionsArray();
 
   //filter sessions by total_votes
   $scope.addSessionRankingByVotes = () => {
     let SessionListings = $filter('orderBy')($scope.unSortedSessionsArray, 'total_votes', !$scope.reverse);
-    SessionListings.shift();
+    // TODO is this supposed to be here? It was removing the first session obj
+    // SessionListings.shift();
     let i = 0;
       angular.forEach(SessionListings, function(value, key){
         SessionListings[i].Rank = i+1;
@@ -65,7 +84,9 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
       });
     $scope.sessions = SessionListings;
   }
-  $scope.addSessionRankingByVotes();
+
+// TODO calling this in the real time reference
+// $scope.addSessionRankingByVotes();
 
   $scope.setTime = (e, session) => {
     session.Times = e;
@@ -126,15 +147,22 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
         }
       }
     }
+
     const updateScheduleToFirebase = (timeOfDay, schedule, emptyData) => {
-      console.log(schedule)
       if(!emptyData) {
         schedule[timeOfDay] = false;
       } else {
         schedule[timeOfDay] = true;
       }
 
+      console.log("schedule", schedule);
+
       return $http.put(`${Constants.firebaseUrl}/Schedules/${timeOfDay}.json`, schedule)
+      .then(() => {
+          // Reset schedule template to build the next schedule
+          buildScheduleTemplate();
+      })
+      .catch(console.error);
   }
 
 });
