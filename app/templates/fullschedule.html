@@ -14,7 +14,7 @@
         <li role="presentation"><a href="" aria-controls="profile" role="tab" data-toggle="tab" ng-click="setFilterString('session.speaker')">Speaker</a></li>
     </ul>
 
-<section class="scheduleList" ng-hide="">
+<section class="scheduleList" ng-hide="!Afternoon">
 <h2 class="title">Afternoon Schedule</h2>
   <div class="tab-content" ng-model="filterBy" ng-repeat="session in afternoonRooms | orderBy:filterBy">
     <div class="schedule" id="afternoon">
