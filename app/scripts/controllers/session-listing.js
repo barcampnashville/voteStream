@@ -20,6 +20,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 			$scope.voteArray = (votes !== '') ? votes.split(',') : [];
 			$scope.hasUserVoted = (votes !== '') ? true : false;
 			if ($scope.voteArray.length) {
+				// Setting editMode dynamically now because it should be reevaluated if a user is still logged in and sessions change state
 				$scope.editMode = false;
 			} else {
 				$scope.editMode = true;
