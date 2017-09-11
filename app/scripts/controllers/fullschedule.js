@@ -1,33 +1,61 @@
 'use strict'
 
+app.controller('FullScheduleCtrl', function ($scope) {
 
-app.controller('FullScheduleCtrl', function ($scope, SessionListing) {
-  SessionListing.realTimeSessions.on('value', function(sessions){
-    $scope.fullSchedule = sessions.val();
-    $scope.$apply();
-  });
+  $scope.scheduleByTime = [];
+  $scope.rooms = [];
+  $scope.filterBy = "time";
+  $scope.morningRooms = [];
+  $scope.afternoonRooms = [];
 
-  $scope.sessions = SessionList;
-  console.log("SessionList:", SessionList);
-  $scope.sortedSessions = SessionList //by default
+    $scope.sortScheduleByTime = (schedule, session) => {
+        let scheduleObj = schedule[session].rooms;
+        let numberOfRooms = Object.keys(scheduleObj).length;
 
-	const sortAlpha = (property) => { 	
-		const propertyArray = Object.values($scope.sessions)
-		//sort based on property alphabetically
-		propertyArray.sort(function(a, b) {
-			if (a[property].toLowerCase() < b[property].toLowerCase()) {
-				return -1;
-			}
-			if (a[property].toLowerCase() > b[property].toLowerCase()) {
-				return 1;
-			}
-			return 0;
-		});
-		$scope.sortedSessions = propertyArray;
-	}
-	sortAlpha('Last Name');
+        for (let i = 0; i <= numberOfRooms -1; i++) {
+            for (let j = 0; j < scheduleObj[i].times.length; j++){
+                if(session === "Morning") {
+                  $scope.morningRooms.push(scheduleObj[i].times[j]);
+                  scheduleObj[i].times[j]["room"] = scheduleObj[i].name;
+                }
+                if(session === "Afternoon") {
+                  $scope.afternoonRooms.push(scheduleObj[i].times[j]);
+                  scheduleObj[i].times[j]["room"] = scheduleObj[i].name;
+                }
+            }
+        }
+    }
+
+    $scope.setFilterString = (filterBy) => {
+        $scope.filterBy = filterBy;
+    };
+
+
+    // This JS will execute on page load
+    firebase.database().ref('/Schedules').on('value', function(schedule){
+        $scope.scheduleHasLoaded = true;
+
+        // If morning schedule has been posted to Firebase, populate the schedule
+        if (schedule.val() && schedule.val().Morning){
+            $scope.morningRooms = [];
+            $scope.sortScheduleByTime(schedule.val(), "Morning");
+        }
+
+        // If afternoon schedule has been posted to Firebase, populate the schedule
+        if (schedule.val() && schedule.val().Afternoon){
+            $scope.afternoonRooms = [];
+            $scope.sortScheduleByTime(schedule.val(), "Afternoon");
+        }
+
+        if (!schedule.val()) {
+            $scope.morningRooms = [];
+            $scope.afternoonRooms = [];
+        }
+
+        //checks if $digest is in progress, if first time user visit or on refresh $scope.$apply, else simply let digest run
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+    });
 
 });
-
-
-

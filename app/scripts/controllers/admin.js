@@ -2,11 +2,26 @@
 
 app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Constants, $http) {
 
-  $scope.unSortedSessionsObject = SessionList;
+
+    // This JS will execute on page load
+    firebase.database().ref('/Sessions').on('value', (sessions) => {
+        if (sessions.val()) {
+            // $scope.unSortedSessionsObject = sessions.val();
+            $scope.MakeUnSortedSessionsArray(sessions.val());
+            $scope.addSessionRankingByVotes();
+        }
+
+        //checks if $digest is in progress, if first time user visit or on refresh $scope.$apply, else simply let digest run
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+    });
+
   $scope.unSortedSessionsArray = [];
   $scope.sessions = [];
+  // TODO these need to be retreived from FB and loaded using the resolve pattern
   $scope.rooms = ["Room A", "Room Z", "Tardis", "Bunker"];
-  $scope.times = ["9:30", "10:30", "11:30"];
+  $scope.times = ["09:30", "10:30", "11:30", "1:30", "2:30", "3:30" ];
   $scope.availability = Polling;
   $scope.sortByType = "rank";
   $scope.reverseSort = false;
@@ -15,7 +30,7 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
 
   let scheduleTemplate = {
       "morning_sessions": {
-      "rooms": []  
+      "rooms": []
     },
     "afternoon_sessions": {
       "rooms": []
@@ -45,18 +60,23 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
   }
   buildScheduleTemplate();
 
-  $scope.MakeUnSortedSessionsArray = () => {
-    let object = $scope.unSortedSessionsObject;
-    angular.forEach(object, function(values, key){
-      $scope.unSortedSessionsArray.push(object[key])
+  $scope.MakeUnSortedSessionsArray = (sessionsObject) => {
+    $scope.unSortedSessionsObject = [];
+    $scope.unSortedSessionsArray = [];
+
+    angular.forEach(sessionsObject, function(value, key){
+      $scope.unSortedSessionsArray.push(value)
     });
-  }
-  $scope.MakeUnSortedSessionsArray();
+};
+
+// TODO calling this in the real time reference
+// $scope.MakeUnSortedSessionsArray();
 
   //filter sessions by total_votes
   $scope.addSessionRankingByVotes = () => {
     let SessionListings = $filter('orderBy')($scope.unSortedSessionsArray, 'total_votes', !$scope.reverse);
-    SessionListings.shift();
+    // TODO is this supposed to be here? It was removing the first session obj
+    // SessionListings.shift();
     let i = 0;
       angular.forEach(SessionListings, function(value, key){
         SessionListings[i].Rank = i+1;
@@ -64,7 +84,9 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
       });
     $scope.sessions = SessionListings;
   }
-  $scope.addSessionRankingByVotes();
+
+// TODO calling this in the real time reference
+// $scope.addSessionRankingByVotes();
 
   $scope.setTime = (e, session) => {
     session.Times = e;
@@ -72,11 +94,16 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
   $scope.setRoom = (e, session) => {
     session.Room = e;
   }
- 
+
   let checkForConflicts = (arrayData) => {
     arrayData.sort();
     for (let i = 0; i < arrayData.length -1; i++){
-      if(arrayData[i+1][0] === arrayData[i][0]  && arrayData[i+1][1] === arrayData[i][1]){
+      // Will skip over nulled out times and rooms
+      if (arrayData[i][0] === null || arrayData[i][1]) {
+          return false;
+      }
+
+      if(arrayData[i+1][0] === arrayData[i][0] && arrayData[i+1][1] === arrayData[i][1]){
         alert('There are room and time conflicts. Please fix them before continuing.')
         //todo : highlight table rows where the conflicts are
         return true;
@@ -85,22 +112,22 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
     return false;
   }
   $scope.prepareSchedule = (timeOfDay) => {
-    //capitalize first character for Morning or Afternoon
     timeOfDay = timeOfDay.split("")[0].toUpperCase() + timeOfDay.slice(1);
     let tableRowData = $('tbody tr');
     let arrayToCheck = [];
+    let valuesExist = false;
     angular.forEach(tableRowData, function(row, key){
       let timeValue = row.dataset.timeValue;
       let roomValue = row.dataset.roomValue;
       if (timeValue === "" || roomValue === ""){
         //using this to keep the data from checking against empty values for now
+
       } else {
-        console.log(arrayToCheck)
         arrayToCheck.push([timeValue, roomValue]);
+        valuesExist = true;
       }
     })
       if(!checkForConflicts(arrayToCheck)){
-        console.log($scope.sessions)
         morningSchedule = scheduleTemplate.morning_sessions;
         afternoonSchedule = scheduleTemplate.afternoon_sessions;
         // Table saves time slot and room to the sessions object, matching the properties in sessions to the properties in the morning or afternoon schedule
@@ -116,21 +143,29 @@ app.controller('AdminCtrl', function ($scope, $filter, SessionList, Polling, Con
               });
           });
         });
-      if (timeOfDay === "Morning"){
-        updateScheduleToFirebase(timeOfDay, morningSchedule);
-      } else if (timeOfDay === "Afternoon"){
-        updateScheduleToFirebase(timeOfDay, afternoonSchedule);
+      if (timeOfDay === "Morning") {
+        updateScheduleToFirebase(timeOfDay, morningSchedule, valuesExist)
+        // After the morning schedule has been built, display the afternoon tab
+        .then(() => Polling.setShowAfternoonTab(true));
+      } else if (timeOfDay === "Afternoon") {
+        updateScheduleToFirebase(timeOfDay, afternoonSchedule, valuesExist);
         }
       }
     }
-    const updateScheduleToFirebase = (timeOfDay, schedule) => {
-      console.log(schedule)
-      return $http.put(`${Constants.firebaseUrl}/Schedules/${timeOfDay}.json`, schedule)
-  }
 
-    // console.log("room",sessionRoom)
-    // console.log("time",sessionTime)
-    // console.log("schedule", morningSchedule)
-  
+    const updateScheduleToFirebase = (timeOfDay, schedule, emptyData) => {
+      if(!emptyData) {
+        schedule[timeOfDay] = false;
+      } else {
+        schedule[timeOfDay] = true;
+      }
+
+      return $http.put(`${Constants.firebaseUrl}/Schedules/${timeOfDay}.json`, schedule)
+      .then(() => {
+          // Reset schedule template to build the next schedule
+          buildScheduleTemplate();
+      })
+      .catch(console.error);
+  }
 
 });
