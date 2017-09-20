@@ -18,6 +18,11 @@
         <li ng-class="{active: tab === 'morning'}"><a ng-click="showTab('morning')">Morning</a></li>
         <li ng-if="polling.sessions === 'afternoon' || polling.showAfternoonTab" ng-class="{active: tab === 'afternoon'}"><a ng-click="showTab('afternoon')"  >Afternoon</a></li>
     </ul>
+    <ul class="nav nav-tabs sort-tabs">
+        <li role="presentation" class="active"><a href="" aria-controls="home" role="tab" data-toggle="tab" ng-click="setFilterString('Title')">Title</a></li>
+        <li role="presentation"><a href="" aria-controls="home" role="tab" data-toggle="tab" ng-click="setFilterString('Last Name')">Speaker</a></li>
+        <li role="presentation"><a href="" aria-controls="home" role="tab" data-toggle="tab" ng-click="setFilterString('Session Category')">Category</a></li>
+    </ul>
 </div>
 
 <div>
@@ -26,7 +31,8 @@
         <!-- ///////////////////////////////////////////////TODO: change has voted to edit mode///////////////// -->
         <!-- ///////////TODO: remove get-remaing-votes, session listing will handle via watcher///////////////// -->
         <session
-            ng-repeat="session in sessions track by $index"
+            ng-repeat="session in sessions | orderBy:filterBy track by $index"
+            ng-model="filterBy"
             ng-show="session.Availability.includes('Morning')"
             session="session"
             index="$index"
@@ -45,7 +51,8 @@
         <!-- ///////////////////////////////////////////////TODO: change has voted to edit mode///////////////// -->
         <!-- ///////////TODO: remove get-remaing-votes, session listing will handle via watcher///////////////// -->
         <session
-            ng-repeat="session in sessions track by $index"
+            ng-repeat="session in sessions | orderBy:filterBy track by $index"
+            ng-model="filterBy"
             ng-show="session.Availability.includes('Afternoon')"
             session="session"
             index="$index"
