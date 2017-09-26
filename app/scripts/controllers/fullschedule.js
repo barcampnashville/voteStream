@@ -34,7 +34,6 @@ app.controller('FullScheduleCtrl', function ($scope) {
     // This JS will execute on page load
     firebase.database().ref('/Schedules').on('value', function(schedule){
         $scope.scheduleHasLoaded = true;
-        console.log("schedule.val():", schedule.val());
         // If morning schedule has been posted to Firebase, populate the schedule
         if (schedule.val() && schedule.val().Morning){
             $scope.morningRooms = [];
