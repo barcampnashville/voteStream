@@ -44,7 +44,8 @@ app.controller('FullScheduleCtrl', function ($scope) {
         // If afternoon schedule has been posted to Firebase, populate the schedule
         if (schedule.val() && schedule.val().Afternoon){
             $scope.afternoonRooms = [];
-            $scope.sortScheduleByTime(schedule.val(), "Afternoon");
+            // $scope.sortScheduleByTime(schedule.val(), "Afternoon");
+            $scope.afternoonRooms = schedule.val().Afternoon
         }
 
         if (!schedule.val()) {
