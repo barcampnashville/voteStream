@@ -29,12 +29,12 @@
 
 		<div class="tab-content" ng-model="filterBy" ng-repeat="session in afternoonRooms | orderBy:filterBy">
 			<div class="schedule" id="afternoon">
-			    <schedule ng-hide="!session.session.speaker">
-					<p>{{session.session.title}}</p>
- 					<p>{{session.session.speaker}}</p>
- 					<p>{{session.room}} | {{session.time}}</p>
+			    <div>
+					<p>{{session.Title}}</p>
+ 					<p>{{session.Speaker}}</p>
+ 					<p>{{session.Room}} | {{session.Time}}</p>
  					<hr>
-			    </schedule>
+			    </div>
 			</div>
 		</div>
 	</section>
@@ -45,12 +45,12 @@
 
 		<div class="tab-content" ng-model="filterBy" ng-repeat="session in morningRooms | orderBy:filterBy">
 			<div class="schedule" id="morning">
-			    <schedule ng-hide="!session.session.speaker">
-				   <p>{{session.session.title}}</p>
-				   <p>{{session.session.speaker}}</p>
-				   <p>{{session.room}} | {{session.time}}</p>
+			    <div>
+				   <p>{{session.Title}}</p>
+				   <p>{{session.Speaker}}</p>
+				   <p>{{session.Room}} | {{session.Time}}</p>
 				   <hr>
-			    </schedule>
+			    </div>
 			</div>
 		</div>
 	</section>
