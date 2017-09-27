@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('User', function($http) {
+app.factory('User', function($http, Constants) {
 
 	let user;
 
@@ -12,18 +12,28 @@ app.factory('User', function($http) {
 			}
 			resolve(user);
 		});
-	}
+	};
+
+	const checkAdminUser = () => {
+		return $http.get(`${Constants.firebaseUrl}/AdminUsers.json`)
+		.then(({ data }) => {
+			const userId = data.find(({ username }) => username.toUpperCase() === user);
+
+			return (userId) ? true : false;
+		})
+		.catch(console.error);
+	};
 
 	// setter
 	const setUser = (badgeId) => {
 		user = badgeId;
-	}
+	};
 
 	//logout
 	const userLogout = () => {
 		user = '';
-	}
+	};
 
-	return {getUser, setUser, userLogout};
+	return { getUser, checkAdminUser, setUser, userLogout };
 
 });
