@@ -4,7 +4,7 @@ app.controller('FullScheduleCtrl', function ($scope) {
 
   $scope.scheduleByTime = [];
   $scope.rooms = [];
-  $scope.filterBy = "time";
+  $scope.filterBy = "Time";
   $scope.morningRooms = [];
   $scope.afternoonRooms = [];
 
