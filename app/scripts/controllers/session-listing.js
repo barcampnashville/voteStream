@@ -10,6 +10,7 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 	$scope.tab = undefined; // default, also required to ensure first time variables are set in Polling.realTimePolling
 	$scope.voteArray = []; //default
 	let cookieArray;
+	$scope.filterBy = 'Title'
 
 	// Initial page JS - need methods to be defined before this is executed
 	const setVoteArray = () => {
@@ -105,6 +106,15 @@ app.controller('SessionListingCtrl', function($scope, $location, Vote, User, Con
 		$scope.editMode = false
 		$scope.updateModalMsg();
 	}
+
+	$scope.setFilterString = (filterBy) => {
+		if(/\s/.test(filterBy)) {
+			$scope.filterBy = `['${filterBy}']`
+		}
+		else {
+			$scope.filterBy = filterBy;
+		}
+  };
 
 
 	// Submit user's votes and increment session's total_count in services/vote.js

@@ -10,7 +10,8 @@ app.factory('User', function($http) {
 			if (user === null || user === undefined) {
 				reject();
 			}
-			resolve(user);
+			resolve(user)
+			.catch(console.error);
 		});
 	}
 
