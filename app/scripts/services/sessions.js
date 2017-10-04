@@ -1,17 +1,14 @@
 'use strict';
 
-app.factory('Session', function ($http) {
+app.factory('SessionListing', function ($q, $http, Constants) {
 
-})
+	const realTimeSessions = firebase.database().ref('/Sessions')
 
-.factory('SessionListing', function ($http) {
 	const getAllSessions = () => {
-		return $http.get('https://nashvillebarcamp.firebaseio.com/Sessions.json')
-		.then(data => data.data);
-	}
-	const getFavoritesList = (userName) => {
-		return $http.get(`http://www.barcampnashville.org/bcn16/users/${userName}/attending`)
-		.then(data => data.data["favorited sessions"])
-	}
-	return {getAllSessions, getFavoritesList}
+		return $http.get(`${Constants.firebaseUrl}/Sessions.json`)
+		.then(data => data.data)
+		.catch(console.error);
+	};
+
+	return { getAllSessions };
 });
